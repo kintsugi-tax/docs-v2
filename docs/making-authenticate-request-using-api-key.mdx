@@ -1,0 +1,35 @@
+---
+title: "Making Authenticated Request"
+description: "Describes how to use API Key and x-organization-id to make an authorized request."
+---
+
+## Prerequisite
+
+<Steps>
+  <Step>
+  Make sure you have an API key. Refer [Creating and managing API Keys](/docs/creating-and-managing-api-keys).
+  </Step>
+  <Step>
+  Make sure you have the organization-id. Refer [Getting x-organization-id](/docs/getting-x-organization-id-for-requests)
+  </Step>
+</Steps>
+
+## Making Requests
+
+<Steps>
+  <Step>
+  Now that you have the API Key created you are ready to make authorized request using API Key.
+  </Step>
+  <Step>
+  API Key needs to be set on the Header with `X-API-KEY` key. From Authorization select Header & provide your API key.
+  <Frame>
+   <img src="/images/docs/678ae33-Screenshot_2024-04-06_at_5.35.14_AM.png" alt="API Key Header" />
+  </Frame>
+  </Step>
+  <Step>
+  For some requests organization-id needs to be set on Header with X-ORGANIZATION-ID.
+  <Frame>
+   <img src="/images/docs/ed87fe26a3e22ecb5783a90128745c775fc525e745fc82fc722d219823f56352-Screenshot_2025-03-03_at_11.06.23_PM.png" alt="Organization ID Header" />
+  </Frame>
+  </Step>
+</Steps>

@@ -1,0 +1,67 @@
+---
+title: "Get Exemptions"
+description: "Recipe Description"
+---
+
+<AccordionGroup>
+  <Accordion title="1. URL Calling">
+    Call URL GET Method
+
+    ```Python Python
+    import requests
+
+    url = "https://api.trykintsugi.com/v1/exemptions"
+    ```
+  </Accordion>
+  <Accordion title="2. Headers">
+    Include the organization id and token
+
+    ```Python Python
+    headers = {
+    "accept": "application/json",
+    "X-API-KEY": "<<apiKey>>",
+    "authorization": "Bearer <<user>>"
+    }
+    ```
+  </Accordion>
+  <Accordion title="3. Response">
+    Get the response
+
+    ```Python Python
+    response = requests.get(url, headers=headers)
+
+    print(response.text)
+    ```
+  </Accordion>
+</AccordionGroup>
+
+<RequestExample>
+```bash Shell
+curl --request GET \
+     --url https://api.trykintsugi.com/v1/exemptions \
+     --header 'X-API-KEY: <<apiKey>>' \
+     --header 'accept: application/json' \
+     --header 'authorization: Bearer <<user>>'
+```
+```python Python
+import requests
+
+url = "https://api.trykintsugi.com/v1/exemptions"
+
+headers = {
+    "accept": "application/json",
+    "X-API-KEY": "<<apiKey>>",
+    "authorization": "Bearer <<user>>"
+}
+
+response = requests.get(url, headers=headers)
+
+print(response.text)
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{"success":true}
+```
+</ResponseExample>
