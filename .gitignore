@@ -4,10 +4,6 @@ node_modules/
 dist/
 build/
 
-# Generated OpenAPI files (downloaded dynamically)
-openapi.json
-openapi-partners.json
-
 # Internal documentation files
 AUTOMATION_GUIDE.md
 docs_migration_plan.md
