@@ -1,0 +1,72 @@
+name: Update API Documentation
+
+on:
+  # Run every 6 hours to catch API changes
+  schedule:
+    - cron: '0 */6 * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+  
+  # Run on relevant code changes
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/generate-api-docs.sh'
+
+jobs:
+  update-api-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install Mintlify scraper
+        run: npm install -g @mintlify/scraping
+      
+      - name: Generate API documentation
+        run: |
+          echo "🚀 Generating API documentation from OpenAPI specs..."
+          mkdir -p reference/api reference/partners
+          
+          echo "📥 Fetching Customer API spec..."
+          npx @mintlify/scraping openapi-file https://api-doc.trykintsugi.com/openapi.json -o reference/api
+          
+          echo "📥 Fetching Partners API spec..."
+          npx @mintlify/scraping openapi-file https://api.trykintsugi.com/openapi.json -o reference/partners
+          echo "✅ API documentation generated successfully!"
+      
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit and push changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          git add reference/api/
+          git commit -m "🤖 Auto-update API documentation from OpenAPI spec [skip ci]"
+          git push
+          
+          echo "✅ API documentation updated and committed"
+      
+      - name: No changes message
+        if: steps.changes.outputs.changed == 'false'
+        run: echo "ℹ️ No changes to API documentation"

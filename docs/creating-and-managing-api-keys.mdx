@@ -3,6 +3,29 @@ title: "Creating and Managing API Keys"
 description: "Step-by-Step Guide to Getting API Keys from the Kintsugi Platform"
 ---
 
+# Creating and Managing API Keys
+
+<Note>
+**API keys authenticate your requests** to the Kintsugi API. This guide will walk you through creating, managing, and securing your API keys with screenshots and step-by-step instructions.
+</Note>
+
+API keys are essential for accessing the Kintsugi API programmatically. They provide secure authentication for your applications and integrations.
+
+<CardGroup cols={2}>
+  <Card title="Create Your First Key" icon="key" href="#create-a-new-api-key">
+    Generate an API key in just a few clicks
+  </Card>
+  <Card title="Security Best Practices" icon="shield" href="#copy-and-secure-your-api-key">
+    Keep your keys secure and compliant
+  </Card>
+  <Card title="API Reference" icon="code" href="/reference">
+    Explore our comprehensive API docs
+  </Card>
+  <Card title="Test Your Key" icon="check-circle" href="/docs/making-authenticate-request-using-api-key">
+    Verify your API key works correctly
+  </Card>
+</CardGroup>
+
 ## Sign Up or Log In
 
 <Steps>
@@ -103,3 +126,61 @@ description: "Step-by-Step Guide to Getting API Keys from the Kintsugi Platform"
 <Info>
 *Users can only create API keys within a Test Organization or a Paid Organization. Creating API keys in other organization types is disabled.*
 </Info>
+
+## Next Steps
+
+<CardGroup cols={3}>
+  <Card title="Test Your Key" icon="check-circle" href="/docs/making-authenticate-request-using-api-key">
+    Verify your API key works correctly
+  </Card>
+  <Card title="API Reference" icon="code" href="/reference">
+    Explore available endpoints
+  </Card>
+  <Card title="Integration Guides" icon="plug" href="/docs/integration-guides">
+    Connect your applications
+  </Card>
+</CardGroup>
+
+## Need Help?
+
+<AccordionGroup>
+  <Accordion title="Common Issues">
+    <Tabs>
+      <Tab title="Key Creation">
+        - **Can't find API Keys section**: Check you're in a Test or Paid organization
+        - **Permission denied**: Contact your organization admin
+        - **Key not generating**: Try refreshing the page and try again
+        - **Expiration options**: Choose based on your security requirements
+      </Tab>
+      <Tab title="Key Management">
+        - **Can't find old key**: Keys are only shown once for security
+        - **Key not working**: Check if it's expired or deleted
+        - **Multiple keys**: Create new keys for different applications
+        - **Key rotation**: Delete old keys and create new ones regularly
+      </Tab>
+      <Tab title="Security Concerns">
+        - **Key compromised**: Delete immediately and create new key
+        - **Suspicious activity**: Check usage logs in your dashboard
+        - **Storage best practices**: Use environment variables, never hardcode
+        - **Team access**: Share keys securely through password managers
+      </Tab>
+    </Tabs>
+  </Accordion>
+  
+  <Accordion title="Get Support">
+    <CardGroup cols={2}>
+      <Card title="Email Support" icon="mail" href="mailto:success@trykintsugi.com">
+        Get help from our support team
+      </Card>
+      <Card title="Live Chat" icon="message-circle" href="https://trykintsugi.com/support">
+        Chat with us in real-time
+      </Card>
+      <Card title="API Documentation" icon="book" href="/reference">
+        Browse our comprehensive API docs
+      </Card>
+      <Card title="Developer Community" icon="users" href="https://trykintsugi.com/community">
+        Connect with other developers
+      </Card>
+    </CardGroup>
+  </Accordion>
+</AccordionGroup>

@@ -1,10 +1,26 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "maple",
   "name": "Kintsugi",
+  "openapi": [
+    {
+      "url": "./openapi.json",
+      "label": "Customer API"
+    },
+    {
+      "url": "./openapi-partners.json", 
+      "label": "Partners API"
+    }
+  ],
+  "api": {
+    "baseUrl": "https://api.trykintsugi.com",
+    "auth": {
+      "method": "bearer"
+    }
+  },
   "colors": {
     "primary": "#213331",
-    "light": "#B0EC9C",
+    "light": "#B0ED9C",
     "dark": "#E5D1FA"
   },
   "favicon": "/favicon.png",
@@ -41,17 +57,19 @@
             "tab": "Documentation",
             "groups": [
               {
-                "group": "Documentation",
+                "group": "Getting Started",
                 "pages": [
                   "docs/getting-started",
                   "docs/creating-and-managing-api-keys",
-                  "docs/making-authenticate-request-using-api-key",
-                  {
-                    "group": "Kintsugi Sheets",
-                    "pages": [
-                      "docs/flashbacks"
-                    ]
-                  }
+                  "docs/making-authenticate-request-using-api-key"
+                ]
+              },
+              {
+                "group": "Advanced",
+                "pages": [
+                  "docs/webhooks",
+                  "docs/rate-limiting",
+                  "docs/error-handling"
                 ]
               }
             ]
@@ -60,17 +78,224 @@
             "tab": "Recipes",
             "pages": [
               "recipes",
-              "recipes/get-exemptions"
+              "recipes/get-exemptions",
+              "recipes/calculate-tax",
+              "recipes/webhook-handling"
             ]
           },
           {
             "tab": "API Reference",
             "pages": [
               {
+                "group": "Address Validation",
+                "pages": [
+                  "reference/api/address-validation/search",
+                  "reference/api/address-validation/suggestions"
+                ]
+              },
+              {
+                "group": "Customers",
+                "pages": [
+                  "reference/api/customers/get-customers",
+                  "reference/api/customers/create-customer",
+                  "reference/api/customers/get-customer-by-id",
+                  "reference/api/customers/get-customer-by-external-id",
+                  "reference/api/customers/update-customer",
+                  "reference/api/customers/get-transactions-by-customer-id",
+                  "reference/api/customers/create-transaction-by-customer-id"
+                ]
+              },
+              {
+                "group": "Transactions",
+                "pages": [
+                  "reference/api/transactions/get-transactions",
+                  "reference/api/transactions/create-transaction",
+                  "reference/api/transactions/get-transaction-by-id",
+                  "reference/api/transactions/get-transaction-by-external-id",
+                  "reference/api/transactions/update-transaction",
+                  "reference/api/transactions/get-transactions-by-filing-id",
+                  "reference/api/transactions/create-credit-note-by-transaction-id",
+                  "reference/api/transactions/update-credit-note-by-transaction-id"
+                ]
+              },
+              {
+                "group": "Tax Estimation",
+                "pages": [
+                  "reference/api/tax-estimation/estimate-tax"
+                ]
+              },
+              {
                 "group": "Registrations",
                 "pages": [
-                  "reference/get_registrations_v1_registrations_get-1",
-                  "reference/get_registration_by_id_v1_registrations__registration_id__get-1"
+                  "reference/api/registrations/get-registrations",
+                  "reference/api/registrations/create-registration",
+                  "reference/api/registrations/get-registration-by-id",
+                  "reference/api/registrations/update-registration",
+                  "reference/api/registrations/deregister-registration"
+                ]
+              },
+              {
+                "group": "Exemptions",
+                "pages": [
+                  "reference/api/exemptions/get-exemptions",
+                  "reference/api/exemptions/create-exemption",
+                  "reference/api/exemptions/get-exemption-by-id",
+                  "reference/api/exemptions/get-attachments-for-exemption",
+                  "reference/api/exemptions/upload-exemption-certificate"
+                ]
+              },
+              {
+                "group": "Products",
+                "pages": [
+                  "reference/api/products/get-products",
+                  "reference/api/products/create-product",
+                  "reference/api/products/get-product-by-id",
+                  "reference/api/products/update-product",
+                  "reference/api/products/get-product-categories"
+                ]
+              },
+              {
+                "group": "Nexus",
+                "pages": [
+                  "reference/api/nexus/get-physical-nexus",
+                  "reference/api/nexus/create-physical-nexus",
+                  "reference/api/nexus/update-physical-nexus",
+                  "reference/api/nexus/delete-physical-nexus",
+                  "reference/api/nexus/get-nexus-for-org"
+                ]
+              },
+              {
+                "group": "Filings",
+                "pages": [
+                  "reference/api/filings/get-filings",
+                  "reference/api/filings/get-filing-by-id",
+                  "reference/api/filings/get-filings-by-registration-id"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "API Reference - Partners",
+            "pages": [
+              {
+                "group": "Core APIs",
+                "pages": [
+                  "reference/partners/health-check",
+                  "reference/partners/integration-test",
+                  "reference/partners/metrics"
+                ]
+              },
+              {
+                "group": "Address Validation",
+                "pages": [
+                  "reference/partners/address-validation/search",
+                  "reference/partners/address-validation/suggestions"
+                ]
+              },
+              {
+                "group": "Customers",
+                "pages": [
+                  "reference/partners/customers/get-customers",
+                  "reference/partners/customers/create-customer",
+                  "reference/partners/customers/get-customer-by-id",
+                  "reference/partners/customers/update-customer",
+                  "reference/partners/customers/get-customer-by-external-id"
+                ]
+              },
+              {
+                "group": "Transactions",
+                "pages": [
+                  "reference/partners/transactions/get-transactions",
+                  "reference/partners/transactions/create-transaction",
+                  "reference/partners/transactions/get-transaction-by-id",
+                  "reference/partners/transactions/get-transaction-by-external-id",
+                  "reference/partners/transactions/update-transaction"
+                ]
+              },
+              {
+                "group": "Tax Estimation",
+                "pages": [
+                  "reference/partners/tax-estimation/estimate-tax"
+                ]
+              },
+              {
+                "group": "Registrations",
+                "pages": [
+                  "reference/partners/registrations/get-registrations",
+                  "reference/partners/registrations/create-registration",
+                  "reference/partners/registrations/get-registration-by-id",
+                  "reference/partners/registrations/update-registration"
+                ]
+              },
+              {
+                "group": "Exemptions",
+                "pages": [
+                  "reference/partners/exemptions/get-exemptions",
+                  "reference/partners/exemptions/create-exemption",
+                  "reference/partners/exemptions/get-exemption-by-id"
+                ]
+              },
+              {
+                "group": "Products",
+                "pages": [
+                  "reference/partners/products/get-products",
+                  "reference/partners/products/create-product",
+                  "reference/partners/products/get-product-by-id",
+                  "reference/partners/products/update-product"
+                ]
+              },
+              {
+                "group": "Nexus",
+                "pages": [
+                  "reference/partners/nexus/get-physical-nexus",
+                  "reference/partners/nexus/create-physical-nexus",
+                  "reference/partners/nexus/update-physical-nexus",
+                  "reference/partners/nexus/delete-physical-nexus"
+                ]
+              },
+              {
+                "group": "Filings",
+                "pages": [
+                  "reference/partners/filings/get-filings",
+                  "reference/partners/filings/create-filing",
+                  "reference/partners/filings/get-filing-by-id",
+                  "reference/partners/filings/update-filing"
+                ]
+              },
+              {
+                "group": "Organizations",
+                "pages": [
+                  "reference/partners/organizations/get-organizations-by-user",
+                  "reference/partners/organizations/get-organization-by-id",
+                  "reference/partners/organizations/update-organization",
+                  "reference/partners/organizations/create-organization"
+                ]
+              },
+              {
+                "group": "Connections",
+                "pages": [
+                  "reference/partners/connections/get-connections",
+                  "reference/partners/connections/get-connection-by-id",
+                  "reference/partners/connections/update-connection",
+                  "reference/partners/connections/sync-connection"
+                ]
+              },
+              {
+                "group": "Partner Integrations",
+                "pages": [
+                  "reference/partners/connections:stripe/handle-stripe-connect-webhook",
+                  "reference/partners/connections:woocommerce/validate-connection",
+                  "reference/partners/connections:bigcommerce/connect-bigcommerce",
+                  "reference/partners/connections:magento/estimate-tax"
+                ]
+              },
+              {
+                "group": "Admin",
+                "pages": [
+                  "reference/partners/admin/get-filings-admin",
+                  "reference/partners/admin/create-filing-for-admin-panel",
+                  "reference/partners/admin/get-all-filings-admin",
+                  "reference/partners/admin/search-organizations"
                 ]
               }
             ]

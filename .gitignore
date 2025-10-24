@@ -1,1 +1,17 @@
 .DS_Store
+node_modules/
+.next/
+dist/
+build/
+
+# Generated OpenAPI files (downloaded dynamically)
+openapi.json
+openapi-partners.json
+
+# Internal documentation files
+AUTOMATION_GUIDE.md
+docs_migration_plan.md
+MINTLIFY_QUICKSTART.md
+GETTING_STARTED.md
+PROJECT_SUMMARY.md
+README_INTERNAL.md
