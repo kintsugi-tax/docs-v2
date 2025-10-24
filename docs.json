@@ -71,6 +71,18 @@
                   "docs/rate-limiting",
                   "docs/error-handling"
                 ]
+              },
+              {
+                "group": "SDKs",
+                "pages": [
+                  "docs/sdks/overview",
+                  "docs/sdks/quick-start",
+                  "docs/sdks/python",
+                  "docs/sdks/typescript",
+                  "docs/sdks/java",
+                  "docs/sdks/php",
+                  "docs/sdks/ruby"
+                ]
               }
             ]
           },

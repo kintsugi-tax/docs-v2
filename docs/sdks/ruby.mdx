@@ -1,0 +1,483 @@
+---
+title: "Ruby SDK"
+description: "Kintsugi Ruby SDK documentation and examples"
+---
+
+# Ruby SDK
+
+<Note>
+**Official Ruby SDK** - The Kintsugi Ruby SDK provides a clean, idiomatic way to interact with the Kintsugi API from Ruby applications.
+</Note>
+
+## Installation
+
+### Gem
+
+```bash
+gem install kintsugi-tax
+```
+
+### Gemfile
+
+```ruby
+gem 'kintsugi-tax'
+```
+
+## Quick Start
+
+```ruby
+require 'kintsugi-tax'
+
+# Initialize the client
+client = KintsugiTax::Client.new(
+  api_key: 'your-api-key',
+  organization_id: 'your-org-id'
+)
+
+# Calculate tax for a transaction
+tax_result = client.tax.estimate(
+  line_items: [
+    {
+      quantity: 1,
+      price: 100.00,
+      product_tax_code: 'A_GEN_TAX'
+    }
+  ],
+  ship_to: {
+    street_1: '123 Main St',
+    city: 'San Francisco',
+    state: 'CA',
+    postal_code: '94105',
+    country: 'US'
+  }
+)
+
+puts "Tax amount: $#{tax_result[:total_tax]}"
+```
+
+## Repository
+
+<Card title="Ruby SDK Repository" icon="github" href="https://github.com/kintsugi-tax/kintsugi-tax-ruby-sdk">
+  View source code, report issues, and contribute to the Ruby SDK
+</Card>
+
+## Features
+
+- ✅ **Ruby Idioms**: Clean, idiomatic Ruby API design
+- ✅ **Hash-based**: Uses Ruby hashes for simple data structures
+- ✅ **Error Handling**: Comprehensive error handling with custom exceptions
+- ✅ **Authentication**: Simple API key authentication
+- ✅ **Rate Limiting**: Built-in rate limiting and retry logic
+- ✅ **Faraday Integration**: Built on Faraday HTTP client for flexibility
+
+## Examples
+
+### Basic Tax Calculation
+
+```ruby
+require 'kintsugi-tax'
+
+client = KintsugiTax::Client.new(
+  api_key: ENV['KINTSUGI_API_KEY'],
+  organization_id: ENV['KINTSUGI_ORG_ID']
+)
+
+begin
+  result = client.tax.estimate(
+    line_items: [
+      {
+        quantity: 2,
+        price: 50.00,
+        product_tax_code: 'A_GEN_TAX'
+      }
+    ],
+    ship_to: {
+      street_1: '456 Oak Ave',
+      city: 'Los Angeles',
+      state: 'CA',
+      postal_code: '90210',
+      country: 'US'
+    }
+  )
+
+  puts "Total tax: $#{result[:total_tax]}"
+rescue KintsugiTax::Error => e
+  puts "Error: #{e.message}"
+end
+```
+
+### Rails Integration
+
+```ruby
+# app/services/tax_service.rb
+class TaxService
+  def initialize
+    @client = KintsugiTax::Client.new(
+      api_key: Rails.application.credentials.kintsugi[:api_key],
+      organization_id: Rails.application.credentials.kintsugi[:organization_id]
+    )
+  end
+
+  def calculate_tax(line_items, shipping_address)
+    @client.tax.estimate(
+      line_items: line_items,
+      ship_to: shipping_address
+    )
+  rescue KintsugiTax::Error => e
+    Rails.logger.error "Tax calculation failed: #{e.message}"
+    raise StandardError, "Tax calculation failed"
+  end
+end
+```
+
+```ruby
+# app/controllers/tax_controller.rb
+class TaxController < ApplicationController
+  def calculate
+    tax_service = TaxService.new
+    
+    begin
+      result = tax_service.calculate_tax(
+        params[:line_items],
+        params[:shipping_address]
+      )
+
+      render json: {
+        success: true,
+        total_tax: result[:total_tax],
+        tax_breakdown: result[:tax_breakdown]
+      }
+    rescue StandardError => e
+      render json: {
+        success: false,
+        error: e.message
+      }, status: 500
+    end
+  end
+end
+```
+
+### Sinatra Integration
+
+```ruby
+require 'sinatra'
+require 'kintsugi-tax'
+require 'json'
+
+class TaxApp < Sinatra::Base
+  configure do
+    set :client, KintsugiTax::Client.new(
+      api_key: ENV['KINTSUGI_API_KEY'],
+      organization_id: ENV['KINTSUGI_ORG_ID']
+    )
+  end
+
+  post '/calculate-tax' do
+    content_type :json
+    
+    begin
+      data = JSON.parse(request.body.read)
+      
+      result = settings.client.tax.estimate(
+        line_items: data['line_items'],
+        ship_to: data['shipping_address']
+      )
+
+      {
+        success: true,
+        total_tax: result[:total_tax],
+        tax_breakdown: result[:tax_breakdown]
+      }.to_json
+    rescue KintsugiTax::Error => e
+      status 500
+      {
+        success: false,
+        error: e.message
+      }.to_json
+    end
+  end
+end
+```
+
+### Shopify App Integration
+
+```ruby
+# shopify_app.rb
+class ShopifyApp < Sinatra::Base
+  configure do
+    set :kintsugi_client, KintsugiTax::Client.new(
+      api_key: ENV['KINTSUGI_API_KEY'],
+      organization_id: ENV['KINTSUGI_ORG_ID']
+    )
+  end
+
+  post '/webhook/orders/paid' do
+    order_data = JSON.parse(request.body.read)
+    
+    # Convert Shopify order to Kintsugi format
+    line_items = order_data['line_items'].map do |item|
+      {
+        quantity: item['quantity'],
+        price: item['price'].to_f,
+        product_tax_code: item.dig('product', 'tax_code') || 'A_GEN_TAX'
+      }
+    end
+
+    shipping_address = {
+      street_1: order_data.dig('shipping_address', 'address1'),
+      city: order_data.dig('shipping_address', 'city'),
+      state: order_data.dig('shipping_address', 'province_code'),
+      postal_code: order_data.dig('shipping_address', 'zip'),
+      country: order_data.dig('shipping_address', 'country_code')
+    }
+
+    begin
+      tax_result = settings.kintsugi_client.tax.estimate(
+        line_items: line_items,
+        ship_to: shipping_address
+      )
+
+      # Store tax information
+      store_tax_record(order_data['id'], tax_result)
+      
+      status 200
+    rescue KintsugiTax::Error => e
+      puts "Tax calculation failed: #{e.message}"
+      status 500
+    end
+  end
+
+  private
+
+  def store_tax_record(order_id, tax_result)
+    # Implementation depends on your storage solution
+    # This could be a database, Redis, etc.
+    puts "Order #{order_id}: Tax = $#{tax_result[:total_tax]}"
+  end
+end
+```
+
+### Error Handling
+
+```ruby
+require 'kintsugi-tax'
+
+def calculate_tax_safely(client, transaction_data)
+  begin
+    result = client.tax.estimate(transaction_data)
+    result
+  rescue KintsugiTax::RateLimitError => e
+    puts "Rate limited, retrying in 60 seconds"
+    sleep(60)
+    client.tax.estimate(transaction_data)
+  rescue KintsugiTax::ValidationError => e
+    puts "Invalid request: #{e.message}"
+    raise ArgumentError, "Invalid transaction data: #{e.message}"
+  rescue KintsugiTax::Error => e
+    puts "Tax calculation failed: #{e.message}"
+    raise e
+  end
+end
+```
+
+## Configuration
+
+### Environment Variables
+
+```bash
+export KINTSUGI_API_KEY="your-api-key"
+export KINTSUGI_ORGANIZATION_ID="your-org-id"
+```
+
+### Custom Configuration
+
+```ruby
+require 'kintsugi-tax'
+
+client = KintsugiTax::Client.new(
+  api_key: 'your-api-key',
+  organization_id: 'your-org-id',
+  base_url: 'https://api.trykintsugi.com', # Optional: custom base URL
+  timeout: 30, # Optional: request timeout in seconds
+  retries: 3, # Optional: number of retries
+  faraday_options: {
+    ssl: { verify: true }, # SSL verification
+    request: { timeout: 30 } # Request timeout
+  }
+)
+```
+
+## Testing
+
+```ruby
+require 'test/unit'
+require 'kintsugi-tax'
+require 'webmock'
+
+class TaxCalculatorTest < Test::Unit::TestCase
+  def setup
+    @client = KintsugiTax::Client.new(
+      api_key: 'test-key',
+      organization_id: 'test-org'
+    )
+  end
+
+  def test_tax_calculation
+    # Mock the HTTP response
+    stub_request(:post, "https://api.trykintsugi.com/v1/tax/estimate")
+      .to_return(
+        status: 200,
+        body: {
+          total_tax: 8.25,
+          tax_breakdown: [
+            { jurisdiction: 'CA', tax: 8.25 }
+          ]
+        }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+
+    result = @client.tax.estimate(
+      line_items: [{ quantity: 1, price: 100 }],
+      ship_to: { state: 'CA', country: 'US' }
+    )
+
+    assert_equal 8.25, result[:total_tax]
+  end
+
+  def test_error_handling
+    stub_request(:post, "https://api.trykintsugi.com/v1/tax/estimate")
+      .to_return(status: 400, body: { error: 'Invalid request' }.to_json)
+
+    assert_raises(KintsugiTax::ValidationError) do
+      @client.tax.estimate(
+        line_items: [],
+        ship_to: {}
+      )
+    end
+  end
+end
+```
+
+## Advanced Features
+
+### Custom HTTP Client
+
+```ruby
+require 'kintsugi-tax'
+require 'faraday'
+require 'faraday_middleware'
+
+class CustomHTTPClient
+  def initialize
+    @connection = Faraday.new do |conn|
+      conn.request :json
+      conn.response :json
+      conn.adapter Faraday.default_adapter
+      
+      # Add logging middleware
+      conn.use Faraday::Response::Logger, Rails.logger if Rails.env.development?
+      
+      # Add retry middleware
+      conn.request :retry, max: 3, interval: 1
+    end
+  end
+
+  def post(url, body = nil, headers = {})
+    @connection.post(url, body, headers)
+  end
+end
+
+client = KintsugiTax::Client.new(
+  api_key: 'your-api-key',
+  organization_id: 'your-org-id',
+  http_client: CustomHTTPClient.new
+)
+```
+
+### Batch Processing
+
+```ruby
+require 'kintsugi-tax'
+require 'concurrent'
+
+class BatchTaxCalculator
+  def initialize(client, batch_size = 10)
+    @client = client
+    @batch_size = batch_size
+  end
+
+  def calculate_tax_batch(transactions)
+    results = []
+    
+    transactions.each_slice(@batch_size) do |batch|
+      promises = batch.map do |transaction|
+        Concurrent::Promise.execute do
+          @client.tax.estimate(transaction)
+        end
+      end
+      
+      batch_results = Concurrent::Promise.zip(*promises).value
+      
+      batch_results.each_with_index do |result, index|
+        if result.success?
+          results << result.value
+        else
+          puts "Transaction #{index} failed: #{result.reason}"
+        end
+      end
+    end
+    
+    results
+  end
+end
+```
+
+### Caching
+
+```ruby
+require 'kintsugi-tax'
+require 'redis'
+
+class CachedTaxCalculator
+  def initialize(client, redis_client = Redis.new)
+    @client = client
+    @redis = redis_client
+  end
+
+  def calculate_tax_with_cache(transaction_data)
+    cache_key = generate_cache_key(transaction_data)
+    
+    # Try to get from cache first
+    cached_result = @redis.get(cache_key)
+    if cached_result
+      return JSON.parse(cached_result, symbolize_names: true)
+    end
+    
+    # Calculate tax
+    result = @client.tax.estimate(transaction_data)
+    
+    # Cache the result for 1 hour
+    @redis.setex(cache_key, 3600, result.to_json)
+    
+    result
+  end
+
+  private
+
+  def generate_cache_key(transaction_data)
+    # Create a hash based on the transaction data
+    Digest::MD5.hexdigest(transaction_data.to_json)
+  end
+end
+```
+
+## Support
+
+<CardGroup cols={2}>
+  <Card title="GitHub Issues" icon="github" href="https://github.com/kintsugi-tax/kintsugi-tax-ruby-sdk/issues">
+    Report bugs and request features
+  </Card>
+  <Card title="Documentation" icon="book" href="https://github.com/kintsugi-tax/kintsugi-tax-ruby-sdk#readme">
+    Full SDK documentation
+  </Card>
+</CardGroup>

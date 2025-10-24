@@ -1,0 +1,414 @@
+---
+title: "SDK Examples"
+description: "Real-world examples and integration patterns for Kintsugi SDKs"
+---
+
+# SDK Examples
+
+<Note>
+**Real-world Integration Examples** - These examples show how to integrate Kintsugi SDKs into common application patterns and frameworks.
+</Note>
+
+## E-commerce Integration
+
+### Shopify App Integration
+
+<Tabs>
+  <Tab title="Python">
+    ```python
+    from kintsugi_tax import KintsugiClient
+    from shopify import ShopifyAPI
+    
+    class TaxCalculator:
+        def __init__(self, api_key, org_id):
+            self.kintsugi = KintsugiClient(api_key, org_id)
+        
+        def calculate_cart_tax(self, cart_items, shipping_address):
+            # Convert Shopify cart to Kintsugi format
+            line_items = []
+            for item in cart_items:
+                line_items.append({
+                    "quantity": item.quantity,
+                    "price": float(item.price),
+                    "product_tax_code": item.product_tax_code or "A_GEN_TAX"
+                })
+            
+            # Calculate tax
+            tax_result = self.kintsugi.tax.estimate({
+                "line_items": line_items,
+                "ship_to": {
+                    "street_1": shipping_address.address1,
+                    "city": shipping_address.city,
+                    "state": shipping_address.province_code,
+                    "postal_code": shipping_address.zip,
+                    "country": shipping_address.country_code
+                }
+            })
+            
+            return {
+                "total_tax": tax_result.total_tax,
+                "tax_breakdown": tax_result.tax_breakdown
+            }
+    ```
+  </Tab>
+  
+  <Tab title="TypeScript">
+    ```typescript
+    import { KintsugiClient } from '@kintsugi-tax/sdk';
+    import { ShopifyAPI } from '@shopify/shopify-api';
+    
+    class TaxCalculator {
+      private kintsugi: KintsugiClient;
+      
+      constructor(apiKey: string, orgId: string) {
+        this.kintsugi = new KintsugiClient({ apiKey, organizationId: orgId });
+      }
+      
+      async calculateCartTax(cartItems: CartItem[], shippingAddress: Address) {
+        // Convert Shopify cart to Kintsugi format
+        const lineItems = cartItems.map(item => ({
+          quantity: item.quantity,
+          price: parseFloat(item.price),
+          productTaxCode: item.productTaxCode || 'A_GEN_TAX'
+        }));
+        
+        // Calculate tax
+        const taxResult = await this.kintsugi.tax.estimate({
+          lineItems,
+          shipTo: {
+            street1: shippingAddress.address1,
+            city: shippingAddress.city,
+            state: shippingAddress.provinceCode,
+            postalCode: shippingAddress.zip,
+            country: shippingAddress.countryCode
+          }
+        });
+        
+        return {
+          totalTax: taxResult.totalTax,
+          taxBreakdown: taxResult.taxBreakdown
+        };
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Webhook Handling
+
+### Stripe Webhook Integration
+
+<Tabs>
+  <Tab title="Python">
+    ```python
+    from flask import Flask, request, jsonify
+    from kintsugi_tax import KintsugiClient
+    import stripe
+    
+    app = Flask(__name__)
+    kintsugi = KintsugiClient(
+        api_key=os.getenv("KINTSUGI_API_KEY"),
+        organization_id=os.getenv("KINTSUGI_ORG_ID")
+    )
+    
+    @app.route('/webhook/stripe', methods=['POST'])
+    def handle_stripe_webhook():
+        payload = request.get_json()
+        event_type = payload['type']
+        
+        if event_type == 'payment_intent.succeeded':
+            payment_intent = payload['data']['object']
+            
+            # Calculate tax for the transaction
+            tax_result = kintsugi.tax.estimate({
+                "line_items": [{
+                    "quantity": 1,
+                    "price": payment_intent['amount'] / 100,
+                    "product_tax_code": "A_GEN_TAX"
+                }],
+                "ship_to": {
+                    "street_1": payment_intent['shipping']['address']['line1'],
+                    "city": payment_intent['shipping']['address']['city'],
+                    "state": payment_intent['shipping']['address']['state'],
+                    "postal_code": payment_intent['shipping']['address']['postal_code'],
+                    "country": payment_intent['shipping']['address']['country']
+                }
+            })
+            
+            # Store tax information
+            store_tax_record(payment_intent['id'], tax_result)
+            
+        return jsonify({'status': 'success'})
+    ```
+  </Tab>
+  
+  <Tab title="Node.js">
+    ```javascript
+    const express = require('express');
+    const { KintsugiClient } = require('@kintsugi/sdk');
+    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    
+    const app = express();
+    const kintsugi = new KintsugiClient({
+      apiKey: process.env.KINTSUGI_API_KEY,
+      organizationId: process.env.KINTSUGI_ORG_ID
+    });
+    
+    app.post('/webhook/stripe', express.raw({type: 'application/json'}), (req, res) => {
+      const sig = req.headers['stripe-signature'];
+      let event;
+      
+      try {
+        event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+      } catch (err) {
+        return res.status(400).send(`Webhook signature verification failed.`);
+      }
+      
+      if (event.type === 'payment_intent.succeeded') {
+        const paymentIntent = event.data.object;
+        
+        // Calculate tax
+        kintsugi.tax.estimate({
+          lineItems: [{
+            quantity: 1,
+            price: paymentIntent.amount / 100,
+            productTaxCode: 'A_GEN_TAX'
+          }],
+          shipTo: {
+            street1: paymentIntent.shipping.address.line1,
+            city: paymentIntent.shipping.address.city,
+            state: paymentIntent.shipping.address.state,
+            postalCode: paymentIntent.shipping.address.postal_code,
+            country: paymentIntent.shipping.address.country
+          }
+        }).then(taxResult => {
+          // Store tax information
+          storeTaxRecord(paymentIntent.id, taxResult);
+        });
+      }
+      
+      res.json({received: true});
+    });
+    ```
+  </Tab>
+</Tabs>
+
+## Error Handling Patterns
+
+### Robust Error Handling
+
+<Tabs>
+  <Tab title="Python">
+    ```python
+    from kintsugi_tax import KintsugiClient, KintsugiError
+    import logging
+    
+    def calculate_tax_safely(client, transaction_data):
+        try:
+            result = client.tax.estimate(transaction_data)
+            return result
+        except KintsugiError as e:
+            if e.status_code == 429:  # Rate limited
+                logging.warning("Rate limited, retrying in 60 seconds")
+                time.sleep(60)
+                return client.tax.estimate(transaction_data)
+            elif e.status_code == 400:  # Bad request
+                logging.error(f"Invalid request: {e.message}")
+                raise ValueError(f"Invalid transaction data: {e.message}")
+            else:
+                logging.error(f"Tax calculation failed: {e.message}")
+                raise
+        except Exception as e:
+            logging.error(f"Unexpected error: {str(e)}")
+            raise
+    ```
+  </Tab>
+  
+  <Tab title="TypeScript">
+    ```typescript
+    import { KintsugiClient, KintsugiError } from '@kintsugi/sdk';
+    
+    async function calculateTaxSafely(client: KintsugiClient, transactionData: any) {
+      try {
+        const result = await client.tax.estimate(transactionData);
+        return result;
+      } catch (error) {
+        if (error instanceof KintsugiError) {
+          if (error.statusCode === 429) { // Rate limited
+            console.warn('Rate limited, retrying in 60 seconds');
+            await new Promise(resolve => setTimeout(resolve, 60000));
+            return client.tax.estimate(transactionData);
+          } else if (error.statusCode === 400) { // Bad request
+            console.error(`Invalid request: ${error.message}`);
+            throw new Error(`Invalid transaction data: ${error.message}`);
+          } else {
+            console.error(`Tax calculation failed: ${error.message}`);
+            throw error;
+          }
+        } else {
+          console.error(`Unexpected error: ${error}`);
+          throw error;
+        }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Testing Patterns
+
+### Unit Testing with Mocks
+
+<Tabs>
+  <Tab title="Python">
+    ```python
+    import unittest
+    from unittest.mock import Mock, patch
+    from kintsugi_tax import KintsugiClient
+    
+    class TestTaxCalculation(unittest.TestCase):
+        def setUp(self):
+            self.client = KintsugiClient("test-key", "test-org")
+        
+        @patch('kintsugi.KintsugiClient.tax.estimate')
+        def test_tax_calculation(self, mock_estimate):
+            # Mock the response
+            mock_estimate.return_value = {
+                "total_tax": 8.25,
+                "tax_breakdown": [{"jurisdiction": "CA", "tax": 8.25}]
+            }
+            
+            # Test the calculation
+            result = self.client.tax.estimate({
+                "line_items": [{"quantity": 1, "price": 100}],
+                "ship_to": {"state": "CA", "country": "US"}
+            })
+            
+            self.assertEqual(result["total_tax"], 8.25)
+            mock_estimate.assert_called_once()
+    ```
+  </Tab>
+  
+  <Tab title="Jest">
+    ```javascript
+    const { KintsugiClient } = require('@kintsugi/sdk');
+    
+    // Mock the SDK
+    jest.mock('@kintsugi/sdk', () => ({
+      KintsugiClient: jest.fn().mockImplementation(() => ({
+        tax: {
+          estimate: jest.fn()
+        }
+      }))
+    }));
+    
+    describe('Tax Calculation', () => {
+      let client;
+      
+      beforeEach(() => {
+        client = new KintsugiClient({ apiKey: 'test', organizationId: 'test' });
+      });
+      
+      it('should calculate tax correctly', async () => {
+        // Mock the response
+        client.tax.estimate.mockResolvedValue({
+          totalTax: 8.25,
+          taxBreakdown: [{ jurisdiction: 'CA', tax: 8.25 }]
+        });
+        
+        // Test the calculation
+        const result = await client.tax.estimate({
+          lineItems: [{ quantity: 1, price: 100 }],
+          shipTo: { state: 'CA', country: 'US' }
+        });
+        
+        expect(result.totalTax).toBe(8.25);
+        expect(client.tax.estimate).toHaveBeenCalledTimes(1);
+      });
+    });
+    ```
+  </Tab>
+</Tabs>
+
+## Performance Optimization
+
+### Caching and Batching
+
+<Tabs>
+  <Tab title="Python">
+    ```python
+    from functools import lru_cache
+    import redis
+    
+    class CachedTaxCalculator:
+        def __init__(self, api_key, org_id):
+            self.kintsugi = KintsugiClient(api_key, org_id)
+            self.redis = redis.Redis(host='localhost', port=6379, db=0)
+        
+        @lru_cache(maxsize=1000)
+        def get_tax_rate(self, state, country):
+            cache_key = f"tax_rate:{state}:{country}"
+            cached_rate = self.redis.get(cache_key)
+            
+            if cached_rate:
+                return float(cached_rate)
+            
+            # Calculate and cache
+            result = self.kintsugi.tax.estimate({
+                "line_items": [{"quantity": 1, "price": 100}],
+                "ship_to": {"state": state, "country": country}
+            })
+            
+            rate = result.total_tax / 100
+            self.redis.setex(cache_key, 3600, rate)  # Cache for 1 hour
+            return rate
+    ```
+  </Tab>
+  
+  <Tab title="TypeScript">
+    ```typescript
+    import { KintsugiClient } from '@kintsugi-tax/sdk';
+    import Redis from 'ioredis';
+    
+    class CachedTaxCalculator {
+      private kintsugi: KintsugiClient;
+      private redis: Redis;
+      private cache = new Map<string, number>();
+      
+      constructor(apiKey: string, orgId: string) {
+        this.kintsugi = new KintsugiClient({ apiKey, organizationId: orgId });
+        this.redis = new Redis(process.env.REDIS_URL);
+      }
+      
+      async getTaxRate(state: string, country: string): Promise<number> {
+        const cacheKey = `tax_rate:${state}:${country}`;
+        
+        // Check memory cache first
+        if (this.cache.has(cacheKey)) {
+          return this.cache.get(cacheKey)!;
+        }
+        
+        // Check Redis cache
+        const cachedRate = await this.redis.get(cacheKey);
+        if (cachedRate) {
+          const rate = parseFloat(cachedRate);
+          this.cache.set(cacheKey, rate);
+          return rate;
+        }
+        
+        // Calculate and cache
+        const result = await this.kintsugi.tax.estimate({
+          lineItems: [{ quantity: 1, price: 100 }],
+          shipTo: { state, country }
+        });
+        
+        const rate = result.totalTax / 100;
+        this.cache.set(cacheKey, rate);
+        await this.redis.setex(cacheKey, 3600, rate); // Cache for 1 hour
+        
+        return rate;
+      }
+    }
+    ```
+  </Tab>
+</Tabs>

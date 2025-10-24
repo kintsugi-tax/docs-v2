@@ -1,0 +1,203 @@
+---
+title: "SDK Quick Start"
+description: "Get up and running with Kintsugi SDKs in minutes"
+---
+
+# SDK Quick Start
+
+<Note>
+**Ready to integrate?** This guide will get you up and running with Kintsugi SDKs in just a few minutes.
+</Note>
+
+## Prerequisites
+
+Before you begin, make sure you have:
+- ✅ A [Kintsugi account](https://app.trykintsugi.com/signup)
+- ✅ An API key from the [Kintsugi Platform](https://app.trykintsugi.com/)
+- ✅ Your preferred programming language installed
+
+## Choose Your SDK
+
+<Tabs>
+  <Tab title="Python">
+    ```bash
+    pip install kintsugi-tax
+    ```
+    
+    ```python
+    from kintsugi_tax import KintsugiClient
+    
+    # Initialize the client
+    client = KintsugiClient(
+        api_key="your-api-key",
+        organization_id="your-org-id"
+    )
+    
+    # Calculate tax for a transaction
+    tax_result = client.tax.estimate({
+        "line_items": [
+            {
+                "quantity": 1,
+                "price": 100.00,
+                "product_tax_code": "A_GEN_TAX"
+            }
+        ],
+        "ship_to": {
+            "street_1": "123 Main St",
+            "city": "San Francisco",
+            "state": "CA",
+            "postal_code": "94105",
+            "country": "US"
+        }
+    })
+    
+    print(f"Tax amount: ${tax_result.total_tax}")
+    ```
+  </Tab>
+  
+  <Tab title="TypeScript">
+    ```bash
+    npm install @kintsugi-tax/sdk
+    ```
+    
+    ```typescript
+    import { KintsugiClient } from '@kintsugi-tax/sdk';
+    
+    // Initialize the client
+    const client = new KintsugiClient({
+      apiKey: 'your-api-key',
+      organizationId: 'your-org-id'
+    });
+    
+    // Calculate tax for a transaction
+    const taxResult = await client.tax.estimate({
+      lineItems: [
+        {
+          quantity: 1,
+          price: 100.00,
+          productTaxCode: 'A_GEN_TAX'
+        }
+      ],
+      shipTo: {
+        street1: '123 Main St',
+        city: 'San Francisco',
+        state: 'CA',
+        postalCode: '94105',
+        country: 'US'
+      }
+    });
+    
+    console.log(`Tax amount: $${taxResult.totalTax}`);
+    ```
+  </Tab>
+  
+  <Tab title="Java">
+    ```xml
+    <dependency>
+        <groupId>com.kintsugi.taxplatform</groupId>
+        <artifactId>kintsugi-tax-java-sdk</artifactId>
+        <version>0.14.0</version>
+    </dependency>
+    ```
+    
+    ```java
+    import com.kintsugi.taxplatform.SDK;
+    
+    public class Application {
+        public static void main(String[] args) {
+            // Initialize the SDK
+            SDK sdk = SDK.builder()
+                .apiKey("your-api-key")
+                .organizationId("your-org-id")
+                .build();
+            
+            // Calculate tax for a transaction
+            TaxEstimateRequest request = TaxEstimateRequest.builder()
+                .lineItems(Arrays.asList(
+                    LineItem.builder()
+                        .quantity(1)
+                        .price(100.00)
+                        .productTaxCode("A_GEN_TAX")
+                        .build()
+                ))
+                .shipTo(Address.builder()
+                    .street1("123 Main St")
+                    .city("San Francisco")
+                    .state("CA")
+                    .postalCode("94105")
+                    .country(CountryCodeEnum.US)
+                    .build())
+                .build();
+            
+            try {
+                TaxEstimateResponse response = sdk.tax().estimate(request);
+                System.out.println("Tax amount: $" + response.getTotalTax());
+            } catch (Exception e) {
+                System.err.println("Error: " + e.getMessage());
+            }
+        }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Authentication
+
+All SDKs use API key authentication. You can get your API key from the [Kintsugi Platform](https://app.trykintsugi.com/).
+
+<Warning>
+**Keep your API key secure** - Never commit API keys to version control. Use environment variables or secure configuration management.
+</Warning>
+
+### Environment Variables
+
+Set your API key as an environment variable:
+
+```bash
+export KINTSUGI_API_KEY="your-api-key"
+export KINTSUGI_ORGANIZATION_ID="your-org-id"
+```
+
+Then initialize the SDK without hardcoding credentials:
+
+<Tabs>
+  <Tab title="Python">
+    ```python
+    import os
+    from kintsugi import KintsugiClient
+    
+    client = KintsugiClient(
+        api_key=os.getenv("KINTSUGI_API_KEY"),
+        organization_id=os.getenv("KINTSUGI_ORGANIZATION_ID")
+    )
+    ```
+  </Tab>
+  
+  <Tab title="TypeScript">
+    ```typescript
+    import { KintsugiClient } from '@kintsugi/sdk';
+    
+    const client = new KintsugiClient({
+      apiKey: process.env.KINTSUGI_API_KEY!,
+      organizationId: process.env.KINTSUGI_ORGANIZATION_ID!
+    });
+    ```
+  </Tab>
+</Tabs>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Explore Examples" icon="code" href="/docs/sdks/examples">
+    See real-world integration examples
+  </Card>
+  <Card title="API Reference" icon="book" href="/reference">
+    Browse the complete API documentation
+  </Card>
+  <Card title="Error Handling" icon="exclamation-triangle" href="/docs/sdks/error-handling">
+    Learn about error handling patterns
+  </Card>
+  <Card title="Best Practices" icon="star" href="/docs/sdks/best-practices">
+    Follow our recommended practices
+  </Card>
+</CardGroup>

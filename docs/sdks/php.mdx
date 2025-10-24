@@ -1,0 +1,523 @@
+---
+title: "PHP SDK"
+description: "Kintsugi PHP SDK documentation and examples"
+---
+
+# PHP SDK
+
+<Note>
+**Official PHP SDK** - The Kintsugi PHP SDK provides a simple, object-oriented way to interact with the Kintsugi API from PHP applications.
+</Note>
+
+## Installation
+
+### Composer
+
+```bash
+composer require kintsugi-tax/php-sdk
+```
+
+### Manual Installation
+
+```bash
+git clone https://github.com/kintsugi-tax/kintsugi-tax-php-sdk.git
+```
+
+## Quick Start
+
+```php
+<?php
+require_once 'vendor/autoload.php';
+
+use KintsugiTax\SDK\KintsugiClient;
+
+// Initialize the client
+$client = new KintsugiClient([
+    'api_key' => 'your-api-key',
+    'organization_id' => 'your-org-id'
+]);
+
+// Calculate tax for a transaction
+$taxResult = $client->tax->estimate([
+    'line_items' => [
+        [
+            'quantity' => 1,
+            'price' => 100.00,
+            'product_tax_code' => 'A_GEN_TAX'
+        ]
+    ],
+    'ship_to' => [
+        'street_1' => '123 Main St',
+        'city' => 'San Francisco',
+        'state' => 'CA',
+        'postal_code' => '94105',
+        'country' => 'US'
+    ]
+]);
+
+echo "Tax amount: $" . $taxResult['total_tax'];
+?>
+```
+
+## Repository
+
+<Card title="PHP SDK Repository" icon="github" href="https://github.com/kintsugi-tax/kintsugi-tax-php-sdk">
+  View source code, report issues, and contribute to the PHP SDK
+</Card>
+
+## Features
+
+- ✅ **Object-Oriented**: Clean, object-oriented API design
+- ✅ **PSR Standards**: Follows PSR-4 autoloading and PSR-7 HTTP standards
+- ✅ **Error Handling**: Comprehensive error handling with custom exceptions
+- ✅ **Authentication**: Simple API key authentication
+- ✅ **Rate Limiting**: Built-in rate limiting and retry logic
+- ✅ **Guzzle Integration**: Built on Guzzle HTTP client for reliability
+
+## Examples
+
+### Basic Tax Calculation
+
+```php
+<?php
+use KintsugiTax\SDK\KintsugiClient;
+use KintsugiTax\SDK\Exceptions\KintsugiException;
+
+$client = new KintsugiClient([
+    'api_key' => $_ENV['KINTSUGI_API_KEY'],
+    'organization_id' => $_ENV['KINTSUGI_ORG_ID']
+]);
+
+try {
+    $result = $client->tax->estimate([
+        'line_items' => [
+            [
+                'quantity' => 2,
+                'price' => 50.00,
+                'product_tax_code' => 'A_GEN_TAX'
+            ]
+        ],
+        'ship_to' => [
+            'street_1' => '456 Oak Ave',
+            'city' => 'Los Angeles',
+            'state' => 'CA',
+            'postal_code' => '90210',
+            'country' => 'US'
+        ]
+    ]);
+
+    echo "Total tax: $" . $result['total_tax'];
+} catch (KintsugiException $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+```
+
+### Laravel Integration
+
+```php
+<?php
+// app/Services/TaxService.php
+namespace App\Services;
+
+use KintsugiTax\SDK\KintsugiClient;
+use KintsugiTax\SDK\Exceptions\KintsugiException;
+
+class TaxService
+{
+    private $client;
+
+    public function __construct()
+    {
+        $this->client = new KintsugiClient([
+            'api_key' => config('services.kintsugi.api_key'),
+            'organization_id' => config('services.kintsugi.organization_id')
+        ]);
+    }
+
+    public function calculateTax(array $lineItems, array $shippingAddress): array
+    {
+        try {
+            return $this->client->tax->estimate([
+                'line_items' => $lineItems,
+                'ship_to' => $shippingAddress
+            ]);
+        } catch (KintsugiException $e) {
+            \Log::error('Tax calculation failed: ' . $e->getMessage());
+            throw new \Exception('Tax calculation failed');
+        }
+    }
+}
+```
+
+```php
+<?php
+// app/Http/Controllers/TaxController.php
+namespace App\Http\Controllers;
+
+use App\Services\TaxService;
+use Illuminate\Http\Request;
+
+class TaxController extends Controller
+{
+    private $taxService;
+
+    public function __construct(TaxService $taxService)
+    {
+        $this->taxService = $taxService;
+    }
+
+    public function calculate(Request $request)
+    {
+        $request->validate([
+            'line_items' => 'required|array',
+            'shipping_address' => 'required|array'
+        ]);
+
+        try {
+            $result = $this->taxService->calculateTax(
+                $request->input('line_items'),
+                $request->input('shipping_address')
+            );
+
+            return response()->json([
+                'success' => true,
+                'total_tax' => $result['total_tax'],
+                'tax_breakdown' => $result['tax_breakdown'] ?? []
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+}
+```
+
+### WordPress Integration
+
+```php
+<?php
+// wp-content/plugins/kintsugi-tax/kintsugi-tax.php
+class KintsugiTaxPlugin
+{
+    private $client;
+
+    public function __construct()
+    {
+        $this->client = new KintsugiClient([
+            'api_key' => get_option('kintsugi_api_key'),
+            'organization_id' => get_option('kintsugi_org_id')
+        ]);
+
+        add_action('woocommerce_cart_calculate_fees', [$this, 'calculate_tax_fees']);
+        add_action('admin_menu', [$this, 'add_admin_menu']);
+    }
+
+    public function calculate_tax_fees($cart)
+    {
+        if (is_admin() && !defined('DOING_AJAX')) {
+            return;
+        }
+
+        $line_items = [];
+        foreach ($cart->get_cart() as $cart_item) {
+            $line_items[] = [
+                'quantity' => $cart_item['quantity'],
+                'price' => $cart_item['data']->get_price(),
+                'product_tax_code' => get_post_meta($cart_item['product_id'], '_tax_code', true) ?: 'A_GEN_TAX'
+            ];
+        }
+
+        $shipping_address = [
+            'street_1' => WC()->customer->get_shipping_address_1(),
+            'city' => WC()->customer->get_shipping_city(),
+            'state' => WC()->customer->get_shipping_state(),
+            'postal_code' => WC()->customer->get_shipping_postcode(),
+            'country' => WC()->customer->get_shipping_country()
+        ];
+
+        try {
+            $tax_result = $this->client->tax->estimate([
+                'line_items' => $line_items,
+                'ship_to' => $shipping_address
+            ]);
+
+            $cart->add_fee('Tax', $tax_result['total_tax']);
+        } catch (KintsugiException $e) {
+            error_log('Kintsugi tax calculation failed: ' . $e->getMessage());
+        }
+    }
+
+    public function add_admin_menu()
+    {
+        add_options_page(
+            'Kintsugi Tax Settings',
+            'Kintsugi Tax',
+            'manage_options',
+            'kintsugi-tax',
+            [$this, 'admin_page']
+        );
+    }
+
+    public function admin_page()
+    {
+        if (isset($_POST['submit'])) {
+            update_option('kintsugi_api_key', sanitize_text_field($_POST['api_key']));
+            update_option('kintsugi_org_id', sanitize_text_field($_POST['org_id']));
+            echo '<div class="notice notice-success"><p>Settings saved!</p></div>';
+        }
+        ?>
+        <div class="wrap">
+            <h1>Kintsugi Tax Settings</h1>
+            <form method="post">
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">API Key</th>
+                        <td><input type="text" name="api_key" value="<?php echo esc_attr(get_option('kintsugi_api_key')); ?>" class="regular-text" /></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Organization ID</th>
+                        <td><input type="text" name="org_id" value="<?php echo esc_attr(get_option('kintsugi_org_id')); ?>" class="regular-text" /></td>
+                    </tr>
+                </table>
+                <?php submit_button(); ?>
+            </form>
+        </div>
+        <?php
+    }
+}
+
+new KintsugiTaxPlugin();
+```
+
+### Error Handling
+
+```php
+<?php
+use KintsugiTax\SDK\KintsugiClient;
+use KintsugiTax\SDK\Exceptions\KintsugiException;
+use KintsugiTax\SDK\Exceptions\RateLimitException;
+use KintsugiTax\SDK\Exceptions\ValidationException;
+
+function calculateTaxSafely($client, $transactionData)
+{
+    try {
+        $result = $client->tax->estimate($transactionData);
+        return $result;
+    } catch (RateLimitException $e) {
+        error_log("Rate limited, retrying in 60 seconds");
+        sleep(60);
+        return $client->tax->estimate($transactionData);
+    } catch (ValidationException $e) {
+        error_log("Invalid request: " . $e->getMessage());
+        throw new InvalidArgumentException("Invalid transaction data: " . $e->getMessage());
+    } catch (KintsugiException $e) {
+        error_log("Tax calculation failed: " . $e->getMessage());
+        throw $e;
+    }
+}
+```
+
+## Configuration
+
+### Environment Variables
+
+```bash
+export KINTSUGI_API_KEY="your-api-key"
+export KINTSUGI_ORGANIZATION_ID="your-org-id"
+```
+
+### Custom Configuration
+
+```php
+<?php
+use KintsugiTax\SDK\KintsugiClient;
+
+$client = new KintsugiClient([
+    'api_key' => 'your-api-key',
+    'organization_id' => 'your-org-id',
+    'base_url' => 'https://api.trykintsugi.com', // Optional: custom base URL
+    'timeout' => 30, // Optional: request timeout in seconds
+    'retries' => 3, // Optional: number of retries
+    'guzzle_options' => [
+        'verify' => true, // SSL verification
+        'http_errors' => false // Handle HTTP errors manually
+    ]
+]);
+```
+
+## Testing
+
+```php
+<?php
+use PHPUnit\Framework\TestCase;
+use KintsugiTax\SDK\KintsugiClient;
+use KintsugiTax\SDK\Exceptions\KintsugiException;
+
+class TaxCalculatorTest extends TestCase
+{
+    private $client;
+
+    protected function setUp(): void
+    {
+        $this->client = new KintsugiClient([
+            'api_key' => 'test-key',
+            'organization_id' => 'test-org'
+        ]);
+    }
+
+    public function testTaxCalculation()
+    {
+        // Mock the HTTP client response
+        $mockResponse = [
+            'total_tax' => 8.25,
+            'tax_breakdown' => [
+                ['jurisdiction' => 'CA', 'tax' => 8.25]
+            ]
+        ];
+
+        // Use a mock or test double
+        $this->client->setHttpClient($this->createMockHttpClient($mockResponse));
+
+        $result = $this->client->tax->estimate([
+            'line_items' => [['quantity' => 1, 'price' => 100]],
+            'ship_to' => ['state' => 'CA', 'country' => 'US']
+        ]);
+
+        $this->assertEquals(8.25, $result['total_tax']);
+    }
+
+    private function createMockHttpClient($response)
+    {
+        // Implementation depends on your HTTP client choice
+        // This is a simplified example
+        return new class($response) {
+            private $response;
+
+            public function __construct($response)
+            {
+                $this->response = $response;
+            }
+
+            public function request($method, $uri, $options = [])
+            {
+                return new class($this->response) {
+                    private $response;
+
+                    public function __construct($response)
+                    {
+                        $this->response = $response;
+                    }
+
+                    public function getBody()
+                    {
+                        return json_encode($this->response);
+                    }
+
+                    public function getStatusCode()
+                    {
+                        return 200;
+                    }
+                };
+            }
+        };
+    }
+}
+```
+
+## Advanced Features
+
+### Custom HTTP Client
+
+```php
+<?php
+use KintsugiTax\SDK\KintsugiClient;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+
+class CustomHTTPClient extends Client
+{
+    public function __construct(array $config = [])
+    {
+        $stack = HandlerStack::create();
+        
+        // Add logging middleware
+        $stack->push(Middleware::mapRequest(function ($request) {
+            error_log("Making request to: " . $request->getUri());
+            return $request;
+        }));
+
+        $stack->push(Middleware::mapResponse(function ($response) {
+            error_log("Response received: " . $response->getStatusCode());
+            return $response;
+        }));
+
+        $config['handler'] = $stack;
+        parent::__construct($config);
+    }
+}
+
+$client = new KintsugiClient([
+    'api_key' => 'your-api-key',
+    'organization_id' => 'your-org-id',
+    'http_client' => new CustomHTTPClient()
+]);
+```
+
+### Batch Processing
+
+```php
+<?php
+use KintsugiTax\SDK\KintsugiClient;
+
+class BatchTaxCalculator
+{
+    private $client;
+    private $batchSize;
+
+    public function __construct(KintsugiClient $client, int $batchSize = 10)
+    {
+        $this->client = $client;
+        $this->batchSize = $batchSize;
+    }
+
+    public function calculateTaxBatch(array $transactions): array
+    {
+        $results = [];
+        
+        for ($i = 0; $i < count($transactions); $i += $this->batchSize) {
+            $batch = array_slice($transactions, $i, $this->batchSize);
+            
+            $promises = array_map(function ($transaction) {
+                return $this->client->tax->estimateAsync($transaction);
+            }, $batch);
+            
+            $batchResults = \GuzzleHttp\Promise\settle($promises)->wait();
+            
+            foreach ($batchResults as $index => $result) {
+                if ($result['state'] === 'fulfilled') {
+                    $results[] = $result['value'];
+                } else {
+                    error_log("Transaction " . ($i + $index) . " failed: " . $result['reason']);
+                }
+            }
+        }
+        
+        return $results;
+    }
+}
+```
+
+## Support
+
+<CardGroup cols={2}>
+  <Card title="GitHub Issues" icon="github" href="https://github.com/kintsugi-tax/kintsugi-tax-php-sdk/issues">
+    Report bugs and request features
+  </Card>
+  <Card title="Documentation" icon="book" href="https://github.com/kintsugi-tax/kintsugi-tax-php-sdk#readme">
+    Full SDK documentation
+  </Card>
+</CardGroup>

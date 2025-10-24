@@ -1,0 +1,288 @@
+---
+title: "Java SDK"
+description: "Kintsugi Java SDK documentation and examples"
+---
+
+# Java SDK
+
+<Note>
+**Official Java SDK** - The Kintsugi Java SDK provides a robust, type-safe way to interact with the Kintsugi API from Java applications.
+</Note>
+
+## Installation
+
+### Maven
+
+```xml
+<dependency>
+    <groupId>com.kintsugi.taxplatform</groupId>
+    <artifactId>kintsugi-tax-java-sdk</artifactId>
+    <version>0.14.0</version>
+</dependency>
+```
+
+### Gradle
+
+```gradle
+implementation 'com.kintsugi.taxplatform:kintsugi-tax-java-sdk:0.14.0'
+```
+
+## Quick Start
+
+```java
+import com.kintsugi.taxplatform.SDK;
+import com.kintsugi.taxplatform.models.operations.*;
+
+public class Application {
+    public static void main(String[] args) {
+        // Initialize the SDK
+        SDK sdk = SDK.builder()
+            .apiKey("your-api-key")
+            .organizationId("your-org-id")
+            .build();
+
+        // Calculate tax for a transaction
+        TaxEstimateRequest request = TaxEstimateRequest.builder()
+            .lineItems(Arrays.asList(
+                LineItem.builder()
+                    .quantity(1)
+                    .price(100.00)
+                    .productTaxCode("A_GEN_TAX")
+                    .build()
+            ))
+            .shipTo(Address.builder()
+                .street1("123 Main St")
+                .city("San Francisco")
+                .state("CA")
+                .postalCode("94105")
+                .country(CountryCodeEnum.US)
+                .build())
+            .build();
+
+        try {
+            TaxEstimateResponse response = sdk.tax().estimate(request);
+            System.out.println("Tax amount: $" + response.getTotalTax());
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+}
+```
+
+## Repository
+
+<Card title="Java SDK Repository" icon="github" href="https://github.com/kintsugi-tax/kintsugi-tax-java-sdk">
+  View source code, report issues, and contribute to the Java SDK
+</Card>
+
+## Features
+
+- ✅ **Type Safety**: Full type safety with generated models
+- ✅ **Builder Pattern**: Fluent builder pattern for easy configuration
+- ✅ **Error Handling**: Comprehensive error handling with typed exceptions
+- ✅ **Authentication**: Simple API key authentication
+- ✅ **Custom HTTP Client**: Support for custom HTTP client configuration
+
+## Examples
+
+### Basic Tax Calculation
+
+```java
+import com.kintsugi.taxplatform.SDK;
+import com.kintsugi.taxplatform.models.operations.*;
+
+public class TaxCalculator {
+    private final SDK sdk;
+    
+    public TaxCalculator(String apiKey, String orgId) {
+        this.sdk = SDK.builder()
+            .apiKey(apiKey)
+            .organizationId(orgId)
+            .build();
+    }
+    
+    public double calculateTax(List<LineItem> items, Address shipTo) {
+        TaxEstimateRequest request = TaxEstimateRequest.builder()
+            .lineItems(items)
+            .shipTo(shipTo)
+            .build();
+        
+        try {
+            TaxEstimateResponse response = sdk.tax().estimate(request);
+            return response.getTotalTax();
+        } catch (Exception e) {
+            throw new RuntimeException("Tax calculation failed", e);
+        }
+    }
+}
+```
+
+### Custom HTTP Client
+
+```java
+import com.kintsugi.taxplatform.SDK;
+import com.kintsugi.taxplatform.utils.HTTPClient;
+import com.kintsugi.taxplatform.utils.SpeakeasyHTTPClient;
+
+public class Application {
+    public static void main(String[] args) {
+        // Custom HTTP client with debug logging
+        SpeakeasyHTTPClient httpClient = new SpeakeasyHTTPClient();
+        httpClient.enableDebugLogging(true);
+        
+        SDK sdk = SDK.builder()
+            .apiKey("your-api-key")
+            .organizationId("your-org-id")
+            .client(httpClient)
+            .build();
+    }
+}
+```
+
+### Error Handling
+
+```java
+import com.kintsugi.taxplatform.SDK;
+import com.kintsugi.taxplatform.models.errors.*;
+
+public class Application {
+    public static void main(String[] args) {
+        SDK sdk = SDK.builder()
+            .apiKey("your-api-key")
+            .organizationId("your-org-id")
+            .build();
+        
+        try {
+            TaxEstimateResponse response = sdk.tax().estimate(request);
+            // Handle success
+        } catch (KintsugiError e) {
+            if (e.getStatusCode() == 429) { // Rate limited
+                System.out.println("Rate limited, retrying...");
+                Thread.sleep(60000);
+                response = sdk.tax().estimate(request);
+            } else if (e.getStatusCode() == 400) { // Bad request
+                System.err.println("Invalid request: " + e.getMessage());
+            } else {
+                System.err.println("API error: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+        }
+    }
+}
+```
+
+## Configuration
+
+### Environment Variables
+
+```bash
+export KINTSUGI_API_KEY="your-api-key"
+export KINTSUGI_ORGANIZATION_ID="your-org-id"
+```
+
+### Custom Configuration
+
+```java
+import com.kintsugi.taxplatform.SDK;
+
+SDK sdk = SDK.builder()
+    .apiKey(System.getenv("KINTSUGI_API_KEY"))
+    .organizationId(System.getenv("KINTSUGI_ORGANIZATION_ID"))
+    .serverURL("https://api.trykintsugi.com") // Optional: custom base URL
+    .timeout(Duration.ofSeconds(30)) // Optional: request timeout
+    .build();
+```
+
+## Testing
+
+```java
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class TaxCalculatorTest {
+    @Mock
+    private SDK mockSdk;
+    
+    @Mock
+    private TaxService mockTaxService;
+    
+    private TaxCalculator calculator;
+    
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        when(mockSdk.tax()).thenReturn(mockTaxService);
+        calculator = new TaxCalculator(mockSdk);
+    }
+    
+    @Test
+    void testTaxCalculation() {
+        // Mock the response
+        TaxEstimateResponse mockResponse = TaxEstimateResponse.builder()
+            .totalTax(8.25)
+            .build();
+        
+        when(mockTaxService.estimate(any(TaxEstimateRequest.class)))
+            .thenReturn(mockResponse);
+        
+        // Test the calculation
+        List<LineItem> items = Arrays.asList(
+            LineItem.builder().quantity(1).price(100.0).build()
+        );
+        Address shipTo = Address.builder().state("CA").country(CountryCodeEnum.US).build();
+        
+        double result = calculator.calculateTax(items, shipTo);
+        
+        assertEquals(8.25, result);
+        verify(mockTaxService).estimate(any(TaxEstimateRequest.class));
+    }
+}
+```
+
+## Advanced Features
+
+### Custom HTTP Client with Hooks
+
+```java
+import com.kintsugi.taxplatform.utils.HTTPClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.io.InputStream;
+
+public class CustomHTTPClient implements HTTPClient {
+    private final HTTPClient defaultClient = new SpeakeasyHTTPClient();
+    
+    @Override
+    public HttpResponse<InputStream> send(HttpRequest request) throws Exception {
+        // Add custom header
+        HttpRequest modifiedRequest = HttpRequest.newBuilder(request)
+            .header("x-custom-header", "custom value")
+            .build();
+        
+        try {
+            HttpResponse<InputStream> response = defaultClient.send(modifiedRequest);
+            System.out.println("Request successful: " + response.statusCode());
+            return response;
+        } catch (Exception error) {
+            System.err.println("Request failed: " + error.getMessage());
+            throw error;
+        }
+    }
+}
+```
+
+## Support
+
+<CardGroup cols={2}>
+  <Card title="GitHub Issues" icon="github" href="https://github.com/kintsugi-tax/kintsugi-tax-java-sdk/issues">
+    Report bugs and request features
+  </Card>
+  <Card title="Documentation" icon="book" href="https://github.com/kintsugi-tax/kintsugi-tax-java-sdk#readme">
+    Full SDK documentation
+  </Card>
+</CardGroup>

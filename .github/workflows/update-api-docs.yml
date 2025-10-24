@@ -32,16 +32,49 @@ jobs:
       - name: Install Mintlify scraper
         run: npm install -g @mintlify/scraping
       
+      - name: Download OpenAPI specs
+        run: |
+          echo "📥 Downloading OpenAPI specifications..."
+          
+          # Download Customer API spec
+          echo "📥 Fetching Customer API spec..."
+          curl -o openapi.json https://api-doc.trykintsugi.com/openapi.json
+          
+          # Download Partners API spec  
+          echo "📥 Fetching Partners API spec..."
+          curl -o openapi-partners.json https://api.trykintsugi.com/openapi.json
+          
+          echo "✅ OpenAPI specs downloaded successfully!"
+      
+      - name: Validate OpenAPI specs
+        run: |
+          echo "🔍 Validating OpenAPI specifications..."
+          
+          # Validate Customer API spec
+          if ! npx @mintlify/scraping validate openapi.json; then
+            echo "❌ Customer API spec validation failed"
+            exit 1
+          fi
+          
+          # Validate Partners API spec
+          if ! npx @mintlify/scraping validate openapi-partners.json; then
+            echo "❌ Partners API spec validation failed"
+            exit 1
+          fi
+          
+          echo "✅ OpenAPI specs are valid!"
+      
       - name: Generate API documentation
         run: |
           echo "🚀 Generating API documentation from OpenAPI specs..."
           mkdir -p reference/api reference/partners
           
-          echo "📥 Fetching Customer API spec..."
-          npx @mintlify/scraping openapi-file https://api-doc.trykintsugi.com/openapi.json -o reference/api
+          echo "📥 Generating Customer API reference..."
+          npx @mintlify/scraping openapi-file openapi.json -o reference/api
           
-          echo "📥 Fetching Partners API spec..."
-          npx @mintlify/scraping openapi-file https://api.trykintsugi.com/openapi.json -o reference/partners
+          echo "📥 Generating Partners API reference..."
+          npx @mintlify/scraping openapi-file openapi-partners.json -o reference/partners
+          
           echo "✅ API documentation generated successfully!"
       
       - name: Check for changes
@@ -61,11 +94,17 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           
-          git add reference/api/
-          git commit -m "🤖 Auto-update API documentation from OpenAPI spec [skip ci]"
+          # Add all changes (OpenAPI files + generated docs)
+          git add openapi.json openapi-partners.json reference/api/ reference/partners/
+          git commit -m "🤖 Auto-update API documentation and OpenAPI specs [skip ci]
+
+          - Updated openapi.json from https://api-doc.trykintsugi.com/openapi.json
+          - Updated openapi-partners.json from https://api.trykintsugi.com/openapi.json  
+          - Regenerated API reference documentation
+          - Generated on: $(date)"
           git push
           
-          echo "✅ API documentation updated and committed"
+          echo "✅ API documentation and OpenAPI specs updated and committed"
       
       - name: No changes message
         if: steps.changes.outputs.changed == 'false'

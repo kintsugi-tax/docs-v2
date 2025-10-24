@@ -1,0 +1,397 @@
+---
+title: "TypeScript SDK"
+description: "Kintsugi TypeScript SDK documentation and examples"
+---
+
+# TypeScript SDK
+
+<Note>
+**Official TypeScript SDK** - The Kintsugi TypeScript SDK provides a modern, type-safe way to interact with the Kintsugi API from TypeScript and JavaScript applications.
+</Note>
+
+## Installation
+
+```bash
+npm install @kintsugi-tax/sdk
+```
+
+## Quick Start
+
+```typescript
+import { KintsugiClient } from '@kintsugi-tax/sdk';
+
+// Initialize the client
+const client = new KintsugiClient({
+  apiKey: 'your-api-key',
+  organizationId: 'your-org-id'
+});
+
+// Calculate tax for a transaction
+const taxResult = await client.tax.estimate({
+  lineItems: [
+    {
+      quantity: 1,
+      price: 100.00,
+      productTaxCode: 'A_GEN_TAX'
+    }
+  ],
+  shipTo: {
+    street1: '123 Main St',
+    city: 'San Francisco',
+    state: 'CA',
+    postalCode: '94105',
+    country: 'US'
+  }
+});
+
+console.log(`Tax amount: $${taxResult.totalTax}`);
+```
+
+## Repository
+
+<Card title="TypeScript SDK Repository" icon="github" href="https://github.com/kintsugi-tax/kintsugi-tax-typescript-sdk">
+  View source code, report issues, and contribute to the TypeScript SDK
+</Card>
+
+## Features
+
+- ✅ **Type Safety**: Full TypeScript definitions with IntelliSense support
+- ✅ **Async/Await**: Modern async/await support for all operations
+- ✅ **Error Handling**: Comprehensive error handling with typed exceptions
+- ✅ **Authentication**: Simple API key authentication
+- ✅ **Rate Limiting**: Built-in rate limiting and retry logic
+- ✅ **Tree Shaking**: Optimized bundle size with tree shaking support
+
+## Examples
+
+### Basic Tax Calculation
+
+```typescript
+import { KintsugiClient } from '@kintsugi-tax/sdk';
+
+const client = new KintsugiClient({
+  apiKey: process.env.KINTSUGI_API_KEY!,
+  organizationId: process.env.KINTSUGI_ORG_ID!
+});
+
+// Calculate tax
+const result = await client.tax.estimate({
+  lineItems: [
+    {
+      quantity: 2,
+      price: 50.00,
+      productTaxCode: 'A_GEN_TAX'
+    }
+  ],
+  shipTo: {
+    street1: '456 Oak Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    postalCode: '90210',
+    country: 'US'
+  }
+});
+
+console.log(`Total tax: $${result.totalTax}`);
+```
+
+### React Integration
+
+```typescript
+import React, { useState, useEffect } from 'react';
+import { KintsugiClient } from '@kintsugi-tax/sdk';
+
+interface TaxCalculatorProps {
+  items: LineItem[];
+  shippingAddress: Address;
+}
+
+export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ items, shippingAddress }) => {
+  const [taxResult, setTaxResult] = useState<TaxEstimateResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const client = new KintsugiClient({
+    apiKey: process.env.REACT_APP_KINTSUGI_API_KEY!,
+    organizationId: process.env.REACT_APP_KINTSUGI_ORG_ID!
+  });
+
+  useEffect(() => {
+    const calculateTax = async () => {
+      if (items.length === 0) return;
+
+      setLoading(true);
+      setError(null);
+
+      try {
+        const result = await client.tax.estimate({
+          lineItems: items,
+          shipTo: shippingAddress
+        });
+        setTaxResult(result);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Tax calculation failed');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    calculateTax();
+  }, [items, shippingAddress]);
+
+  if (loading) return <div>Calculating tax...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!taxResult) return null;
+
+  return (
+    <div>
+      <h3>Tax Calculation</h3>
+      <p>Total Tax: ${taxResult.totalTax}</p>
+      {taxResult.taxBreakdown && (
+        <ul>
+          {taxResult.taxBreakdown.map((breakdown, index) => (
+            <li key={index}>
+              {breakdown.jurisdiction}: ${breakdown.tax}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+```
+
+### Node.js Express Integration
+
+```typescript
+import express from 'express';
+import { KintsugiClient } from '@kintsugi-tax/sdk';
+
+const app = express();
+app.use(express.json());
+
+const client = new KintsugiClient({
+  apiKey: process.env.KINTSUGI_API_KEY!,
+  organizationId: process.env.KINTSUGI_ORG_ID!
+});
+
+app.post('/api/calculate-tax', async (req, res) => {
+  try {
+    const { lineItems, shipTo } = req.body;
+    
+    const taxResult = await client.tax.estimate({
+      lineItems,
+      shipTo
+    });
+
+    res.json({
+      success: true,
+      totalTax: taxResult.totalTax,
+      taxBreakdown: taxResult.taxBreakdown
+    });
+  } catch (error) {
+    console.error('Tax calculation error:', error);
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
+});
+```
+
+### Error Handling
+
+```typescript
+import { KintsugiClient, KintsugiError } from '@kintsugi-tax/sdk';
+
+async function calculateTaxSafely(client: KintsugiClient, transactionData: any) {
+  try {
+    const result = await client.tax.estimate(transactionData);
+    return result;
+  } catch (error) {
+    if (error instanceof KintsugiError) {
+      if (error.statusCode === 429) { // Rate limited
+        console.warn('Rate limited, retrying in 60 seconds');
+        await new Promise(resolve => setTimeout(resolve, 60000));
+        return client.tax.estimate(transactionData);
+      } else if (error.statusCode === 400) { // Bad request
+        console.error(`Invalid request: ${error.message}`);
+        throw new Error(`Invalid transaction data: ${error.message}`);
+      } else {
+        console.error(`Tax calculation failed: ${error.message}`);
+        throw error;
+      }
+    } else {
+      console.error(`Unexpected error: ${error}`);
+      throw error;
+    }
+  }
+}
+```
+
+## Configuration
+
+### Environment Variables
+
+```bash
+export KINTSUGI_API_KEY="your-api-key"
+export KINTSUGI_ORGANIZATION_ID="your-org-id"
+```
+
+### Custom Configuration
+
+```typescript
+import { KintsugiClient } from '@kintsugi-tax/sdk';
+
+const client = new KintsugiClient({
+  apiKey: 'your-api-key',
+  organizationId: 'your-org-id',
+  baseUrl: 'https://api.trykintsugi.com', // Optional: custom base URL
+  timeout: 30000, // Optional: request timeout in milliseconds
+  retries: 3 // Optional: number of retries
+});
+```
+
+## Testing
+
+```typescript
+import { KintsugiClient } from '@kintsugi-tax/sdk';
+import { jest } from '@jest/globals';
+
+// Mock the SDK
+jest.mock('@kintsugi-tax/sdk', () => ({
+  KintsugiClient: jest.fn().mockImplementation(() => ({
+    tax: {
+      estimate: jest.fn()
+    }
+  }))
+}));
+
+describe('Tax Calculation', () => {
+  let client: KintsugiClient;
+
+  beforeEach(() => {
+    client = new KintsugiClient({ apiKey: 'test', organizationId: 'test' });
+  });
+
+  it('should calculate tax correctly', async () => {
+    // Mock the response
+    (client.tax.estimate as jest.Mock).mockResolvedValue({
+      totalTax: 8.25,
+      taxBreakdown: [{ jurisdiction: 'CA', tax: 8.25 }]
+    });
+
+    // Test the calculation
+    const result = await client.tax.estimate({
+      lineItems: [{ quantity: 1, price: 100 }],
+      shipTo: { state: 'CA', country: 'US' }
+    });
+
+    expect(result.totalTax).toBe(8.25);
+    expect(client.tax.estimate).toHaveBeenCalledTimes(1);
+  });
+});
+```
+
+## Advanced Features
+
+### Custom HTTP Client
+
+```typescript
+import { KintsugiClient } from '@kintsugi-tax/sdk';
+import axios, { AxiosInstance } from 'axios';
+
+class CustomHTTPClient {
+  private axios: AxiosInstance;
+
+  constructor() {
+    this.axios = axios.create({
+      timeout: 30000,
+      headers: {
+        'User-Agent': 'MyApp/1.0.0'
+      }
+    });
+
+    // Add request interceptor
+    this.axios.interceptors.request.use(
+      (config) => {
+        console.log(`Making request to: ${config.url}`);
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+
+    // Add response interceptor
+    this.axios.interceptors.response.use(
+      (response) => {
+        console.log(`Response received: ${response.status}`);
+        return response;
+      },
+      (error) => {
+        console.error(`Request failed: ${error.message}`);
+        return Promise.reject(error);
+      }
+    );
+  }
+}
+
+const client = new KintsugiClient({
+  apiKey: 'your-api-key',
+  organizationId: 'your-org-id',
+  httpClient: new CustomHTTPClient()
+});
+```
+
+### Batch Operations
+
+```typescript
+import { KintsugiClient } from '@kintsugi-tax/sdk';
+
+class BatchTaxCalculator {
+  private client: KintsugiClient;
+  private batchSize: number = 10;
+
+  constructor(client: KintsugiClient) {
+    this.client = client;
+  }
+
+  async calculateTaxBatch(transactions: TransactionData[]): Promise<TaxResult[]> {
+    const results: TaxResult[] = [];
+    
+    for (let i = 0; i < transactions.length; i += this.batchSize) {
+      const batch = transactions.slice(i, i + this.batchSize);
+      
+      const batchPromises = batch.map(transaction => 
+        this.client.tax.estimate(transaction)
+      );
+      
+      const batchResults = await Promise.allSettled(batchPromises);
+      
+      batchResults.forEach((result, index) => {
+        if (result.status === 'fulfilled') {
+          results.push(result.value);
+        } else {
+          console.error(`Transaction ${i + index} failed:`, result.reason);
+        }
+      });
+    }
+    
+    return results;
+  }
+}
+```
+
+## Support
+
+<CardGroup cols={2}>
+  <Card title="GitHub Issues" icon="github" href="https://github.com/kintsugi-tax/kintsugi-tax-typescript-sdk/issues">
+    Report bugs and request features
+  </Card>
+  <Card title="Documentation" icon="book" href="https://github.com/kintsugi-tax/kintsugi-tax-typescript-sdk#readme">
+    Full SDK documentation
+  </Card>
+</CardGroup>

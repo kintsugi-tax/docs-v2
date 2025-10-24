@@ -1,0 +1,196 @@
+---
+title: "Python SDK"
+description: "Kintsugi Python SDK documentation and examples"
+---
+
+# Python SDK
+
+<Note>
+**Official Python SDK** - The Kintsugi Python SDK provides a simple, type-safe way to interact with the Kintsugi API from Python applications.
+</Note>
+
+## Installation
+
+```bash
+pip install kintsugi-tax
+```
+
+## Quick Start
+
+```python
+from kintsugi_tax import KintsugiClient
+
+# Initialize the client
+client = KintsugiClient(
+    api_key="your-api-key",
+    organization_id="your-org-id"
+)
+
+# Calculate tax for a transaction
+tax_result = client.tax.estimate({
+    "line_items": [
+        {
+            "quantity": 1,
+            "price": 100.00,
+            "product_tax_code": "A_GEN_TAX"
+        }
+    ],
+    "ship_to": {
+        "street_1": "123 Main St",
+        "city": "San Francisco",
+        "state": "CA",
+        "postal_code": "94105",
+        "country": "US"
+    }
+})
+
+print(f"Tax amount: ${tax_result.total_tax}")
+```
+
+## Repository
+
+<Card title="Python SDK Repository" icon="github" href="https://github.com/kintsugi-tax/kintsugi-tax-python-sdk">
+  View source code, report issues, and contribute to the Python SDK
+</Card>
+
+## Features
+
+- ✅ **Type Safety**: Full type hints and IntelliSense support
+- ✅ **Async Support**: Built-in async/await support for high-performance applications
+- ✅ **Error Handling**: Comprehensive error handling with detailed error messages
+- ✅ **Authentication**: Simple API key authentication
+- ✅ **Rate Limiting**: Built-in rate limiting and retry logic
+
+## Examples
+
+### Basic Tax Calculation
+
+```python
+from kintsugi_tax import KintsugiClient
+
+client = KintsugiClient(
+    api_key=os.getenv("KINTSUGI_API_KEY"),
+    organization_id=os.getenv("KINTSUGI_ORG_ID")
+)
+
+# Calculate tax
+result = client.tax.estimate({
+    "line_items": [
+        {
+            "quantity": 2,
+            "price": 50.00,
+            "product_tax_code": "A_GEN_TAX"
+        }
+    ],
+    "ship_to": {
+        "street_1": "456 Oak Ave",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postal_code": "90210",
+        "country": "US"
+    }
+})
+
+print(f"Total tax: ${result.total_tax}")
+```
+
+### Async Usage
+
+```python
+import asyncio
+from kintsugi_tax import AsyncKintsugiClient
+
+async def calculate_tax_async():
+    client = AsyncKintsugiClient(
+        api_key="your-api-key",
+        organization_id="your-org-id"
+    )
+    
+    result = await client.tax.estimate({
+        "line_items": [{"quantity": 1, "price": 100.00}],
+        "ship_to": {"state": "CA", "country": "US"}
+    })
+    
+    return result
+
+# Run async function
+result = asyncio.run(calculate_tax_async())
+```
+
+### Error Handling
+
+```python
+from kintsugi_tax import KintsugiClient, KintsugiError
+
+try:
+    result = client.tax.estimate(transaction_data)
+except KintsugiError as e:
+    if e.status_code == 429:  # Rate limited
+        print("Rate limited, retrying...")
+        time.sleep(60)
+        result = client.tax.estimate(transaction_data)
+    elif e.status_code == 400:  # Bad request
+        print(f"Invalid request: {e.message}")
+    else:
+        print(f"API error: {e.message}")
+```
+
+## Configuration
+
+### Environment Variables
+
+```bash
+export KINTSUGI_API_KEY="your-api-key"
+export KINTSUGI_ORGANIZATION_ID="your-org-id"
+```
+
+### Custom Configuration
+
+```python
+from kintsugi_tax import KintsugiClient
+
+client = KintsugiClient(
+    api_key="your-api-key",
+    organization_id="your-org-id",
+    base_url="https://api.trykintsugi.com",  # Optional: custom base URL
+    timeout=30,  # Optional: request timeout
+    retries=3    # Optional: number of retries
+)
+```
+
+## Testing
+
+```python
+import unittest
+from unittest.mock import Mock, patch
+from kintsugi_tax import KintsugiClient
+
+class TestTaxCalculation(unittest.TestCase):
+    def setUp(self):
+        self.client = KintsugiClient("test-key", "test-org")
+    
+    @patch('kintsugi_tax.KintsugiClient.tax.estimate')
+    def test_tax_calculation(self, mock_estimate):
+        mock_estimate.return_value = {
+            "total_tax": 8.25,
+            "tax_breakdown": [{"jurisdiction": "CA", "tax": 8.25}]
+        }
+        
+        result = self.client.tax.estimate({
+            "line_items": [{"quantity": 1, "price": 100}],
+            "ship_to": {"state": "CA", "country": "US"}
+        })
+        
+        self.assertEqual(result["total_tax"], 8.25)
+```
+
+## Support
+
+<CardGroup cols={2}>
+  <Card title="GitHub Issues" icon="github" href="https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/issues">
+    Report bugs and request features
+  </Card>
+  <Card title="Documentation" icon="book" href="https://github.com/kintsugi-tax/kintsugi-tax-python-sdk#readme">
+    Full SDK documentation
+  </Card>
+</CardGroup>

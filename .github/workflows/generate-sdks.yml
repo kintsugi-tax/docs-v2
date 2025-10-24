@@ -1,0 +1,222 @@
+name: Generate SDKs
+
+on:
+  # Run on schedule to keep SDKs up to date
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM UTC
+  
+  # Allow manual trigger
+  workflow_dispatch:
+  
+  # Run when OpenAPI specs change
+  push:
+    branches: [main]
+    paths:
+      - 'openapi.json'
+      - 'openapi-partners.json'
+      - 'speakeasy.yaml'
+
+jobs:
+  generate-sdks:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install Speakeasy CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
+          echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
+      
+      - name: Generate Customer API SDKs
+        run: |
+          echo "🚀 Generating Customer API SDKs..."
+          speakeasy generate sdk \
+            --lang python \
+            --schema openapi.json \
+            --out ./sdks/customer/python \
+            --package-name kintsugi-customer \
+            --description "Kintsugi Customer API SDK"
+          
+          speakeasy generate sdk \
+            --lang typescript \
+            --schema openapi.json \
+            --out ./sdks/customer/typescript \
+            --package-name @kintsugi/customer-sdk \
+            --description "Kintsugi Customer API SDK"
+          
+          speakeasy generate sdk \
+            --lang go \
+            --schema openapi.json \
+            --out ./sdks/customer/go \
+            --package-name github.com/kintsugi-tax/sdk-go-customer \
+            --description "Kintsugi Customer API SDK"
+      
+      - name: Generate Partners API SDKs
+        run: |
+          echo "🚀 Generating Partners API SDKs..."
+          speakeasy generate sdk \
+            --lang python \
+            --schema openapi-partners.json \
+            --out ./sdks/partners/python \
+            --package-name kintsugi-partners \
+            --description "Kintsugi Partners API SDK"
+          
+          speakeasy generate sdk \
+            --lang typescript \
+            --schema openapi-partners.json \
+            --out ./sdks/partners/typescript \
+            --package-name @kintsugi/partners-sdk \
+            --description "Kintsugi Partners API SDK"
+          
+          speakeasy generate sdk \
+            --lang go \
+            --schema openapi-partners.json \
+            --out ./sdks/partners/go \
+            --package-name github.com/kintsugi-tax/sdk-go-partners \
+            --description "Kintsugi Partners API SDK"
+      
+      - name: Generate SDK Documentation
+        run: |
+          echo "📚 Generating SDK documentation..."
+          # Create language-specific documentation pages
+          mkdir -p docs/sdks/python docs/sdks/typescript docs/sdks/go
+          
+          # Generate Python SDK docs
+          cat > docs/sdks/python.mdx << 'EOF'
+          ---
+          title: "Python SDK"
+          description: "Kintsugi Python SDK documentation and examples"
+          ---
+          
+          # Python SDK
+          
+          ## Installation
+          
+          ```bash
+          pip install kintsugi
+          ```
+          
+          ## Quick Start
+          
+          ```python
+          from kintsugi import KintsugiClient
+          
+          client = KintsugiClient(
+              api_key="your-api-key",
+              organization_id="your-org-id"
+          )
+          ```
+          EOF
+          
+          # Generate TypeScript SDK docs
+          cat > docs/sdks/typescript.mdx << 'EOF'
+          ---
+          title: "TypeScript SDK"
+          description: "Kintsugi TypeScript SDK documentation and examples"
+          ---
+          
+          # TypeScript SDK
+          
+          ## Installation
+          
+          ```bash
+          npm install @kintsugi/sdk
+          ```
+          
+          ## Quick Start
+          
+          ```typescript
+          import { KintsugiClient } from '@kintsugi/sdk';
+          
+          const client = new KintsugiClient({
+            apiKey: 'your-api-key',
+            organizationId: 'your-org-id'
+          });
+          ```
+          EOF
+          
+          # Generate Go SDK docs
+          cat > docs/sdks/go.mdx << 'EOF'
+          ---
+          title: "Go SDK"
+          description: "Kintsugi Go SDK documentation and examples"
+          ---
+          
+          # Go SDK
+          
+          ## Installation
+          
+          ```bash
+          go get github.com/kintsugi-tax/sdk-go
+          ```
+          
+          ## Quick Start
+          
+          ```go
+          import "github.com/kintsugi-tax/sdk-go"
+          
+          client := kintsugi.NewClient("your-api-key", "your-org-id")
+          ```
+          EOF
+      
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit changes
+        if: steps.changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "feat: Update SDKs and documentation
+
+          - Regenerate SDKs from latest OpenAPI specs
+          - Update SDK documentation pages
+          - Add new language support
+          
+          Generated on: $(date)"
+          git push
+      
+      - name: Create Release
+        if: steps.changes.outputs.changes == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: sdk-v${{ github.run_number }}
+          release_name: SDK Release v${{ github.run_number }}
+          body: |
+            ## SDK Updates
+            
+            This release includes updated SDKs generated from the latest OpenAPI specifications.
+            
+            ### Changes
+            - Updated Customer API SDKs
+            - Updated Partners API SDKs
+            - Enhanced documentation
+            - Bug fixes and improvements
+            
+            ### Supported Languages
+            - Python
+            - TypeScript
+            - Go
+            - Java (coming soon)
+            - PHP (coming soon)
+            - Ruby (coming soon)
+          draft: false
+          prerelease: false
