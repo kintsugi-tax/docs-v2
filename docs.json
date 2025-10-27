@@ -250,6 +250,8 @@
                   "reference/partners/nexus/create-physical-nexus",
                   "reference/partners/nexus/get-nexus-for-org",
                   "reference/partners/nexus/get-physical-nexus",
+                  "reference/partners/nexus/get-physical-nexus-categories",
+                  "reference/partners/nexus/get-nexus-details-for-id",
                   "reference/partners/nexus/update-physical-nexus",
                   "reference/partners/nexus/delete-physical-nexus"
                 ]
@@ -257,21 +259,45 @@
               {
                 "group": "Filings",
                 "pages": [
-                  "reference/partners/filings/get-filings",
                   "reference/partners/filings/create-filing",
+                  "reference/partners/filings/get-filings",
                   "reference/partners/filings/get-filing-by-id",
                   "reference/partners/filings/get-filings-by-registration-id",
-                  "reference/partners/filings/update-filing"
+                  "reference/partners/filings/update-filing",
+                  "reference/partners/filings/approve-filing"
                 ]
               },
               {
                 "group": "Organizations",
                 "pages": [
+                  "reference/partners/organizations/create-organization",
+                  "reference/partners/organizations/check-organization-name",
+                  "reference/partners/organizations/get-users-by-organization-id",
                   "reference/partners/organizations/get-organizations-by-user",
                   "reference/partners/organizations/get-organization-by-id",
                   "reference/partners/organizations/update-organization",
-                  "reference/partners/organizations/create-organization"
+                  "reference/partners/organizations/delete-organization",
+                  "reference/partners/organizations/remove-user-from-organization"
                 ]
+              },
+              {
+                "group": "Organization Management",
+                "pages": [
+                  "reference/partners/organizations/create-api-key",
+                  "reference/partners/organizations/get-api-keys",
+                  "reference/partners/organizations/delete-api-key",
+                  "reference/partners/organizations/create-update-business-address",
+                  "reference/partners/organizations/create-update-business-contact",
+                  "reference/partners/organizations/create-update-business-details",
+                  "reference/partners/organizations/create-update-business-information",
+                  "reference/partners/organizations/create-update-business-owners",
+                  "reference/partners/organizations/get-bank-details",
+                  "reference/partners/organizations/create-update-bank-details",
+                  "reference/partners/organizations/get-organization-details",
+                  "reference/partners/organizations/get-organization-details-auto-file-auto-register",
+                  "reference/partners/organizations/update-organization-details-auto-file-auto-register",
+                  "reference/partners/organizations/update-organization-settings",
+                  "reference/partners/organizations/get-organization-settings"                ]
               },
               {
                 "group": "Connections",
