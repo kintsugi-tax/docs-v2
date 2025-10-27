@@ -20,8 +20,8 @@
   },
   "colors": {
     "primary": "#213331",
-    "light": "#B0ED9C",
-    "dark": "#E5D1FA"
+    "light": "#FFFFFF",
+    "dark": "#18181B"
   },
   "favicon": "/favicon.png",
   "background": {
@@ -30,11 +30,8 @@
       "dark": "#213331"
     }
   },
-  "styling": {
-    "codeblocks": "system"
-  },
   "appearance": {
-    "default": "dark"
+    "default": "light"
   },
   "fonts":{
     "body": {
