@@ -3,29 +3,102 @@ title: 'Rate Limiting'
 description: 'Understand Kintsugi API rate limits and best practices'
 ---
 
-# Rate Limiting
-
-<Note>
-This guide is coming soon. We're migrating content from our current documentation.
-</Note>
-
 ## Overview
 
-Kintsugi API implements rate limiting to ensure fair usage and system stability.
+Kintsugi offers an industry-leading tier with rate limiting. All API-enabled accounts can have a maximum of 10,000 requests/minute.
 
 ## Rate Limits
 
-- **Standard endpoints**: 1000 requests per minute
-- **Tax calculation**: 500 requests per minute
-- **Bulk operations**: 100 requests per minute
+- **Standard API endpoints**: 10,000 requests per minute
 
-## Coming Soon
 
-This guide will include:
-- Rate limit headers
-- Handling rate limit responses
-- Best practices
-- Monitoring usage
+## Rate Limiting Best Practices
+
+<AccordionGroup>
+  <Accordion title="General REST API Best Practices">
+    <Steps>
+      <Step title="Implement Exponential Backoff">
+        When you receive a 429 (Too Many Requests) response, wait before retrying. Start with 1 second, then double the wait time for each subsequent retry (1s, 2s, 4s, 8s, etc.).
+      </Step>
+      <Step title="Use Request Batching">
+        Combine multiple operations into single API calls when possible to reduce the total number of requests.
+      </Step>
+      <Step title="Monitor Your Usage">
+        Track your API usage patterns and implement alerts when approaching rate limits to avoid service interruptions.
+      </Step>
+      <Step title="Cache Responses">
+        Store API responses locally and only make new requests when data has actually changed.
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Kintsugi Tax API Specific Guidelines">
+    <CardGroup cols={2}>
+      <Card title="Nexus State Optimization" icon="map-pin">
+        Only call `/v1/tax/estimate` for transactions in states where you have nexus. This reduces unnecessary API calls and improves performance.
+      </Card>
+      <Card title="Smart Caching" icon="database">
+        Cache tax calculation results when transaction details haven't changed. Use transaction hashes or timestamps to determine if recalculation is needed.
+      </Card>
+      <Card title="Avoid Duplicates" icon="copy">
+        Implement deduplication logic to prevent multiple identical API calls for the same transaction within a short time window.
+      </Card>
+      <Card title="Batch Processing" icon="long-arrow-right">
+        Process multiple transactions in batches during off-peak hours to stay within rate limits during high-traffic periods.
+      </Card>
+    </CardGroup>
+  </Accordion>
+
+  <Accordion title="Error Handling & Recovery">
+    <Tabs>
+      <Tab title="HTTP 429 Response">
+        ```json
+        {
+          "error": "Too Many Requests",
+          "message": "Rate limit exceeded. Please retry after 60 seconds.",
+          "retry_after": 60
+        }
+        ```
+        
+        **Action**: Wait for the specified `retry_after` seconds before making another request.
+      </Tab>
+      <Tab title="Retry Logic Example">
+        ```python
+        import time
+        import requests
+        
+        def make_request_with_retry(url, headers, max_retries=3):
+            for attempt in range(max_retries):
+                response = requests.get(url, headers=headers)
+                
+                if response.status_code == 429:
+                    retry_after = int(response.headers.get('Retry-After', 60))
+                    time.sleep(retry_after)
+                    continue
+                    
+                return response
+                
+            raise Exception("Max retries exceeded")
+        ```
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Performance Optimization Tips">
+    <Steps>
+      <Step title="Pre-calculate Common Scenarios">
+        Calculate tax for common product categories and shipping scenarios in advance, then use lookup tables for frequently occurring transactions (i.e., recurring subscription products to repeat customers).
+      </Step>
+      <Step title="Implement Circuit Breakers">
+        Temporarily stop making API calls if you're consistently hitting rate limits, allowing the system to recover.
+      </Step>
+      <Step title="Use Async Processing">
+        Process non-critical tax calculations asynchronously to avoid blocking your main application flow.
+      </Step>
+    </Steps>
+  </Accordion>
+</AccordionGroup>
+
 
 ## Related Resources
 

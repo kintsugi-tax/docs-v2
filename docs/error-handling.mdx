@@ -3,34 +3,406 @@ title: 'Error Handling'
 description: 'Learn how to handle API errors and implement robust error handling'
 ---
 
-# Error Handling
+## Error Response Format
 
-<Note>
-This guide is coming soon. We're migrating content from our current documentation.
-</Note>
+All Kintsugi API errors follow a consistent JSON format:
 
-## Overview
+```json
+{
+  "detail": "Error message describing what went wrong"
+}
+```
 
-Learn how to properly handle errors from the Kintsugi API and implement robust error handling in your application.
+For validation errors (422), the response includes detailed field-level information:
 
-## Common Error Types
+```json
+{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": ["body", "external_id"],
+      "msg": "Field required",
+      "input": null
+    }
+  ]
+}
+```
 
-- `400 Bad Request`: Invalid request data
-- `401 Unauthorized`: Invalid API key
-- `429 Too Many Requests`: Rate limit exceeded
-- `500 Internal Server Error`: Server error
+## HTTP Status Codes
 
-## Coming Soon
+<AccordionGroup>
+  <Accordion title="Client Errors (4xx)">
+    <table>
+      <thead>
+        <tr>
+          <th>Status Code</th>
+          <th>Error Type</th>
+          <th>Description</th>
+          <th>Common Causes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>400</code></td>
+          <td>Bad Request</td>
+          <td>Invalid request data or parameters</td>
+          <td>Missing required fields, invalid data types, business logic violations</td>
+        </tr>
+        <tr>
+          <td><code>401</code></td>
+          <td>Unauthorized</td>
+          <td>Invalid or missing authentication</td>
+          <td>Missing API key, invalid API key, expired token</td>
+        </tr>
+        <tr>
+          <td><code>403</code></td>
+          <td>Forbidden</td>
+          <td>Insufficient permissions</td>
+          <td>User lacks access to organization, admin-only endpoint</td>
+        </tr>
+        <tr>
+          <td><code>404</code></td>
+          <td>Not Found</td>
+          <td>Resource does not exist</td>
+          <td>Invalid ID, deleted resource, wrong organization</td>
+        </tr>
+        <tr>
+          <td><code>409</code></td>
+          <td>Conflict</td>
+          <td>Resource conflict</td>
+          <td>Duplicate creation, state conflicts, concurrent modifications</td>
+        </tr>
+        <tr>
+          <td><code>422</code></td>
+          <td>Unprocessable Entity</td>
+          <td>Validation errors</td>
+          <td>Invalid field values, constraint violations, business rules</td>
+        </tr>
+        <tr>
+          <td><code>429</code></td>
+          <td>Too Many Requests</td>
+          <td>Rate limit exceeded</td>
+          <td>Exceeding 10,000 requests per minute limit</td>
+        </tr>
+      </tbody>
+    </table>
+  </Accordion>
 
-This guide will include:
-- Error response format
-- HTTP status codes
-- Retry strategies
-- Error logging
-- User-friendly error messages
+  <Accordion title="Server Errors (5xx)">
+    <table>
+      <thead>
+        <tr>
+          <th>Status Code</th>
+          <th>Error Type</th>
+          <th>Description</th>
+          <th>Common Causes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>500</code></td>
+          <td>Internal Server Error</td>
+          <td>Unexpected server error</td>
+          <td>Database errors, unhandled exceptions, system failures</td>
+        </tr>
+        <tr>
+          <td><code>503</code></td>
+          <td>Service Unavailable</td>
+          <td>External service unavailable</td>
+          <td>Third-party API failures, maintenance windows</td>
+        </tr>
+      </tbody>
+    </table>
+  </Accordion>
+</AccordionGroup>
+
+## Common Error Messages
+
+### Authentication Errors
+
+<AccordionGroup>
+  <Accordion title="Missing API Key">
+    <Tabs>
+      <Tab title="Error Response">
+        ```json
+        {
+          "detail": "API key is missing or empty."
+        }
+        ```
+      </Tab>
+      <Tab title="Solution">
+        Include your API key in the `X-API-KEY` header:
+        
+        ```bash
+        curl -H "X-API-KEY: your-api-key" \
+             https://api.trykintsugi.com/v1/tax/estimate
+        ```
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Invalid API Key">
+    <Tabs>
+      <Tab title="Error Response">
+        ```json
+        {
+          "detail": "Unauthenticated request."
+        }
+        ```
+      </Tab>
+      <Tab title="Solution">
+        1. Verify your API key is correct
+        2. Check if the API key is active
+        3. Ensure you're using the organization API key, not a personal key
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Organization Access Denied">
+    <Tabs>
+      <Tab title="Error Response">
+        ```json
+        {
+          "detail": "User does not have access to the specified organization"
+        }
+        ```
+      </Tab>
+      <Tab title="Solution">
+        Ensure your API key has access to the organization specified in the `x-organization-id` header:
+        
+        ```bash
+        curl -H "X-API-KEY: your-api-key" \
+             -H "x-organization-id: your-org-id" \
+             https://api.trykintsugi.com/v1/tax/estimate
+        ```
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Admin Access Required">
+    <Tabs>
+      <Tab title="Error Response">
+        ```json
+        {
+          "detail": "Admin access required for this endpoint."
+        }
+        ```
+      </Tab>
+      <Tab title="Solution">
+        Use an admin-level API key for this operation. Admin endpoints require elevated permissions.
+      </Tab>
+    </Tabs>
+  </Accordion>
+</AccordionGroup>
+
+### Validation Errors
+
+<AccordionGroup>
+  <Accordion title="Missing Required Fields">
+    ```json
+    {
+      "detail": [
+        {
+          "type": "missing",
+          "loc": ["body", "external_id"],
+          "msg": "Field required",
+          "input": null
+        }
+      ]
+    }
+    ```
+    **Solution**: Include all required fields in your request
+  </Accordion>
+
+  <Accordion title="Invalid Field Values">
+    ```json
+    {
+      "detail": [
+        {
+          "type": "enum",
+          "loc": ["body", "currency"],
+          "msg": "Input should be 'USD', 'CAD', 'EUR'...",
+          "input": "INVALID",
+          "ctx": {"expected": "one of USD, CAD, EUR..."}
+        }
+      ]
+    }
+    ```
+    **Solution**: Use valid enum values as specified in the API documentation
+  </Accordion>
+
+  <Accordion title="Business Logic Violations">
+    ```json
+    {
+      "detail": [
+        {
+          "type": "value_error",
+          "loc": ["body", "discount_amount"],
+          "msg": "'discount_amount' must be less than the 'amount'.",
+          "input": 100.00,
+          "ctx": {"error": "discount exceeds amount"}
+        }
+      ]
+    }
+    ```
+    **Solution**: Ensure your data follows business rules and constraints
+  </Accordion>
+</AccordionGroup>
+
+## Error Handling Best Practices
+
+<Steps>
+  <Step title="Implement Proper HTTP Status Code Handling">
+    Check the response status code and handle each type appropriately:
+    ```python
+    import requests
+    
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 401:
+            # Handle authentication error
+            print("Invalid API key")
+        elif e.response.status_code == 429:
+            # Handle rate limiting
+            retry_after = e.response.headers.get('Retry-After', 60)
+            print(f"Rate limited. Retry after {retry_after} seconds")
+        elif e.response.status_code == 422:
+            # Handle validation errors
+            errors = e.response.json()['detail']
+            for error in errors:
+                print(f"Validation error: {error['msg']}")
+    ```
+  </Step>
+  
+  <Step title="Implement Exponential Backoff">
+    For rate limiting and temporary errors, implement exponential backoff:
+    ```python
+    import time
+    import random
+    
+    def make_request_with_retry(url, headers, max_retries=3):
+        for attempt in range(max_retries):
+            try:
+                response = requests.get(url, headers=headers)
+                response.raise_for_status()
+                return response
+            except requests.exceptions.HTTPError as e:
+                if e.response.status_code == 429:
+                    # Exponential backoff with jitter
+                    wait_time = (2 ** attempt) + random.uniform(0, 1)
+                    time.sleep(wait_time)
+                    continue
+                else:
+                    raise
+        raise Exception("Max retries exceeded")
+    ```
+  </Step>
+  
+  <Step title="Log Errors Appropriately">
+    Log errors with sufficient context for debugging:
+    ```python
+    import logging
+    
+    logger = logging.getLogger(__name__)
+    
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        logger.error(
+            "API request failed",
+            extra={
+                "status_code": e.response.status_code,
+                "url": url,
+                "response_body": e.response.text,
+                "organization_id": headers.get("x-organization-id")
+            }
+        )
+        raise
+    ```
+  </Step>
+  
+  <Step title="Provide User-Friendly Error Messages">
+    Transform technical errors into user-friendly messages:
+    ```python
+    def handle_api_error(error):
+        if error.response.status_code == 401:
+            return "Please check your API key and try again."
+        elif error.response.status_code == 404:
+            return "The requested resource was not found."
+        elif error.response.status_code == 422:
+            return "Please check your input data and try again."
+        elif error.response.status_code == 429:
+            return "Too many requests. Please wait a moment and try again."
+        else:
+            return "An unexpected error occurred. Please try again later."
+    ```
+  </Step>
+</Steps>
+
+## Troubleshooting Common Issues
+
+<AccordionGroup>
+  <Accordion title="Authentication Issues">
+    <Tabs>
+      <Tab title="Missing API Key">
+        **Error**: `API key is missing or empty.`
+        
+        **Solution**: Ensure you're including the `X-API-KEY` header in your requests:
+        ```bash
+        curl -H "X-API-KEY: your-api-key" https://api.trykintsugi.com/v1/tax/estimate
+        ```
+      </Tab>
+      <Tab title="Invalid API Key">
+        **Error**: `Unauthenticated request.`
+        
+        **Solution**: 
+        1. Verify your API key is correct
+        2. Check if the API key is active
+        3. Ensure you're using the organization API key, not a personal key
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Validation Issues">
+    <Tabs>
+      <Tab title="Missing Required Fields">
+        **Error**: `Field required`
+        
+        **Solution**: Check the API documentation for required fields and ensure all are included in your request body.
+      </Tab>
+      <Tab title="Invalid Data Types">
+        **Error**: `Input should be 'USD', 'CAD', 'EUR'...`
+        
+        **Solution**: Use the correct data types and enum values as specified in the API documentation.
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Resource Issues">
+    <Tabs>
+      <Tab title="Resource Not Found">
+        **Error**: `Resource not found`
+        
+        **Solution**: 
+        1. Verify the resource ID is correct
+        2. Check if the resource belongs to your organization
+        3. Ensure the resource hasn't been deleted
+      </Tab>
+      <Tab title="Access Denied">
+        **Error**: `User does not have access to the specified organization`
+        
+        **Solution**: Ensure your API key has access to the organization specified in the `x-organization-id` header.
+      </Tab>
+    </Tabs>
+  </Accordion>
+</AccordionGroup>
 
 ## Related Resources
 
 - [Getting Started](/docs/getting-started)
+- [Rate Limiting](/docs/rate-limiting)
 - [API Reference](/reference)
 - [Support](https://trykintsugi.com/support)

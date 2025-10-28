@@ -64,7 +64,6 @@
               {
                 "group": "Advanced",
                 "pages": [
-                  "docs/webhooks",
                   "docs/rate-limiting",
                   "docs/error-handling"
                 ]
