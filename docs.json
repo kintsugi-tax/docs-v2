@@ -62,6 +62,12 @@
                 ]
               },
               {
+              "group": "Guides",
+              "pages": [
+                "docs/guides/sales-tax-for-developers"              
+                ]
+              },
+              {
                 "group": "Advanced",
                 "pages": [
                   "docs/rate-limiting",
