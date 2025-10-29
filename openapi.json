@@ -6616,6 +6616,12 @@
             "default": false,
             "type": "boolean"
           },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file for this registration (treated as False by default).",
+            "default": false
+          },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
@@ -6714,6 +6720,11 @@
             "type": "string",
             "title": "Credits Total Available",
             "default": "0.00"
+          },
+          "registration_category": {
+            "$ref": "#/components/schemas/RegistrationCategoryEnum",
+            "description": "The category of the registration. Possible values: REGULAR, IMPORTED, DEREGISTRATION.",
+            "default": "REGULAR"
           },
           "password_encrypted": {
             "description": "Encrypted password for accessing the registration,\n        if applicable.",
@@ -12496,7 +12507,8 @@
           "ANNUAL_FISCAL_YEAR",
           "SEMI_MONTHLY",
           "BI_MONTHLY",
-          "FOUR_MONTHLY"
+          "FOUR_MONTHLY",
+          "QUARTERLY_PREPAYMENT"
         ],
         "title": "FilingFrequencyEnum"
       },
@@ -22375,6 +22387,15 @@
         ],
         "title": "RefreshTokenRequest"
       },
+      "RegistrationCategoryEnum": {
+        "type": "string",
+        "enum": [
+          "REGULAR",
+          "IMPORTED",
+          "DEREGISTRATION"
+        ],
+        "title": "RegistrationCategoryEnum"
+      },
       "RegistrationCreatePayload": {
         "properties": {
           "registration_import_type": {
@@ -22419,6 +22440,12 @@
             "description": "Indicates whether the registration was completed automatically.",
             "default": false,
             "type": "boolean"
+          },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file for this registration (treated as False by default).",
+            "default": false
           },
           "registrations_regime": {
             "description": "The tax registration regime (e.g., STANDARD, SIMPLIFIED).",
@@ -22560,6 +22587,12 @@
             "default": false,
             "type": "boolean"
           },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file for this registration (treated as False by default).",
+            "default": false
+          },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
@@ -22658,6 +22691,11 @@
             "type": "string",
             "title": "Credits Total Available",
             "default": "0.00"
+          },
+          "registration_category": {
+            "$ref": "#/components/schemas/RegistrationCategoryEnum",
+            "description": "The category of the registration. Possible values: REGULAR, IMPORTED, DEREGISTRATION.",
+            "default": "REGULAR"
           },
           "registration_type": {
             "$ref": "#/components/schemas/RegistrationTypeEnum",
@@ -22728,6 +22766,12 @@
             "default": false,
             "type": "boolean"
           },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file for this registration (treated as False by default).",
+            "default": false
+          },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
@@ -22826,6 +22870,11 @@
             "type": "string",
             "title": "Credits Total Available",
             "default": "0.00"
+          },
+          "registration_category": {
+            "$ref": "#/components/schemas/RegistrationCategoryEnum",
+            "description": "The category of the registration. Possible values: REGULAR, IMPORTED, DEREGISTRATION.",
+            "default": "REGULAR"
           },
           "password_encrypted": {
             "description": "Encrypted password for accessing the registration,\n        if applicable.",
@@ -22939,6 +22988,12 @@
             "default": false,
             "type": "boolean"
           },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file for this registration (treated as False by default).",
+            "default": false
+          },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
@@ -23042,6 +23097,12 @@
             "description": "Indicates whether third-party access is enabled for this registration.",
             "default": false,
             "type": "boolean"
+          },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file for this registration (treated as False by default).",
+            "default": false
           },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
@@ -23839,6 +23900,7 @@
         "type": "string",
         "enum": [
           "BIGCOMMERCE",
+          "BESTBUY",
           "BUNNY",
           "CHARGEBEE",
           "SHOPIFY",
