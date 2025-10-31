@@ -64,13 +64,14 @@
               {
               "group": "Guides",
               "pages": [
-                "docs/guides/sales-tax-for-developers"              
+                "docs/guides/sales-tax-for-developers",
+                "docs/guides/integrating-kintsugis-api",
+                "docs/guides/migrating-from-avalara-taxjar"
                 ]
               },
               {
                 "group": "Advanced",
                 "pages": [
-                  "docs/rate-limiting",
                   "docs/error-handling"
                 ]
               },
