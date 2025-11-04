@@ -16,7 +16,17 @@ npx @mintlify/scraping openapi-file https://api-doc.trykintsugi.com/openapi.json
 
 # Generate Partners API reference
 echo "📥 Fetching Partners API spec from https://api.trykintsugi.com/openapi.json..."
-npx @mintlify/scraping openapi-file https://api.trykintsugi.com/openapi.json -o reference/partners
+curl -o openapi-partners-temp.json https://api.trykintsugi.com/openapi.json
+
+# Add MCP configuration to Partners API
+echo "🔧 Adding MCP configuration to Partners API spec..."
+./scripts/add-mcp-config.sh openapi-partners-temp.json
+
+# Generate documentation from the MCP-enabled spec
+npx @mintlify/scraping openapi-file openapi-partners-temp.json -o reference/partners
+
+# Move the configured spec to the final location
+mv openapi-partners-temp.json openapi-partners.json
 
 echo "✅ API documentation generated successfully!"
 echo "📁 Customer API files created in: reference/api/"

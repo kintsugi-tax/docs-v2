@@ -13,6 +13,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/generate-api-docs.sh'
+      - 'scripts/add-mcp-config.sh'
 
 jobs:
   update-api-docs:
@@ -45,6 +46,28 @@ jobs:
           curl -o openapi-partners.json https://api.trykintsugi.com/openapi.json
           
           echo "✅ OpenAPI specs downloaded successfully!"
+      
+      - name: Add MCP configuration to Partners API
+        run: |
+          echo "🔧 Adding MCP configuration to Partners API spec..."
+          
+          # Install jq if not available
+          if ! command -v jq &> /dev/null; then
+            echo "📦 Installing jq..."
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+          
+          # Add x-mint.mcp.enabled at the root level to enable MCP for all endpoints
+          # Handle case where x-mint might already exist
+          jq 'if has("x-mint") then 
+            ."x-mint"."mcp" = {"enabled": true} 
+          else 
+            . + {"x-mint": {"mcp": {"enabled": true}}}
+          end' openapi-partners.json > openapi-partners-temp.json
+          
+          mv openapi-partners-temp.json openapi-partners.json
+          
+          echo "✅ MCP configuration added! All Partners API endpoints will be available as MCP tools"
       
       - name: Validate OpenAPI specs
         run: |
