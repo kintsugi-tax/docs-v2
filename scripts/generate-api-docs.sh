@@ -20,7 +20,8 @@ curl -o openapi-partners-temp.json https://api.trykintsugi.com/openapi.json
 
 # Add MCP configuration to Partners API
 echo "🔧 Adding MCP configuration to Partners API spec..."
-./scripts/add-mcp-config.sh openapi-partners-temp.json
+chmod +x scripts/add-mcp-config-to-endpoints.sh
+./scripts/add-mcp-config-to-endpoints.sh openapi-partners-temp.json
 
 # Generate documentation from the MCP-enabled spec
 npx @mintlify/scraping openapi-file openapi-partners-temp.json -o reference/partners

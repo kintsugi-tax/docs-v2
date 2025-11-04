@@ -14,6 +14,7 @@ on:
     paths:
       - 'scripts/generate-api-docs.sh'
       - 'scripts/add-mcp-config.sh'
+      - 'scripts/add-mcp-config-to-endpoints.sh'
 
 jobs:
   update-api-docs:
@@ -57,17 +58,13 @@ jobs:
             sudo apt-get update && sudo apt-get install -y jq
           fi
           
-          # Add x-mint.mcp.enabled at the root level to enable MCP for all endpoints
-          # Handle case where x-mint might already exist
-          jq 'if has("x-mint") then 
-            ."x-mint"."mcp" = {"enabled": true} 
-          else 
-            . + {"x-mint": {"mcp": {"enabled": true}}}
-          end' openapi-partners.json > openapi-partners-temp.json
+          # Make script executable
+          chmod +x scripts/add-mcp-config-to-endpoints.sh
           
-          mv openapi-partners-temp.json openapi-partners.json
+          # Add MCP configuration to root and all endpoints explicitly
+          ./scripts/add-mcp-config-to-endpoints.sh openapi-partners.json
           
-          echo "✅ MCP configuration added! All Partners API endpoints will be available as MCP tools"
+          echo "✅ MCP configuration added! All Partners API endpoints are now explicitly enabled as MCP tools"
       
       - name: Validate OpenAPI specs
         run: |
