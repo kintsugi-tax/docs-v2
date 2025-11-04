@@ -3,10 +3,11 @@
 Create a merged OpenAPI file combining Customer API + Public Partners API endpoints.
 
 This script:
-1. Loads Customer API spec (openapi.json)
+1. Extracts public Customer API endpoints from docs.json ("API Reference")
 2. Extracts public Partners API endpoints from docs.json ("API Reference - Partners")
-3. Merges them into a single OpenAPI file for MCP
-4. Adds MCP configuration to all endpoints
+3. Filters both API specs to only include publicly documented endpoints
+4. Merges them into a single OpenAPI file for MCP
+5. Adds MCP configuration to all endpoints
 """
 
 import json
@@ -14,6 +15,21 @@ import re
 import os
 from pathlib import Path
 from typing import Dict, Set, Tuple
+
+def extract_customer_pages_from_docs(docs_file: str) -> list:
+    """Extract all Customer API reference pages from docs.json."""
+    with open(docs_file, 'r') as f:
+        docs = json.load(f)
+    
+    customer_pages = []
+    for version in docs['navigation']['versions']:
+        for tab in version.get('tabs', []):
+            if tab.get('tab') == 'API Reference':
+                for group in tab.get('pages', []):
+                    if isinstance(group, dict) and 'pages' in group:
+                        customer_pages.extend(group['pages'])
+    
+    return customer_pages
 
 def extract_partners_pages_from_docs(docs_file: str) -> list:
     """Extract all Partners API reference pages from docs.json."""
@@ -30,16 +46,22 @@ def extract_partners_pages_from_docs(docs_file: str) -> list:
     
     return partners_pages
 
-def extract_openapi_paths_from_mdx(partners_pages: list, base_dir: str = 'reference/partners') -> Dict[Tuple[str, str], str]:
+def extract_openapi_paths_from_mdx(pages: list, base_dir: str) -> Dict[Tuple[str, str], str]:
     """
     Extract OpenAPI paths from MDX files.
     Returns: {(method, path): mdx_file_path}
     """
     endpoint_map = {}
     
-    for page in partners_pages:
+    for page in pages:
         # Convert page path to file path
-        mdx_file = f"{base_dir}/{page.replace('reference/partners/', '')}.mdx"
+        # Handle both "reference/api/..." and "reference/partners/..." formats
+        if page.startswith('reference/api/'):
+            mdx_file = f"{base_dir}/{page.replace('reference/api/', '')}.mdx"
+        elif page.startswith('reference/partners/'):
+            mdx_file = f"{base_dir}/{page.replace('reference/partners/', '')}.mdx"
+        else:
+            continue
         
         if os.path.exists(mdx_file):
             with open(mdx_file, 'r') as f:
@@ -53,9 +75,9 @@ def extract_openapi_paths_from_mdx(partners_pages: list, base_dir: str = 'refere
     
     return endpoint_map
 
-def filter_partners_paths(full_partners_spec: dict, endpoint_map: Dict[Tuple[str, str], str]) -> dict:
+def filter_api_paths(full_spec: dict, endpoint_map: Dict[Tuple[str, str], str]) -> dict:
     """
-    Filter Partners OpenAPI spec to only include endpoints in endpoint_map.
+    Filter OpenAPI spec to only include endpoints in endpoint_map.
     Returns just the paths dict.
     """
     filtered_paths = {}
@@ -66,7 +88,7 @@ def filter_partners_paths(full_partners_spec: dict, endpoint_map: Dict[Tuple[str
         paths_to_include.add(path)
     
     # Filter paths
-    for path, methods in full_partners_spec.get('paths', {}).items():
+    for path, methods in full_spec.get('paths', {}).items():
         if path in paths_to_include:
             # Filter methods to only include those in our map
             filtered_methods = {}
@@ -78,15 +100,18 @@ def filter_partners_paths(full_partners_spec: dict, endpoint_map: Dict[Tuple[str
     
     return filtered_paths
 
-def merge_openapi_specs(customer_spec: dict, partners_paths: dict) -> dict:
+def merge_openapi_specs(customer_paths: dict, partners_paths: dict, base_spec: dict) -> dict:
     """
-    Merge Customer API spec with filtered Partners API paths.
+    Merge filtered Customer API paths with filtered Partners API paths.
     Partners paths will override Customer paths if there's a conflict.
+    Uses base_spec for schema definitions and other non-path content.
     """
-    merged = customer_spec.copy()
+    merged = base_spec.copy()
     
-    # Merge paths - Partners paths take precedence if there's a conflict
-    merged_paths = merged.get('paths', {}).copy()
+    # Start with Customer paths
+    merged_paths = customer_paths.copy()
+    
+    # Merge Partners paths - Partners paths take precedence if there's a conflict
     for path, methods in partners_paths.items():
         if path in merged_paths:
             # Merge methods - Partners methods take precedence
@@ -100,9 +125,9 @@ def merge_openapi_specs(customer_spec: dict, partners_paths: dict) -> dict:
     
     # Update info
     if 'info' in merged:
-        merged['info']['title'] = merged['info'].get('title', 'Kintsugi API') + ' (Customer + Partners Public)'
+        merged['info']['title'] = merged['info'].get('title', 'Kintsugi API') + ' (Public API Reference)'
         merged['info']['description'] = (merged['info'].get('description', '') + 
-                                         '\n\nThis spec includes Customer API endpoints and public Partners API endpoints listed in "API Reference - Partners".').strip()
+                                         '\n\nThis spec includes only publicly documented endpoints from the Customer API ("API Reference") and Partners API ("API Reference - Partners").').strip()
     
     return merged
 
@@ -126,50 +151,67 @@ def add_mcp_config(spec: dict) -> dict:
     return spec
 
 def main():
-    print("🔍 Creating merged OpenAPI file (Customer API + Public Partners API)...")
+    print("🔍 Creating merged OpenAPI file (Public Customer API + Public Partners API)...")
     
-    # Step 1: Load Customer API spec
-    print("📥 Loading Customer API spec...")
-    with open('openapi.json', 'r') as f:
-        customer_spec = json.load(f)
-    customer_path_count = len(customer_spec.get('paths', {}))
-    print(f"✅ Loaded Customer API with {customer_path_count} paths")
+    # Step 1: Get public Customer API pages from docs.json
+    print("📥 Extracting public Customer API pages from docs.json...")
+    customer_pages = extract_customer_pages_from_docs('docs.json')
+    print(f"✅ Found {len(customer_pages)} public Customer API pages")
     
     # Step 2: Get public Partners pages from docs.json
     print("📥 Extracting public Partners API pages from docs.json...")
     partners_pages = extract_partners_pages_from_docs('docs.json')
     print(f"✅ Found {len(partners_pages)} public Partners API pages")
     
-    # Step 3: Extract OpenAPI paths from MDX files
-    print("📥 Extracting OpenAPI paths from MDX files...")
-    endpoint_map = extract_openapi_paths_from_mdx(partners_pages)
-    print(f"✅ Mapped {len(endpoint_map)} Partners endpoints from MDX files")
+    # Step 3: Extract OpenAPI paths from Customer API MDX files
+    print("📥 Extracting OpenAPI paths from Customer API MDX files...")
+    customer_endpoint_map = extract_openapi_paths_from_mdx(customer_pages, 'reference/api')
+    print(f"✅ Mapped {len(customer_endpoint_map)} Customer API endpoints from MDX files")
     
-    # Step 4: Load full Partners OpenAPI spec
+    # Step 4: Extract OpenAPI paths from Partners API MDX files
+    print("📥 Extracting OpenAPI paths from Partners API MDX files...")
+    partners_endpoint_map = extract_openapi_paths_from_mdx(partners_pages, 'reference/partners')
+    print(f"✅ Mapped {len(partners_endpoint_map)} Partners API endpoints from MDX files")
+    
+    # Step 5: Load full Customer API spec
+    print("📥 Loading Customer API spec...")
+    with open('openapi.json', 'r') as f:
+        customer_spec = json.load(f)
+    customer_total_paths = len(customer_spec.get('paths', {}))
+    print(f"✅ Loaded Customer API with {customer_total_paths} total paths")
+    
+    # Step 6: Load full Partners OpenAPI spec
     print("📥 Loading Partners API spec...")
     with open('openapi-partners.json', 'r') as f:
         partners_spec = json.load(f)
     partners_total_paths = len(partners_spec.get('paths', {}))
     print(f"✅ Loaded Partners API with {partners_total_paths} total paths")
     
-    # Step 5: Filter Partners paths to only public ones
-    print("🔍 Filtering Partners API to public endpoints only...")
-    filtered_partners_paths = filter_partners_paths(partners_spec, endpoint_map)
-    filtered_count = len(filtered_partners_paths)
-    print(f"✅ Filtered to {filtered_count} public Partners endpoints")
+    # Step 7: Filter Customer API paths to only public ones
+    print("🔍 Filtering Customer API to public endpoints only...")
+    filtered_customer_paths = filter_api_paths(customer_spec, customer_endpoint_map)
+    filtered_customer_count = len(filtered_customer_paths)
+    print(f"✅ Filtered to {filtered_customer_count} public Customer API endpoints")
     
-    # Step 6: Merge Customer + filtered Partners
-    print("🔀 Merging Customer API + Public Partners API...")
-    merged_spec = merge_openapi_specs(customer_spec, filtered_partners_paths)
+    # Step 8: Filter Partners paths to only public ones
+    print("🔍 Filtering Partners API to public endpoints only...")
+    filtered_partners_paths = filter_api_paths(partners_spec, partners_endpoint_map)
+    filtered_partners_count = len(filtered_partners_paths)
+    print(f"✅ Filtered to {filtered_partners_count} public Partners API endpoints")
+    
+    # Step 9: Merge filtered Customer + filtered Partners
+    # Use Customer spec as base (it likely has more complete schemas)
+    print("🔀 Merging filtered Customer API + filtered Partners API...")
+    merged_spec = merge_openapi_specs(filtered_customer_paths, filtered_partners_paths, customer_spec)
     merged_path_count = len(merged_spec.get('paths', {}))
     print(f"✅ Merged spec contains {merged_path_count} total paths")
     
-    # Step 7: Add MCP configuration
+    # Step 10: Add MCP configuration
     print("🔧 Adding MCP configuration...")
     merged_spec = add_mcp_config(merged_spec)
     print("✅ MCP configuration added to all endpoints")
     
-    # Step 8: Save merged spec
+    # Step 11: Save merged spec
     output_file = 'openapi.json'
     print(f"💾 Saving merged OpenAPI spec to {output_file}...")
     with open(output_file, 'w') as f:
@@ -177,8 +219,8 @@ def main():
     
     print(f"✅ Created merged OpenAPI spec: {output_file}")
     print(f"📋 Contains:")
-    print(f"   - {customer_path_count} Customer API paths")
-    print(f"   - {filtered_count} Public Partners API paths")
+    print(f"   - {filtered_customer_count} public Customer API paths (filtered from {customer_total_paths} total)")
+    print(f"   - {filtered_partners_count} public Partners API paths (filtered from {partners_total_paths} total)")
     print(f"   - {merged_path_count} total paths")
     print(f"   - All endpoints have MCP enabled")
 
