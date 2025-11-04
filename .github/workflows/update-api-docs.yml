@@ -54,22 +54,19 @@ jobs:
           
           echo "✅ OpenAPI specs downloaded successfully!"
       
-      - name: Create merged OpenAPI file
+      - name: Create OpenAPI file for MCP
         run: |
-          echo "🔧 Creating merged OpenAPI file (Customer API + Public Partners API)..."
-          
-          # Copy Customer API to openapi.json temporarily (script expects it)
-          cp openapi-customer.json openapi.json
+          echo "🔧 Creating OpenAPI file for MCP from 'API Reference - Partners' endpoints..."
           
           # Make script executable
           chmod +x scripts/create-merged-openapi.py
           
-          # Run script to create merged file
+          # Run script to create openapi.json with only endpoints from "API Reference - Partners"
           python3 scripts/create-merged-openapi.py
           
-          echo "✅ Merged OpenAPI file created!"
-          echo "  - Contains Customer API endpoints"
-          echo "  - Contains Public Partners API endpoints (from 'API Reference - Partners')"
+          echo "✅ OpenAPI file for MCP created!"
+          echo "  - Contains only endpoints explicitly listed in 'API Reference - Partners'"
+          echo "  - Includes Customer API endpoints + additional Partners endpoints"
           echo "  - All endpoints have MCP enabled"
       
       - name: Validate OpenAPI spec
@@ -123,10 +120,11 @@ jobs:
           git add openapi-customer.json openapi-partners.json openapi.json reference/api/
           git commit -m "🤖 Auto-update API documentation and OpenAPI spec [skip ci]
 
-          - Updated merged openapi.json (Customer API + Public Partners API endpoints)
+          - Updated openapi.json with endpoints from 'API Reference - Partners'
           - Source: Customer API from https://api-doc.trykintsugi.com/openapi.json
-          - Source: Public Partners API endpoints from 'API Reference - Partners' section
-          - All endpoints have MCP enabled for single /mcp server
+          - Source: Partners API from https://api.trykintsugi.com/openapi.json
+          - Only endpoints explicitly listed in 'API Reference - Partners' are included
+          - All endpoints have MCP enabled for /mcp route
           - Regenerated API reference documentation
           - Generated on: $(date)"
           git push
