@@ -15,8 +15,7 @@ on:
       - 'scripts/generate-api-docs.sh'
       - 'scripts/add-mcp-config.sh'
       - 'scripts/add-mcp-config-to-endpoints.sh'
-      - 'scripts/extract-public-partners-endpoints.py'
-      - 'scripts/setup-mcp-servers.sh'
+      - 'scripts/create-merged-openapi.py'
 
 jobs:
   update-api-docs:
@@ -33,6 +32,11 @@ jobs:
         with:
           node-version: '18'
       
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
       - name: Install Mintlify scraper
         run: npm install -g @mintlify/scraping
       
@@ -42,7 +46,7 @@ jobs:
           
           # Download Customer API spec
           echo "📥 Fetching Customer API spec..."
-          curl -o openapi.json https://api-doc.trykintsugi.com/openapi.json
+          curl -o openapi-customer.json https://api-doc.trykintsugi.com/openapi.json
           
           # Download Partners API spec  
           echo "📥 Fetching Partners API spec..."
@@ -50,77 +54,51 @@ jobs:
           
           echo "✅ OpenAPI specs downloaded successfully!"
       
-      - name: Setup MCP servers
+      - name: Create merged OpenAPI file
         run: |
-          echo "🔧 Setting up MCP servers..."
+          echo "🔧 Creating merged OpenAPI file (Customer API + Public Partners API)..."
           
-          # Install jq if not available
-          if ! command -v jq &> /dev/null; then
-            echo "📦 Installing jq..."
-            sudo apt-get update && sudo apt-get install -y jq
-          fi
+          # Copy Customer API to openapi.json temporarily (script expects it)
+          cp openapi-customer.json openapi.json
           
-          # Make scripts executable
-          chmod +x scripts/add-mcp-config-to-endpoints.sh
-          chmod +x scripts/extract-public-partners-endpoints.py
-          chmod +x scripts/setup-mcp-servers.sh
+          # Make script executable
+          chmod +x scripts/create-merged-openapi.py
           
-          # Download Customer API and add MCP config (mcp-public)
-          echo "📥 Downloading Customer API spec..."
-          curl -s https://api-doc.trykintsugi.com/openapi.json -o openapi.json
-          ./scripts/add-mcp-config-to-endpoints.sh openapi.json
+          # Run script to create merged file
+          python3 scripts/create-merged-openapi.py
           
-          # Ensure Partners API has MCP config (mcp-internal)
-          echo "🔧 Configuring Partners API (internal)..."
-          ./scripts/add-mcp-config-to-endpoints.sh openapi-partners.json
-          
-          # Create filtered Partners API spec (mcp-partners)
-          echo "🔧 Creating filtered Partners API spec (public)..."
-          python3 scripts/extract-public-partners-endpoints.py
-          
-          echo "✅ MCP servers configured!"
-          echo "  - /mcp-public: Customer API"
-          echo "  - /mcp-partners: Public Partners API endpoints"
-          echo "  - /mcp-internal: All Partners API endpoints"
+          echo "✅ Merged OpenAPI file created!"
+          echo "  - Contains Customer API endpoints"
+          echo "  - Contains Public Partners API endpoints (from 'API Reference - Partners')"
+          echo "  - All endpoints have MCP enabled"
       
-      - name: Validate OpenAPI specs
+      - name: Validate OpenAPI spec
         run: |
-          echo "🔍 Validating OpenAPI specifications..."
+          echo "🔍 Validating merged OpenAPI specification..."
           
-          # Check if files exist and are not empty
+          # Check if merged file exists and is not empty
           if [ ! -s openapi.json ]; then
-            echo "❌ Customer API spec is empty or missing"
-            exit 1
-          fi
-          
-          if [ ! -s openapi-partners.json ]; then
-            echo "❌ Partners API spec is empty or missing"
-            exit 1
-          fi
-          
-          if [ ! -s openapi-partners-public.json ]; then
-            echo "❌ Partners API public spec is empty or missing"
+            echo "❌ Merged OpenAPI spec is empty or missing"
             exit 1
           fi
           
           # Verify MCP configuration
           echo "🔍 Verifying MCP configuration..."
-          jq -e '."x-mint".mcp.enabled == true' openapi.json > /dev/null && echo "✅ Customer API has MCP enabled" || echo "❌ Customer API missing MCP config"
-          jq -e '."x-mint".mcp.enabled == true' openapi-partners.json > /dev/null && echo "✅ Partners API (internal) has MCP enabled" || echo "❌ Partners API (internal) missing MCP config"
-          jq -e '."x-mint".mcp.enabled == true' openapi-partners-public.json > /dev/null && echo "✅ Partners API (public) has MCP enabled" || echo "❌ Partners API (public) missing MCP config"
+          jq -e '."x-mint".mcp.enabled == true' openapi.json > /dev/null && echo "✅ Merged OpenAPI has MCP enabled" || echo "❌ Merged OpenAPI missing MCP config"
           
-          echo "✅ OpenAPI specs are valid!"
+          # Count paths
+          path_count=$(jq '.paths | length' openapi.json)
+          echo "✅ Merged OpenAPI spec contains $path_count paths"
+          
+          echo "✅ OpenAPI spec is valid!"
       
       - name: Generate API documentation
         run: |
-          echo "🚀 Generating API documentation from OpenAPI specs..."
+          echo "🚀 Generating API documentation from merged OpenAPI spec..."
           mkdir -p reference/api reference/partners
           
-          echo "📥 Generating Customer API reference..."
+          echo "📥 Generating API reference documentation..."
           npx @mintlify/scraping openapi-file openapi.json -o reference/api
-          
-          echo "📥 Generating Partners API reference..."
-          npx @mintlify/scraping openapi-file openapi-partners.json -o reference/partners
           
           echo "✅ API documentation generated successfully!"
       
@@ -141,18 +119,19 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           
-          # Add all changes (OpenAPI files + generated docs)
-          git add openapi.json openapi-partners.json openapi-partners-public.json reference/api/ reference/partners/
-          git commit -m "🤖 Auto-update API documentation and OpenAPI specs [skip ci]
+          # Add all changes (merged OpenAPI file + generated docs)
+          git add openapi.json reference/api/
+          git commit -m "🤖 Auto-update API documentation and OpenAPI spec [skip ci]
 
-          - Updated openapi.json from https://api-doc.trykintsugi.com/openapi.json (→ /mcp-public)
-          - Updated openapi-partners.json from https://api.trykintsugi.com/openapi.json (→ /mcp-internal)
-          - Generated openapi-partners-public.json with public endpoints only (→ /mcp-partners)
+          - Updated merged openapi.json (Customer API + Public Partners API endpoints)
+          - Source: Customer API from https://api-doc.trykintsugi.com/openapi.json
+          - Source: Public Partners API endpoints from 'API Reference - Partners' section
+          - All endpoints have MCP enabled for single /mcp server
           - Regenerated API reference documentation
           - Generated on: $(date)"
           git push
           
-          echo "✅ API documentation and OpenAPI specs updated and committed"
+          echo "✅ API documentation and OpenAPI spec updated and committed"
       
       - name: No changes message
         if: steps.changes.outputs.changed == 'false'

@@ -5,15 +5,7 @@
   "openapi": [
     {
       "url": "./openapi.json",
-      "label": "Customer API"
-    },
-    {
-      "url": "./openapi-partners-public.json",
-      "label": "Partners API (Public)"
-    },
-    {
-      "url": "./openapi-partners.json", 
-      "label": "Partners API (Internal)"
+      "label": "API Reference"
     }
   ],
   "api": {

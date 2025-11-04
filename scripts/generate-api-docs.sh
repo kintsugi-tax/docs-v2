@@ -1,40 +1,33 @@
 #!/bin/bash
 
-# Script to generate API documentation from OpenAPI specs
+# Script to generate API documentation from merged OpenAPI spec
 # Usage: ./scripts/generate-api-docs.sh
 
 set -e
 
-echo "🚀 Generating API documentation from OpenAPI specs..."
+echo "🚀 Generating API documentation from merged OpenAPI spec..."
 
 # Create reference directories if they don't exist
-mkdir -p reference/api reference/partners
+mkdir -p reference/api
 
-# Setup all MCP servers first
-echo "🔧 Setting up MCP servers..."
-chmod +x scripts/setup-mcp-servers.sh
-./scripts/setup-mcp-servers.sh
+# Ensure merged OpenAPI file exists
+if [ ! -f "openapi.json" ]; then
+    echo "❌ Error: openapi.json not found"
+    echo "Please run create-merged-openapi.py first or ensure the file exists"
+    exit 1
+fi
 
-# Generate Customer API reference
-echo "📥 Generating Customer API reference..."
+# Generate API reference from merged spec
+echo "📥 Generating API reference documentation..."
 npx @mintlify/scraping openapi-file openapi.json -o reference/api
 
-# Generate Partners API reference (from full spec)
-echo "📥 Generating Partners API reference..."
-npx @mintlify/scraping openapi-file openapi-partners.json -o reference/partners
-
 echo "✅ API documentation generated successfully!"
-echo "📁 Customer API files created in: reference/api/"
-echo "📁 Partners API files created in: reference/partners/"
-echo "🔗 Both API references are configured in docs.json"
+echo "📁 API reference files created in: reference/api/"
+echo "🔗 Merged OpenAPI file includes Customer API + Public Partners API endpoints"
 
 # List generated files
-echo "📋 Customer API files:"
-find reference/api -name "*.mdx" | head -5
+echo "📋 Generated API reference files:"
+find reference/api -name "*.mdx" | head -10
 echo "... (and more)"
 
-echo "📋 Partners API files:"
-find reference/partners -name "*.mdx" | head -5
-echo "... (and more)"
-
-echo "🎉 Done! Both API references are ready."
+echo "🎉 Done! API reference documentation is ready."

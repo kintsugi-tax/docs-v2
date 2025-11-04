@@ -1,14 +1,14 @@
 # MCP (Model Context Protocol) Setup
 
-This document explains how MCP is configured for the Kintsugi Partners API documentation.
+This document explains how MCP is configured for the Kintsugi API documentation.
 
 ## Overview
 
-The Model Context Protocol (MCP) enables AI tools (like Claude, Cursor, VS Code) to access your documentation and API endpoints. Our setup automatically enables MCP for all endpoints in the Partners API reference.
+The Model Context Protocol (MCP) enables AI tools (like Claude, Cursor, VS Code) to access your documentation and API endpoints. Our setup automatically enables MCP for all Customer API endpoints and public Partners API endpoints listed in the "API Reference - Partners" section.
 
 ## Configuration
 
-MCP is configured at the file level in the `openapi-partners.json` file using the `x-mint` extension:
+MCP is configured at the file level in the merged `openapi.json` file using the `x-mint` extension:
 
 ```json
 {
@@ -22,36 +22,47 @@ MCP is configured at the file level in the `openapi-partners.json` file using th
 }
 ```
 
-This enables MCP for **all endpoints** in the Partners API by default. New endpoints that are added to the API will automatically be available as MCP tools once the OpenAPI spec is updated.
+The merged OpenAPI file includes:
+- **Customer API endpoints** - All endpoints from the Customer API
+- **Public Partners API endpoints** - Only endpoints listed in the "API Reference - Partners" section of `docs.json`
+
+All endpoints in the merged file have MCP enabled. New endpoints that are added to either API will automatically be available as MCP tools once the OpenAPI spec is updated.
 
 ## Automatic Updates
 
-The MCP configuration is automatically applied in two places:
+The MCP configuration is automatically applied via:
 
-1. **GitHub Actions Workflow** (`.github/workflows/update-api-docs.yml`):
-   - Runs every 6 hours
-   - Downloads the latest OpenAPI spec from `https://api.trykintsugi.com/openapi.json`
-   - Automatically adds MCP configuration
-   - Regenerates documentation
-   - Commits changes if updates are detected
-
-2. **Local Script** (`scripts/generate-api-docs.sh`):
-   - Can be run manually for local development
-   - Uses `scripts/add-mcp-config.sh` to add MCP configuration
+**GitHub Actions Workflow** (`.github/workflows/update-api-docs.yml`):
+- Runs every 6 hours
+- Downloads Customer API spec from `https://api-doc.trykintsugi.com/openapi.json`
+- Downloads Partners API spec from `https://api.trykintsugi.com/openapi.json`
+- Extracts public Partners endpoints from "API Reference - Partners" section
+- Merges Customer API + Public Partners endpoints into single `openapi.json`
+- Automatically adds MCP configuration to all endpoints
+- Regenerates documentation
+- Commits changes if updates are detected
 
 ## How It Works
 
-When the OpenAPI spec is downloaded:
-1. The spec is fetched from the API endpoint
-2. The `add-mcp-config.sh` script adds the `x-mint.mcp.enabled: true` configuration
-3. Mintlify generates documentation with MCP enabled
-4. The MCP server is automatically available at `https://[your-docs-url]/mcp`
+When the workflow runs:
+1. Customer API spec is fetched from `https://api-doc.trykintsugi.com/openapi.json`
+2. Partners API spec is fetched from `https://api.trykintsugi.com/openapi.json`
+3. The `create-merged-openapi.py` script:
+   - Reads `docs.json` to find all pages in "API Reference - Partners"
+   - Extracts OpenAPI paths from MDX files
+   - Filters Partners API to only include public endpoints
+   - Merges Customer API + filtered Partners API into one file
+   - Adds `x-mint.mcp.enabled: true` to root and all endpoint operations
+4. Mintlify generates documentation with MCP enabled
+5. The MCP server is automatically available at `https://[your-docs-url]/mcp`
 
 ## MCP Server Access
 
 Once deployed, your MCP server will be available at:
-- **URL**: `https://[your-mintlify-docs-url]/mcp`
+- **URL**: `https://kintsugi.mintlify.app/mcp`
 - You can find this URL in your Mintlify dashboard under the MCP Server section
+
+**Note**: Mintlify only supports a single MCP server per documentation site. The merged OpenAPI file ensures all relevant endpoints are included in the single `/mcp` server.
 
 ## Security
 
@@ -80,7 +91,7 @@ To disable MCP for specific endpoints, you can add endpoint-level configuration:
 }
 ```
 
-However, since we're using file-level configuration, all endpoints are enabled by default. If you need to exclude specific endpoints, you would need to modify the script to handle exclusions.
+However, since we're using file-level configuration, all endpoints are enabled by default. If you need to exclude specific endpoints, you would need to modify the `create-merged-openapi.py` script to handle exclusions.
 
 ## Monitoring
 
@@ -90,4 +101,3 @@ You can monitor your MCP server and view all available tools in the Mintlify das
 
 - [Mintlify MCP Documentation](https://www.mintlify.com/docs/ai/model-context-protocol)
 - [Model Context Protocol Specification](https://modelcontextprotocol.io/)
-
