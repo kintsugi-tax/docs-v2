@@ -1,8 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Tax Platform",
-    "version": "1.0.0"
+    "title": "Tax Platform (Customer + Partners Public)",
+    "version": "1.0.0",
+    "description": "This spec includes Customer API endpoints and public Partners API endpoints listed in \"API Reference - Partners\"."
   },
   "paths": {
     "/v1/address_validation/search": {
@@ -128,6 +129,9 @@
         "security": [
           {
             "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "x-mint": {
@@ -147,8 +151,31 @@
         "operationId": "suggestions_v1_address_validation_suggestions_post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -263,8 +290,10 @@
         "operationId": "get_customers_v1",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -273,8 +302,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Search term to filter customers by name or other details",
-              "type": "string"
+              "title": "Search Query"
             },
             "description": "Search term to filter customers by name or other details",
             "example": "John"
@@ -284,11 +321,26 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/CountryCodeEnum"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Country code in ISO 3166-1 alpha-2 format (e.g., 'US')",
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/CountryCodeEnum"
-              }
+              "title": "Country"
             },
             "description": "Country code in ISO 3166-1 alpha-2 format (e.g., 'US')",
             "example": "US"
@@ -298,8 +350,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "State or province code to filter customers",
-              "type": "string"
+              "title": "State"
             },
             "description": "State or province code to filter customers",
             "example": "CA"
@@ -309,8 +369,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter customers by source (comma-separated)",
-              "type": "string"
+              "title": "Source  In"
             },
             "description": "Filter customers by source (comma-separated)",
             "example": "SHOPIFY,API"
@@ -320,8 +388,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Comma-separated list of fields to sort results by.",
-              "type": "string"
+              "title": "Order By"
             },
             "description": "Comma-separated list of fields to sort results by.",
             "example": "created_at,street_1,street_2,city,state,postal_code,country,status"
@@ -352,6 +428,25 @@
               "title": "Size"
             },
             "description": "Page size"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -475,8 +570,31 @@
         "operationId": "create_customer_v1_customers_post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -617,8 +735,10 @@
         "operationId": "get_customer_by_id_v1_customers__customer_id__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -633,6 +753,25 @@
             },
             "description": "Unique identifier of the customer",
             "example": "cust_abc123"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -703,8 +842,10 @@
         "operationId": "update_customer_v1_customers__customer_id__put",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -718,6 +859,25 @@
               "title": "Customer Id"
             },
             "description": "Unique identifier of the customer to be retrieved."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -859,8 +1019,10 @@
         "operationId": "get_customer_by_external_id_v1_customers_external__external_id__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -875,6 +1037,25 @@
             },
             "description": "The external identifier of the customer to retrieve.",
             "example": "external_12345"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -946,8 +1127,10 @@
         "operationId": "get_transactions_by_customer_id_v1_customers__customer_id__transactions_get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -959,6 +1142,25 @@
               "type": "string",
               "title": "Customer Id"
             }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -1002,8 +1204,10 @@
         "operationId": "create_transaction_by_customer_id_v1_customers__customer_id__transactions_post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -1015,6 +1219,25 @@
               "type": "string",
               "title": "Customer Id"
             }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -1066,8 +1289,10 @@
         "operationId": "get_exemptions_v1_exemptions_get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -1076,8 +1301,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Search term to filter exemptions by exemption ID, customer name, or customer email",
-              "type": "string"
+              "title": "Search Query"
             },
             "description": "Search term to filter exemptions by exemption ID, customer name, or customer email",
             "example": "John"
@@ -1087,9 +1320,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter exemptions by their status",
               "default": "ACTIVE,INACTIVE,EXPIRED",
-              "type": "string"
+              "title": "Status  In"
             },
             "description": "Filter exemptions by their status"
           },
@@ -1098,11 +1339,26 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/CountryCodeEnum"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Country code in ISO 3166-1 alpha-2 format",
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/CountryCodeEnum"
-              }
+              "title": "Country Code"
             },
             "description": "Country code in ISO 3166-1 alpha-2 format",
             "example": "US"
@@ -1112,8 +1368,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Jurisdiction identifier",
-              "type": "string"
+              "title": "Jurisdiction"
             },
             "description": "Jurisdiction identifier",
             "example": "CA"
@@ -1123,8 +1387,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Start date for filtering exemptions",
-              "type": "string"
+              "title": "Start Date"
             },
             "description": "Start date for filtering exemptions",
             "example": "2024-01-01"
@@ -1134,8 +1407,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "End date for filtering exemptions",
-              "type": "string"
+              "title": "End Date"
             },
             "description": "End date for filtering exemptions",
             "example": "2024-01-01"
@@ -1145,8 +1427,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Customer ID to filter exemptions",
-              "type": "string"
+              "title": "Customer Id"
             },
             "description": "Customer ID to filter exemptions",
             "example": "cust_1234"
@@ -1156,8 +1446,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Transaction ID to filter exemptions",
-              "type": "string"
+              "title": "Transaction Id"
             },
             "description": "Transaction ID to filter exemptions",
             "example": "trans_1234"
@@ -1167,9 +1465,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Fields to sort by (comma-separated)",
               "default": "end_date,FEIN,sales_tax_id,status",
-              "type": "string"
+              "title": "Order By"
             },
             "description": "Fields to sort by (comma-separated)"
           },
@@ -1199,6 +1505,25 @@
               "title": "Size"
             },
             "description": "Page size"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -1300,8 +1625,31 @@
         "operationId": "create_exemption_v1_exemptions_post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -1437,8 +1785,10 @@
         "operationId": "get_exemption_by_id_v1_exemptions__exemption_id__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -1452,6 +1802,25 @@
               "title": "Exemption Id"
             },
             "description": "The unique identifier for the exemption being retrieved."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -1547,8 +1916,10 @@
         "operationId": "upload_exemption_certificate_v1_exemptions__exemption_id__attachments_post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -1562,6 +1933,25 @@
               "title": "Exemption Id"
             },
             "description": "The unique identifier for the exemption to which the attachment will be associated."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -1751,8 +2141,10 @@
         "operationId": "get_filings_v1_filings_get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -1761,9 +2153,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter filings by status",
               "default": "FILED,FILING,UNFILED,PAUSED",
-              "type": "string"
+              "title": "Status  In"
             },
             "description": "Filter filings by status",
             "example": "FILED,FILING,UNFILED,PAUSED"
@@ -1773,8 +2173,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter filings with a start date greater than or equal to this date.",
-              "type": "string"
+              "title": "Start Date"
             },
             "description": "Filter filings with a start date greater than or equal to this date.",
             "example": "2024-01-01"
@@ -1784,8 +2193,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter filings with an end date less than or equal to this date.",
-              "type": "string"
+              "title": "End Date"
             },
             "description": "Filter filings with an end date less than or equal to this date.",
             "example": "2024-12-31"
@@ -1795,8 +2213,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter filings filed on or after this date.",
-              "type": "string"
+              "title": "Date Filed  Gte"
             },
             "description": "Filter filings filed on or after this date.",
             "example": "2024-01-01"
@@ -1806,8 +2233,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter filings filed on or before this date.",
-              "type": "string"
+              "title": "Date Filed  Lte"
             },
             "description": "Filter filings filed on or before this date.",
             "example": "2024-12-31"
@@ -1817,8 +2253,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Comma-separated list of fields to sort the results.",
-              "type": "string"
+              "title": "Order By"
             },
             "description": "Comma-separated list of fields to sort the results.",
             "example": "status,start_date,end_date,amount"
@@ -1828,8 +2272,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter filings by state code (e.g., CA for California).",
-              "type": "string"
+              "title": "State Code"
             },
             "description": "Filter filings by state code (e.g., CA for California).",
             "example": "CA"
@@ -1839,11 +2291,26 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/CountryCodeEnum"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter filings by country code in ISO 3166-1 alpha-2 format (e.g., US).",
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/CountryCodeEnum"
-              }
+              "title": "Country Code"
             },
             "description": "Filter filings by country code in ISO 3166-1 alpha-2 format (e.g., US).",
             "example": "US"
@@ -1874,6 +2341,25 @@
               "title": "Size"
             },
             "description": "Page size"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -2020,6 +2506,80 @@
             "enabled": true
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Filings"
+        ],
+        "summary": "Create Filing",
+        "description": "Create a new filing record.",
+        "operationId": "create_filing_v1_filings_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilingCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilingRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
       }
     },
     "/v1/filings/{filing_id}": {
@@ -2032,8 +2592,10 @@
         "operationId": "get_filing_by_id_v1_filings__filing_id__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -2047,8 +2609,203 @@
               "title": "Filing Id"
             },
             "description": "Unique identifier for the filing to retrieve."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved filing by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilingDetailsRead"
+                },
+                "example": {
+                  "status": "UNFILED",
+                  "start_date": "2023-01-01",
+                  "end_date": "2023-12-31",
+                  "due_date": "2024-01-20",
+                  "is_manual": true,
+                  "state_code": "XX",
+                  "state_name": "Dummy State",
+                  "country_code": "XY",
+                  "auto_approved": false,
+                  "amount_calculated": "1000.00",
+                  "amount_adjusted": "50.00",
+                  "amount_discounts": "25.00",
+                  "amount_fees": "10.00",
+                  "amount_penalties": "5.00",
+                  "amount_tax_collected": "200.00",
+                  "amount_sales": "5000.00",
+                  "amount": "980.00",
+                  "total_tax_liability": "1200.00",
+                  "transaction_count": 15,
+                  "internal_notes": "Sample internal notes.",
+                  "tax_remitted": "100.00",
+                  "return_confirmation_id": "dummy_return_id_123",
+                  "payment_confirmation_id": "dummy_payment_id_456",
+                  "id": "file_dummy_id_789",
+                  "registration_id": "regs_dummy_id_101",
+                  "can_file": true,
+                  "credits_utilized": "10.00"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Not Found."
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated request.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "The request is missing a valid x-api-key."
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": [
+                    {
+                      "type": "date_from_datetime_parsing",
+                      "loc": [
+                        "query",
+                        "start_date"
+                      ],
+                      "msg": "Input should be a valid date or datetime, input is too short",
+                      "input": "23rdJan",
+                      "ctx": {
+                        "error": "input is too short"
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/backend__src__filings__responses__ValidationErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "An unexpected error occurred"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Filings"
+        ],
+        "summary": "Update Filing",
+        "description": "The Update Filing API is used to approve or pause a filing by its unique ID.",
+        "operationId": "update_filing_v1_filings__filing_id__put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "filing_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Unique identifier for the filing to retrieve.",
+              "title": "Filing Id"
+            },
+            "description": "Unique identifier for the filing to retrieve."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/UpdateFilingTemp"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Filing Update"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successfully retrieved filing by id",
@@ -2172,8 +2929,10 @@
         "operationId": "get_filings_by_registration_id_v1_filings_registration__registration_id__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -2214,6 +2973,25 @@
               "title": "Size"
             },
             "description": "Page size"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -2342,8 +3120,10 @@
         "operationId": "get_physical_nexus_v1_nexus_physical_nexus_get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -2352,7 +3132,15 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Country Code"
             }
           },
           {
@@ -2360,7 +3148,15 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "State Code"
             }
           },
           {
@@ -2368,8 +3164,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "default": "country_code,state_code,start_date,end_date",
-              "type": "string"
+              "title": "Order By"
             }
           },
           {
@@ -2398,6 +3202,25 @@
               "title": "Size"
             },
             "description": "Page size"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -2534,8 +3357,31 @@
         "operationId": "create_physical_nexus_v1_nexus_physical_nexus_post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -2646,8 +3492,10 @@
         "operationId": "update_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__put",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -2661,6 +3509,25 @@
               "title": "Physical Nexus Id"
             },
             "description": "The unique identifier of the physical\n                                nexus to update."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -2778,8 +3645,10 @@
         "operationId": "delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -2793,6 +3662,25 @@
               "title": "Physical Nexus Id"
             },
             "description": "The unique identifier of the physical\n                                nexus to delete."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -2883,8 +3771,10 @@
         "operationId": "get_nexus_for_org_v1_nexus_get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -2905,8 +3795,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter nexuses by disregard view: 'exposed' or 'disregarded'",
-              "type": "string"
+              "title": "Disregard View"
             },
             "description": "Filter nexuses by disregard view: 'exposed' or 'disregarded'"
           },
@@ -2915,8 +3813,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "default": "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED",
-              "type": "string"
+              "title": "Status  In"
             }
           },
           {
@@ -2924,7 +3830,15 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "State Code"
             }
           },
           {
@@ -2932,7 +3846,15 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Country Code  In"
             }
           },
           {
@@ -2940,8 +3862,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "default": "state_code,country_code",
-              "type": "string"
+              "title": "Order By"
             }
           },
           {
@@ -2949,7 +3879,15 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "boolean"
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Collected Tax Nexus Met"
             }
           },
           {
@@ -2974,6 +3912,25 @@
               "default": 50,
               "title": "Size"
             }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -2982,8 +3939,18 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Get Nexus For Org V1 Nexus Get",
-                  "$ref": "#/components/schemas/Page_NexusResponse_"
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Page_NexusResponse_"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/NexusResponse"
+                      }
+                    }
+                  ],
+                  "title": "Response Get Nexus For Org V1 Nexus Get"
                 }
               }
             }
@@ -3016,8 +3983,10 @@
         "operationId": "get_products_v1_products__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -3026,8 +3995,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Search term to filter products by name or other details.",
-              "type": "string"
+              "title": "Query"
             },
             "description": "Search term to filter products by name or other details."
           },
@@ -3036,8 +4013,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter products by status (comma-separated)",
-              "type": "string"
+              "title": "Status  In"
             },
             "description": "Filter products by status (comma-separated)"
           },
@@ -3046,8 +4031,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter products by category (comma-separated)",
-              "type": "string"
+              "title": "Product Category  In"
             },
             "description": "Filter products by category (comma-separated)"
           },
@@ -3056,8 +4049,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter products by subcategory (comma-separated)",
-              "type": "string"
+              "title": "Product Subcategory  In"
             },
             "description": "Filter products by subcategory (comma-separated)"
           },
@@ -3066,8 +4067,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter products by source (comma-separated)",
-              "type": "string"
+              "title": "Source  In"
             },
             "description": "Filter products by source (comma-separated)"
           },
@@ -3076,8 +4085,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Order results by specified fields (comma-separated)",
-              "type": "string"
+              "title": "Order By"
             },
             "description": "Order results by specified fields (comma-separated)"
           },
@@ -3107,6 +4124,25 @@
               "title": "Size"
             },
             "description": "Page size"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -3231,8 +4267,31 @@
         "operationId": "create_product_v1_products__post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -3354,8 +4413,10 @@
         "operationId": "get_product_by_id_v1_products__product_id__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -3369,6 +4430,25 @@
               "title": "Product Id"
             },
             "description": "The unique identifier for the product you want to retrieve."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -3469,8 +4549,10 @@
         "operationId": "update_product_v1_products__product_id__put",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -3484,6 +4566,25 @@
               "title": "Product Id"
             },
             "description": "Unique identifier of the product to be updated."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -3491,8 +4592,15 @@
           "content": {
             "application/json": {
               "schema": {
-                "title": "Product",
-                "$ref": "#/components/schemas/ProductUpdate"
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ProductUpdate"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ProductUpdateV2"
+                  }
+                ],
+                "title": "Product"
               },
               "example": {
                 "external_id": "prod_001",
@@ -3607,8 +4715,31 @@
         "operationId": "get_product_categories_v1_products_categories__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -3654,8 +4785,10 @@
         "operationId": "get_registrations_v1_registrations_get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -3698,11 +4831,26 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/CountryCodeEnum"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter registrations by country code in ISO 3166-1 alpha-2 format\n        (e.g., US, CA).",
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/CountryCodeEnum"
-              }
+              "title": "Country Code  In"
             },
             "description": "Filter registrations by country code in ISO 3166-1 alpha-2 format\n        (e.g., US, CA)."
           },
@@ -3711,8 +4859,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Order results by specified fields (comma-separated)",
-              "type": "string"
+              "title": "Order By"
             },
             "description": "Order results by specified fields (comma-separated)"
           },
@@ -3742,6 +4898,25 @@
               "title": "Size"
             },
             "description": "Page size"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -3884,8 +5059,28 @@
         "operationId": "create_registration_v1_registrations_post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Organization-Id"
+            }
           }
         ],
         "requestBody": {
@@ -4079,8 +5274,10 @@
         "operationId": "get_registration_by_id_v1_registrations__registration_id__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -4094,6 +5291,25 @@
               "title": "Registration Id"
             },
             "description": "The unique identifier of the\n                                registration to retrieve."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -4198,8 +5414,10 @@
         "operationId": "update_registration_v1_registrations__registration_id__put",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -4213,6 +5431,25 @@
               "title": "Registration Id"
             },
             "description": "The unique identifier of the registration to be updated."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -4344,8 +5581,10 @@
         "operationId": "deregister_registration_v1_registrations__registration_id__deregister_post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -4360,6 +5599,25 @@
             },
             "description": "The unique identifier of the registration to deregister.",
             "example": "regs_123456"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -4466,8 +5724,10 @@
         "operationId": "get_transactions_v1_transactions_get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -4476,8 +5736,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter transactions by state code.",
-              "type": "string"
+              "title": "State Code"
             },
             "description": "Filter transactions by state code."
           },
@@ -4486,8 +5754,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter by transaction type (e.g., SALE, FULL_CREDIT_NOTE,\n        PARTIAL_CREDIT_NOTE, ARCHIVE etc.).",
-              "type": "string"
+              "title": "Transaction Type"
             },
             "description": "Filter by transaction type (e.g., SALE, FULL_CREDIT_NOTE,\n        PARTIAL_CREDIT_NOTE, ARCHIVE etc.)."
           },
@@ -4496,8 +5772,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter transactions based on the source.",
-              "type": "string"
+              "title": "Transaction Source"
             },
             "description": "Filter transactions based on the source."
           },
@@ -4506,8 +5790,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Search for transactions using a general query\n        (e.g., order ID, customer name).",
-              "type": "string"
+              "title": "Search Query"
             },
             "description": "Search for transactions using a general query\n        (e.g., order ID, customer name)."
           },
@@ -4516,11 +5808,26 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/CountryCodeEnum"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter transactions by country code\n        (ISO 3166-1 alpha-2 format, e.g., US).",
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/CountryCodeEnum"
-              }
+              "title": "Country"
             },
             "description": "Filter transactions by country code\n        (ISO 3166-1 alpha-2 format, e.g., US)."
           },
@@ -4529,8 +5836,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter by full state name (e.g., California).",
-              "type": "string"
+              "title": "State"
             },
             "description": "Filter by full state name (e.g., California)."
           },
@@ -4539,9 +5854,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter by address status (e.g., UNVERIFIED, INVALID,\n        PARTIALLY_VERIFIED, VERIFIED, UNVERIFIABLE).",
               "default": "UNVERIFIED,INVALID,PARTIALLY_VERIFIED,VERIFIED,UNVERIFIABLE",
-              "type": "string"
+              "title": "Address Status  In"
             },
             "description": "Filter by address status (e.g., UNVERIFIED, INVALID,\n        PARTIALLY_VERIFIED, VERIFIED, UNVERIFIABLE)."
           },
@@ -4550,9 +5873,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/TransactionStatusEnum"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter by transaction status (e.g., PENDING, COMMITTED,\n        CANCELLED, FULLY_REFUNDED, PARTIALLY_REFUNDED, ARCHIVED).",
-              "title": "Status",
-              "$ref": "#/components/schemas/TransactionStatusEnum"
+              "title": "Status"
             },
             "description": "Filter by transaction status (e.g., PENDING, COMMITTED,\n        CANCELLED, FULLY_REFUNDED, PARTIALLY_REFUNDED, ARCHIVED)."
           },
@@ -4561,8 +5891,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Retrieve transactions linked to a specific filing ID.",
-              "type": "string"
+              "title": "Filing Id"
             },
             "description": "Retrieve transactions linked to a specific filing ID."
           },
@@ -4571,9 +5909,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Sort results based on specified fields.\n        Prefix with - for descending order (e.g., -date for newest first).",
               "default": "date,state,customer_name,status",
-              "type": "string"
+              "title": "Order By"
             },
             "description": "Sort results based on specified fields.\n        Prefix with - for descending order (e.g., -date for newest first)."
           },
@@ -4582,8 +5928,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Retrieve transactions with a date\n        greater than or equal to (YYYY-MM-DD).",
-              "type": "string"
+              "title": "Date  Gte"
             },
             "description": "Retrieve transactions with a date\n        greater than or equal to (YYYY-MM-DD)."
           },
@@ -4592,8 +5947,17 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Retrieve transactions with a date\n        less than or equal to (YYYY-MM-DD).",
-              "type": "string"
+              "title": "Date  Lte"
             },
             "description": "Retrieve transactions with a date\n        less than or equal to (YYYY-MM-DD)."
           },
@@ -4602,8 +5966,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter transactions based on processing status.\n        Multiple values can be passed as a comma-separated list.",
-              "type": "string"
+              "title": "Processing Status  In"
             },
             "description": "Filter transactions based on processing status.\n        Multiple values can be passed as a comma-separated list."
           },
@@ -4612,8 +5984,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter transactions by marketplace (e.g., AMAZON, EBAY).",
-              "type": "boolean"
+              "title": "Marketplace"
             },
             "description": "Filter transactions by marketplace (e.g., AMAZON, EBAY)."
           },
@@ -4622,8 +6002,16 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "Filter transactions by exemption status.\n        Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).",
-              "type": "string"
+              "title": "Exempt  In"
             },
             "description": "Filter transactions by exemption status.\n        Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE)."
           },
@@ -4653,6 +6041,25 @@
               "title": "Size"
             },
             "description": "Page size"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -4905,8 +6312,31 @@
         "operationId": "create_transaction_v1_transactions_post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -5277,8 +6707,10 @@
         "operationId": "get_transaction_by_external_id_v1_transactions_external__external_id__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -5292,6 +6724,25 @@
               "title": "External Id"
             },
             "description": "The unique external identifier of the transaction."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -5489,8 +6940,10 @@
         "operationId": "update_transaction_v1_transactions__transaction_id__put",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -5502,6 +6955,25 @@
               "type": "string",
               "title": "Transaction Id"
             }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -5569,8 +7041,10 @@
         "operationId": "get_transaction_by_id_v1_transactions__transaction_id__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -5584,6 +7058,25 @@
               "title": "Transaction Id"
             },
             "description": "The unique identifier of the transaction to retrieve."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -5781,8 +7274,10 @@
         "operationId": "get_transactions_by_filing_id_v1_transactions_filings__filing_id__get",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -5796,6 +7291,25 @@
               "title": "Filing Id"
             },
             "description": "The unique identifier of the filing\n        whose transactions you wish to retrieve.\n        "
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "responses": {
@@ -5922,8 +7436,10 @@
         "operationId": "POST_create_credit_note_by_transaction_id",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -5935,6 +7451,25 @@
               "type": "string",
               "title": "Original Transaction Id"
             }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -6004,8 +7539,10 @@
         "operationId": "PUT_update_credit_note_by_transaction_id",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -6026,6 +7563,25 @@
               "type": "string",
               "title": "Credit Note Id"
             }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -6075,8 +7631,10 @@
         "operationId": "estimate_tax_v1_tax_estimate_post",
         "security": [
           {
-            "APIKeyHeader": [],
-            "CustomHeader": []
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
           }
         ],
         "parameters": [
@@ -6092,6 +7650,25 @@
             },
             "description": "**Deprecated:** Use `simulate_active_registration` in the request body instead.",
             "deprecated": true
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
           }
         ],
         "requestBody": {
@@ -6289,6 +7866,2289 @@
                 },
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/connections": {
+      "get": {
+        "tags": [
+          "connections"
+        ],
+        "summary": "Get Connections",
+        "description": "Retrieve a paginated list of connections for a given organization.",
+        "operationId": "get_connections_v1_connections_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Status"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Page number",
+              "default": 1,
+              "title": "Page"
+            },
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Page size",
+              "default": 50,
+              "title": "Size"
+            },
+            "description": "Page size"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_ConnectionRead_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/connections/{connection_id}": {
+      "get": {
+        "tags": [
+          "connections"
+        ],
+        "summary": "Get Connection By Id",
+        "description": "Retrieve a specific connection by its ID.",
+        "operationId": "get_connection_by_id_v1_connections__connection_id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "connection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Connection Id"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "connections"
+        ],
+        "summary": "Update Connection",
+        "description": "Update a specific connection by its ID.",
+        "operationId": "update_connection_v1_connections__connection_id__put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "connection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Connection Id"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConnectionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/connections/{connection_id}/sync": {
+      "post": {
+        "tags": [
+          "connections"
+        ],
+        "summary": "Sync Connection",
+        "description": "Synchronize a specific connection by its ID.",
+        "operationId": "sync_connection_v1_connections__connection_id__sync_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "connection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Connection Id"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/filings/{filing_id}/approve": {
+      "put": {
+        "tags": [
+          "Filings"
+        ],
+        "summary": "Approve Filing",
+        "description": "Approve a specific filing by its ID.",
+        "operationId": "approve_filing_v1_filings__filing_id__approve_put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "filing_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Filing Id"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilingRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/nexus/physical_nexus/categories": {
+      "get": {
+        "tags": [
+          "Nexus"
+        ],
+        "summary": "Get Physical Nexus Categories",
+        "description": "Get physical nexus categories",
+        "operationId": "get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "country_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/CountryCodeEnum"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Country Code"
+            }
+          },
+          {
+            "name": "state_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "State Code"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PhysicalNexusCategories"
+                  },
+                  "title": "Response Get Physical Nexus Categories V1 Nexus Physical Nexus Categories Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/nexus/{nexus_id}": {
+      "get": {
+        "tags": [
+          "Nexus"
+        ],
+        "summary": "Get Nexus Details For Id",
+        "description": "Get details for a specific nexus by its ID.",
+        "operationId": "get_nexus_details_for_id_v1_nexus__nexus_id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "nexus_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The unique identifier of the nexus.",
+              "title": "Nexus Id"
+            },
+            "description": "The unique identifier of the nexus."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NexusResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organizations/is_valid": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Check Organization Name",
+        "description": "Check if an organization name is valid",
+        "operationId": "check_organization_name_v1_organizations_is_valid_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organizations/users": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get Users By Organization Id",
+        "description": "Get a paginated list of users of an organization. Use force_refresh_notifications=true if you need the most up-to-date notification settings (e.g., immediately after updating user notification preferences).",
+        "operationId": "get_users_by_organization_id_v1_organizations_users_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "page_number",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Page Number"
+            }
+          },
+          {
+            "name": "include_orgs",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Include Orgs"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Role"
+            }
+          },
+          {
+            "name": "force_refresh_notifications",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Force refresh notification settings from PropelAuth to get the most current data. Use this immediately after updating user notification preferences.",
+              "default": false,
+              "title": "Force Refresh Notifications"
+            },
+            "description": "Force refresh notification settings from PropelAuth to get the most current data. Use this immediately after updating user notification preferences."
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organizations/api_keys": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get Api Keys",
+        "description": "Get a paginated list of current or archived api keys of an organization",
+        "operationId": "get_api_keys_v1_organizations_api_keys_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "active",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Active"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "page_number",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Page Number"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Api Key",
+        "description": "Create a new api key for an organization",
+        "operationId": "create_api_key_v1_organizations_api_keys_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiKeyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organizations/api_keys/{api_key_id}": {
+      "delete": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Delete Api Key",
+        "description": "Delete an api key for an organization",
+        "operationId": "delete_api_key_v1_organizations_api_keys__api_key_id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "api_key_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Api Key Id"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organizations/users/{user_id}": {
+      "delete": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Remove User From Organization",
+        "description": "Remove a user from an organization",
+        "operationId": "remove_user_from_organization_v1_organizations_users__user_id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organizations/": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get Organizations By User",
+        "description": "Get a paginated list of organizations accessible by the current user.",
+        "operationId": "get_organizations_by_user_v1_organizations__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "selected_organization_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Selected Organization Id"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Page number",
+              "default": 1,
+              "title": "Page"
+            },
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Page size",
+              "default": 50,
+              "title": "Size"
+            },
+            "description": "Page size"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_OrganizationRead_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organizations/{organization_id}": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Update Organization",
+        "description": "Update the details of an organization.",
+        "operationId": "update_organization_v1_organizations__organization_id__put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Organization Id"
+            }
+          },
+          {
+            "name": "previous_archive_status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Previous Archive Status"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Delete Organization",
+        "description": "Delete an organization by its ID.",
+        "operationId": "delete_organization_v1_organizations__organization_id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Organization Id"
+            }
+          },
+          {
+            "name": "organization_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Organization Name"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get Organization By Id",
+        "description": "Retrieve an organization by its ID.",
+        "operationId": "get_organization_by_id_v1_organizations__organization_id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Organization Id"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/bank_details/": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Bank Details",
+        "description": "Create or update the bank details for an organization.",
+        "operationId": "create_update_bank_details_v1_bank_details__put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BankDetailsCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get Bank Details",
+        "description": "Get the bank details of an organization.",
+        "operationId": "get_bank_details_v1_bank_details__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/BankDetailsRead"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Bank Details V1 Bank Details  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/business_details/": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Business Details",
+        "description": "Create or update the business details of an organization.",
+        "operationId": "create_update_business_details_v1_organization_details_business_details__put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsBusinessDetailsCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/business_address/": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Business Address",
+        "description": "Create or update the business address of an organization.",
+        "operationId": "create_update_business_address_v1_organization_details_business_address__put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsCompanyAddressCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/business_information/": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Business Information",
+        "description": "Create or update the business information of an organization.",
+        "operationId": "create_update_business_information_v1_organization_details_business_information__put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsBusinessInformationCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/business_contact/": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Business Contact",
+        "description": "Create or update the business contact details of an organization.",
+        "operationId": "create_update_business_contact_v1_organization_details_business_contact__put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsBusinessContactCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/business_owners/": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Business Owners",
+        "description": "Create or update the business owners of an organization.",
+        "operationId": "create_update_business_owners_v1_organization_details_business_owners__put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "save_business_contact_as_company_owner",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "If true, copies business contact's encrypted SSN/DL to owner1",
+              "default": false,
+              "title": "Save Business Contact As Company Owner"
+            },
+            "description": "If true, copies business contact's encrypted SSN/DL to owner1"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsBusinessOwnersCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get Organization Details",
+        "description": "Get the detailed information of an organization.",
+        "operationId": "get_organization_details_v1_organization_details_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reveal",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Name of field to reveal",
+              "title": "Reveal"
+            },
+            "description": "Name of field to reveal"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/OrganizationDetailsReadSerializer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Organization Details V1 Organization Details Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organizations": {
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Organization",
+        "description": "Create a new organization.",
+        "operationId": "create_organization_v1_organizations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UiOrganizationCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/auto_file/auto_register": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get Organization Details Auto File Auto Register",
+        "description": "Get the detailed information of an organization.",
+        "operationId": "GET_current_auto_file_auto_register_settings_by_organization_id",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/OrganizationDetailsAutoRegisterAutoFile"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Current Auto File Auto Register Settings By Organization Id"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Update Organization Details Auto File Auto Register",
+        "description": "Update the auto_file and auto_register fields of an organization.",
+        "operationId": "PUT_set_auto_file_auto_register_by_organization_id",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsAutoRegisterAutoFile"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/OrganizationDetailsAutoRegisterAutoFile"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Put Set Auto File Auto Register By Organization Id"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organizations/{organization_id}/settings": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get Organization Settings",
+        "description": "Get the settings of an organization.",
+        "operationId": "get_organization_settings_v1_organizations__organization_id__settings_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationSettingsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Update Organization Settings",
+        "description": "Update the settings of an organization.",
+        "operationId": "update_organization_settings_v1_organizations__organization_id__settings_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Organization Id"
+            }
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationSettingsReadUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationReadWithSettings"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -19669,9 +23529,9 @@
           },
           {
             "category": "Physical",
-            "description": "Ready-to-drink carbonated beverages (≥4oz) with stimulants and other ingredients marketed to boost energy, labeled as a supplement.",
+            "description": "Ready-to-drink carbonated beverages (\u22654oz) with stimulants and other ingredients marketed to boost energy, labeled as a supplement.",
             "example": "Red Bull (labeled as supplement), Monster (supplement label), Rockstar (supplement label), Celsius (carbonated, supplement), Bang Energy (supplement)",
-            "subcategory": "Supplement Labeled Carbonated Energy Drink (≥4oz, RTD)"
+            "subcategory": "Supplement Labeled Carbonated Energy Drink (\u22654oz, RTD)"
           },
           {
             "category": "Physical",
@@ -19681,9 +23541,9 @@
           },
           {
             "category": "Physical",
-            "description": "Energy-boosting products (≥4oz prepared/served), either as sweetened powders for mixing or unsweetened liquids, labeled as supplements.",
+            "description": "Energy-boosting products (\u22654oz prepared/served), either as sweetened powders for mixing or unsweetened liquids, labeled as supplements.",
             "example": "G Fuel powder (sweetened), Zipfizz powder (sweetened), Unsweetened liquid energy concentrate, Amino energy powder (sweetened), Pre-workout powder (energy, sweetened)",
-            "subcategory": "Supplement Labeled Energy Drink (Sweetened Powder/Unsweetened Liquid, ≥4oz)"
+            "subcategory": "Supplement Labeled Energy Drink (Sweetened Powder/Unsweetened Liquid, \u22654oz)"
           },
           {
             "category": "Physical",
@@ -19693,9 +23553,9 @@
           },
           {
             "category": "Physical",
-            "description": "Ready-to-drink, still beverages (≥4oz) with stimulants and other ingredients marketed to boost energy, labeled as a supplement.",
+            "description": "Ready-to-drink, still beverages (\u22654oz) with stimulants and other ingredients marketed to boost energy, labeled as a supplement.",
             "example": "Non-carbonated Monster Rehab, Still energy fuel, Vitamin energy drink (still), Focus drink (non-carbonated), Endurance beverage (liquid)",
-            "subcategory": "Supplement Labeled Non-Carbonated Liquid Energy Drink (≥4oz, RTD)"
+            "subcategory": "Supplement Labeled Non-Carbonated Liquid Energy Drink (\u22654oz, RTD)"
           },
           {
             "category": "Physical",
@@ -19791,7 +23651,7 @@
             "category": "Physical",
             "description": "Pre-packaged salads (e.g., potato, macaroni) prepared by an external deli/producer, sold in containers for four or more servings.",
             "example": "Large potato salad tub, Family-size coleslaw, Bulk macaroni salad, Prepackaged large pasta salad, Large quinoa salad (deli)",
-            "subcategory": "Deli Salads (Third-Party Prepared, Bulk ≥4 Servings, Prepackaged)"
+            "subcategory": "Deli Salads (Third-Party Prepared, Bulk \u22654 Servings, Prepackaged)"
           },
           {
             "category": "Physical",
@@ -19820,7 +23680,7 @@
           {
             "category": "Physical",
             "description": "Food products, excluding confectionery, that contain a noticeable or functional amount of alcohol as an ingredient.",
-            "example": "Rum cake, Wine-poached pears, Bourbon BBQ sauce, Beer cheese dip, Flambéed desserts",
+            "example": "Rum cake, Wine-poached pears, Bourbon BBQ sauce, Beer cheese dip, Flamb\u00e9ed desserts",
             "subcategory": "Items with Significant Alcohol (Not Candy)"
           },
           {
@@ -19837,9 +23697,9 @@
           },
           {
             "category": "Physical",
-            "description": "Single-serving packages (≤2.499oz) of nuts, seeds, or popcorn with added sugar, not classified as candy and no flour.",
+            "description": "Single-serving packages (\u22642.499oz) of nuts, seeds, or popcorn with added sugar, not classified as candy and no flour.",
             "example": "Small pack kettle corn, Single-serve honey nuts, Small glazed seed packet, Individual sweet popcorn bag, Portion-control sweet nuts",
-            "subcategory": "Nuts/Seeds/Popcorn with Sugar (Not Candy, No Flour, ≤2.499oz/Single)"
+            "subcategory": "Nuts/Seeds/Popcorn with Sugar (Not Candy, No Flour, \u22642.499oz/Single)"
           },
           {
             "category": "Physical",
@@ -19988,7 +23848,7 @@
           {
             "category": "Physical",
             "description": "Cured or cooked pork leg (hams) and specific types of cured meats originating from the Iberian Peninsula, such as chorizo or lomo.",
-            "example": "Serrano ham, Ibérico ham, Chorizo Ibérico, Salchichón Ibérico, Lomo Ibérico",
+            "example": "Serrano ham, Ib\u00e9rico ham, Chorizo Ib\u00e9rico, Salchich\u00f3n Ib\u00e9rico, Lomo Ib\u00e9rico",
             "subcategory": "Hams & Iberian Cold Meats"
           },
           {
@@ -20061,7 +23921,7 @@
             "category": "Physical",
             "description": "Fermented milk product, sold in individual containers of 8 ounces or less, often flavored or plain.",
             "example": "Yogurt cups (individual), Greek yogurt (single), Drinkable yogurt (small bottle), Kids' yogurt tubes, Skyr (single serve)",
-            "subcategory": "Yogurt (Single Serve ≤8oz)"
+            "subcategory": "Yogurt (Single Serve \u22648oz)"
           },
           {
             "category": "Physical",
@@ -20175,7 +24035,7 @@
             "category": "Physical",
             "description": "Still (non-carbonated) drinkable liquids containing 0.5% or more alcohol by volume, used as beverages or sometimes as ingredients.",
             "example": "Wine (still), Sake, Mead (still), Hard cider (still, >0.5% ABV), Fortified wines (port/sherry)",
-            "subcategory": "Non-Carbonated Drinks Abv ≥0.5%"
+            "subcategory": "Non-Carbonated Drinks Abv \u22650.5%"
           },
           {
             "category": "Physical",
@@ -20295,7 +24155,7 @@
             "category": "Physical",
             "description": "Cold baked goods prepared by the seller and sold packaged in portions suitable for six or more servings.",
             "example": "Large pie (packaged, cold), Cookie platters (seller-made, >6 svgs), Full sheet cake (boxed), Large cheesecake (packaged), Box of pastries (large quantity)",
-            "subcategory": "Prepared Food - Bakery (Seller-Prepared, Cold, ≥6 Servings, Packaged)"
+            "subcategory": "Prepared Food - Bakery (Seller-Prepared, Cold, \u22656 Servings, Packaged)"
           },
           {
             "category": "Physical",
@@ -20348,7 +24208,7 @@
           {
             "category": "Physical",
             "description": "Assortments of food items (e.g., fruits, vegetables, cheeses) simply cut and arranged on a platter by the seller and packaged.",
-            "example": "Sliced fruit platter, Vegetable crudité tray, Cheese cube platter, Cut meat tray, Relish tray (pickles/olives)",
+            "example": "Sliced fruit platter, Vegetable crudit\u00e9 tray, Cheese cube platter, Cut meat tray, Relish tray (pickles/olives)",
             "subcategory": "Prepared Food - Party Trays/Platters (Seller-Prepared, Cut & Packaged Only)"
           },
           {
@@ -21613,7 +25473,7 @@
           },
           {
             "category": "Physical",
-            "description": "Professional packaging service - prepare customer goods (purchased elsewhere) for transport - does not include packing materials product",
+            "description": "Professional packaging service\u00a0- prepare customer goods (purchased elsewhere) for transport - does not include packing materials product",
             "example": "Professional Packaging Services",
             "subcategory": "Packaging Services for Goods Puschased Elsewhere"
           },
