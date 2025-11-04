@@ -105,7 +105,7 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          if git diff --quiet; then
+          if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
             echo "No changes to commit"
             echo "changed=false" >> $GITHUB_OUTPUT
           else
@@ -119,8 +119,8 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           
-          # Add all changes (merged OpenAPI file + generated docs)
-          git add openapi.json reference/api/
+          # Add all changes (source OpenAPI files + merged OpenAPI file + generated docs)
+          git add openapi-customer.json openapi-partners.json openapi.json reference/api/
           git commit -m "🤖 Auto-update API documentation and OpenAPI spec [skip ci]
 
           - Updated merged openapi.json (Customer API + Public Partners API endpoints)
