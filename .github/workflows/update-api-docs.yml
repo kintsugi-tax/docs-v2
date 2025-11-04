@@ -15,6 +15,8 @@ on:
       - 'scripts/generate-api-docs.sh'
       - 'scripts/add-mcp-config.sh'
       - 'scripts/add-mcp-config-to-endpoints.sh'
+      - 'scripts/extract-public-partners-endpoints.py'
+      - 'scripts/setup-mcp-servers.sh'
 
 jobs:
   update-api-docs:
@@ -48,9 +50,9 @@ jobs:
           
           echo "✅ OpenAPI specs downloaded successfully!"
       
-      - name: Add MCP configuration to Partners API
+      - name: Setup MCP servers
         run: |
-          echo "🔧 Adding MCP configuration to Partners API spec..."
+          echo "🔧 Setting up MCP servers..."
           
           # Install jq if not available
           if ! command -v jq &> /dev/null; then
@@ -58,13 +60,28 @@ jobs:
             sudo apt-get update && sudo apt-get install -y jq
           fi
           
-          # Make script executable
+          # Make scripts executable
           chmod +x scripts/add-mcp-config-to-endpoints.sh
+          chmod +x scripts/extract-public-partners-endpoints.py
+          chmod +x scripts/setup-mcp-servers.sh
           
-          # Add MCP configuration to root and all endpoints explicitly
+          # Download Customer API and add MCP config (mcp-public)
+          echo "📥 Downloading Customer API spec..."
+          curl -s https://api-doc.trykintsugi.com/openapi.json -o openapi.json
+          ./scripts/add-mcp-config-to-endpoints.sh openapi.json
+          
+          # Ensure Partners API has MCP config (mcp-internal)
+          echo "🔧 Configuring Partners API (internal)..."
           ./scripts/add-mcp-config-to-endpoints.sh openapi-partners.json
           
-          echo "✅ MCP configuration added! All Partners API endpoints are now explicitly enabled as MCP tools"
+          # Create filtered Partners API spec (mcp-partners)
+          echo "🔧 Creating filtered Partners API spec (public)..."
+          python3 scripts/extract-public-partners-endpoints.py
+          
+          echo "✅ MCP servers configured!"
+          echo "  - /mcp-public: Customer API"
+          echo "  - /mcp-partners: Public Partners API endpoints"
+          echo "  - /mcp-internal: All Partners API endpoints"
       
       - name: Validate OpenAPI specs
         run: |
@@ -80,6 +97,17 @@ jobs:
             echo "❌ Partners API spec is empty or missing"
             exit 1
           fi
+          
+          if [ ! -s openapi-partners-public.json ]; then
+            echo "❌ Partners API public spec is empty or missing"
+            exit 1
+          fi
+          
+          # Verify MCP configuration
+          echo "🔍 Verifying MCP configuration..."
+          jq -e '."x-mint".mcp.enabled == true' openapi.json > /dev/null && echo "✅ Customer API has MCP enabled" || echo "❌ Customer API missing MCP config"
+          jq -e '."x-mint".mcp.enabled == true' openapi-partners.json > /dev/null && echo "✅ Partners API (internal) has MCP enabled" || echo "❌ Partners API (internal) missing MCP config"
+          jq -e '."x-mint".mcp.enabled == true' openapi-partners-public.json > /dev/null && echo "✅ Partners API (public) has MCP enabled" || echo "❌ Partners API (public) missing MCP config"
           
           echo "✅ OpenAPI specs are valid!"
       
@@ -114,11 +142,12 @@ jobs:
           git config user.email "actions@github.com"
           
           # Add all changes (OpenAPI files + generated docs)
-          git add openapi.json openapi-partners.json reference/api/ reference/partners/
+          git add openapi.json openapi-partners.json openapi-partners-public.json reference/api/ reference/partners/
           git commit -m "🤖 Auto-update API documentation and OpenAPI specs [skip ci]
 
-          - Updated openapi.json from https://api-doc.trykintsugi.com/openapi.json
-          - Updated openapi-partners.json from https://api.trykintsugi.com/openapi.json  
+          - Updated openapi.json from https://api-doc.trykintsugi.com/openapi.json (→ /mcp-public)
+          - Updated openapi-partners.json from https://api.trykintsugi.com/openapi.json (→ /mcp-internal)
+          - Generated openapi-partners-public.json with public endpoints only (→ /mcp-partners)
           - Regenerated API reference documentation
           - Generated on: $(date)"
           git push

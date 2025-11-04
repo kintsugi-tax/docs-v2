@@ -5,11 +5,24 @@
   "openapi": [
     {
       "url": "./openapi.json",
-      "label": "Customer API"
+      "label": "Customer API",
+      "mcp": {
+        "path": "/mcp-public"
+      }
+    },
+    {
+      "url": "./openapi-partners-public.json",
+      "label": "Partners API (Public)",
+      "mcp": {
+        "path": "/mcp-partners"
+      }
     },
     {
       "url": "./openapi-partners.json", 
-      "label": "Partners API"
+      "label": "Partners API (Internal)",
+      "mcp": {
+        "path": "/mcp-internal"
+      }
     }
   ],
   "api": {
