@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Tax Platform (Customer + Partners Public) (Public API Reference)",
+    "title": "Tax Platform (Public API Reference)",
     "version": "1.0.0",
-    "description": "This spec includes Customer API endpoints and public Partners API endpoints."
+    "description": "This spec includes only publicly documented endpoints from the Customer API (\"API Reference\") and Partners API (\"API Reference - Partners\")."
   },
   "paths": {
     "/v1/address_validation/search": {
