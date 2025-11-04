@@ -131,12 +131,17 @@ For validation errors (422), the response includes detailed field-level informat
         ```
       </Tab>
       <Tab title="Solution">
-        Include your API key in the `X-API-KEY` header:
+        Include your API key in the `x-api-key` header (lowercase with hyphens):
         
         ```bash
-        curl -H "X-API-KEY: your-api-key" \
+        curl -H "x-api-key: your-api-key" \
+             -H "x-organization-id: your-org-id" \
              https://api.trykintsugi.com/v1/tax/estimate
         ```
+        
+        <Note>
+        **Important**: Kintsugi requires both `x-api-key` and `x-organization-id` headers for authentication. This is API key authentication via headers, not bearer token authentication.
+        </Note>
       </Tab>
     </Tabs>
   </Accordion>
@@ -171,10 +176,14 @@ For validation errors (422), the response includes detailed field-level informat
         Ensure your API key has access to the organization specified in the `x-organization-id` header:
         
         ```bash
-        curl -H "X-API-KEY: your-api-key" \
+        curl -H "x-api-key: your-api-key" \
              -H "x-organization-id: your-org-id" \
              https://api.trykintsugi.com/v1/tax/estimate
         ```
+        
+        <Note>
+        Your Organization ID can be found in the **lower left-hand corner** of the Kintsugi Platform dashboard after logging in.
+        </Note>
       </Tab>
     </Tabs>
   </Accordion>
@@ -350,10 +359,16 @@ For validation errors (422), the response includes detailed field-level informat
       <Tab title="Missing API Key">
         **Error**: `API key is missing or empty.`
         
-        **Solution**: Ensure you're including the `X-API-KEY` header in your requests:
+        **Solution**: Ensure you're including both the `x-api-key` and `x-organization-id` headers in your requests:
         ```bash
-        curl -H "X-API-KEY: your-api-key" https://api.trykintsugi.com/v1/tax/estimate
+        curl -H "x-api-key: your-api-key" \
+             -H "x-organization-id: your-org-id" \
+             https://api.trykintsugi.com/v1/tax/estimate
         ```
+        
+        <Note>
+        Kintsugi uses API key authentication via headers (not bearer token). Both headers are required.
+        </Note>
       </Tab>
       <Tab title="Invalid API Key">
         **Error**: `Unauthenticated request.`
@@ -394,7 +409,7 @@ For validation errors (422), the response includes detailed field-level informat
       <Tab title="Access Denied">
         **Error**: `User does not have access to the specified organization`
         
-        **Solution**: Ensure your API key has access to the organization specified in the `x-organization-id` header.
+        **Solution**: Ensure your API key has access to the organization specified in the `x-organization-id` header. Your Organization ID can be found in the **lower left-hand corner** of the Kintsugi Platform dashboard after logging in.
       </Tab>
     </Tabs>
   </Accordion>

@@ -1,0 +1,358 @@
+---
+title: "Integration Guide"
+description: "Set up Kintsugi MCP in your development environment to build integrations faster"
+---
+
+# Integration Guide
+
+<Warning>
+**Preview Mode** - While Kintsugi's new docs site is in preview, please use **https://kintsugi.mintlify.app/mcp** for MCP server access. Once we launch our production docs site, the MCP server will be available at **https://docs.trykintsugi.com/mcp**.
+</Warning>
+
+This guide walks you through setting up Kintsugi MCP in your development environment. Once configured, your AI coding assistant will understand Kintsugi's API endpoints and help you build integrations faster with accurate code generation.
+
+## Prerequisites
+
+Before setting up Kintsugi MCP, ensure you have:
+
+<Steps>
+  <Step title="Development Environment">
+    Choose an IDE or editor that supports MCP:
+    - **Cursor IDE** (recommended - native MCP support)
+    - **Claude Desktop** (for general API help)
+    - **VS Code** (with MCP extension)
+  </Step>
+  
+  <Step title="Kintsugi Account">
+    Sign up for a Kintsugi account at [app.trykintsugi.com](https://app.trykintsugi.com) if you haven't already.
+  </Step>
+  
+  <Step title="API Key & Organization ID">
+    Generate an API key and get your Organization ID from your Kintsugi dashboard:
+    
+    1. Navigate to **Settings** → **API Keys**
+    2. Click **Create API Key**
+    3. Copy and securely store your API key
+    4. Find your **Organization ID** in the **lower left-hand corner** of the dashboard
+    
+    <Warning>
+    **Keep Your Credentials Secure** - Treat your API key like a password. Never commit it to version control or share it publicly. Use environment variables or secure secret management.
+    
+    **Authentication Format**: Kintsugi uses API key authentication via headers (not bearer token). You need both:
+    - `x-api-key` header with your API key
+    - `x-organization-id` header with your organization ID
+    </Warning>
+  </Step>
+</Steps>
+
+## Cursor IDE Setup
+
+Cursor IDE has native MCP support, making it the best choice for developers building Kintsugi integrations.
+
+### Configuration Steps
+
+<Steps>
+  <Step title="Open Cursor Settings">
+    Navigate to **Settings** → **Features** → **MCP Servers** (or search for "MCP" in settings)
+  </Step>
+  
+  <Step title="Add Kintsugi MCP Server">
+    Click **Add Server** or **+** and configure:
+    
+    - **Name**: `kintsugi`
+    - **URL**: `https://kintsugi.mintlify.app/mcp`
+    - **Description**: "Kintsugi Tax API endpoints and documentation"
+    
+    <Note>
+    The MCP server URL will change to `https://docs.trykintsugi.com/mcp` once our production docs site launches.
+    </Note>
+  </Step>
+  
+  <Step title="Configure Authentication (Optional)">
+    If you want AI to test endpoints, add your credentials:
+    
+    - **Environment Variables**: 
+      - `KINTSUGI_API_KEY=your-key-here`
+      - `KINTSUGI_ORGANIZATION_ID=your-org-id`
+    - Or configure in MCP server settings if supported
+    
+    <Warning>
+    Only add API keys if you want AI to make actual API calls. For code generation only, API keys aren't required.
+    
+    **Note**: Kintsugi requires both API key and Organization ID in headers (`x-api-key` and `x-organization-id`), not bearer token authentication.
+    </Warning>
+  </Step>
+  
+  <Step title="Restart Cursor">
+    Restart Cursor IDE to load the MCP configuration.
+  </Step>
+  
+  <Step title="Verify Setup">
+    Open Cursor's AI chat and ask:
+    
+    - "What Kintsugi API endpoints are available?"
+    - "Show me how to call the tax estimation endpoint"
+    
+    The AI should understand Kintsugi's API structure and provide accurate code examples.
+  </Step>
+</Steps>
+
+### Using Kintsugi MCP in Cursor
+
+Once configured, here's how to use it:
+
+<Tabs>
+  <Tab title="Code Generation">
+    **You**: "Generate code to calculate tax using Kintsugi API"
+    
+    **Cursor AI**: Understands `/v1/tax/estimate` endpoint and generates working code with correct request format.
+  </Tab>
+  
+  <Tab title="API Documentation">
+    **You**: "What parameters does the create transaction endpoint need?"
+    
+    **Cursor AI**: Queries MCP for the endpoint schema and explains all required and optional fields.
+  </Tab>
+  
+  <Tab title="Debugging">
+    **You**: "Why is my tax calculation failing?" (shows code)
+    
+    **Cursor AI**: Compares your code against the API schema via MCP and identifies the issue.
+  </Tab>
+  
+  <Tab title="Refactoring">
+    **You**: "Refactor this to use Kintsugi's customer endpoint properly"
+    
+    **Cursor AI**: Uses MCP understanding to improve your code to match API best practices.
+  </Tab>
+</Tabs>
+
+## Claude Desktop Setup
+
+Claude Desktop can help with API integration code, even when you're not in an IDE.
+
+### Configuration Steps
+
+<Steps>
+  <Step title="Locate Config File">
+    Find your Claude Desktop configuration file:
+    
+    <Tabs>
+      <Tab title="macOS">
+        `~/Library/Application Support/Claude/claude_desktop_config.json`
+      </Tab>
+      <Tab title="Windows">
+        `%APPDATA%\Claude\claude_desktop_config.json`
+      </Tab>
+      <Tab title="Linux">
+        `~/.config/Claude/claude_desktop_config.json`
+      </Tab>
+    </Tabs>
+  </Step>
+  
+  <Step title="Edit Configuration">
+    Open the config file and add Kintsugi MCP:
+    
+    ```json
+    {
+      "mcpServers": {
+        "kintsugi": {
+          "url": "https://kintsugi.mintlify.app/mcp"
+        }
+      }
+    }
+    ```
+    
+    <Note>
+    If the file doesn't exist, create it with this structure. If it already has `mcpServers`, add `kintsugi` to the existing object.
+    </Note>
+  </Step>
+  
+  <Step title="Restart Claude Desktop">
+    Close and reopen Claude Desktop to load the new MCP configuration.
+  </Step>
+  
+  <Step title="Test the Integration">
+    Ask Claude: "What Kintsugi API endpoints can help me build a checkout integration?"
+    
+    Claude should reference Kintsugi's API endpoints and provide code examples.
+  </Step>
+</Steps>
+
+## VS Code Setup
+
+VS Code requires an MCP extension to use Kintsugi MCP.
+
+### Using MCP Extensions
+
+<Tabs>
+  <Tab title="MCP Extension">
+    1. Install an MCP-compatible extension from VS Code marketplace
+    2. Configure Kintsugi MCP server in extension settings
+    3. Use AI chat feature with MCP awareness
+  </Tab>
+  
+  <Tab title="GitHub Copilot">
+    GitHub Copilot can be enhanced with MCP servers:
+    1. Install Copilot extension
+    2. Configure MCP servers in Copilot settings
+    3. Add Kintsugi MCP server URL
+  </Tab>
+</Tabs>
+
+## Custom MCP Client Setup
+
+For advanced use cases, you can build custom MCP clients or integrate MCP into your own tools.
+
+### Basic MCP Client Example
+
+```typescript
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { SSEClientTransport } from '@modelcontextprotocol/sdk/client/sse.js';
+
+// Create MCP client for Kintsugi
+const transport = new SSEClientTransport(
+  new URL('https://kintsugi.mintlify.app/mcp')
+);
+
+const client = new Client({
+  name: 'kintsugi-dev-tool',
+  version: '1.0.0'
+}, {
+  capabilities: {
+    tools: {}
+  }
+});
+
+await client.connect(transport);
+
+// List available tools (Kintsugi API endpoints)
+const tools = await client.listTools();
+console.log('Available Kintsugi endpoints:', tools);
+
+// Use tool to understand an endpoint
+const endpointInfo = await client.callTool({
+  name: 'get_endpoint_info',
+  arguments: {
+    endpoint: '/v1/tax/estimate',
+    method: 'POST'
+  }
+});
+```
+
+### Integrating into Development Tools
+
+You can integrate Kintsugi MCP into:
+- **Code generators** - Auto-generate SDKs and client libraries
+- **API testing tools** - Auto-generate test cases
+- **Documentation generators** - Create API docs from MCP schema
+- **Custom IDE plugins** - Build specialized tools for your team
+
+## Verification and Testing
+
+After setup, verify your MCP integration works correctly:
+
+### Test 1: Endpoint Discovery
+
+**Ask your AI**: "What Kintsugi endpoints are available for tax calculation?"
+
+**Expected**: AI lists relevant endpoints like `/v1/tax/estimate` with descriptions.
+
+### Test 2: Code Generation
+
+**Ask your AI**: "Generate Python code to call Kintsugi's tax estimation endpoint"
+
+**Expected**: AI generates code with:
+- Correct endpoint URL
+- Proper authentication headers
+- Correct request format
+- Error handling
+
+### Test 3: Schema Understanding
+
+**Ask your AI**: "What's the request schema for creating a transaction in Kintsugi?"
+
+**Expected**: AI provides complete schema with:
+- Required fields
+- Optional fields
+- Field types
+- Example values
+
+### Test 4: Debugging Help
+
+**Show code with an error**: "Why isn't this working?" (code that's missing required fields)
+
+**Expected**: AI identifies missing fields and suggests fixes based on actual API schema.
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use for Code Generation">
+    Let MCP help generate boilerplate code, but always review and customize for your specific needs.
+  </Accordion>
+  
+  <Accordion title="Keep API Keys Secure">
+    Never store API keys in code or commit them to version control. Use environment variables or secret management.
+    
+    **Remember**: Kintsugi requires both the API key and Organization ID. Store both securely as `x-api-key` and `x-organization-id` headers (not bearer token).
+  </Accordion>
+  
+  <Accordion title="Verify Generated Code">
+    Always test AI-generated code before deploying to production. MCP provides accurate schemas, but you should verify behavior.
+  </Accordion>
+  
+  <Accordion title="Combine with Documentation">
+    Use MCP alongside official documentation. MCP provides quick answers, but docs provide deeper context and examples.
+  </Accordion>
+  
+  <Accordion title="Stay Updated">
+    MCP automatically reflects API changes, but always check release notes for breaking changes that might affect your code.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="AI Doesn't Understand Kintsugi API">
+    - Verify MCP server URL is correct
+    - Restart your IDE/editor
+    - Check MCP server is accessible: visit `https://kintsugi.mintlify.app/mcp` in browser
+    - Verify configuration file syntax is valid JSON
+  </Accordion>
+  
+  <Accordion title="Generated Code Has Errors">
+    - AI uses current API schema from MCP
+    - Check if your API key has correct permissions
+    - Verify you're including both `x-api-key` and `x-organization-id` headers
+    - Verify you're using the correct base URL (`https://api.trykintsugi.com`)
+    - Test API calls manually to confirm endpoint behavior
+  </Accordion>
+  
+  <Accordion title="MCP Server Not Responding">
+    - Check internet connection
+    - Verify MCP server URL is accessible
+    - Check for firewall/proxy issues
+    - Try accessing the MCP endpoint directly
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Getting Started" icon="rocket" href="/docs/mcp/getting-started">
+    Learn how MCP helps you build integrations
+  </Card>
+  <Card title="Use Cases" icon="lightbulb" href="/docs/mcp/use-cases">
+    See real-world examples and workflows
+  </Card>
+  <Card title="API Endpoints" icon="list" href="/mcp">
+    Browse all available endpoints
+  </Card>
+  <Card title="API Reference" icon="book" href="/reference">
+    Complete API documentation
+  </Card>
+</CardGroup>
+
+<Note>
+**Ready to Build?** Once MCP is configured, you're ready to build faster. Ask your AI assistant to help with any Kintsugi API integration, and it will understand the endpoints and generate accurate code.
+</Note>

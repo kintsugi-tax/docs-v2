@@ -82,6 +82,14 @@
                   "docs/sdks/php",
                   "docs/sdks/ruby"
                 ]
+              },
+              {
+                "group": "Model Context Protocol (MCP)",
+                "pages": [
+                  "docs/mcp/getting-started",
+                  "docs/mcp/use-cases",
+                  "docs/mcp/integration"
+                ]
               }
             ]
           },

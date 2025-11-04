@@ -3,6 +3,10 @@ title: "Making Authenticated Request"
 description: "Describes how to use API Key and x-organization-id to make an authorized request."
 ---
 
+<Note>
+**Important**: Kintsugi uses API key authentication via headers, **not** bearer token authentication. You must include both the API key and organization ID in request headers.
+</Note>
+
 ## Prerequisite
 
 <Steps>
@@ -10,7 +14,7 @@ description: "Describes how to use API Key and x-organization-id to make an auth
   Make sure you have an API key. Refer [Creating and managing API Keys](/docs/creating-and-managing-api-keys).
   </Step>
   <Step>
-  Make sure you have the organization-id. Refer [Getting x-organization-id](/docs/getting-x-organization-id-for-requests)
+  Make sure you have your organization ID. You can find your Organization ID in the **lower left-hand corner** after logging into the [Kintsugi Platform](https://app.trykintsugi.com).
   </Step>
 </Steps>
 
@@ -18,18 +22,44 @@ description: "Describes how to use API Key and x-organization-id to make an auth
 
 <Steps>
   <Step>
-  Now that you have the API Key created you are ready to make authorized request using API Key.
+  Now that you have the API Key and Organization ID, you're ready to make authorized requests to the Kintsugi API.
   </Step>
   <Step>
-  API Key needs to be set on the Header with `X-API-KEY` key. From Authorization select Header & provide your API key.
+  **API Key Header**: Set your API key in the header with the key `x-api-key` (lowercase with hyphens):
+  
+  ```bash
+  curl -H "x-api-key: your-api-key" \
+       https://api.trykintsugi.com/v1/tax/estimate
+  ```
+  
   <Frame>
    <img src="/images/docs/678ae33-Screenshot_2024-04-06_at_5.35.14_AM.png" alt="API Key Header" />
   </Frame>
   </Step>
   <Step>
-  For some requests organization-id needs to be set on Header with X-ORGANIZATION-ID.
+  **Organization ID Header**: For most requests, you also need to set the organization ID in the header with the key `x-organization-id` (lowercase with hyphens):
+  
+  ```bash
+  curl -H "x-api-key: your-api-key" \
+       -H "x-organization-id: your-org-id" \
+       https://api.trykintsugi.com/v1/tax/estimate
+  ```
+  
   <Frame>
    <img src="/images/docs/ed87fe26a3e22ecb5783a90128745c775fc525e745fc82fc722d219823f56352-Screenshot_2025-03-03_at_11.06.23_PM.png" alt="Organization ID Header" />
   </Frame>
   </Step>
 </Steps>
+
+## Authentication Format
+
+Kintsugi API uses **header-based API key authentication**, not bearer token authentication. Every request requires:
+
+1. **`x-api-key`** header with your API key
+2. **`x-organization-id`** header with your organization ID
+
+Both headers are required for authentication. The organization ID ensures requests are scoped to the correct organization.
+
+## Finding Your Organization ID
+
+Your Organization ID can be found in the **lower left-hand corner** of the Kintsugi Platform dashboard after you log in. It's displayed as a unique identifier for your organization.
