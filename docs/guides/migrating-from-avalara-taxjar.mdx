@@ -39,43 +39,61 @@ Mapping your existing API calls to Kintsugi's endpoints is the foundation of you
 
 <Expandable title="🔄 API Endpoint Mapping" icon="diagram">
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
-    A[Tax Calculation] --> B[Avalara POST /transactions/create]
-    A --> C[TaxJar POST /taxes]
-    B --> D[Kintsugi POST /v1/tax/estimate]
-    C --> D
+    Start["📋 API Endpoint Mapping"] --> TaxCalc
     
-    E[Transaction Recording] --> F[Avalara Transaction API]
-    E --> G[TaxJar Transaction API]
-    F --> H[Kintsugi POST /v1/transactions]
-    G --> H
+    TaxCalc["💰 Tax Calculation"] --> Avalara1["Avalara<br/>POST /transactions/create"]
+    TaxCalc --> TaxJar1["TaxJar<br/>POST /taxes"]
+    Avalara1 --> MapsTo1["⬇️ Maps To"]
+    TaxJar1 --> MapsTo1
+    MapsTo1 --> Kintsugi1["✅ Kintsugi<br/>POST /v1/tax/estimate"]
     
-    I[Customer Management] --> J[Avalara POST /customers]
-    I --> K[TaxJar POST /customers]
-    J --> L[Kintsugi POST /v1/customers]
-    K --> L
+    Kintsugi1 --> TransRec
     
-    M[Product Management] --> N[Avalara TaxCode Assignment]
-    M --> O[TaxJar Product Categories]
-    N --> P[Kintsugi POST /v1/products]
-    O --> P
+    TransRec["📝 Transaction Recording"] --> Avalara2["Avalara<br/>Transaction API"]
+    TransRec --> TaxJar2["TaxJar<br/>Transaction API"]
+    Avalara2 --> MapsTo2["⬇️ Maps To"]
+    TaxJar2 --> MapsTo2
+    MapsTo2 --> Kintsugi2["✅ Kintsugi<br/>POST /v1/transactions"]
     
-    style A fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style B fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style C fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style D fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style E fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style F fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style G fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style H fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style I fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style J fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style K fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style L fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style M fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style N fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style O fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style P fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    Kintsugi2 --> CustMgmt
+    
+    CustMgmt["👥 Customer Management"] --> Avalara3["Avalara<br/>POST /customers"]
+    CustMgmt --> TaxJar3["TaxJar<br/>POST /customers"]
+    Avalara3 --> MapsTo3["⬇️ Maps To"]
+    TaxJar3 --> MapsTo3
+    MapsTo3 --> Kintsugi3["✅ Kintsugi<br/>POST /v1/customers"]
+    
+    Kintsugi3 --> ProdMgmt
+    
+    ProdMgmt["📦 Product Management"] --> Avalara4["Avalara<br/>TaxCode Assignment"]
+    ProdMgmt --> TaxJar4["TaxJar<br/>Product Categories"]
+    Avalara4 --> MapsTo4["⬇️ Maps To"]
+    TaxJar4 --> MapsTo4
+    MapsTo4 --> Kintsugi4["✅ Kintsugi<br/>POST /v1/products"]
+    
+    style Start fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style TaxCalc fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style TransRec fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style CustMgmt fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style ProdMgmt fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style Avalara1 fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style Avalara2 fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style Avalara3 fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style Avalara4 fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style TaxJar1 fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style TaxJar2 fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style TaxJar3 fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style TaxJar4 fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style MapsTo1 fill:#4a7c59,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    style MapsTo2 fill:#4a7c59,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    style MapsTo3 fill:#4a7c59,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    style MapsTo4 fill:#4a7c59,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    style Kintsugi1 fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style Kintsugi2 fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style Kintsugi3 fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style Kintsugi4 fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 </Expandable>
 
@@ -123,6 +141,7 @@ Choose a migration approach that minimizes risk and disruption to your business 
 
 <Expandable title="📋 Migration Strategy Comparison" icon="chart-line">
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
     A[Choose Migration Strategy] --> B[Big Bang Migration]
     A --> C[Parallel Run]
@@ -140,12 +159,19 @@ flowchart TD
     K --> L[Migrate by Product Line]
     L --> M[Lowest Risk]
     
-    style A fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style B fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style C fill:#B0ED9C,stroke:#213331,stroke-width:2px,color:#000000
-    style D fill:#B0ED9C,stroke:#213331,stroke-width:2px,color:#000000
-    style F fill:#ff2c2c,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style M fill:#48c020,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    style A fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style B fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style C fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style D fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style E fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style F fill:#ff6b6b,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style G fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style H fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style I fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style J fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style K fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style L fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style M fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 </Expandable>
 

@@ -16,6 +16,7 @@ Sales tax isn't a simple yes/no decision. Every transaction requires evaluating 
 <Expandable title="📊 Decision Flow Diagram" icon="diagram">
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
     A[Transaction Occurs] --> B[1 - Check Nexus]
     B --> C[2 - Check Product Taxability]
@@ -25,14 +26,14 @@ flowchart TD
     F --> G[Collect Tax]
     G --> H[File Returns]
     
-    style A fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style B fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style C fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style D fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style E fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style F fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style G fill:#213331,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style H fill:#B0ED9C,stroke:#213331,stroke-width:2px,color:#000000
+    style A fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style B fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style C fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style D fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style E fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style F fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style G fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style H fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 
 </Expandable>
@@ -104,6 +105,7 @@ The 2018 Wayfair Supreme Court decision fundamentally changed sales tax obligati
 
 <Expandable title="🏢 Nexus Types Diagram" icon="building">
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
     A[Nexus Types] --> B[Physical Nexus]
     B --> C[Offices & Warehouses]
@@ -117,17 +119,17 @@ flowchart TD
     I --> J[Transaction Count Thresholds]
     J --> K[Register Effective Date, Start Collection]
     
-    style A fill:#213331,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style B fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style C fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style D fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style E fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style F fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style G fill:#B0ED9C,stroke:#213331,stroke-width:2px,color:#000000
-    style H fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style I fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style J fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style K fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
+    style A fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style B fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style C fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style D fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style E fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style F fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style G fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style H fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style I fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style J fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style K fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
 ```
 </Expandable>
 
@@ -234,6 +236,7 @@ E-commerce marketplaces have spawned specialized legislation that shifts complia
 
 <Expandable title="🛒 Marketplace Facilitator Diagram" icon="store">
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
     A[Sale Occurs] --> B[Determine Marketplace Type]
     B --> C[Facilitator Platforms]
@@ -246,16 +249,16 @@ flowchart TD
     H --> I[Seller Handles Tax]
     I --> J[Seller Must Handle Compliance]
     
-    style A fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style B fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style C fill:#B0ED9C,stroke:#213331,stroke-width:2px,color:#000000
-    style D fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style E fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style F fill:#48c020,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style G fill:#ff2c2c,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style H fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style I fill:#ed8936,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style J fill:#ff2c2c,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    style A fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style B fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style C fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style D fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style E fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style F fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style G fill:#ff6b6b,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style H fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style I fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style J fill:#ff6b6b,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 </Expandable>
 

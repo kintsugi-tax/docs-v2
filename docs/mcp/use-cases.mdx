@@ -162,20 +162,36 @@ response = requests.post(
 ### Debugging Workflow
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 graph TB
-    Dev[Developer<br/>Reports Error] -->|Shows Code| AI[AI Assistant<br/>with MCP]
-    AI -->|Queries MCP| MCP[Kintsugi MCP Server]
-    MCP -->|Provides Schema| AI
-    AI -->|Analyzes Request| Analysis[Compares Code vs Schema]
-    Analysis -->|Identifies Issues| Issues[Missing Fields<br/>Wrong Format<br/>Invalid Values]
-    Issues -->|Generates Fix| FixedCode[Corrected Code]
-    FixedCode -->|Provides Explanation| Dev
+    Dev["👨‍💻 Developer<br/>Reports Error"] --> ShowCode["📝 Shows Code"]
+    ShowCode --> AI["🤖 AI Assistant<br/>with MCP"]
+    AI --> QueryMCP["📡 Queries MCP"]
+    QueryMCP --> MCP["🔄 Kintsugi MCP Server"]
+    MCP --> Schema["📋 Provides Schema"]
+    Schema --> AI
+    AI --> Analyze["🔍 Analyzes Request"]
+    Analyze --> Analysis["⚖️ Compares Code vs Schema"]
+    Analysis --> Identify["⚠️ Identifies Issues"]
+    Identify --> Issues["❌ Missing Fields<br/>Wrong Format<br/>Invalid Values"]
+    Issues --> GenerateFix["🔧 Generates Fix"]
+    GenerateFix --> FixedCode["✅ Corrected Code"]
+    FixedCode --> Explain["💡 Provides Explanation"]
+    Explain --> Dev
     
-    style Dev fill:#e1f5ff
-    style AI fill:#fff4e1
-    style MCP fill:#e8f5e9
-    style Issues fill:#ffebee
-    style FixedCode fill:#e8f5e9
+    style Dev fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style ShowCode fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style AI fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style QueryMCP fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style MCP fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style Schema fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style Analyze fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style Analysis fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style Identify fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style Issues fill:#ff6b6b,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style GenerateFix fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style FixedCode fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style Explain fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
 ```
 
 ## Complex Multi-Step Workflows

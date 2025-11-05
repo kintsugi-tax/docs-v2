@@ -1,105 +1,28 @@
 .dark :where(p, span, li, h1, h2, h3, h4, h5, h6, a) {
   color: #fff !important;
 }
+
+/* Exclude Mermaid diagrams from the global white text rule */
+.dark .mermaid :where(p, span, li, h1, h2, h3, h4, h5, h6, a),
+.dark .mermaid svg text,
+.dark .mermaid svg tspan {
+  color: inherit !important;
+  fill: inherit !important;
+}
 .dark .prose a { 
   color: #49f6ee !important;
   border-bottom: 1px solid #49f6ee !important;
 }
 
-/* Force Mermaid diagram text to be black for better contrast */
-.dark .mermaid text,
-.dark .mermaid .node text,
-.dark .mermaid .nodeLabel,
-.dark .mermaid .edgeLabel,
-.dark .mermaid .label,
-.dark .mermaid tspan,
-.dark .mermaid .node tspan,
-.dark .mermaid .flowchart-label,
-.dark .mermaid .node .label,
-.dark .mermaid .node .label text,
-.dark .mermaid .node .label tspan,
-.dark .mermaid .node .label span,
-.dark .mermaid .node .label div,
-.dark .mermaid .node .label p,
-.dark .mermaid .node .label strong,
-.dark .mermaid .node .label em,
-.dark .mermaid .node .label b,
-.dark .mermaid .node .label i,
-.dark .mermaid .node .label u,
-.dark .mermaid .node .label s,
-.dark .mermaid .node .label code,
-.dark .mermaid .node .label pre,
-.dark .mermaid .node .label blockquote,
-.dark .mermaid .node .label ul,
-.dark .mermaid .node .label ol,
-.dark .mermaid .node .label li,
-.dark .mermaid .node .label h1,
-.dark .mermaid .node .label h2,
-.dark .mermaid .node .label h3,
-.dark .mermaid .node .label h4,
-.dark .mermaid .node .label h5,
-.dark .mermaid .node .label h6,
-.dark .mermaid .node .label a,
-.dark .mermaid .node .label button,
-.dark .mermaid .node .label input,
-.dark .mermaid .node .label textarea,
-.dark .mermaid .node .label select,
-.dark .mermaid .node .label option,
-.dark .mermaid .node .label optgroup,
-.dark .mermaid .node .label fieldset,
-.dark .mermaid .node .label legend,
-.dark .mermaid .node .label table,
-.dark .mermaid .node .label thead,
-.dark .mermaid .node .label tbody,
-.dark .mermaid .node .label tfoot,
-.dark .mermaid .node .label tr,
-.dark .mermaid .node .label th,
-.dark .mermaid .node .label td,
-.dark .mermaid .node .label caption,
-.dark .mermaid .node .label col,
-.dark .mermaid .node .label colgroup,
-.dark .mermaid .node .label form,
-.dark .mermaid .node .label label,
-.dark .mermaid .node .label output,
-.dark .mermaid .node .label progress,
-.dark .mermaid .node .label meter,
-.dark .mermaid .node .label details,
-.dark .mermaid .node .label summary,
-.dark .mermaid .node .label dialog,
-.dark .mermaid .node .label menu,
-.dark .mermaid .node .label menuitem,
-.dark .mermaid .node .label command,
-.dark .mermaid .node .label keygen,
-.dark .mermaid .node .label source,
-.dark .mermaid .node .label track,
-.dark .mermaid .node .label video,
-.dark .mermaid .node .label audio,
-.dark .mermaid .node .label canvas,
-.dark .mermaid .node .label svg,
-.dark .mermaid .node .label math,
-.dark .mermaid .node .label script,
-.dark .mermaid .node .label style,
-.dark .mermaid .node .label link,
-.dark .mermaid .node .label meta,
-.dark .mermaid .node .label title,
-.dark .mermaid .node .label head,
-.dark .mermaid .node .label body,
-.dark .mermaid .node .label html,
-.dark .mermaid .node .label * {
-  color: #000000 !important;
-  fill: #000000 !important;
+/* Add white background to Mermaid diagrams in dark mode */
+.dark .mermaid {
+  background-color: #FFFFFF !important;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 16px 0;
 }
 
-/* Ensure Mermaid diagram containers have proper contrast */
-.dark .mermaid .node rect,
-.dark .mermaid .node circle,
-.dark .mermaid .node ellipse,
-.dark .mermaid .node polygon {
-  stroke: #213331 !important;
-}
-
-/* Nuclear option - force ALL text in Mermaid diagrams to be black */
-.dark .mermaid * {
-  color: #000000 !important;
-  fill: #000000 !important;
+/* Ensure SVG background is white in dark mode */
+.dark .mermaid svg {
+  background-color: #FFFFFF !important;
 }

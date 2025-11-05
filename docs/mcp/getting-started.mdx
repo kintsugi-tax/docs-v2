@@ -72,22 +72,39 @@ With MCP-enabled AI assistants, you get:
 Here's how Kintsugi MCP helps you build better integrations:
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 graph TB
-    Developer[Developer<br/>Building Integration] -->|Asks Question| AIClient[AI Assistant<br/>Cursor/Claude Desktop]
-    AIClient -->|Queries via MCP| MCPServer[Kintsugi MCP Server]
-    MCPServer -->|Reads OpenAPI Spec| OpenAPI[Kintsugi openapi.json<br/>API Documentation]
-    MCPServer -->|Provides Context| AIClient
-    AIClient -->|Generates Code| Code[Working Code<br/>Calls Kintsugi API]
-    Code -->|HTTP Requests| KintsugiAPI[Kintsugi API<br/>api.trykintsugi.com]
-    KintsugiAPI -->|API Responses| Code
-    Code -->|Integration Complete| Developer
+    Developer["👨‍💻 Developer<br/>Building Integration"] --> Question["❓ Asks Question<br/>about API"]
+    Question --> AIClient["🤖 AI Assistant<br/>Cursor/Claude Desktop"]
+    AIClient --> MCPQuery["📡 Queries via MCP"]
+    MCPQuery --> MCPServer["🔄 Kintsugi MCP Server"]
+    MCPServer --> ReadDocs["📖 Reads OpenAPI Spec"]
+    ReadDocs --> OpenAPI["📄 Kintsugi openapi.json<br/>API Documentation"]
+    OpenAPI --> Context["💡 Provides Context"]
+    Context --> MCPServer
+    MCPServer --> Generate["⚙️ Generates Code"]
+    Generate --> Code["💻 Working Code<br/>Calls Kintsugi API"]
+    Code --> HTTPReq["🌐 HTTP Requests"]
+    HTTPReq --> KintsugiAPI["🔌 Kintsugi API<br/>api.trykintsugi.com"]
+    KintsugiAPI --> Response["📥 API Responses"]
+    Response --> Code
+    Code --> Complete["✅ Integration Complete"]
+    Complete --> Developer
     
-    style Developer fill:#e1f5ff
-    style AIClient fill:#fff4e1
-    style MCPServer fill:#e8f5e9
-    style OpenAPI fill:#f3e5f5
-    style Code fill:#ffe0e0
-    style KintsugiAPI fill:#e0e0ff
+    style Developer fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style Question fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style AIClient fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style MCPQuery fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style MCPServer fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style ReadDocs fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style OpenAPI fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style Context fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style Generate fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style Code fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style HTTPReq fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style KintsugiAPI fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style Response fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style Complete fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 
 <AccordionGroup>

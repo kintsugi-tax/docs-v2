@@ -33,6 +33,7 @@ Every Kintsugi integration revolves around four primary areas: Customers, Produc
 
 <Expandable title="🔧 Integration Architecture Overview" icon="diagram">
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
     A[Your Platform] --> B[Customer Management]
     A --> C[Product Catalog]
@@ -53,15 +54,19 @@ flowchart TD
     J --> L[Compliance Tracking]
     J --> M[Filing Preparation]
     
-    style A fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style B fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style C fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style D fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style E fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style J fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style K fill:#213331,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style L fill:#213331,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style M fill:#B0ED9C,stroke:#213331,stroke-width:2px,color:#000000
+    style A fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style B fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style C fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style D fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style E fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style F fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style G fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style H fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style I fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style J fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style K fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style L fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style M fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 </Expandable>
 
@@ -71,6 +76,7 @@ Customer data drives tax calculations through address validation, exemption stat
 
 <Expandable title="👥 Customer Management Flow" icon="users">
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
     A[Customer Signs Up] --> B{Customer Exists?}
     B -->|No| C[Create Customer via API]
@@ -83,14 +89,16 @@ flowchart TD
     H[Customer Uploads Exemption] --> I[Create Exemption]
     I --> J[Associate with Customer]
     
-    style A fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style B fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style C fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style D fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style E fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style F fill:#B0ED9C,stroke:#213331,stroke-width:2px,color:#000000
-    style I fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style J fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    style A fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style B fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style C fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style D fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style E fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style F fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style G fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style H fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style I fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style J fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 </Expandable>
 
@@ -122,6 +130,7 @@ Products require tax classification to determine taxability across jurisdictions
 
 <Expandable title="📦 Product Management Flow" icon="box">
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
     A[Product Created/Updated] --> B{Product Exists in Kintsugi?}
     B -->|No| C[Create Product via API]
@@ -133,14 +142,14 @@ flowchart TD
     E --> G
     G --> H[Use in Tax Calculations]
     
-    style A fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style B fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style C fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style D fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style E fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style F fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style G fill:#B0ED9C,stroke:#213331,stroke-width:2px,color:#000000
-    style H fill:#213331,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    style A fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style B fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style C fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style D fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style E fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style F fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style G fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style H fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 </Expandable>
 
@@ -172,6 +181,7 @@ Tax estimation occurs during checkout when customers need to see accurate tax am
 
 <Expandable title="💰 Tax Estimation Flow" icon="calculator">
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
     A[Customer Adds Items to Cart] --> B[Customer Enters Shipping Address]
     B --> C[Call Estimate Tax API]
@@ -184,16 +194,16 @@ flowchart TD
     H --> I[Customer Completes Purchase]
     I --> J[Create Transaction]
     
-    style A fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style B fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style C fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style D fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style E fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style F fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style G fill:#B0ED9C,stroke:#213331,stroke-width:2px,color:#000000
-    style H fill:#213331,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style I fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style J fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    style A fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style B fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style C fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style D fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style E fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style F fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style G fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style H fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style I fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style J fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 </Expandable>
 
@@ -225,6 +235,7 @@ After a sale completes, create a transaction record in Kintsugi for compliance r
 
 <Expandable title="📊 Transaction Reporting Flow" icon="chart-bar">
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'transparent','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
     A[Order Completed] --> B[Gather Transaction Data]
     B --> C[Customer Information]
@@ -239,16 +250,16 @@ flowchart TD
     H --> I[Available for Filings]
     H --> J[Compliance Reporting]
     
-    style A fill:#E8F0D9,stroke:#213331,stroke-width:2px,color:#000000
-    style B fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style C fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style D fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style E fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style F fill:#E5D1FA,stroke:#213331,stroke-width:2px,color:#000000
-    style G fill:#C69CF4,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style H fill:#B0ED9C,stroke:#213331,stroke-width:2px,color:#000000
-    style I fill:#213331,stroke:#213331,stroke-width:2px,color:#FFFFFF
-    style J fill:#213331,stroke:#213331,stroke-width:2px,color:#FFFFFF
+    style A fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
+    style B fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style C fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style D fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style E fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style F fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
+    style G fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style H fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style I fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style J fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 </Expandable>
 
