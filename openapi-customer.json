@@ -15582,6 +15582,9 @@
           "auto_file": {
             "type": "boolean"
           },
+          "do_not_file": {
+            "type": "boolean"
+          },
           "incorporation_country": {
             "$ref": "#/components/schemas/CountryCodeEnum"
           },
@@ -15702,6 +15705,7 @@
           "accounting_model",
           "auto_register",
           "auto_file",
+          "do_not_file",
           "incorporation_country",
           "target_archive_date",
           "id",
@@ -16528,6 +16532,11 @@
             "title": "Auto File",
             "default": true
           },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "default": false
+          },
           "incorporation_country": {
             "$ref": "#/components/schemas/CountryCodeEnum"
           },
@@ -16835,6 +16844,9 @@
           "auto_file": {
             "type": "boolean"
           },
+          "do_not_file": {
+            "type": "boolean"
+          },
           "incorporation_country": {
             "$ref": "#/components/schemas/CountryCodeEnum"
           },
@@ -16952,6 +16964,7 @@
           "accounting_model",
           "auto_register",
           "auto_file",
+          "do_not_file",
           "incorporation_country",
           "target_archive_date",
           "id"
@@ -24584,7 +24597,8 @@
           "ZOHO",
           "SAGE-INTACCT",
           "AIRWALLEX",
-          "ORB"
+          "ORB",
+          "ZENSKAR"
         ],
         "title": "SourceEnum"
       },
