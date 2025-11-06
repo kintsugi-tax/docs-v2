@@ -66,6 +66,16 @@
                 ]
               },
               {
+                "group": "API Guides",
+                "pages": [
+                  "docs/api-guides/planning-an-integration",
+                  "docs/api-guides/product-customer-records",
+                  "docs/api-guides/syncing-transaction-records",
+                  "docs/api-guides/handling-refund-transactions",
+                  "docs/api-guides/sales-tax-calculations"
+                ]
+              },
+              {
                 "group": "Advanced",
                 "pages": [
                   "docs/error-handling"
