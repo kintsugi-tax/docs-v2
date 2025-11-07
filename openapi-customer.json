@@ -6178,6 +6178,10 @@
           },
           "transaction_id": {
             "type": "string"
+          },
+          "assumption": {
+            "description": "Assumption about the enrichment of the address",
+            "type": "string"
           }
         },
         "type": "object",
@@ -29171,6 +29175,127 @@
         "type": "object",
         "title": "WooShippingAddress"
       },
+      "ZenskarConnectionRequest": {
+        "properties": {
+          "zenskar_org_id": {
+            "type": "string",
+            "title": "Zenskar Org Id",
+            "description": "Zenskar Organization ID"
+          },
+          "api_key": {
+            "type": "string",
+            "title": "Api Key",
+            "description": "Zenskar API key"
+          },
+          "name": {
+            "description": "Custom name for this connection",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "zenskar_org_id",
+          "api_key"
+        ],
+        "title": "ZenskarConnectionRequest",
+        "description": "Request model for creating a Zenskar connection."
+      },
+      "ZenskarConnectionResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "connection_id": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "message"
+        ],
+        "title": "ZenskarConnectionResponse",
+        "description": "Response model for Zenskar connection operations."
+      },
+      "ZenskarConnectionStatus": {
+        "properties": {
+          "connection_id": {
+            "type": "string",
+            "title": "Connection Id"
+          },
+          "zenskar_org_id": {
+            "type": "string",
+            "title": "Zenskar Org Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "last_sync": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "error_message": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "connection_id",
+          "zenskar_org_id",
+          "name",
+          "status",
+          "created_at"
+        ],
+        "title": "ZenskarConnectionStatus",
+        "description": "Model for connection status information."
+      },
+      "ZenskarHealthCheckResponse": {
+        "properties": {
+          "healthy": {
+            "type": "boolean",
+            "title": "Healthy"
+          },
+          "zenskar_org_id": {
+            "type": "string",
+            "title": "Zenskar Org Id"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "last_checked": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last Checked"
+          }
+        },
+        "type": "object",
+        "required": [
+          "healthy",
+          "zenskar_org_id",
+          "message",
+          "last_checked"
+        ],
+        "title": "ZenskarHealthCheckResponse",
+        "description": "Response model for health check."
+      },
       "backend__src__address_validation__responses__ValidationErrorItem": {
         "properties": {
           "type": {
@@ -29294,6 +29419,10 @@
             "type": "string"
           },
           "transaction_id": {
+            "type": "string"
+          },
+          "assumption": {
+            "description": "Assumption about the enrichment of the address",
             "type": "string"
           }
         },
