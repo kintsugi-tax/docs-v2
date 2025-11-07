@@ -1,0 +1,191 @@
+---
+title: 'Creating Credit Notes'
+description: 'Interactive playground for creating credit notes (refunds) for sale transactions'
+openapi: post /v1/transactions/{original_transaction_id}/credit_notes
+mintlify:
+  playground:
+    display: interactive
+---
+
+# Creating Credit Notes
+
+## Overview
+
+Credit notes represent refunds, returns, or adjustments to original transactions. They maintain accurate sales records by reducing taxable amounts when refunds occur, ensuring your tax filings reflect net sales (sales minus refunds) rather than gross sales.
+
+<Warning>
+You must have the Kintsugi transaction ID (not external_id) of the original transaction to create a credit note. Store transaction IDs after creating transactions for future credit note creation.
+</Warning>
+
+## When to Create Credit Notes
+
+- **Full refunds**: When a customer returns an entire order
+- **Partial refunds**: When a customer returns specific items
+- **Order cancellations**: When an order is cancelled after payment
+- **Price adjustments**: When correcting pricing errors
+
+## Prerequisites
+
+Before creating a credit note, you need:
+1. The original transaction must exist in Kintsugi
+2. The original transaction must have status "COMMITTED"
+3. The Kintsugi transaction ID (not the external_id)
+
+## Workflow
+
+1. **Find Original Transaction** - Retrieve the original transaction to get its Kintsugi ID
+2. **Create Credit Note** - Create a credit note linked to the original transaction
+3. **Retrieve Credit Notes** - Verify the credit note was created
+
+## Step 1: Find Original Transaction
+
+If you don't have the Kintsugi transaction ID, find it using:
+- `GET /v1/transactions/external/{external_id}` - Find by your external ID
+- `GET /v1/transactions` - Search transactions and find the ID
+
+## Step 2: Create Credit Note
+
+Create a credit note using the interactive playground below with `POST /v1/transactions/{original_transaction_id}/credit_notes`.
+
+### Required Fields
+
+- `original_transaction_id`: The Kintsugi transaction ID (path parameter)
+- `external_id`: Your internal credit note identifier
+- `date`: Credit note date
+- `currency`: Currency code (should match original transaction)
+- `total_amount`: Refund amount (negative or positive)
+- `type`: Transaction type (typically "FULL_CREDIT_NOTE" or "PARTIAL_CREDIT_NOTE")
+- `status`: Transaction status (use "COMMITTED")
+- `transaction_items`: Array of refunded line items
+
+### Example Request
+
+```json
+{
+  "external_id": "CREDIT-001",
+  "date": "2024-01-20T10:00:00Z",
+  "currency": "USD",
+  "total_amount": -100.00,
+  "source": "API",
+  "status": "COMMITTED",
+  "type": "FULL_CREDIT_NOTE",
+  "transaction_items": [
+    {
+      "external_id": "ITEM-001",
+      "external_product_id": "PROD-001",
+      "product": "Example Product",
+      "quantity": "1.0",
+      "amount": -100.00
+    }
+  ]
+}
+```
+
+## Step 3: Retrieve Credit Notes
+
+Credit notes appear in transaction queries. Use `GET /v1/transactions` with:
+- `transaction_type`: Filter by "FULL_CREDIT_NOTE" or "PARTIAL_CREDIT_NOTE"
+- `related_to`: Filter by original transaction ID
+- `search_query`: Search by credit note external_id
+
+## Authentication
+
+This endpoint requires two headers:
+- `x-api-key`: Your API key
+- `x-organization-id`: Your organization ID
+
+<Note>
+Both headers are required for authentication. You can find your API key and organization ID in your [Kintsugi dashboard](https://app.trykintsugi.com).
+</Note>
+
+## Try It Out
+
+Use the interactive playground below to create a credit note. Replace `{original_transaction_id}` in the path with an actual transaction ID from your account.
+
+<Info>
+The playground prefills example values from the API schema. You'll need to provide a valid transaction ID from your account.
+</Info>
+
+## Common Use Cases
+
+### Full Refund
+
+Create a credit note for a full refund:
+
+```json
+{
+  "external_id": "REFUND-001",
+  "date": "2024-01-20T10:00:00Z",
+  "currency": "USD",
+  "total_amount": -150.00,
+  "source": "API",
+  "status": "COMMITTED",
+  "type": "FULL_CREDIT_NOTE",
+  "transaction_items": [
+    {
+      "external_id": "ITEM-001",
+      "external_product_id": "PROD-001",
+      "product": "Product A",
+      "quantity": "1.0",
+      "amount": -100.00
+    },
+    {
+      "external_id": "ITEM-002",
+      "external_product_id": "PROD-002",
+      "product": "Product B",
+      "quantity": "1.0",
+      "amount": -50.00
+    }
+  ]
+}
+```
+
+### Partial Refund
+
+Create a credit note for a partial refund:
+
+```json
+{
+  "external_id": "REFUND-002",
+  "date": "2024-01-20T10:00:00Z",
+  "currency": "USD",
+  "total_amount": -50.00,
+  "source": "API",
+  "status": "COMMITTED",
+  "type": "PARTIAL_CREDIT_NOTE",
+  "transaction_items": [
+    {
+      "external_id": "ITEM-001",
+      "external_product_id": "PROD-001",
+      "product": "Product A",
+      "quantity": "1.0",
+      "amount": -50.00
+    }
+  ]
+}
+```
+
+## Response Fields
+
+The API returns detailed credit note information:
+
+- `id`: Kintsugi's unique credit note identifier
+- `external_id`: Your credit note identifier
+- `related_to`: Link to the original transaction ID
+- `date`: Credit note date
+- `total_amount`: Refund amount
+- `type`: Credit note type (FULL_CREDIT_NOTE, PARTIAL_CREDIT_NOTE)
+- `status`: Transaction status
+
+## Next Steps
+
+- [Get Transactions](/reference/api/transactions/get-transactions) - List and search credit notes
+- [Update Credit Note](/reference/api/transactions/update-credit-note-by-transaction-id) - Modify credit note details
+- [Handling Refund Transactions](/docs/api-guides/handling-refund-transactions) - Learn more about credit notes
+
+## Related Resources
+
+- [Create Credit Note API Reference](/reference/api/transactions/create-credit-note-by-transaction-id)
+- [Getting Started](/docs/getting-started)
+- [Support](https://trykintsugi.com/support)
+

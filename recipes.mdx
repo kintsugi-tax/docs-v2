@@ -1,22 +1,44 @@
 ---
-title: "Recipes"
-description: "Recipes for Kintsugi"
+title: "API Lab"
+description: "Interactive API steps for learning and testing Kintsugi endpoints"
 ---
 
 import { Button } from '/snippets/button.mdx';
 
-<CardGroup>
-  <Card title="Get Exemptions" href="/recipes/get-exemptions" icon="earlybirds" iconType="solid">
-    Recipe Description
+<CardGroup cols={2}>
+  <Card title="Estimate Tax" href="/recipes/calculate-tax" icon="calculator" iconType="solid">
+    Calculate tax for a transaction before committing. Test the tax estimation endpoint with real-time calculations.
 
-    3 Steps
-
-    <Button href="/recipes/get-exemptions">Open Recipe</Button>
+    <Button href="/recipes/calculate-tax">Open API Lab</Button>
   </Card>
-  <Card title="Estimate Tax" href="#" icon="earlybirds" iconType="solid">
-    Recipe Description
+  
+  <Card title="Managing Products" href="/recipes/managing-products" icon="box" iconType="solid">
+    Create products, fetch categories, and retrieve product details. Learn how to properly classify products for accurate tax calculations.
 
-    11 Steps
-    <Button href="#">Open Recipe</Button>
+    <Button href="/recipes/managing-products">Open API Lab</Button>
+  </Card>
+  
+  <Card title="Managing Customers" href="/recipes/managing-customers" icon="users" iconType="solid">
+    Create customer records and retrieve customer information. Essential for managing tax-exempt customers and exemptions.
+
+    <Button href="/recipes/managing-customers">Open API Lab</Button>
+  </Card>
+  
+  <Card title="Creating Transactions" href="/recipes/creating-transactions" icon="receipt" iconType="solid">
+    Create transaction records for completed sales and retrieve transaction data. Learn how to sync sales for compliance tracking.
+
+    <Button href="/recipes/creating-transactions">Open API Lab</Button>
+  </Card>
+  
+  <Card title="Creating Credit Notes" href="/recipes/creating-credit-notes" icon="rotate-left" iconType="solid">
+    Create credit notes (refunds) for sale transactions. Maintain accurate sales records by properly handling refunds and returns.
+
+    <Button href="/recipes/creating-credit-notes">Open API Lab</Button>
+  </Card>
+  
+  <Card title="Managing Nexus" href="/recipes/managing-nexus" icon="map-pin" iconType="solid">
+    Create physical nexus and registrations, then retrieve nexus information. Understand where your business has tax obligations.
+
+    <Button href="/recipes/managing-nexus">Open API Lab</Button>
   </Card>
 </CardGroup>

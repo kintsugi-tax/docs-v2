@@ -12,6 +12,15 @@
     "baseUrl": "https://api.trykintsugi.com",
     "auth": {
       "method": "bearer"
+    },
+    "playground": {
+      "display": "interactive",
+      "proxy": true
+    },
+    "examples": {
+      "languages": ["curl", "python", "javascript"],
+      "defaults": "required",
+      "prefill": true
     }
   },
   "colors": {
@@ -104,12 +113,15 @@
             ]
           },
           {
-            "tab": "Recipes",
+            "tab": "API Lab",
             "pages": [
               "recipes",
-              "recipes/get-exemptions",
               "recipes/calculate-tax",
-              "recipes/webhook-handling"
+              "recipes/managing-products",
+              "recipes/managing-customers",
+              "recipes/creating-transactions",
+              "recipes/creating-credit-notes",
+              "recipes/managing-nexus"
             ]
           },
           {

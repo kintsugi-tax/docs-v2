@@ -1,28 +1,137 @@
 ---
 title: 'Calculate Tax for a Transaction'
-description: 'Step-by-step guide to calculate tax using the Kintsugi API'
+description: 'Interactive playground to calculate tax using the Kintsugi API'
+openapi: post /v1/tax/estimate
+mintlify:
+  playground:
+    display: interactive
 ---
 
 # Calculate Tax for a Transaction
 
-<Note>
-This recipe is coming soon. We're migrating content from our current documentation.
-</Note>
-
 ## Overview
 
-Learn how to calculate tax for a transaction using the Kintsugi API.
+The Tax Estimation API calculates the estimated tax for a transaction based on your organization's nexus status, product taxability, customer exemptions, and shipping addresses. This endpoint is **idempotent** and doesn't create permanent transaction records, making it perfect for testing tax calculations during checkout flows.
 
-## Coming Soon
+## When to Use
 
-This recipe will include:
-- Step-by-step instructions
-- Code examples in multiple languages
-- Common use cases
-- Error handling
+- **Shopping cart pages**: Calculate tax when customers review their order
+- **Checkout flows**: After address entry but before payment processing
+- **Subscription billing**: Calculate tax for recurring charges
+- **Quote generation**: Provide tax estimates to customers
+
+## Authentication
+
+This endpoint requires two headers:
+- `x-api-key`: Your API key
+- `x-organization-id`: Your organization ID
+
+<Note>
+Both headers are required for authentication. You can find your API key and organization ID in your [Kintsugi dashboard](https://app.trykintsugi.com).
+</Note>
+
+## Try It Out
+
+Use the interactive playground below to test the tax estimation endpoint. The playground will automatically include the required authentication headers.
+
+<Info>
+The playground prefills example values from the API schema. Modify the request body to test different scenarios like different addresses, product types, or customer exemptions.
+</Info>
+
+## Common Use Cases
+
+### Basic Tax Calculation
+
+Calculate tax for a simple transaction with a shipping address:
+
+```json
+{
+  "date": "2024-01-15T10:00:00Z",
+  "external_id": "order-123",
+  "currency": "USD",
+  "source": "API",
+  "transaction_items": [
+    {
+      "external_id": "item-1",
+      "external_product_id": "product-123",
+      "product_name": "Example Product",
+      "quantity": "1.0",
+      "amount": 100.00
+    }
+  ],
+  "addresses": [
+    {
+      "type": "SHIP_TO",
+      "street_1": "123 Main St",
+      "city": "Seattle",
+      "state": "WA",
+      "postal_code": "98101",
+      "country": "US"
+    }
+  ]
+}
+```
+
+### With Customer Information
+
+Include customer details to check for exemptions:
+
+```json
+{
+  "date": "2024-01-15T10:00:00Z",
+  "external_id": "order-123",
+  "currency": "USD",
+  "source": "API",
+  "customer": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "street_1": "123 Main St",
+    "city": "Seattle",
+    "state": "WA",
+    "postal_code": "98101",
+    "country": "US"
+  },
+  "transaction_items": [
+    {
+      "external_id": "item-1",
+      "external_product_id": "product-123",
+      "product_name": "Example Product",
+      "quantity": "1.0",
+      "amount": 100.00
+    }
+  ],
+  "addresses": [
+    {
+      "type": "SHIP_TO",
+      "street_1": "123 Main St",
+      "city": "Seattle",
+      "state": "WA",
+      "postal_code": "98101",
+      "country": "US"
+    }
+  ]
+}
+```
+
+## Response Fields
+
+The API returns detailed tax information:
+
+- `total_tax_amount_calculated`: Total tax amount for the transaction
+- `taxable_amount`: Amount subject to tax
+- `tax_rate_calculated`: Overall tax rate
+- `nexus_met`: Whether your organization has nexus in the destination jurisdiction
+- `has_active_registration`: Whether you have an active registration
+- `transaction_items`: Array with tax details for each item
+
+## Next Steps
+
+- [Create a Transaction](/reference/api/transactions/create-transaction) - Record the transaction after payment
+- [Sales Tax Calculations Guide](/docs/api-guides/sales-tax-calculations) - Learn more about tax calculation
+- [Getting Started](/docs/getting-started) - Set up your integration
 
 ## Related Resources
 
-- [Tax Estimation API](/reference/tax/estimate-tax)
-- [Getting Started](/docs/getting-started)
+- [Tax Estimation API Reference](/reference/api/tax-estimation/estimate-tax)
+- [Sales Tax for Developers](/docs/guides/sales-tax-for-developers)
 - [Support](https://trykintsugi.com/support)

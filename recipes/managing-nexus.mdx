@@ -1,0 +1,183 @@
+---
+title: 'Managing Nexus'
+description: 'Interactive playground for creating physical nexus, registrations, and retrieving nexus information'
+openapi: post /v1/nexus/physical_nexus
+mintlify:
+  playground:
+    display: interactive
+---
+
+# Managing Nexus
+
+## Overview
+
+Nexus determines where your business has a tax obligation. Physical nexus represents business locations (offices, warehouses, employees), while registrations represent jurisdictions where you're registered to collect and remit sales tax. This API Lab covers managing both physical nexus and registrations.
+
+## Understanding Nexus Types
+
+- **Physical Nexus**: Business locations that create tax obligations (offices, warehouses, employees)
+- **Registrations**: Jurisdictions where you're registered to collect and remit tax
+
+## Workflow
+
+1. **Create Physical Nexus** - Record a physical business location
+2. **Create Registration** - Register in a jurisdiction
+3. **Retrieve Nexus** - View all physical nexus records
+4. **Retrieve Registrations** - View all registrations
+
+## Step 1: Create Physical Nexus
+
+Create a physical nexus record using the interactive playground below with `POST /v1/nexus/physical_nexus`.
+
+### Required Fields
+
+- `country_code`: Country code (ISO 3166-1 alpha-2, e.g., "US")
+- `state_code`: State or province code (e.g., "CA", "NY")
+- `start_date`: Date when nexus began
+- `category`: Nexus category (e.g., "PHYSICAL_BUSINESS_LOCATION")
+
+### Example Request
+
+```json
+{
+  "country_code": "US",
+  "state_code": "CA",
+  "start_date": "2024-01-01",
+  "category": "PHYSICAL_BUSINESS_LOCATION"
+}
+```
+
+## Step 2: Create Registration
+
+Create a registration using `POST /v1/registrations`. This represents a jurisdiction where you're registered to collect tax.
+
+### Required Fields
+
+- `country_code`: Country code
+- `state_code`: State or province code
+- `registration_date`: Date of registration
+
+### Example Request
+
+```json
+{
+  "country_code": "US",
+  "state_code": "CA",
+  "state_name": "California",
+  "registration_date": "2024-01-01",
+  "filing_frequency": "MONTHLY"
+}
+```
+
+## Step 3: Retrieve Physical Nexus
+
+Retrieve physical nexus records using `GET /v1/nexus/physical_nexus`. You can filter by:
+- `country_code`: Filter by country
+- `state_code`: Filter by state
+- Pagination: Use `page` and `size` parameters
+
+## Step 4: Retrieve Registrations
+
+Retrieve registrations using `GET /v1/registrations`. You can filter by:
+- `country_code__in`: Filter by countries
+- `state_code`: Filter by state
+- `status__in`: Filter by registration status
+- Pagination: Use `page` and `size` parameters
+
+## Authentication
+
+These endpoints require two headers:
+- `x-api-key`: Your API key
+- `x-organization-id`: Your organization ID
+
+<Note>
+Both headers are required for authentication. You can find your API key and organization ID in your [Kintsugi dashboard](https://app.trykintsugi.com).
+</Note>
+
+## Try It Out
+
+Use the interactive playground below to create physical nexus. The playground will automatically include the required authentication headers.
+
+<Info>
+The playground prefills example values from the API schema. Modify the request body to test different nexus configurations.
+</Info>
+
+## Common Use Cases
+
+### Physical Business Location
+
+Create nexus for a physical office or warehouse:
+
+```json
+{
+  "country_code": "US",
+  "state_code": "CA",
+  "start_date": "2024-01-01",
+  "category": "PHYSICAL_BUSINESS_LOCATION",
+  "external_id": "LOCATION-001"
+}
+```
+
+### Employee Location
+
+Create nexus based on employee location:
+
+```json
+{
+  "country_code": "US",
+  "state_code": "NY",
+  "start_date": "2024-01-15",
+  "category": "EMPLOYEE_LOCATION",
+  "external_id": "EMPLOYEE-NY-001"
+}
+```
+
+### Registration
+
+Create a registration for a jurisdiction:
+
+```json
+{
+  "country_code": "US",
+  "state_code": "CA",
+  "state_name": "California",
+  "registration_date": "2024-01-01",
+  "filing_frequency": "MONTHLY",
+  "sales_tax_id": "123456789"
+}
+```
+
+## Response Fields
+
+### Physical Nexus Response
+
+- `id`: Unique nexus identifier
+- `country_code`: Country code
+- `state_code`: State code
+- `start_date`: Nexus start date
+- `end_date`: Nexus end date (if applicable)
+- `category`: Nexus category
+
+### Registration Response
+
+- `id`: Unique registration identifier
+- `country_code`: Country code
+- `state_code`: State code
+- `status`: Registration status
+- `filing_frequency`: How often you file returns
+- `sales_tax_id`: Sales tax registration number
+
+## Next Steps
+
+- [Get Physical Nexus](/reference/api/nexus/get-physical-nexus) - List physical nexus
+- [Get Registrations](/reference/api/registrations/get-registrations) - List registrations
+- [Update Physical Nexus](/reference/api/nexus/update-physical-nexus) - Modify nexus details
+- [Update Registration](/reference/api/registrations/update-registration) - Modify registration details
+
+## Related Resources
+
+- [Nexus API Reference](/reference/api/nexus/create-physical-nexus)
+- [Registrations API Reference](/reference/api/registrations/create-registration)
+- [Getting Started](/docs/getting-started)
+- [Support](https://trykintsugi.com/support)
+

@@ -1,0 +1,112 @@
+---
+title: 'Create a Product'
+description: 'Interactive playground to create products using the Kintsugi API'
+openapi: post /v1/products/
+mintlify:
+  playground:
+    display: interactive
+---
+
+# Create a Product
+
+## Overview
+
+Products in Kintsugi represent the items you sell. Each product needs proper tax classification (category and subcategory) to ensure accurate tax calculations. This endpoint creates a new product record that will be used for tax calculations in transactions.
+
+## When to Use
+
+- **Product catalog setup**: Create products when setting up your integration
+- **New product launches**: Add new products as you expand your catalog
+- **Tax classification**: Ensure products have proper tax categories for accurate calculations
+- **Manual product management**: Create products outside of automated syncs
+
+## Authentication
+
+This endpoint requires two headers:
+- `x-api-key`: Your API key
+- `x-organization-id`: Your organization ID
+
+<Note>
+Both headers are required for authentication. You can find your API key and organization ID in your [Kintsugi dashboard](https://app.trykintsugi.com).
+</Note>
+
+## Try It Out
+
+Use the interactive playground below to create a product. The playground will automatically include the required authentication headers.
+
+<Info>
+The playground prefills example values from the API schema. Modify the request body to test different product configurations. You'll need valid product categories and subcategories - see the [Get Product Categories](/reference/api/products/get-product-categories) endpoint for available options.
+</Info>
+
+## Required Fields
+
+- `external_id`: Your internal product identifier (must be unique within your organization)
+- `product_name`: Name of the product
+- `product_category`: Product category (see [Get Product Categories](/reference/api/products/get-product-categories))
+- `product_subcategory`: Product subcategory (see [Get Product Categories](/reference/api/products/get-product-categories))
+
+## Common Use Cases
+
+### Basic Product Creation
+
+Create a product with minimal required fields:
+
+```json
+{
+  "external_id": "SKU-12345",
+  "product_name": "Example Product",
+  "product_category": "Physical",
+  "product_subcategory": "General Physical"
+}
+```
+
+### Product with Full Details
+
+Include additional product information:
+
+```json
+{
+  "external_id": "PROD-ABC-123",
+  "product_name": "Premium Wireless Headphones",
+  "product_category": "Physical",
+  "product_subcategory": "General Physical",
+  "product_description": "High-quality wireless headphones with noise cancellation",
+  "source": "API"
+}
+```
+
+## Response Fields
+
+The API returns detailed product information:
+
+- `id`: Kintsugi's unique product identifier
+- `external_id`: Your product identifier
+- `product_name`: Product name
+- `product_category`: Product category
+- `product_subcategory`: Product subcategory
+- `status`: Product status (ACTIVE, ARCHIVED)
+- `source`: Source of the product record
+- `created_at`: Timestamp when the product was created
+
+## Product Categories
+
+Before creating products, you may want to fetch available categories and subcategories using the [Get Product Categories](/reference/api/products/get-product-categories) endpoint. Categories determine how products are taxed across different jurisdictions.
+
+<Info>
+Product categories align with tax regulations across jurisdictions. Choose the most specific category and subcategory that matches your product to ensure accurate tax calculations.
+</Info>
+
+## Next Steps
+
+- [Get Product Categories](/reference/api/products/get-product-categories) - View all available categories and subcategories
+- [Get Products](/reference/api/products/get-products) - List and search your products
+- [Get Product by ID](/reference/api/products/get-product-by-id) - Retrieve a specific product
+- [Update Product](/reference/api/products/update-product) - Modify product details
+- [Product & Customer Records Guide](/docs/api-guides/product-customer-records) - Learn more about product management
+
+## Related Resources
+
+- [Products API Reference](/reference/api/products/create-product)
+- [Getting Started](/docs/getting-started)
+- [Support](https://trykintsugi.com/support)
+

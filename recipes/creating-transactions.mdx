@@ -1,0 +1,215 @@
+---
+title: 'Creating Transactions'
+description: 'Interactive playground for creating transactions and retrieving transaction records'
+openapi: post /v1/transactions
+mintlify:
+  playground:
+    display: interactive
+---
+
+# Creating Transactions
+
+## Overview
+
+Transactions represent completed sales in Kintsugi. Each transaction records a sale with customer information, line items, addresses, and tax details. Transactions are used for compliance tracking, nexus determination, and tax filing preparation.
+
+<Warning>
+Only create transactions for **completed sales** with confirmed payment. Do not sync pending orders or estimates.
+</Warning>
+
+## When to Create Transactions
+
+- **After payment confirmation**: When a sale is completed and payment is received
+- **Order fulfillment**: When an order is shipped or delivered
+- **Invoice creation**: When generating invoices for completed sales
+- **Batch sync**: Daily or periodic syncing of completed orders
+
+## Workflow
+
+1. **Create a Transaction** - Record a completed sale
+2. **Retrieve Transactions** - Search and retrieve transaction records
+
+## Step 1: Create a Transaction
+
+Create a transaction using the interactive playground below with `POST /v1/transactions`.
+
+### Required Fields
+
+- `external_id`: Your internal transaction/order identifier (must be unique)
+- `date`: Transaction date and time (UTC)
+- `currency`: Currency code (e.g., USD, EUR)
+- `total_amount`: Total transaction amount
+- `source`: Source of the transaction (e.g., "API", "SHOPIFY")
+- `status`: Transaction status (use "COMMITTED" for completed sales)
+- `type`: Transaction type (typically "SALE")
+- `transaction_items`: Array of line items
+- `addresses`: Array of addresses (at minimum: SHIP_TO or BILL_TO)
+
+### Example Request
+
+```json
+{
+  "external_id": "ORDER-12345",
+  "date": "2024-01-15T10:00:00Z",
+  "currency": "USD",
+  "total_amount": 150.00,
+  "source": "API",
+  "status": "COMMITTED",
+  "type": "SALE",
+  "transaction_items": [
+    {
+      "external_id": "ITEM-001",
+      "external_product_id": "PROD-001",
+      "product": "Example Product",
+      "quantity": "1.0",
+      "amount": 100.00
+    }
+  ],
+  "addresses": [
+    {
+      "type": "SHIP_TO",
+      "street_1": "123 Main St",
+      "city": "Seattle",
+      "state": "WA",
+      "postal_code": "98101",
+      "country": "US"
+    }
+  ]
+}
+```
+
+## Step 2: Retrieve Transactions
+
+After creating transactions, retrieve them using `GET /v1/transactions`. You can:
+- Filter by `external_id` using the `search_query` parameter
+- Filter by date range using `date__gte` and `date__lte`
+- Filter by status, state, country, and more
+- Paginate through results
+
+## Authentication
+
+This endpoint requires two headers:
+- `x-api-key`: Your API key
+- `x-organization-id`: Your organization ID
+
+<Note>
+Both headers are required for authentication. You can find your API key and organization ID in your [Kintsugi dashboard](https://app.trykintsugi.com).
+</Note>
+
+## Try It Out
+
+Use the interactive playground below to create a transaction. The playground will automatically include the required authentication headers.
+
+<Info>
+The playground prefills example values from the API schema. Modify the request body to test different transaction configurations.
+</Info>
+
+## Common Use Cases
+
+### Basic Transaction
+
+Create a simple transaction with minimal required fields:
+
+```json
+{
+  "external_id": "ORDER-001",
+  "date": "2024-01-15T10:00:00Z",
+  "currency": "USD",
+  "total_amount": 100.00,
+  "source": "API",
+  "status": "COMMITTED",
+  "type": "SALE",
+  "transaction_items": [
+    {
+      "external_id": "ITEM-001",
+      "external_product_id": "PROD-001",
+      "product": "Widget",
+      "quantity": "1.0",
+      "amount": 100.00
+    }
+  ],
+  "addresses": [
+    {
+      "type": "SHIP_TO",
+      "street_1": "123 Main St",
+      "city": "Seattle",
+      "state": "WA",
+      "postal_code": "98101",
+      "country": "US"
+    }
+  ]
+}
+```
+
+### Transaction with Customer
+
+Include customer information:
+
+```json
+{
+  "external_id": "ORDER-002",
+  "date": "2024-01-15T10:00:00Z",
+  "currency": "USD",
+  "total_amount": 200.00,
+  "source": "API",
+  "status": "COMMITTED",
+  "type": "SALE",
+  "customer": {
+    "external_id": "CUST-001",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "street_1": "123 Main St",
+    "city": "Seattle",
+    "state": "WA",
+    "postal_code": "98101",
+    "country": "US"
+  },
+  "transaction_items": [
+    {
+      "external_id": "ITEM-001",
+      "external_product_id": "PROD-001",
+      "product": "Product A",
+      "quantity": "2.0",
+      "amount": 200.00
+    }
+  ],
+  "addresses": [
+    {
+      "type": "SHIP_TO",
+      "street_1": "123 Main St",
+      "city": "Seattle",
+      "state": "WA",
+      "postal_code": "98101",
+      "country": "US"
+    }
+  ]
+}
+```
+
+## Response Fields
+
+The API returns detailed transaction information:
+
+- `id`: Kintsugi's unique transaction identifier
+- `external_id`: Your transaction identifier
+- `date`: Transaction date
+- `total_amount`: Total transaction amount
+- `total_tax_amount_calculated`: Calculated tax amount
+- `status`: Transaction status
+- `addresses`: Array of addresses
+- `transaction_items`: Array of line items
+- `customer`: Customer information (if provided)
+
+## Next Steps
+
+- [Get Transactions](/reference/api/transactions/get-transactions) - List and search transactions
+- [Get Transaction By ID](/reference/api/transactions/get-transaction-by-id) - Retrieve specific transaction
+- [Update Transaction](/reference/api/transactions/update-transaction) - Modify transaction details
+- [Syncing Transaction Records](/docs/api-guides/syncing-transaction-records) - Learn more about transaction management
+
+## Related Resources
+
+- [Transactions API Reference](/reference/api/transactions/create-transaction)
+- [Getting Started](/docs/getting-started)
+- [Support](https://trykintsugi.com/support)
+

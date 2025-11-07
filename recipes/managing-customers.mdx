@@ -1,0 +1,161 @@
+---
+title: 'Managing Customers'
+description: 'Interactive playground for creating customers and retrieving customer records'
+openapi: post /v1/customers
+mintlify:
+  playground:
+    display: interactive
+---
+
+# Managing Customers
+
+## Overview
+
+Customer records in Kintsugi store customer information and enable exemption management. While not required for all integrations, customer records are essential when dealing with tax-exempt customers (nonprofits, resellers, etc.) or when you need to track customer-specific tax information.
+
+## When to Create Customer Records
+
+- **Tax-exempt customers**: Nonprofits, resellers, or other exempt entities
+- **Customer exemptions**: When customers have jurisdiction-specific exemptions
+- **Customer tracking**: When you need to maintain customer tax history
+
+<Note>
+For regular taxable customers, you can pass customer information directly in transaction requests without creating separate customer records.
+</Note>
+
+## Workflow
+
+1. **Create a Customer** - Create a customer record with address information
+2. **Retrieve Customers** - Search and retrieve customer records
+
+## Step 1: Create a Customer
+
+Create a customer record using the interactive playground below with `POST /v1/customers`.
+
+### Required Fields
+
+- `external_id`: Your internal customer identifier (must be unique)
+- `name`: Customer name
+- Address information (at minimum: `country`, `state`, `city`, `postal_code`)
+
+### Example Request
+
+```json
+{
+  "external_id": "CUST-001",
+  "name": "Acme Corporation",
+  "email": "contact@acme.com",
+  "street_1": "123 Business St",
+  "city": "San Francisco",
+  "state": "CA",
+  "postal_code": "94105",
+  "country": "US"
+}
+```
+
+## Step 2: Retrieve Customers
+
+After creating customers, retrieve them using `GET /v1/customers`. You can:
+- Search by `external_id` using the `search_query` parameter
+- Filter by country and state
+- Paginate through all customers
+
+## Authentication
+
+This endpoint requires two headers:
+- `x-api-key`: Your API key
+- `x-organization-id`: Your organization ID
+
+<Note>
+Both headers are required for authentication. You can find your API key and organization ID in your [Kintsugi dashboard](https://app.trykintsugi.com).
+</Note>
+
+## Try It Out
+
+Use the interactive playground below to create a customer. The playground will automatically include the required authentication headers.
+
+<Info>
+The playground prefills example values from the API schema. Modify the request body to test different customer configurations.
+</Info>
+
+## Common Use Cases
+
+### Basic Customer Creation
+
+Create a customer with minimal required fields:
+
+```json
+{
+  "external_id": "CUST-12345",
+  "name": "John Doe",
+  "street_1": "123 Main St",
+  "city": "Seattle",
+  "state": "WA",
+  "postal_code": "98101",
+  "country": "US"
+}
+```
+
+### Customer with Full Details
+
+Include complete customer information:
+
+```json
+{
+  "external_id": "CUST-ABC-123",
+  "name": "Acme Corporation",
+  "email": "contact@acme.com",
+  "phone": "555-123-4567",
+  "street_1": "123 Business St",
+  "street_2": "Suite 100",
+  "city": "San Francisco",
+  "county": "San Francisco",
+  "state": "CA",
+  "postal_code": "94105",
+  "country": "US",
+  "source": "API"
+}
+```
+
+### Exempt Customer
+
+Create a customer that may be tax-exempt:
+
+```json
+{
+  "external_id": "CUST-NONPROFIT-001",
+  "name": "Nonprofit Organization",
+  "email": "info@nonprofit.org",
+  "street_1": "456 Charity Ave",
+  "city": "Austin",
+  "state": "TX",
+  "postal_code": "78701",
+  "country": "US",
+  "status": "ACTIVE"
+}
+```
+
+## Response Fields
+
+The API returns detailed customer information:
+
+- `id`: Kintsugi's unique customer identifier
+- `external_id`: Your customer identifier
+- `name`: Customer name
+- `email`: Customer email
+- `address_status`: Address verification status
+- `status`: Customer status (ACTIVE, ARCHIVED)
+
+## Next Steps
+
+- [Get Customers](/reference/api/customers/get-customers) - List and search customers
+- [Get Customer By ID](/reference/api/customers/get-customer-by-id) - Retrieve specific customer
+- [Update Customer](/reference/api/customers/update-customer) - Modify customer details
+- [Product & Customer Records Guide](/docs/api-guides/product-customer-records) - Learn more about customer management
+
+## Related Resources
+
+- [Customers API Reference](/reference/api/customers/create-customer)
+- [Getting Started](/docs/getting-started)
+- [Support](https://trykintsugi.com/support)
+
