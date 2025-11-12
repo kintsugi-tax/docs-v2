@@ -10596,6 +10596,10 @@
             "description": "If true, do not file for this registration (treated as False by default).",
             "default": false
           },
+          "two_factor_enabled": {
+            "description": "Indicates whether two-factor authentication (2FA) is enabled for this registration.",
+            "type": "boolean"
+          },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
@@ -26876,6 +26880,10 @@
             "description": "If true, do not file for this registration (treated as False by default).",
             "default": false
           },
+          "two_factor_enabled": {
+            "description": "Indicates whether two-factor authentication (2FA) is enabled for this registration.",
+            "type": "boolean"
+          },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
@@ -27210,6 +27218,10 @@
             "description": "If true, do not file for this registration (treated as False by default).",
             "default": false
           },
+          "two_factor_enabled": {
+            "description": "Indicates whether two-factor authentication (2FA) is enabled for this registration.",
+            "type": "boolean"
+          },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
@@ -27388,6 +27400,10 @@
             "title": "Do Not File",
             "description": "If true, do not file for this registration (treated as False by default).",
             "default": false
+          },
+          "two_factor_enabled": {
+            "description": "Indicates whether two-factor authentication (2FA) is enabled for this registration.",
+            "type": "boolean"
           },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
@@ -27611,6 +27627,10 @@
             "description": "If true, do not file for this registration (treated as False by default).",
             "default": false
           },
+          "two_factor_enabled": {
+            "description": "Indicates whether two-factor authentication (2FA) is enabled for this registration.",
+            "type": "boolean"
+          },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
@@ -27720,6 +27740,10 @@
             "title": "Do Not File",
             "description": "If true, do not file for this registration (treated as False by default).",
             "default": false
+          },
+          "two_factor_enabled": {
+            "description": "Indicates whether two-factor authentication (2FA) is enabled for this registration.",
+            "type": "boolean"
           },
           "marked_collecting": {
             "description": "Indicates whether the  registration is marked as collecting in shopify",
