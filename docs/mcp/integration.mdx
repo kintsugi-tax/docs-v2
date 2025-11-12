@@ -3,10 +3,6 @@ title: "Integration Guide"
 description: "Set up Kintsugi MCP in your development environment to build integrations faster"
 ---
 
-<Warning>
-**Preview Mode** - While Kintsugi's new docs site is in preview, please use **https://kintsugi.mintlify.app/mcp** for MCP server access. Once we launch our production docs site, the MCP server will be available at **https://docs.trykintsugi.com/mcp**.
-</Warning>
-
 This guide walks you through setting up Kintsugi MCP in your development environment. Once configured, your AI coding assistant will understand Kintsugi's API endpoints and help you build integrations faster with accurate code generation.
 
 ## Prerequisites
@@ -58,12 +54,8 @@ Cursor IDE has native MCP support, making it the best choice for developers buil
     Click **Add Server** or **+** and configure:
     
     - **Name**: `kintsugi`
-    - **URL**: `https://kintsugi.mintlify.app/mcp`
+    - **URL**: `https://docs.trykintsugi.com/mcp`
     - **Description**: "Kintsugi Tax API endpoints and documentation"
-    
-    <Note>
-    The MCP server URL will change to `https://docs.trykintsugi.com/mcp` once our production docs site launches.
-    </Note>
   </Step>
   
   <Step title="Configure Authentication (Optional)">
@@ -155,7 +147,7 @@ Claude Desktop can help with API integration code, even when you're not in an ID
     {
       "mcpServers": {
         "kintsugi": {
-          "url": "https://kintsugi.mintlify.app/mcp"
+          "url": "https://docs.trykintsugi.com/mcp"
         }
       }
     }
@@ -210,7 +202,7 @@ import { SSEClientTransport } from '@modelcontextprotocol/sdk/client/sse.js';
 
 // Create MCP client for Kintsugi
 const transport = new SSEClientTransport(
-  new URL('https://kintsugi.mintlify.app/mcp')
+  new URL('https://docs.trykintsugi.com/mcp')
 );
 
 const client = new Client({
@@ -314,7 +306,7 @@ After setup, verify your MCP integration works correctly:
   <Accordion title="AI Doesn't Understand Kintsugi API">
     - Verify MCP server URL is correct
     - Restart your IDE/editor
-    - Check MCP server is accessible: visit `https://kintsugi.mintlify.app/mcp` in browser
+    - Check MCP server is accessible: visit `https://docs.trykintsugi.com/mcp` in browser
     - Verify configuration file syntax is valid JSON
   </Accordion>
   
