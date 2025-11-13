@@ -9428,6 +9428,7 @@
           "IM",
           "IL",
           "IT",
+          "CI",
           "JM",
           "JP",
           "JE",
@@ -23041,6 +23042,103 @@
         ],
         "title": "RegistrationAdminRead",
         "description": "Admin-specific read model for registrations.\n\nExtends public RegistrationRead while adding admin-only convenience fields."
+      },
+      "RegistrationAdminUpdateAPI": {
+        "properties": {
+          "registration_date": {
+            "description": "The date when the registration was created. Format: YYYY-MM-DD.",
+            "type": "string"
+          },
+          "registration_email": {
+            "description": "Email address associated with the registration.",
+            "type": "string"
+          },
+          "registration_key": {
+            "description": "A unique key assigned to the registration.",
+            "type": "string"
+          },
+          "deregistration_key": {
+            "description": "A unique key assigned for deregistration.",
+            "type": "string"
+          },
+          "registration_requested": {
+            "description": "Timestamp when the registration was requested.",
+            "type": "string"
+          },
+          "registration_completed": {
+            "description": "Timestamp when the registration was completed.",
+            "type": "string"
+          },
+          "deregistration_requested": {
+            "description": "Timestamp when deregistration was requested.",
+            "type": "string"
+          },
+          "deregistration_completed": {
+            "description": "Timestamp when the deregistration was completed.",
+            "type": "string"
+          },
+          "auto_registered": {
+            "description": "Indicates whether the registration was completed automatically.",
+            "default": false,
+            "type": "boolean"
+          },
+          "registrations_regime": {
+            "description": "The tax registration regime (e.g., STANDARD, SIMPLIFIED).",
+            "$ref": "#/components/schemas/RegistrationsRegimeEnum"
+          },
+          "change_regime_status": {
+            "$ref": "#/components/schemas/ChangeRegimeStatusEnum"
+          },
+          "third_party_enabled": {
+            "description": "Indicates whether third-party access is enabled for this registration.",
+            "default": false,
+            "type": "boolean"
+          },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file for this registration (treated as False by default).",
+            "default": false
+          },
+          "two_factor_enabled": {
+            "description": "Indicates whether two-factor authentication (2FA) is enabled for this registration.",
+            "type": "boolean"
+          },
+          "marked_collecting": {
+            "description": "Indicates whether the  registration is marked as collecting in shopify",
+            "type": "boolean"
+          },
+          "username": {
+            "description": "The username associated with the registration.",
+            "type": "string"
+          },
+          "filing_frequency": {
+            "description": "The updated filing frequency (MONTHLY, QUARTERLY, etc.).",
+            "$ref": "#/components/schemas/FilingFrequencyEnum"
+          },
+          "create_filings_from": {
+            "description": "The updated date from which filings should start (YYYY-MM-DD).",
+            "type": "string"
+          },
+          "is_approaching": {
+            "description": "Indicates whether the registration is approaching an action (e.g., renewal).",
+            "type": "boolean"
+          },
+          "comment": {
+            "description": "Additional notes or comments related to the registration.",
+            "type": "string"
+          },
+          "vda": {
+            "description": "Indicates if the Voluntary Disclosure Agreement (VDA) applies.",
+            "type": "boolean"
+          },
+          "amount_fees": {
+            "description": "Admin-only: The amount of fees associated with the registration.",
+            "type": "number"
+          }
+        },
+        "type": "object",
+        "title": "RegistrationAdminUpdateAPI"
       },
       "RegistrationCategoryEnum": {
         "type": "string",
