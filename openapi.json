@@ -11312,6 +11312,45 @@
         ],
         "title": "BillingCustomerDetails"
       },
+      "BillingEstimation": {
+        "properties": {
+          "filings": {
+            "type": "integer",
+            "title": "Filings",
+            "description": "Total number of billable filing of current month"
+          },
+          "registrations": {
+            "type": "integer",
+            "title": "Registrations",
+            "description": "Total number of billable registration of current month"
+          },
+          "unit_cost": {
+            "type": "integer",
+            "title": "Unit Cost",
+            "description": "Cost per filing or registration in cents"
+          },
+          "premium": {
+            "type": "boolean",
+            "title": "Premium",
+            "description": "Whether the organization is on premium plan"
+          },
+          "estimated_amount": {
+            "type": "integer",
+            "title": "Estimated Amount",
+            "description": "Estimated amount to be charged for current month in cents",
+            "readOnly": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "filings",
+          "registrations",
+          "unit_cost",
+          "premium",
+          "estimated_amount"
+        ],
+        "title": "BillingEstimation"
+      },
       "BillingFrequencyEnum": {
         "type": "string",
         "enum": [
@@ -16931,6 +16970,45 @@
         ],
         "title": "FilingUpdateInternal"
       },
+      "FindThresholdCrossingTransactionState": {
+        "properties": {
+          "last_txn_id": {
+            "type": "string"
+          },
+          "last_txn_datetime": {
+            "type": "string"
+          },
+          "period_start_date": {
+            "type": "string",
+            "title": "Period Start Date"
+          },
+          "period_end_date": {
+            "type": "string",
+            "title": "Period End Date"
+          },
+          "running_sales_total_decimal": {
+            "type": "string",
+            "title": "Running Sales Total Decimal"
+          },
+          "running_transaction_count": {
+            "type": "integer",
+            "title": "Running Transaction Count"
+          },
+          "has_all_marketplace_transactions": {
+            "type": "boolean",
+            "title": "Has All Marketplace Transactions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "period_start_date",
+          "period_end_date",
+          "running_sales_total_decimal",
+          "running_transaction_count",
+          "has_all_marketplace_transactions"
+        ],
+        "title": "FindThresholdCrossingTransactionState"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -18464,6 +18542,9 @@
           },
           "most_recent_transaction_date": {
             "type": "string"
+          },
+          "find_threshold_crossing_transaction_state": {
+            "$ref": "#/components/schemas/FindThresholdCrossingTransactionState"
           },
           "earliest_collected_date": {
             "type": "string",
