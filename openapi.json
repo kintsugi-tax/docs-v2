@@ -19665,6 +19665,10 @@
           },
           "customer_health": {
             "$ref": "#/components/schemas/OrganizationAdminCustomerHealthReadSerializer"
+          },
+          "prefer_collected_tax_amounts": {
+            "type": "boolean",
+            "title": "Prefer Collected Tax Amounts"
           }
         },
         "type": "object",
@@ -19769,7 +19773,8 @@
           "incorporation_country",
           "target_archive_date",
           "id",
-          "customer_health"
+          "customer_health",
+          "prefer_collected_tax_amounts"
         ],
         "title": "OrganizationAdminDetailsReadSerializer"
       },
