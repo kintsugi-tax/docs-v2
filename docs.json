@@ -71,7 +71,8 @@
               "pages": [
                 "docs/guides/sales-tax-for-developers",
                 "docs/guides/integrating-kintsugis-api",
-                "docs/guides/migrating-from-avalara-taxjar"
+                "docs/guides/migrating-from-avalara-taxjar",
+                "docs/file-upload"
                 ]
               },
               {
