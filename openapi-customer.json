@@ -15695,10 +15695,6 @@
           },
           "customer_health": {
             "$ref": "#/components/schemas/OrganizationAdminCustomerHealthReadSerializer"
-          },
-          "prefer_collected_tax_amounts": {
-            "type": "boolean",
-            "title": "Prefer Collected Tax Amounts"
           }
         },
         "type": "object",
@@ -15803,8 +15799,7 @@
           "incorporation_country",
           "target_archive_date",
           "id",
-          "customer_health",
-          "prefer_collected_tax_amounts"
+          "customer_health"
         ],
         "title": "OrganizationAdminDetailsReadSerializer"
       },
@@ -29627,10 +29622,6 @@
             "type": "string"
           },
           "transaction_id": {
-            "type": "string"
-          },
-          "assumption": {
-            "description": "Assumption about the enrichment of the address",
             "type": "string"
           }
         },
