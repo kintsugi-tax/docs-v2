@@ -19651,6 +19651,9 @@
           "target_archive_date": {
             "type": "string"
           },
+          "onboarding_link": {
+            "type": "string"
+          },
           "tax_ids": {
             "items": {
               "$ref": "#/components/schemas/OrganizationTaxIdReadSerializer"
@@ -19768,6 +19771,7 @@
           "do_not_file",
           "incorporation_country",
           "target_archive_date",
+          "onboarding_link",
           "id",
           "customer_health"
         ],
@@ -20603,6 +20607,9 @@
           "target_archive_date": {
             "type": "string"
           },
+          "onboarding_link": {
+            "type": "string"
+          },
           "id": {
             "type": "string",
             "title": "Id"
@@ -20913,6 +20920,9 @@
           "target_archive_date": {
             "type": "string"
           },
+          "onboarding_link": {
+            "type": "string"
+          },
           "tax_ids": {
             "items": {
               "$ref": "#/components/schemas/OrganizationTaxIdReadSerializer"
@@ -21027,6 +21037,7 @@
           "do_not_file",
           "incorporation_country",
           "target_archive_date",
+          "onboarding_link",
           "id"
         ],
         "title": "OrganizationDetailsReadSerializer"
@@ -27855,6 +27866,9 @@
           },
           "registration_type": {
             "$ref": "#/components/schemas/RegistrationTypeEnum"
+          },
+          "country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum"
           }
         },
         "type": "object",
