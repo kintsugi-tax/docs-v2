@@ -6790,7 +6790,8 @@
           "shopware",
           "xero",
           "netsuite",
-          "sage-intacct"
+          "sage-intacct",
+          "wix"
         ],
         "title": "ApiDeckServiceEnum"
       },
@@ -7765,6 +7766,143 @@
           "total_requested"
         ],
         "title": "BulkFilingResult"
+      },
+      "BulkRegistrationCreate": {
+        "properties": {
+          "registrations": {
+            "items": {
+              "$ref": "#/components/schemas/BulkRegistrationCreateItem"
+            },
+            "type": "array",
+            "title": "Registrations",
+            "description": "List of registrations to create (minimal fields only)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "registrations"
+        ],
+        "title": "BulkRegistrationCreate"
+      },
+      "BulkRegistrationCreateItem": {
+        "properties": {
+          "country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum",
+            "description": "ISO 3166-1 alpha-2 country code"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code",
+            "description": "State/province code"
+          },
+          "filing_frequency": {
+            "$ref": "#/components/schemas/FilingFrequencyEnum",
+            "description": "Filing frequency"
+          },
+          "registration_date": {
+            "description": "YYYY-MM-DD",
+            "type": "string"
+          },
+          "registration_email": {
+            "description": "Contact email tied to this registration.",
+            "type": "string"
+          },
+          "username": {
+            "description": "Username for accessing tax registration details.",
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "description": "Registration category hint"
+          }
+        },
+        "type": "object",
+        "required": [
+          "country_code",
+          "state_code",
+          "filing_frequency",
+          "type"
+        ],
+        "title": "BulkRegistrationCreateItem",
+        "description": "Minimal admin create item for bulk registration creation.\nOnly the essentials are accepted; other fields can be set later via edit."
+      },
+      "BulkRegistrationError": {
+        "properties": {
+          "index": {
+            "type": "integer",
+            "title": "Index",
+            "description": "Index of the failed item"
+          },
+          "registration_data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Registration Data",
+            "description": "The item that failed"
+          },
+          "errors": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Errors",
+            "description": "Validation or processing errors"
+          }
+        },
+        "type": "object",
+        "required": [
+          "index",
+          "registration_data",
+          "errors"
+        ],
+        "title": "BulkRegistrationError"
+      },
+      "BulkRegistrationResult": {
+        "properties": {
+          "created_registrations": {
+            "items": {
+              "$ref": "#/components/schemas/RegistrationAdminRead"
+            },
+            "type": "array",
+            "title": "Created Registrations",
+            "description": "Successfully created registrations"
+          },
+          "failed_registrations": {
+            "items": {
+              "$ref": "#/components/schemas/BulkRegistrationError"
+            },
+            "type": "array",
+            "title": "Failed Registrations",
+            "description": "Failed registration attempts"
+          },
+          "total_created": {
+            "type": "integer",
+            "title": "Total Created",
+            "description": "Total created"
+          },
+          "total_failed": {
+            "type": "integer",
+            "title": "Total Failed",
+            "description": "Total failed"
+          },
+          "total_requested": {
+            "type": "integer",
+            "title": "Total Requested",
+            "description": "Total requested"
+          }
+        },
+        "type": "object",
+        "required": [
+          "created_registrations",
+          "failed_registrations",
+          "total_created",
+          "total_failed",
+          "total_requested"
+        ],
+        "title": "BulkRegistrationResult"
       },
       "BulkTaskUpdate": {
         "properties": {
@@ -15698,6 +15836,14 @@
           },
           "customer_health": {
             "$ref": "#/components/schemas/OrganizationAdminCustomerHealthReadSerializer"
+          },
+          "premium_upgrade_triggered": {
+            "type": "boolean",
+            "title": "Premium Upgrade Triggered"
+          },
+          "prefer_collected_tax_amounts": {
+            "type": "boolean",
+            "title": "Prefer Collected Tax Amounts"
           }
         },
         "type": "object",
@@ -15803,7 +15949,9 @@
           "target_archive_date",
           "onboarding_link",
           "id",
-          "customer_health"
+          "customer_health",
+          "premium_upgrade_triggered",
+          "prefer_collected_tax_amounts"
         ],
         "title": "OrganizationAdminDetailsReadSerializer"
       },
@@ -17247,6 +17395,96 @@
         ],
         "title": "OrganizationReadWithSettings"
       },
+      "OrganizationSettingsAdminResponse": {
+        "properties": {
+          "disable_onboarding": {
+            "type": "boolean",
+            "title": "Disable Onboarding"
+          },
+          "enable_eu_registration": {
+            "type": "boolean"
+          },
+          "product_category_version": {
+            "type": "string",
+            "title": "Product Category Version"
+          },
+          "oss_scheme": {
+            "$ref": "#/components/schemas/OssTypeEnum"
+          },
+          "enable_new_auto_filing_experience": {
+            "type": "boolean",
+            "title": "Enable New Auto Filing Experience"
+          },
+          "prefer_collected_tax_amounts": {
+            "type": "boolean",
+            "title": "Prefer Collected Tax Amounts"
+          },
+          "special_tax_circumstances": {
+            "type": "boolean",
+            "title": "Special Tax Circumstances"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "organization_id": {
+            "type": "string",
+            "title": "Organization Id"
+          },
+          "organization_name": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "disable_onboarding",
+          "enable_eu_registration",
+          "product_category_version",
+          "oss_scheme",
+          "enable_new_auto_filing_experience",
+          "prefer_collected_tax_amounts",
+          "special_tax_circumstances",
+          "id",
+          "created_at",
+          "updated_at",
+          "organization_id"
+        ],
+        "title": "OrganizationSettingsAdminResponse",
+        "description": "Admin-specific response that extends OrganizationSettingsResponse with admin fields."
+      },
+      "OrganizationSettingsAdminUpdate": {
+        "properties": {
+          "disable_onboarding": {
+            "type": "boolean"
+          },
+          "enable_eu_registration": {
+            "type": "boolean"
+          },
+          "product_category_version": {
+            "type": "string"
+          },
+          "enable_new_auto_filing_experience": {
+            "type": "boolean"
+          },
+          "prefer_collected_tax_amounts": {
+            "type": "boolean"
+          },
+          "special_tax_circumstances": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "title": "OrganizationSettingsAdminUpdate",
+        "description": "Admin API serializer for updating organization settings.\nIncludes all fields that are editable in the admin panel."
+      },
       "OrganizationSettingsReadUpdate": {
         "properties": {
           "disable_onboarding": {
@@ -17285,6 +17523,10 @@
           "prefer_collected_tax_amounts": {
             "type": "boolean",
             "title": "Prefer Collected Tax Amounts"
+          },
+          "special_tax_circumstances": {
+            "type": "boolean",
+            "title": "Special Tax Circumstances"
           }
         },
         "type": "object",
@@ -17294,7 +17536,8 @@
           "product_category_version",
           "oss_scheme",
           "enable_new_auto_filing_experience",
-          "prefer_collected_tax_amounts"
+          "prefer_collected_tax_amounts",
+          "special_tax_circumstances"
         ],
         "title": "OrganizationSettingsResponse"
       },
