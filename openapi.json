@@ -11105,6 +11105,41 @@
         ],
         "title": "BankDetailsRead"
       },
+      "BatchAdminRead": {
+        "properties": {
+          "organization_id": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Organization Id"
+          },
+          "connection_id": {
+            "type": "string"
+          },
+          "batch_type": {
+            "$ref": "#/components/schemas/BatchTypes",
+            "default": "FULL"
+          },
+          "state": {
+            "$ref": "#/components/schemas/BatchStates",
+            "default": "RUNNING"
+          },
+          "stage": {
+            "$ref": "#/components/schemas/BatchStages",
+            "default": "CONNECTION_SYNC"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "organization_id",
+          "connection_id",
+          "id"
+        ],
+        "title": "BatchAdminRead"
+      },
       "BatchMessage": {
         "properties": {
           "message": {
@@ -11140,6 +11175,25 @@
         ],
         "title": "BatchStages",
         "description": "The current stages of the main batch run - in order"
+      },
+      "BatchStates": {
+        "type": "string",
+        "enum": [
+          "COMPLETE",
+          "FAILED",
+          "RUNNING",
+          "TIMEOUT"
+        ],
+        "title": "BatchStates"
+      },
+      "BatchTypes": {
+        "type": "string",
+        "enum": [
+          "FULL",
+          "SINGLE_STAGE",
+          "CONNECTION_SYNC"
+        ],
+        "title": "BatchTypes"
       },
       "BigCommerceAddress": {
         "properties": {
@@ -21748,6 +21802,37 @@
           "size"
         ],
         "title": "Page[Attachment]"
+      },
+      "Page_BatchAdminRead_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/BatchAdminRead"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "pages": {
+            "type": "integer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "page",
+          "size"
+        ],
+        "title": "Page[BatchAdminRead]"
       },
       "Page_ConnectionRead_": {
         "properties": {
