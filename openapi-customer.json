@@ -15876,6 +15876,9 @@
           "onboarding_link": {
             "type": "string"
           },
+          "health_check": {
+            "type": "string"
+          },
           "tax_ids": {
             "items": {
               "$ref": "#/components/schemas/OrganizationTaxIdReadSerializer"
@@ -16002,6 +16005,7 @@
           "incorporation_country",
           "target_archive_date",
           "onboarding_link",
+          "health_check",
           "id",
           "customer_health",
           "premium_upgrade_triggered",
@@ -16833,6 +16837,10 @@
             "title": "Do Not File",
             "default": false
           },
+          "health_check": {
+            "description": "Health check status of the organization (e.g. NEEDS_ATTENTION, GOOD_STANDING)",
+            "type": "string"
+          },
           "incorporation_country": {
             "$ref": "#/components/schemas/CountryCodeEnum"
           },
@@ -17155,6 +17163,9 @@
           "onboarding_link": {
             "type": "string"
           },
+          "health_check": {
+            "type": "string"
+          },
           "tax_ids": {
             "items": {
               "$ref": "#/components/schemas/OrganizationTaxIdReadSerializer"
@@ -17270,6 +17281,7 @@
           "incorporation_country",
           "target_archive_date",
           "onboarding_link",
+          "health_check",
           "id"
         ],
         "title": "OrganizationDetailsReadSerializer"
@@ -23528,6 +23540,10 @@
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
           },
+          "encrypted_username": {
+            "description": "The encrypted username for the registration.",
+            "type": "string"
+          },
           "username": {
             "description": "The username associated with the registration.",
             "type": "string"
@@ -23551,6 +23567,10 @@
           "vda": {
             "description": "Indicates if the Voluntary Disclosure Agreement (VDA) applies.",
             "type": "boolean"
+          },
+          "tax_id": {
+            "description": "Organization-level tax ID (e.g., VAT number, Canada Business Number).",
+            "type": "string"
           },
           "amount_fees": {
             "description": "Admin-only: The amount of fees associated with the registration.",
@@ -23689,6 +23709,10 @@
             "description": "Indicates whether the registration is an SST Import.",
             "default": false,
             "type": "boolean"
+          },
+          "tax_id": {
+            "description": "Organization-level tax ID (e.g., VAT number, Canada Business Number).",
+            "type": "string"
           },
           "password_plain_text": {
             "description": "The plaintext password for accessing the tax registration account.",
@@ -24183,6 +24207,10 @@
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
           },
+          "encrypted_username": {
+            "description": "The encrypted username for the registration.",
+            "type": "string"
+          },
           "status": {
             "$ref": "#/components/schemas/RegistrationStatusEnum",
             "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, VALIDATING, AWAITING_CLARIFICATION."
@@ -24210,13 +24238,16 @@
             "description": "Indicates if the Voluntary Disclosure Agreement (VDA) applies.",
             "type": "boolean"
           },
+          "tax_id": {
+            "type": "string"
+          },
           "password_plain_text": {
             "type": "string"
           },
           "password_metadata_plain_text": {
             "type": "string"
           },
-          "tax_id": {
+          "sales_tax_id": {
             "type": "string"
           },
           "auto_register": {
@@ -24300,6 +24331,10 @@
             "description": "Indicates whether the  registration is marked as collecting in shopify",
             "type": "boolean"
           },
+          "encrypted_username": {
+            "description": "The encrypted username for the registration.",
+            "type": "string"
+          },
           "username": {
             "description": "The username associated with the registration.",
             "type": "string"
@@ -24323,6 +24358,10 @@
           "vda": {
             "description": "Indicates if the Voluntary Disclosure Agreement (VDA) applies.",
             "type": "boolean"
+          },
+          "tax_id": {
+            "description": "Organization-level tax ID (e.g., VAT number, Canada Business Number).",
+            "type": "string"
           }
         },
         "type": "object",
