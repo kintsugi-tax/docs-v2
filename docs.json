@@ -86,6 +86,17 @@
                 ]
               },
               {
+                "group": "API Guides for Partners",
+                "pages": [
+                  "docs/api-guides-partners/overview",
+                  "docs/api-guides-partners/organization-setup",
+                  "docs/api-guides-partners/nexus-registration",
+                  "docs/api-guides-partners/transaction-processing",
+                  "docs/api-guides-partners/product-catalog",
+                  "docs/api-guides-partners/compliance-filing"
+                ]
+              },
+              {
                 "group": "Advanced",
                 "pages": [
                   "docs/error-handling"
