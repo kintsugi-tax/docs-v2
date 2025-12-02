@@ -10406,42 +10406,49 @@
           },
           "amount_calculated": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Calculated",
             "description": "The calculated amount for the filing. Defaults to 0.00.",
             "default": "0.00"
           },
           "amount_adjusted": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Adjusted",
             "description": "Adjusted amount, if any.",
             "default": "0.00"
           },
           "amount_discounts": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Discounts",
             "description": "Discounts applied to the filing.",
             "default": "0.00"
           },
           "amount_fees": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Fees",
             "description": "Discounts applied to the amount.",
             "default": "0.00"
           },
           "amount_penalties": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Penalties",
             "description": "Penalties applied to the filing.",
             "default": "0.00"
           },
           "amount_tax_collected": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Tax Collected",
             "description": "Total tax collected during the filing period.",
             "default": "0.00"
           },
           "amount_sales": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Sales",
             "description": "Total sales amount during the filing period.",
             "default": "0.00"
@@ -10453,12 +10460,14 @@
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount",
             "description": "Final amount due for the filing.",
             "default": "0.00"
           },
           "total_tax_liability": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Tax Liability",
             "description": "Total tax liability for the filing.",
             "default": "0.00"
@@ -10478,6 +10487,7 @@
           },
           "tax_remitted": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Tax Remitted",
             "description": "The amount of tax remitted.",
             "default": "0.00"
@@ -10650,6 +10660,7 @@
           },
           "amount_fees": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Fees",
             "description": "The amount of fees associated with the registration.",
             "default": "0.00"
@@ -10696,6 +10707,7 @@
           },
           "credits_total_available": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Credits Total Available",
             "default": "0.00"
           },
@@ -12436,26 +12448,32 @@
           },
           "line_subtotal": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Line Subtotal"
           },
           "line_subtotal_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Line Subtotal Tax"
           },
           "line_total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Line Total"
           },
           "line_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Line Tax"
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Taxable Amount"
           },
           "combined_tax_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Combined Tax Rate"
           },
           "tax_rates": {
@@ -12539,51 +12557,61 @@
         "properties": {
           "subtotal": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Subtotal",
             "default": "0"
           },
           "subtotal_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Subtotal Tax",
             "default": "0"
           },
           "shipping_total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Shipping Total",
             "default": "0"
           },
           "shipping_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Shipping Tax",
             "default": "0"
           },
           "fee_total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Fee Total",
             "default": "0"
           },
           "fee_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Fee Tax",
             "default": "0"
           },
           "total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total",
             "default": "0"
           },
           "total_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total Tax",
             "default": "0"
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Taxable Amount",
             "default": "0"
           },
           "combined_tax_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Combined Tax Rate",
             "default": "0"
           }
@@ -13294,46 +13322,55 @@
           },
           "discount_total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Discount Total",
             "default": "0"
           },
           "discount_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Discount Tax",
             "default": "0"
           },
           "shipping_total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Shipping Total",
             "default": "0"
           },
           "shipping_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Shipping Tax",
             "default": "0"
           },
           "cart_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Cart Tax",
             "default": "0"
           },
           "total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total",
             "default": "0"
           },
           "total_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total Tax",
             "default": "0"
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Taxable Amount",
             "default": "0"
           },
           "combined_tax_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Combined Tax Rate",
             "default": "0"
           },
@@ -13821,11 +13858,13 @@
           },
           "discount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Discount",
             "default": "0"
           },
           "discount_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Discount Tax",
             "default": "0"
           },
@@ -13893,6 +13932,7 @@
           },
           "total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total",
             "default": "0.00"
           },
@@ -13937,7 +13977,6 @@
           },
           "total_amount": {
             "description": "Total monetary value of the credit note, including all items and taxes.",
-            "default": "0.00",
             "type": "number"
           },
           "marketplace": {
@@ -13982,6 +14021,7 @@
           "external_id",
           "date",
           "status",
+          "total_amount",
           "currency",
           "transaction_items"
         ],
@@ -14011,12 +14051,10 @@
           },
           "quantity": {
             "description": "Number of units or amount of the product being credited.",
-            "default": "1.0",
             "type": "number"
           },
           "amount": {
             "description": "Total monetary value of the credit note item before taxes.",
-            "default": "0.00",
             "type": "number"
           },
           "tax_amount_imported": {
@@ -14049,7 +14087,9 @@
         "required": [
           "external_id",
           "date",
-          "external_product_id"
+          "external_product_id",
+          "quantity",
+          "amount"
         ],
         "title": "CreditNoteItemCreateUpdate"
       },
@@ -14288,14 +14328,17 @@
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount"
           },
           "amount_consumed": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Consumed"
           },
           "amount_remaining": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Remaining"
           },
           "organization_id": {
@@ -14504,117 +14547,7 @@
         ],
         "title": "CurrencyEnum"
       },
-      "Customer-Input": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "maxLength": 100,
-            "title": "Id"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At",
-            "description": "Timestamp when transaction was created in Kintsugi."
-          },
-          "updated_at": {
-            "description": "Timestamp when transaction was last updated.",
-            "type": "string"
-          },
-          "phone": {
-            "description": "Phone number associated with the address.",
-            "type": "string"
-          },
-          "street_1": {
-            "description": "Primary street address.",
-            "type": "string"
-          },
-          "street_2": {
-            "description": "Additional street address details, such as an apartment or suite number.",
-            "type": "string"
-          },
-          "city": {
-            "description": "City where the customer resides.",
-            "type": "string"
-          },
-          "county": {
-            "description": "County or district of the customer.",
-            "type": "string"
-          },
-          "state": {
-            "description": "State or province of the customer.",
-            "type": "string"
-          },
-          "postal_code": {
-            "description": "ZIP or Postal code of the customer.",
-            "type": "string"
-          },
-          "country": {
-            "description": "Country code in ISO 3166-1 alpha-2 format",
-            "$ref": "#/components/schemas/CountryCodeEnum"
-          },
-          "full_address": {
-            "description": "Complete address string of the customer, which can be used as an alternative to individual fields.",
-            "type": "string"
-          },
-          "name": {
-            "description": "Name of the customer.",
-            "type": "string"
-          },
-          "external_id": {
-            "description": "A unique identifier for the customer.",
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/StatusEnum",
-            "description": "Status of the customer (e.g., ACTIVE, INACTIVE).",
-            "default": "ACTIVE"
-          },
-          "email": {
-            "description": "Email address of the customer.",
-            "type": "string"
-          },
-          "address_status": {
-            "$ref": "#/components/schemas/AddressStatus",
-            "description": "Address status of the customer. Defaults to UNVERIFIED.",
-            "default": "UNVERIFIED"
-          },
-          "source": {
-            "description": "Source of the customer information (e.g., BIGCOMMERCE, STRIPE, etc.).",
-            "$ref": "#/components/schemas/SourceEnum"
-          },
-          "registration_number": {
-            "type": "string"
-          },
-          "connection_id": {
-            "type": "string"
-          },
-          "enriched_fields": {
-            "description": "Additional enriched fields for the customer, if available.",
-            "type": "string"
-          },
-          "organization_id": {
-            "type": "string",
-            "maxLength": 100,
-            "title": "Organization Id"
-          },
-          "is_test_data": {
-            "type": "boolean",
-            "title": "Is Test Data",
-            "default": false
-          },
-          "external_friendly_id": {
-            "description": "External friendly identifier associated with the customer.",
-            "type": "string"
-          }
-        },
-        "type": "object",
-        "required": [
-          "organization_id"
-        ],
-        "title": "Customer"
-      },
-      "Customer-Output": {
+      "Customer": {
         "properties": {
           "id": {
             "type": "string",
@@ -15898,7 +15831,9 @@
           },
           "organization_id": {
             "type": "string",
-            "title": "Organization Id"
+            "title": "Organization Id",
+            "description": "Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.",
+            "deprecated": true
           },
           "exemption_type": {
             "$ref": "#/components/schemas/ExemptionType"
@@ -16022,26 +15957,31 @@
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Amount",
             "default": "0"
           },
           "fee_total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Fee Total",
             "default": "0"
           },
           "fee_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Fee Tax",
             "default": "0"
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Taxable Amount",
             "default": "0"
           },
           "combined_tax_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Combined Tax Rate",
             "default": "0"
           },
@@ -16123,26 +16063,31 @@
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Amount",
             "default": "0"
           },
           "total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total",
             "default": "0"
           },
           "total_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total Tax",
             "default": "0"
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Taxable Amount",
             "default": "0"
           },
           "combined_tax_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Combined Tax Rate",
             "default": "0"
           },
@@ -16274,42 +16219,49 @@
           },
           "amount_calculated": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Calculated",
             "description": "The calculated amount for the filing. Defaults to 0.00.",
             "default": "0.00"
           },
           "amount_adjusted": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Adjusted",
             "description": "Adjusted amount, if any.",
             "default": "0.00"
           },
           "amount_discounts": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Discounts",
             "description": "Discounts applied to the filing.",
             "default": "0.00"
           },
           "amount_fees": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Fees",
             "description": "Discounts applied to the amount.",
             "default": "0.00"
           },
           "amount_penalties": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Penalties",
             "description": "Penalties applied to the filing.",
             "default": "0.00"
           },
           "amount_tax_collected": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Tax Collected",
             "description": "Total tax collected during the filing period.",
             "default": "0.00"
           },
           "amount_sales": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Sales",
             "description": "Total sales amount during the filing period.",
             "default": "0.00"
@@ -16321,12 +16273,14 @@
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount",
             "description": "Final amount due for the filing.",
             "default": "0.00"
           },
           "total_tax_liability": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Tax Liability",
             "description": "Total tax liability for the filing.",
             "default": "0.00"
@@ -16346,6 +16300,7 @@
           },
           "tax_remitted": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Tax Remitted",
             "description": "The amount of tax remitted.",
             "default": "0.00"
@@ -16382,6 +16337,7 @@
           },
           "credits_utilized": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Credits Utilized",
             "default": "0.00"
           },
@@ -16583,42 +16539,49 @@
           },
           "amount_calculated": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Calculated",
             "description": "The calculated amount for the filing. Defaults to 0.00.",
             "default": "0.00"
           },
           "amount_adjusted": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Adjusted",
             "description": "Adjusted amount, if any.",
             "default": "0.00"
           },
           "amount_discounts": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Discounts",
             "description": "Discounts applied to the filing.",
             "default": "0.00"
           },
           "amount_fees": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Fees",
             "description": "Discounts applied to the amount.",
             "default": "0.00"
           },
           "amount_penalties": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Penalties",
             "description": "Penalties applied to the filing.",
             "default": "0.00"
           },
           "amount_tax_collected": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Tax Collected",
             "description": "Total tax collected during the filing period.",
             "default": "0.00"
           },
           "amount_sales": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Sales",
             "description": "Total sales amount during the filing period.",
             "default": "0.00"
@@ -16630,12 +16593,14 @@
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount",
             "description": "Final amount due for the filing.",
             "default": "0.00"
           },
           "total_tax_liability": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Tax Liability",
             "description": "Total tax liability for the filing.",
             "default": "0.00"
@@ -16655,6 +16620,7 @@
           },
           "tax_remitted": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Tax Remitted",
             "description": "The amount of tax remitted.",
             "default": "0.00"
@@ -16691,6 +16657,7 @@
           },
           "credits_utilized": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Credits Utilized",
             "default": "0.00"
           },
@@ -16731,21 +16698,25 @@
         "properties": {
           "total_collected_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Collected Tax",
             "default": "0.00"
           },
           "total_remitted_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Remitted Tax",
             "default": "0.00"
           },
           "total_calculated_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Calculated Tax",
             "default": "0.00"
           },
           "total_tax_liability": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Tax Liability",
             "default": "0.00"
           }
@@ -16850,42 +16821,49 @@
           },
           "amount_calculated": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Calculated",
             "description": "The calculated amount for the filing. Defaults to 0.00.",
             "default": "0.00"
           },
           "amount_adjusted": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Adjusted",
             "description": "Adjusted amount, if any.",
             "default": "0.00"
           },
           "amount_discounts": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Discounts",
             "description": "Discounts applied to the filing.",
             "default": "0.00"
           },
           "amount_fees": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Fees",
             "description": "Discounts applied to the amount.",
             "default": "0.00"
           },
           "amount_penalties": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Penalties",
             "description": "Penalties applied to the filing.",
             "default": "0.00"
           },
           "amount_tax_collected": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Tax Collected",
             "description": "Total tax collected during the filing period.",
             "default": "0.00"
           },
           "amount_sales": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Sales",
             "description": "Total sales amount during the filing period.",
             "default": "0.00"
@@ -16897,12 +16875,14 @@
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount",
             "description": "Final amount due for the filing.",
             "default": "0.00"
           },
           "total_tax_liability": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Tax Liability",
             "description": "Total tax liability for the filing.",
             "default": "0.00"
@@ -16922,6 +16902,7 @@
           },
           "tax_remitted": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Tax Remitted",
             "description": "The amount of tax remitted.",
             "default": "0.00"
@@ -17500,18 +17481,21 @@
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount",
             "description": "The amount for this line item after applying all discounts.",
             "default": "0.00"
           },
           "tax_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,15}|(?=[\\d.]{1,16}0*$)\\d*\\.\\d*0*$)",
             "title": "Tax Amount",
             "description": "Tax amount collected.",
             "default": "0.00"
           },
           "quantity": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Quantity",
             "description": "Quantity of this line item sold.",
             "default": "1"
@@ -18457,6 +18441,7 @@
           },
           "total_tax_liability_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Tax Liability Amount",
             "readOnly": true
           }
@@ -18649,6 +18634,7 @@
           },
           "transactions_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Transactions Amount",
             "default": "0.00"
           },
@@ -18661,6 +18647,7 @@
           },
           "previous_transactions_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Previous Transactions Amount",
             "description": "Deprecated: transactions_amount now includes both current and previous period values when period_model is CURRENT_OR_PREVIOUS",
             "default": "0.00",
@@ -18676,6 +18663,7 @@
           },
           "tax_liability": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Tax Liability",
             "default": "0.00"
           },
@@ -19376,31 +19364,37 @@
           },
           "subtotal": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Subtotal",
             "default": "0"
           },
           "subtotal_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Subtotal Tax",
             "default": "0"
           },
           "total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total",
             "default": "0"
           },
           "total_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total Tax",
             "default": "0"
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Taxable Amount",
             "default": "0"
           },
           "combined_tax_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Combined Tax Rate",
             "default": "0"
           },
@@ -20012,7 +20006,7 @@
             "$ref": "#/components/schemas/Subscription"
           },
           "customer": {
-            "$ref": "#/components/schemas/Customer-Output"
+            "$ref": "#/components/schemas/Customer"
           },
           "card": {
             "$ref": "#/components/schemas/Card"
@@ -21732,16 +21726,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -21749,7 +21751,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[AdminAllFilingRead]"
       },
@@ -21763,16 +21766,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -21780,7 +21791,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[AttachmentRead]"
       },
@@ -21794,16 +21806,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -21811,7 +21831,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[Attachment]"
       },
@@ -21825,16 +21846,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -21842,7 +21871,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[BatchAdminRead]"
       },
@@ -21856,16 +21886,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -21873,7 +21911,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[ConnectionRead]"
       },
@@ -21887,16 +21926,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -21904,7 +21951,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[CreditRead]"
       },
@@ -21918,16 +21966,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -21935,7 +21991,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[CustomerRead]"
       },
@@ -21949,16 +22006,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -21966,7 +22031,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[FilingRead]"
       },
@@ -21980,16 +22046,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -21997,7 +22071,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[Import]"
       },
@@ -22011,16 +22086,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22028,7 +22111,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[MarketplaceTransaction]"
       },
@@ -22042,16 +22126,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22059,7 +22151,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[NexusResponse]"
       },
@@ -22073,16 +22166,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22090,7 +22191,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[NoteRead]"
       },
@@ -22104,16 +22206,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22121,7 +22231,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[OrganizationExperienceTasks]"
       },
@@ -22135,16 +22246,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22152,7 +22271,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[OrganizationRead]"
       },
@@ -22166,16 +22286,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22183,7 +22311,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[PhysicalNexusRead]"
       },
@@ -22197,16 +22326,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22214,7 +22351,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[ProductRead]"
       },
@@ -22228,16 +22366,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22245,7 +22391,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[RegistrationReadWithPassword]"
       },
@@ -22259,16 +22406,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22276,7 +22431,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[TaskFilingRead]"
       },
@@ -22290,16 +22446,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22307,7 +22471,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[TaskRegistrationRead]"
       },
@@ -22321,16 +22486,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22338,7 +22511,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[TransactionAddressRead]"
       },
@@ -22352,16 +22526,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22369,7 +22551,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[TransactionEstimateResponse]"
       },
@@ -22383,16 +22566,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -22400,7 +22591,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[TransactionRead]"
       },
@@ -27367,6 +27559,7 @@
           },
           "amount_fees": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Fees",
             "description": "The amount of fees associated with the registration.",
             "default": "0.00"
@@ -27413,6 +27606,7 @@
           },
           "credits_total_available": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Credits Total Available",
             "default": "0.00"
           },
@@ -27814,6 +28008,7 @@
           },
           "amount_fees": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Fees",
             "description": "The amount of fees associated with the registration.",
             "default": "0.00"
@@ -27860,6 +28055,7 @@
           },
           "credits_total_available": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Credits Total Available",
             "default": "0.00"
           },
@@ -27997,6 +28193,7 @@
           },
           "amount_fees": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount Fees",
             "description": "The amount of fees associated with the registration.",
             "default": "0.00"
@@ -28043,6 +28240,7 @@
           },
           "credits_total_available": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Credits Total Available",
             "default": "0.00"
           },
@@ -28398,26 +28596,32 @@
           },
           "combined_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "Combined Rate"
           },
           "state_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "State Rate"
           },
           "county_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "County Rate"
           },
           "city_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "City Rate"
           },
           "special_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "Special Rate"
           },
           "threshold": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Threshold",
             "default": "0.0"
           },
@@ -28427,6 +28631,7 @@
           },
           "taxable_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "Taxable Rate"
           }
         },
@@ -28490,10 +28695,12 @@
           },
           "rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Rate"
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Amount"
           },
           "id": {
@@ -28606,21 +28813,25 @@
           },
           "total": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total",
             "default": "0"
           },
           "total_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total Tax",
             "default": "0"
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Taxable Amount",
             "default": "0"
           },
           "combined_tax_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Combined Tax Rate",
             "default": "0"
           },
@@ -29875,6 +30086,7 @@
         "properties": {
           "rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "The tax rate for this this jurisdiction and tax type.",
             "default": "0.0"
           },
@@ -29884,6 +30096,7 @@
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "The amount of tax determined for this jurisdiction and tax type.",
             "default": "0.0"
           },
@@ -29916,10 +30129,12 @@
           },
           "rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "Rate"
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount"
           },
           "converted_amount": {
@@ -30276,65 +30491,7 @@
         ],
         "title": "TokenExchangeRequest"
       },
-      "TransactionAddress-Input": {
-        "properties": {
-          "phone": {
-            "description": "Phone number associated with the address.",
-            "type": "string"
-          },
-          "street_1": {
-            "description": "Primary street address.",
-            "type": "string"
-          },
-          "street_2": {
-            "description": "Additional street address details, such as an apartment or suite number.",
-            "type": "string"
-          },
-          "city": {
-            "description": "City where the customer resides.",
-            "type": "string"
-          },
-          "county": {
-            "description": "County or district of the customer.",
-            "type": "string"
-          },
-          "state": {
-            "description": "State or province of the customer.",
-            "type": "string"
-          },
-          "postal_code": {
-            "description": "ZIP or Postal code of the customer.",
-            "type": "string"
-          },
-          "country": {
-            "description": "Country code in ISO 3166-1 alpha-2 format",
-            "$ref": "#/components/schemas/CountryCodeEnum"
-          },
-          "full_address": {
-            "description": "Complete address string of the customer, which can be used as an alternative to individual fields.",
-            "type": "string"
-          },
-          "type": {
-            "$ref": "#/components/schemas/AddressType",
-            "description": "Type of address. Allowed values: BILL_TO, SHIP_TO."
-          },
-          "enriched_fields": {
-            "description": "Optional additional enriched data for the address.",
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/AddressStatus",
-            "description": "Address verification status.** This field is ignored when updating addresses. The status of the address is updated automatically. **",
-            "default": "UNVERIFIED"
-          }
-        },
-        "type": "object",
-        "required": [
-          "type"
-        ],
-        "title": "TransactionAddress"
-      },
-      "TransactionAddress-Output": {
+      "TransactionAddress": {
         "properties": {
           "phone": {
             "description": "Phone number associated with the address.",
@@ -30762,257 +30919,6 @@
         ],
         "title": "TransactionAddressUpdate"
       },
-      "TransactionBuilder": {
-        "properties": {
-          "requires_exemption": {
-            "description": "Indicates if transaction requires tax exemption.",
-            "$ref": "#/components/schemas/ExemptionRequired"
-          },
-          "organization_id": {
-            "type": "string",
-            "title": "Organization Id",
-            "description": "Unique identifier of the organization."
-          },
-          "external_id": {
-            "type": "string",
-            "title": "External Id",
-            "description": "External identifier of the transaction."
-          },
-          "date": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Date",
-            "description": "Transaction date and time"
-          },
-          "shop_date": {
-            "description": "Transaction date in the shop's local timezone",
-            "type": "string"
-          },
-          "shop_date_tz": {
-            "description": "Timezone of the shop",
-            "type": "string"
-          },
-          "description": {
-            "description": "Description of the transaction.",
-            "type": "string"
-          },
-          "refund_status": {
-            "description": "Status of refund, if applicable",
-            "$ref": "#/components/schemas/TransactionRefundStatus"
-          },
-          "total_amount": {
-            "description": "Total amount of the transaction.",
-            "default": "0.00",
-            "type": "number"
-          },
-          "customer_id": {
-            "description": "Unique identifier of the customer.",
-            "type": "string"
-          },
-          "marketplace": {
-            "description": "Indicates if transaction is marketplace-based.",
-            "default": false,
-            "type": "boolean"
-          },
-          "exempt": {
-            "description": "Exemption status (e.g., NOT_EXEMPT)",
-            "default": "NOT_EXEMPT",
-            "$ref": "#/components/schemas/TransactionExemptStatusEnum"
-          },
-          "exemptions": {
-            "description": "List of exemptions applied (if any).",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Exemption"
-            }
-          },
-          "related_to": {
-            "description": "Related transaction identifier.",
-            "type": "string"
-          },
-          "secondary_external_id": {
-            "description": "Secondary External Identifier.",
-            "type": "string"
-          },
-          "secondary_source": {
-            "description": "Secondary source information",
-            "type": "string"
-          },
-          "external_friendly_id": {
-            "description": "Friendly identifier of the original item.",
-            "type": "string"
-          },
-          "total_tax_amount_imported": {
-            "description": "Imported tax amount.",
-            "default": "0.00",
-            "type": "number"
-          },
-          "tax_rate_imported": {
-            "description": "Imported tax rate.",
-            "default": "0.00",
-            "type": "number"
-          },
-          "total_tax_amount_calculated": {
-            "description": "Calculated tax amount.",
-            "default": "0.00",
-            "type": "number"
-          },
-          "tax_rate_calculated": {
-            "description": "Calculated tax rate.",
-            "default": "0.00",
-            "type": "number"
-          },
-          "total_tax_liability_amount": {
-            "description": "Total tax liability amount.",
-            "default": "0.00",
-            "type": "number"
-          },
-          "tax_liability_source": {
-            "description": "Source of tax liability.",
-            "$ref": "#/components/schemas/TaxLiabilitySourceEnum"
-          },
-          "taxable_amount": {
-            "description": "Taxable amount.",
-            "default": "0.00",
-            "type": "number"
-          },
-          "currency": {
-            "$ref": "#/components/schemas/CurrencyEnum",
-            "description": "Currency code (ISO 4217, e.g., USD)",
-            "default": "USD"
-          },
-          "locked": {
-            "type": "boolean",
-            "title": "Locked",
-            "description": "Transaction lock status.",
-            "default": false
-          },
-          "source": {
-            "$ref": "#/components/schemas/SourceEnum",
-            "description": "Source platform (e.g., STRIPE)",
-            "default": "OTHER"
-          },
-          "connection_id": {
-            "description": "Connection Identifier",
-            "type": "string"
-          },
-          "filing_id": {
-            "description": "Filing identifier.",
-            "type": "string"
-          },
-          "city": {
-            "description": "City of the transaction address.",
-            "type": "string"
-          },
-          "county": {
-            "description": "County of the transaction address.",
-            "type": "string"
-          },
-          "state": {
-            "description": "State of the transaction address.",
-            "type": "string"
-          },
-          "country": {
-            "description": "Country code (ISO Alpha-2).",
-            "$ref": "#/components/schemas/CountryCodeEnum"
-          },
-          "postal_code": {
-            "description": "Postal code of the transaction.",
-            "type": "string"
-          },
-          "tax_id": {
-            "description": "Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version.",
-            "deprecated": true,
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/TransactionStatusEnum",
-            "description": "Transaction status (e.g., COMMITTED)",
-            "default": "COMMITTED"
-          },
-          "address_status": {
-            "$ref": "#/components/schemas/AddressStatus",
-            "description": "Address verification status (e.g., VERIFIED).",
-            "default": "UNVERIFIED"
-          },
-          "processing_status": {
-            "$ref": "#/components/schemas/ProcessingStatusEnum",
-            "description": "Status of processing (e.g., ADDRESS_DONE)",
-            "default": "QUEUED"
-          },
-          "destination_currency": {
-            "description": "Destination currency code (ISO 4217, e.g., USD)",
-            "$ref": "#/components/schemas/CurrencyEnum"
-          },
-          "converted_total_amount": {
-            "description": "Converted total amount.",
-            "type": "number"
-          },
-          "converted_total_tax_amount_imported": {
-            "description": "Converted imported tax amount.",
-            "type": "number"
-          },
-          "converted_total_tax_amount_calculated": {
-            "description": "Converted calculated tax amount.",
-            "type": "number"
-          },
-          "conversion_rate": {
-            "description": "Currency conversion rate.",
-            "type": "number"
-          },
-          "converted_taxable_amount": {
-            "description": "Converted taxable amount.",
-            "type": "number"
-          },
-          "converted_total_discount": {
-            "description": "Converted total discount amount.",
-            "type": "number"
-          },
-          "converted_subtotal": {
-            "description": "Converted subtotal amount.",
-            "type": "number"
-          },
-          "converted_total_tax_liability_amount": {
-            "description": "Converted total tax liability amount.",
-            "type": "number"
-          },
-          "addresses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TransactionAddressBuilder"
-            }
-          },
-          "transaction_items": {
-            "items": {
-              "$ref": "#/components/schemas/TransactionItemBuilder"
-            },
-            "type": "array",
-            "title": "Transaction Items"
-          },
-          "customer": {
-            "title": "Customer",
-            "$ref": "#/components/schemas/Customer-Input"
-          },
-          "operation": {
-            "default": "IMPORT",
-            "$ref": "#/components/schemas/ImportOperationEnum"
-          },
-          "type": {
-            "$ref": "#/components/schemas/TransactionTypeEnum"
-          }
-        },
-        "type": "object",
-        "required": [
-          "organization_id",
-          "external_id",
-          "date",
-          "addresses",
-          "transaction_items",
-          "customer",
-          "type"
-        ],
-        "title": "TransactionBuilder"
-      },
       "TransactionCreate": {
         "properties": {
           "requires_exemption": {
@@ -31022,7 +30928,8 @@
           "organization_id": {
             "type": "string",
             "title": "Organization Id",
-            "description": "Unique identifier of the organization."
+            "description": "Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.",
+            "deprecated": true
           },
           "external_id": {
             "type": "string",
@@ -31493,18 +31400,21 @@
           },
           "total_tax_amount_calculated": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Tax Amount Calculated",
             "description": "The total amount of tax determined for the transaction.",
             "default": "0.00"
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Taxable Amount",
             "description": "The taxable amount for the transaction.",
             "default": "0.00"
           },
           "tax_rate_calculated": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "Tax Rate Calculated",
             "description": "The calculated tax rate for the transaction.",
             "default": "0.00"
@@ -31614,71 +31524,6 @@
         "type": "object",
         "title": "TransactionImportCustomer"
       },
-      "TransactionImportResponse": {
-        "properties": {
-          "created_count": {
-            "type": "integer",
-            "title": "Created Count"
-          },
-          "created_items": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Created Items"
-          },
-          "skipped_count": {
-            "type": "integer",
-            "title": "Skipped Count"
-          },
-          "skipped_items": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Skipped Items"
-          },
-          "updated_count": {
-            "type": "integer",
-            "title": "Updated Count"
-          },
-          "updated_items": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Updated Items"
-          },
-          "existing_count": {
-            "type": "integer",
-            "title": "Existing Count"
-          },
-          "triggered_by": {
-            "type": "string",
-            "title": "Triggered By"
-          },
-          "existing_items": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Existing Items"
-          }
-        },
-        "type": "object",
-        "required": [
-          "created_count",
-          "created_items",
-          "skipped_count",
-          "skipped_items",
-          "updated_count",
-          "updated_items",
-          "existing_count",
-          "existing_items",
-          "triggered_by"
-        ],
-        "title": "TransactionImportResponse"
-      },
       "TransactionItemBuilder": {
         "properties": {
           "external_id": {
@@ -31686,7 +31531,8 @@
             "type": "string"
           },
           "organization_id": {
-            "description": "Organization identifier.",
+            "description": "Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.",
+            "deprecated": true,
             "type": "string"
           },
           "date": {
@@ -31824,7 +31670,8 @@
             "type": "string"
           },
           "organization_id": {
-            "description": "Organization identifier.",
+            "description": "Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.",
+            "deprecated": true,
             "type": "string"
           },
           "date": {
@@ -32060,12 +31907,14 @@
           },
           "quantity": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,20}|(?=[\\d.]{1,41}0*$)\\d{0,20}\\.\\d{0,20}0*$)",
             "title": "Quantity of the product.",
             "description": "Defaults to 1.0. The quantity of the item.",
             "default": "1.0"
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total amount of this transaction item, after discounts.",
             "description": "The total amount of the item."
           },
@@ -32077,18 +31926,21 @@
           },
           "tax_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "The amount of tax determined for this transaction item.",
             "description": "The total tax amount for the transaction item.",
             "default": "0.00"
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "The amount of this item that was determined to be taxable.",
             "description": "The taxable amount for the transaction item.",
             "default": "0.00"
           },
           "tax_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "The calculated combined tax rate for this transaction item.",
             "description": "The tax rate applied to the transaction item.",
             "default": "0.00"
@@ -32122,7 +31974,8 @@
             "type": "string"
           },
           "organization_id": {
-            "description": "Organization identifier.",
+            "description": "Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.",
+            "deprecated": true,
             "type": "string"
           },
           "date": {
@@ -32158,36 +32011,42 @@
           },
           "quantity": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,20}|(?=[\\d.]{1,41}0*$)\\d{0,20}\\.\\d{0,20}0*$)",
             "title": "Quantity",
             "description": "Quantity of item.",
             "default": "1.0"
           },
           "amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Amount",
             "description": "Item amount.",
             "default": "0.00"
           },
           "tax_amount_imported": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Tax Amount Imported",
             "description": "Imported tax amount for the item.",
             "default": "0.00"
           },
           "tax_rate_imported": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "Tax Rate Imported",
             "description": "Imported tax rate.",
             "default": "0.00"
           },
           "tax_amount_calculated": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Tax Amount Calculated",
             "description": "Calculated tax amount for the item.",
             "default": "0.00"
           },
           "tax_rate_calculated": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "Tax Rate Calculated",
             "description": "Calculated tax rate.",
             "default": "0.00"
@@ -32226,6 +32085,7 @@
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Taxable Amount",
             "description": "Taxable amount for the item.",
             "default": "0.00"
@@ -32281,11 +32141,13 @@
           },
           "total_sales": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Sales",
             "default": "0.00"
           },
           "total_taxable_sales": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Taxable Sales",
             "default": "0.00"
           },
@@ -32310,7 +32172,8 @@
           "organization_id": {
             "type": "string",
             "title": "Organization Id",
-            "description": "Unique identifier of the organization."
+            "description": "Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.",
+            "deprecated": true
           },
           "external_id": {
             "type": "string",
@@ -32512,7 +32375,8 @@
           "organization_id": {
             "type": "string",
             "title": "Organization Id",
-            "description": "Unique identifier of the organization."
+            "description": "Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.",
+            "deprecated": true
           },
           "external_id": {
             "type": "string",
@@ -32543,6 +32407,7 @@
           },
           "total_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Amount",
             "description": "Total amount of the transaction.",
             "default": "0.00"
@@ -32586,30 +32451,35 @@
           },
           "total_tax_amount_imported": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Tax Amount Imported",
             "description": "Imported tax amount.",
             "default": "0.00"
           },
           "tax_rate_imported": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "Tax Rate Imported",
             "description": "Imported tax rate.",
             "default": "0.00"
           },
           "total_tax_amount_calculated": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Tax Amount Calculated",
             "description": "Calculated tax amount.",
             "default": "0.00"
           },
           "tax_rate_calculated": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,3}|(?=[\\d.]{1,13}0*$)\\d{0,3}\\.\\d{0,9}0*$)",
             "title": "Tax Rate Calculated",
             "description": "Calculated tax rate.",
             "default": "0.00"
           },
           "total_tax_liability_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Total Tax Liability Amount",
             "description": "Total tax liability amount.",
             "default": "0.00"
@@ -32620,6 +32490,7 @@
           },
           "taxable_amount": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
             "title": "Taxable Amount",
             "description": "Taxable amount.",
             "default": "0.00"
@@ -32824,7 +32695,8 @@
           "organization_id": {
             "type": "string",
             "title": "Organization Id",
-            "description": "Unique identifier of the organization."
+            "description": "Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.",
+            "deprecated": true
           },
           "external_id": {
             "type": "string",
@@ -34574,18 +34446,22 @@
         "properties": {
           "amount_inclusive": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Amount Inclusive"
           },
           "amount_exclusive": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Amount Exclusive"
           },
           "total_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total Tax"
           },
           "tax_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Tax Rate"
           },
           "sales_tax_summary": {
@@ -34842,18 +34718,22 @@
         "properties": {
           "amount_inclusive": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Amount Inclusive"
           },
           "amount_exclusive": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Amount Exclusive"
           },
           "total_tax": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Total Tax"
           },
           "tax_rate": {
             "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
             "title": "Tax Rate"
           }
         },
@@ -35473,16 +35353,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -35490,7 +35378,8 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[ExemptionRead]"
       },
@@ -35504,16 +35393,24 @@
             "title": "Items"
           },
           "total": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
           },
           "size": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
           },
           "pages": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
           }
         },
         "type": "object",
@@ -35521,9 +35418,21 @@
           "items",
           "total",
           "page",
-          "size"
+          "size",
+          "pages"
         ],
         "title": "Page[ExemptionRead]"
+      },
+      "TransactionImportResponse": {
+        "properties": {
+          "existing_items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Existing Items"
+          }
+        }
       }
     },
     "securitySchemes": {
