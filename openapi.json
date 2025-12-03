@@ -10637,9 +10637,8 @@
             "description": "Specifies how often tax filings should be made.\n                                                Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
           },
           "filing_days": {
-            "type": "integer",
-            "title": "Filing Days",
-            "description": "The number of days before the filing deadline."
+            "description": "The number of days before the filing deadline.",
+            "type": "integer"
           },
           "username": {
             "description": "Username for accessing tax registration details.",
@@ -10750,7 +10749,6 @@
           "state_code",
           "state_name",
           "filing_frequency",
-          "filing_days",
           "id",
           "registration_type"
         ],
@@ -14547,7 +14545,117 @@
         ],
         "title": "CurrencyEnum"
       },
-      "Customer": {
+      "Customer-Input": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "description": "Timestamp when transaction was created in Kintsugi."
+          },
+          "updated_at": {
+            "description": "Timestamp when transaction was last updated.",
+            "type": "string"
+          },
+          "phone": {
+            "description": "Phone number associated with the address.",
+            "type": "string"
+          },
+          "street_1": {
+            "description": "Primary street address.",
+            "type": "string"
+          },
+          "street_2": {
+            "description": "Additional street address details, such as an apartment or suite number.",
+            "type": "string"
+          },
+          "city": {
+            "description": "City where the customer resides.",
+            "type": "string"
+          },
+          "county": {
+            "description": "County or district of the customer.",
+            "type": "string"
+          },
+          "state": {
+            "description": "State or province of the customer.",
+            "type": "string"
+          },
+          "postal_code": {
+            "description": "ZIP or Postal code of the customer.",
+            "type": "string"
+          },
+          "country": {
+            "description": "Country code in ISO 3166-1 alpha-2 format",
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "full_address": {
+            "description": "Complete address string of the customer, which can be used as an alternative to individual fields.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the customer.",
+            "type": "string"
+          },
+          "external_id": {
+            "description": "A unique identifier for the customer.",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusEnum",
+            "description": "Status of the customer (e.g., ACTIVE, INACTIVE).",
+            "default": "ACTIVE"
+          },
+          "email": {
+            "description": "Email address of the customer.",
+            "type": "string"
+          },
+          "address_status": {
+            "$ref": "#/components/schemas/AddressStatus",
+            "description": "Address status of the customer. Defaults to UNVERIFIED.",
+            "default": "UNVERIFIED"
+          },
+          "source": {
+            "description": "Source of the customer information (e.g., BIGCOMMERCE, STRIPE, etc.).",
+            "$ref": "#/components/schemas/SourceEnum"
+          },
+          "registration_number": {
+            "type": "string"
+          },
+          "connection_id": {
+            "type": "string"
+          },
+          "enriched_fields": {
+            "description": "Additional enriched fields for the customer, if available.",
+            "type": "string"
+          },
+          "organization_id": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Organization Id"
+          },
+          "is_test_data": {
+            "type": "boolean",
+            "title": "Is Test Data",
+            "default": false
+          },
+          "external_friendly_id": {
+            "description": "External friendly identifier associated with the customer.",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "organization_id"
+        ],
+        "title": "Customer"
+      },
+      "Customer-Output": {
         "properties": {
           "id": {
             "type": "string",
@@ -18468,6 +18576,24 @@
         ],
         "title": "MarketplaceUpdate"
       },
+      "MaxioCreateUpdate": {
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "title": "Api Key"
+          },
+          "subdomain": {
+            "type": "string",
+            "title": "Subdomain"
+          }
+        },
+        "type": "object",
+        "required": [
+          "api_key",
+          "subdomain"
+        ],
+        "title": "MaxioCreateUpdate"
+      },
       "MetaData": {
         "properties": {
           "id": {
@@ -20006,7 +20132,7 @@
             "$ref": "#/components/schemas/Subscription"
           },
           "customer": {
-            "$ref": "#/components/schemas/Customer"
+            "$ref": "#/components/schemas/Customer-Output"
           },
           "card": {
             "$ref": "#/components/schemas/Card"
@@ -27536,9 +27662,8 @@
             "description": "Specifies how often tax filings should be made.\n                                                Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
           },
           "filing_days": {
-            "type": "integer",
-            "title": "Filing Days",
-            "description": "The number of days before the filing deadline."
+            "description": "The number of days before the filing deadline.",
+            "type": "integer"
           },
           "username": {
             "description": "Username for accessing tax registration details.",
@@ -27631,7 +27756,6 @@
           "state_code",
           "state_name",
           "filing_frequency",
-          "filing_days",
           "id",
           "registration_type",
           "filing_website_url"
@@ -27985,9 +28109,8 @@
             "description": "Specifies how often tax filings should be made.\n                                                Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
           },
           "filing_days": {
-            "type": "integer",
-            "title": "Filing Days",
-            "description": "The number of days before the filing deadline."
+            "description": "The number of days before the filing deadline.",
+            "type": "integer"
           },
           "username": {
             "description": "Username for accessing tax registration details.",
@@ -28076,7 +28199,6 @@
           "state_code",
           "state_name",
           "filing_frequency",
-          "filing_days",
           "id",
           "registration_type"
         ],
@@ -28170,9 +28292,8 @@
             "description": "Specifies how often tax filings should be made.\n                                                Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
           },
           "filing_days": {
-            "type": "integer",
-            "title": "Filing Days",
-            "description": "The number of days before the filing deadline."
+            "description": "The number of days before the filing deadline.",
+            "type": "integer"
           },
           "username": {
             "description": "Username for accessing tax registration details.",
@@ -28271,7 +28392,6 @@
           "state_code",
           "state_name",
           "filing_frequency",
-          "filing_days",
           "id",
           "registration_type"
         ],
@@ -30491,7 +30611,65 @@
         ],
         "title": "TokenExchangeRequest"
       },
-      "TransactionAddress": {
+      "TransactionAddress-Input": {
+        "properties": {
+          "phone": {
+            "description": "Phone number associated with the address.",
+            "type": "string"
+          },
+          "street_1": {
+            "description": "Primary street address.",
+            "type": "string"
+          },
+          "street_2": {
+            "description": "Additional street address details, such as an apartment or suite number.",
+            "type": "string"
+          },
+          "city": {
+            "description": "City where the customer resides.",
+            "type": "string"
+          },
+          "county": {
+            "description": "County or district of the customer.",
+            "type": "string"
+          },
+          "state": {
+            "description": "State or province of the customer.",
+            "type": "string"
+          },
+          "postal_code": {
+            "description": "ZIP or Postal code of the customer.",
+            "type": "string"
+          },
+          "country": {
+            "description": "Country code in ISO 3166-1 alpha-2 format",
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "full_address": {
+            "description": "Complete address string of the customer, which can be used as an alternative to individual fields.",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AddressType",
+            "description": "Type of address. Allowed values: BILL_TO, SHIP_TO."
+          },
+          "enriched_fields": {
+            "description": "Optional additional enriched data for the address.",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/AddressStatus",
+            "description": "Address verification status.** This field is ignored when updating addresses. The status of the address is updated automatically. **",
+            "default": "UNVERIFIED"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "TransactionAddress"
+      },
+      "TransactionAddress-Output": {
         "properties": {
           "phone": {
             "description": "Phone number associated with the address.",
@@ -30918,6 +31096,258 @@
           "type"
         ],
         "title": "TransactionAddressUpdate"
+      },
+      "TransactionBuilder": {
+        "properties": {
+          "requires_exemption": {
+            "description": "Indicates if transaction requires tax exemption.",
+            "$ref": "#/components/schemas/ExemptionRequired"
+          },
+          "organization_id": {
+            "type": "string",
+            "title": "Organization Id",
+            "description": "Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.",
+            "deprecated": true
+          },
+          "external_id": {
+            "type": "string",
+            "title": "External Id",
+            "description": "External identifier of the transaction."
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date",
+            "description": "Transaction date and time"
+          },
+          "shop_date": {
+            "description": "Transaction date in the shop's local timezone",
+            "type": "string"
+          },
+          "shop_date_tz": {
+            "description": "Timezone of the shop",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the transaction.",
+            "type": "string"
+          },
+          "refund_status": {
+            "description": "Status of refund, if applicable",
+            "$ref": "#/components/schemas/TransactionRefundStatus"
+          },
+          "total_amount": {
+            "description": "Total amount of the transaction.",
+            "default": "0.00",
+            "type": "number"
+          },
+          "customer_id": {
+            "description": "Unique identifier of the customer.",
+            "type": "string"
+          },
+          "marketplace": {
+            "description": "Indicates if transaction is marketplace-based.",
+            "default": false,
+            "type": "boolean"
+          },
+          "exempt": {
+            "description": "Exemption status (e.g., NOT_EXEMPT)",
+            "default": "NOT_EXEMPT",
+            "$ref": "#/components/schemas/TransactionExemptStatusEnum"
+          },
+          "exemptions": {
+            "description": "List of exemptions applied (if any).",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Exemption"
+            }
+          },
+          "related_to": {
+            "description": "Related transaction identifier.",
+            "type": "string"
+          },
+          "secondary_external_id": {
+            "description": "Secondary External Identifier.",
+            "type": "string"
+          },
+          "secondary_source": {
+            "description": "Secondary source information",
+            "type": "string"
+          },
+          "external_friendly_id": {
+            "description": "Friendly identifier of the original item.",
+            "type": "string"
+          },
+          "total_tax_amount_imported": {
+            "description": "Imported tax amount.",
+            "default": "0.00",
+            "type": "number"
+          },
+          "tax_rate_imported": {
+            "description": "Imported tax rate.",
+            "default": "0.00",
+            "type": "number"
+          },
+          "total_tax_amount_calculated": {
+            "description": "Calculated tax amount.",
+            "default": "0.00",
+            "type": "number"
+          },
+          "tax_rate_calculated": {
+            "description": "Calculated tax rate.",
+            "default": "0.00",
+            "type": "number"
+          },
+          "total_tax_liability_amount": {
+            "description": "Total tax liability amount.",
+            "default": "0.00",
+            "type": "number"
+          },
+          "tax_liability_source": {
+            "description": "Source of tax liability.",
+            "$ref": "#/components/schemas/TaxLiabilitySourceEnum"
+          },
+          "taxable_amount": {
+            "description": "Taxable amount.",
+            "default": "0.00",
+            "type": "number"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyEnum",
+            "description": "Currency code (ISO 4217, e.g., USD)",
+            "default": "USD"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Locked",
+            "description": "Transaction lock status.",
+            "default": false
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceEnum",
+            "description": "Source platform (e.g., STRIPE)",
+            "default": "OTHER"
+          },
+          "connection_id": {
+            "description": "Connection Identifier",
+            "type": "string"
+          },
+          "filing_id": {
+            "description": "Filing identifier.",
+            "type": "string"
+          },
+          "city": {
+            "description": "City of the transaction address.",
+            "type": "string"
+          },
+          "county": {
+            "description": "County of the transaction address.",
+            "type": "string"
+          },
+          "state": {
+            "description": "State of the transaction address.",
+            "type": "string"
+          },
+          "country": {
+            "description": "Country code (ISO Alpha-2).",
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "postal_code": {
+            "description": "Postal code of the transaction.",
+            "type": "string"
+          },
+          "tax_id": {
+            "description": "Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version.",
+            "deprecated": true,
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TransactionStatusEnum",
+            "description": "Transaction status (e.g., COMMITTED)",
+            "default": "COMMITTED"
+          },
+          "address_status": {
+            "$ref": "#/components/schemas/AddressStatus",
+            "description": "Address verification status (e.g., VERIFIED).",
+            "default": "UNVERIFIED"
+          },
+          "processing_status": {
+            "$ref": "#/components/schemas/ProcessingStatusEnum",
+            "description": "Status of processing (e.g., ADDRESS_DONE)",
+            "default": "QUEUED"
+          },
+          "destination_currency": {
+            "description": "Destination currency code (ISO 4217, e.g., USD)",
+            "$ref": "#/components/schemas/CurrencyEnum"
+          },
+          "converted_total_amount": {
+            "description": "Converted total amount.",
+            "type": "number"
+          },
+          "converted_total_tax_amount_imported": {
+            "description": "Converted imported tax amount.",
+            "type": "number"
+          },
+          "converted_total_tax_amount_calculated": {
+            "description": "Converted calculated tax amount.",
+            "type": "number"
+          },
+          "conversion_rate": {
+            "description": "Currency conversion rate.",
+            "type": "number"
+          },
+          "converted_taxable_amount": {
+            "description": "Converted taxable amount.",
+            "type": "number"
+          },
+          "converted_total_discount": {
+            "description": "Converted total discount amount.",
+            "type": "number"
+          },
+          "converted_subtotal": {
+            "description": "Converted subtotal amount.",
+            "type": "number"
+          },
+          "converted_total_tax_liability_amount": {
+            "description": "Converted total tax liability amount.",
+            "type": "number"
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionAddressBuilder"
+            }
+          },
+          "transaction_items": {
+            "items": {
+              "$ref": "#/components/schemas/TransactionItemBuilder"
+            },
+            "type": "array",
+            "title": "Transaction Items"
+          },
+          "customer": {
+            "title": "Customer",
+            "$ref": "#/components/schemas/Customer-Input"
+          },
+          "operation": {
+            "default": "IMPORT",
+            "$ref": "#/components/schemas/ImportOperationEnum"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TransactionTypeEnum"
+          }
+        },
+        "type": "object",
+        "required": [
+          "organization_id",
+          "external_id",
+          "date",
+          "addresses",
+          "transaction_items",
+          "customer",
+          "type"
+        ],
+        "title": "TransactionBuilder"
       },
       "TransactionCreate": {
         "properties": {
@@ -31523,6 +31953,71 @@
         },
         "type": "object",
         "title": "TransactionImportCustomer"
+      },
+      "TransactionImportResponse": {
+        "properties": {
+          "created_count": {
+            "type": "integer",
+            "title": "Created Count"
+          },
+          "created_items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Created Items"
+          },
+          "skipped_count": {
+            "type": "integer",
+            "title": "Skipped Count"
+          },
+          "skipped_items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Skipped Items"
+          },
+          "updated_count": {
+            "type": "integer",
+            "title": "Updated Count"
+          },
+          "updated_items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Updated Items"
+          },
+          "existing_count": {
+            "type": "integer",
+            "title": "Existing Count"
+          },
+          "triggered_by": {
+            "type": "string",
+            "title": "Triggered By"
+          },
+          "existing_items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Existing Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "created_count",
+          "created_items",
+          "skipped_count",
+          "skipped_items",
+          "updated_count",
+          "updated_items",
+          "existing_count",
+          "existing_items",
+          "triggered_by"
+        ],
+        "title": "TransactionImportResponse"
       },
       "TransactionItemBuilder": {
         "properties": {
@@ -35422,17 +35917,6 @@
           "pages"
         ],
         "title": "Page[ExemptionRead]"
-      },
-      "TransactionImportResponse": {
-        "properties": {
-          "existing_items": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Existing Items"
-          }
-        }
       }
     },
     "securitySchemes": {
