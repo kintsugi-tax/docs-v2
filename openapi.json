@@ -4846,7 +4846,6 @@
                       "state_code": "CA",
                       "state_name": "California",
                       "filing_frequency": "MONTHLY",
-                      "filing_days": 20,
                       "username": "admin@company.com",
                       "comment": "First-time registration for California.",
                       "create_filings_from": "2024-01-01",
@@ -4869,7 +4868,6 @@
                       "state_code": "NY",
                       "state_name": "New York",
                       "filing_frequency": "QUARTERLY",
-                      "filing_days": 30,
                       "comment": "Pending clarification from the state.",
                       "initial_sync": false,
                       "amount_fees": "10.00",
@@ -5024,7 +5022,6 @@
                     "state_code": "TX",
                     "state_name": "Texas",
                     "filing_frequency": "MONTHLY",
-                    "filing_days": 15,
                     "auto_registered": true,
                     "amount_fees": 100.0,
                     "comment": "Registering for monthly sales tax filings",
@@ -5041,7 +5038,6 @@
                     "state_code": "TX",
                     "state_name": "Texas",
                     "filing_frequency": "MONTHLY",
-                    "filing_days": 15,
                     "auto_registered": true,
                     "amount_fees": 100.0,
                     "comment": "Registering for monthly sales tax filings",
@@ -5090,7 +5086,6 @@
                   "state_code": "AR",
                   "state_name": "Arizona",
                   "filing_frequency": "MONTHLY",
-                  "filing_days": 15,
                   "comment": "Registering for monthly sales tax filings",
                   "initial_sync": false,
                   "amount_fees": "100.00",
@@ -5198,6 +5193,24 @@
             "description": "The unique identifier of the\n                                registration to retrieve."
           },
           {
+            "name": "reveal",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Name of field to reveal",
+              "title": "Reveal"
+            },
+            "description": "Name of field to reveal"
+          },
+          {
             "name": "x-organization-id",
             "in": "header",
             "required": true,
@@ -5235,7 +5248,6 @@
                   "state_code": "AR",
                   "state_name": "Arizona",
                   "filing_frequency": "MONTHLY",
-                  "filing_days": 15,
                   "comment": "Registering for monthly sales tax filings",
                   "initial_sync": false,
                   "amount_fees": "100.00",
@@ -5400,7 +5412,6 @@
                   "state_code": "AR",
                   "state_name": "Arizona",
                   "filing_frequency": "MONTHLY",
-                  "filing_days": 15,
                   "comment": "Registering for monthly sales tax filings",
                   "initial_sync": false,
                   "amount_fees": "100.00",
@@ -5543,7 +5554,6 @@
                   "state_code": "AR",
                   "state_name": "Arizona",
                   "filing_frequency": "MONTHLY",
-                  "filing_days": 15,
                   "comment": "Registering for monthly sales tax filings",
                   "initial_sync": false,
                   "amount_fees": "100.00",
