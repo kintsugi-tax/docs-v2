@@ -10485,7 +10485,13 @@
           "transaction_count": {
             "type": "integer",
             "title": "Transaction Count",
-            "description": "Total number of transactions associated with the filing.",
+            "description": "Number of non-marketplace transactions. For total, add marketplace_transaction_count.",
+            "default": 0
+          },
+          "marketplace_transaction_count": {
+            "type": "integer",
+            "title": "Marketplace Transaction Count",
+            "description": "Number of marketplace transactions associated with the filing.",
             "default": 0
           },
           "internal_notes": {
@@ -10646,10 +10652,6 @@
             "$ref": "#/components/schemas/FilingFrequencyEnum",
             "description": "Specifies how often tax filings should be made.\n                                                Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
           },
-          "filing_days": {
-            "description": "The number of days before the filing deadline.",
-            "type": "integer"
-          },
           "username": {
             "description": "Username for accessing tax registration details.",
             "type": "string"
@@ -10747,6 +10749,11 @@
             "description": "The decrypted PIN for accessing the registration.",
             "type": "string"
           },
+          "filing_days": {
+            "type": "integer",
+            "title": "Filing Days",
+            "readOnly": true
+          },
           "registration_type": {
             "$ref": "#/components/schemas/RegistrationTypeEnum",
             "readOnly": true
@@ -10760,6 +10767,7 @@
           "state_name",
           "filing_frequency",
           "id",
+          "filing_days",
           "registration_type"
         ],
         "title": "AdminFilingRegistrationPasswordRead"
@@ -16406,7 +16414,13 @@
           "transaction_count": {
             "type": "integer",
             "title": "Transaction Count",
-            "description": "Total number of transactions associated with the filing.",
+            "description": "Number of non-marketplace transactions. For total, add marketplace_transaction_count.",
+            "default": 0
+          },
+          "marketplace_transaction_count": {
+            "type": "integer",
+            "title": "Marketplace Transaction Count",
+            "description": "Number of marketplace transactions associated with the filing.",
             "default": 0
           },
           "internal_notes": {
@@ -16726,7 +16740,13 @@
           "transaction_count": {
             "type": "integer",
             "title": "Transaction Count",
-            "description": "Total number of transactions associated with the filing.",
+            "description": "Number of non-marketplace transactions. For total, add marketplace_transaction_count.",
+            "default": 0
+          },
+          "marketplace_transaction_count": {
+            "type": "integer",
+            "title": "Marketplace Transaction Count",
+            "description": "Number of marketplace transactions associated with the filing.",
             "default": 0
           },
           "internal_notes": {
@@ -17008,7 +17028,13 @@
           "transaction_count": {
             "type": "integer",
             "title": "Transaction Count",
-            "description": "Total number of transactions associated with the filing.",
+            "description": "Number of non-marketplace transactions. For total, add marketplace_transaction_count.",
+            "default": 0
+          },
+          "marketplace_transaction_count": {
+            "type": "integer",
+            "title": "Marketplace Transaction Count",
+            "description": "Number of marketplace transactions associated with the filing.",
             "default": 0
           },
           "internal_notes": {
@@ -17216,7 +17242,13 @@
           "transaction_count": {
             "type": "integer",
             "title": "Transaction Count",
-            "description": "Total number of transactions associated with the filing.",
+            "description": "Number of non-marketplace transactions. For total, add marketplace_transaction_count.",
+            "default": 0
+          },
+          "marketplace_transaction_count": {
+            "type": "integer",
+            "title": "Marketplace Transaction Count",
+            "description": "Number of marketplace transactions associated with the filing.",
             "default": 0
           },
           "internal_notes": {
@@ -19691,6 +19723,9 @@
           "ein": {
             "type": "string"
           },
+          "tax_id": {
+            "type": "string"
+          },
           "company_address_1": {
             "type": "string"
           },
@@ -19977,6 +20012,9 @@
             "type": "string"
           },
           "health_check": {
+            "type": "string"
+          },
+          "partner_id": {
             "type": "string"
           },
           "tax_ids": {
@@ -20978,6 +21016,9 @@
           "ein": {
             "type": "string"
           },
+          "tax_id": {
+            "type": "string"
+          },
           "company_address_1": {
             "type": "string"
           },
@@ -21266,6 +21307,9 @@
           "health_check": {
             "type": "string"
           },
+          "partner_id": {
+            "type": "string"
+          },
           "tax_ids": {
             "items": {
               "$ref": "#/components/schemas/OrganizationTaxIdReadSerializer"
@@ -21385,6 +21429,424 @@
           "id"
         ],
         "title": "OrganizationDetailsReadSerializer"
+      },
+      "OrganizationDetailsSerializerBase": {
+        "properties": {
+          "business_name": {
+            "type": "string"
+          },
+          "entity_type": {
+            "$ref": "#/components/schemas/EntityTypeEnum"
+          },
+          "dba": {
+            "type": "string"
+          },
+          "incorporation_state": {
+            "type": "string"
+          },
+          "ein": {
+            "type": "string"
+          },
+          "tax_id": {
+            "type": "string"
+          },
+          "company_address_1": {
+            "type": "string"
+          },
+          "company_address_2": {
+            "type": "string"
+          },
+          "company_city": {
+            "type": "string"
+          },
+          "company_state": {
+            "type": "string"
+          },
+          "company_postal_code": {
+            "type": "string"
+          },
+          "company_country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "business_description": {
+            "type": "string"
+          },
+          "home_state_registration": {
+            "type": "string"
+          },
+          "naics": {
+            "type": "string"
+          },
+          "first_operations_date": {
+            "type": "string"
+          },
+          "business_phone": {
+            "type": "string"
+          },
+          "business_email": {
+            "type": "string"
+          },
+          "business_address_1": {
+            "type": "string"
+          },
+          "business_address_2": {
+            "type": "string"
+          },
+          "business_city": {
+            "type": "string"
+          },
+          "business_state": {
+            "type": "string"
+          },
+          "business_postal_code": {
+            "type": "string"
+          },
+          "business_country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "business_mailing_address_1": {
+            "type": "string"
+          },
+          "business_mailing_address_2": {
+            "type": "string"
+          },
+          "business_mailing_city": {
+            "type": "string"
+          },
+          "business_mailing_state": {
+            "type": "string"
+          },
+          "business_mailing_postal_code": {
+            "type": "string"
+          },
+          "business_mailing_country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "business_fiscal_year_end": {
+            "type": "string"
+          },
+          "business_contact_name": {
+            "type": "string"
+          },
+          "business_contact_phone": {
+            "type": "string"
+          },
+          "business_contact_email": {
+            "type": "string"
+          },
+          "business_contact_dob": {
+            "type": "string"
+          },
+          "business_contact_title": {
+            "type": "string"
+          },
+          "business_contact_address_1": {
+            "type": "string"
+          },
+          "business_contact_address_2": {
+            "type": "string"
+          },
+          "business_contact_city": {
+            "type": "string"
+          },
+          "business_contact_state": {
+            "type": "string"
+          },
+          "business_contact_postal_code": {
+            "type": "string"
+          },
+          "business_contact_country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "business_contact_ssn": {
+            "type": "string"
+          },
+          "business_contact_dl": {
+            "type": "string"
+          },
+          "business_owner1_name": {
+            "type": "string"
+          },
+          "business_owner1_phone": {
+            "type": "string"
+          },
+          "business_owner1_email": {
+            "type": "string"
+          },
+          "business_owner1_dob": {
+            "type": "string"
+          },
+          "business_owner1_title": {
+            "type": "string"
+          },
+          "business_owner1_address_1": {
+            "type": "string"
+          },
+          "business_owner1_address_2": {
+            "type": "string"
+          },
+          "business_owner1_city": {
+            "type": "string"
+          },
+          "business_owner1_state": {
+            "type": "string"
+          },
+          "business_owner1_postal_code": {
+            "type": "string"
+          },
+          "business_owner1_country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "business_owner1_ssn": {
+            "type": "string"
+          },
+          "business_owner1_dl": {
+            "type": "string"
+          },
+          "business_owner1_percent_ownership": {
+            "type": "string"
+          },
+          "business_owner2_name": {
+            "type": "string"
+          },
+          "business_owner2_phone": {
+            "type": "string"
+          },
+          "business_owner2_email": {
+            "type": "string"
+          },
+          "business_owner2_dob": {
+            "type": "string"
+          },
+          "business_owner2_title": {
+            "type": "string"
+          },
+          "business_owner2_address_1": {
+            "type": "string"
+          },
+          "business_owner2_address_2": {
+            "type": "string"
+          },
+          "business_owner2_city": {
+            "type": "string"
+          },
+          "business_owner2_state": {
+            "type": "string"
+          },
+          "business_owner2_postal_code": {
+            "type": "string"
+          },
+          "business_owner2_country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "business_owner2_ssn": {
+            "type": "string"
+          },
+          "business_owner2_dl": {
+            "type": "string"
+          },
+          "business_owner2_percent_ownership": {
+            "type": "string"
+          },
+          "business_owner3_name": {
+            "type": "string"
+          },
+          "business_owner3_phone": {
+            "type": "string"
+          },
+          "business_owner3_email": {
+            "type": "string"
+          },
+          "business_owner3_dob": {
+            "type": "string"
+          },
+          "business_owner3_title": {
+            "type": "string"
+          },
+          "business_owner3_address_1": {
+            "type": "string"
+          },
+          "business_owner3_address_2": {
+            "type": "string"
+          },
+          "business_owner3_city": {
+            "type": "string"
+          },
+          "business_owner3_state": {
+            "type": "string"
+          },
+          "business_owner3_postal_code": {
+            "type": "string"
+          },
+          "business_owner3_country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "business_owner3_ssn": {
+            "type": "string"
+          },
+          "business_owner3_dl": {
+            "type": "string"
+          },
+          "business_owner3_percent_ownership": {
+            "type": "string"
+          },
+          "physical_mail_address_line1": {
+            "type": "string"
+          },
+          "physical_mail_address_line2": {
+            "type": "string"
+          },
+          "physical_mail_address_city": {
+            "type": "string"
+          },
+          "physical_mail_address_state": {
+            "type": "string"
+          },
+          "physical_mail_address_postal_code": {
+            "type": "string"
+          },
+          "physical_mail_address_status": {
+            "type": "string"
+          },
+          "physical_mail_address_external_id": {
+            "type": "string"
+          },
+          "email_group": {
+            "type": "string"
+          },
+          "accounting_model": {
+            "$ref": "#/components/schemas/AccountingModelEnum"
+          },
+          "auto_register": {
+            "type": "boolean"
+          },
+          "auto_file": {
+            "type": "boolean"
+          },
+          "do_not_file": {
+            "type": "boolean"
+          },
+          "incorporation_country": {
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "target_archive_date": {
+            "type": "string"
+          },
+          "onboarding_link": {
+            "type": "string"
+          },
+          "health_check": {
+            "type": "string"
+          },
+          "partner_id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "business_name",
+          "entity_type",
+          "dba",
+          "incorporation_state",
+          "ein",
+          "company_address_1",
+          "company_address_2",
+          "company_city",
+          "company_state",
+          "company_postal_code",
+          "company_country_code",
+          "business_description",
+          "home_state_registration",
+          "naics",
+          "first_operations_date",
+          "business_phone",
+          "business_email",
+          "business_address_1",
+          "business_address_2",
+          "business_city",
+          "business_state",
+          "business_postal_code",
+          "business_country_code",
+          "business_mailing_address_1",
+          "business_mailing_address_2",
+          "business_mailing_city",
+          "business_mailing_state",
+          "business_mailing_postal_code",
+          "business_mailing_country_code",
+          "business_fiscal_year_end",
+          "business_contact_name",
+          "business_contact_phone",
+          "business_contact_email",
+          "business_contact_dob",
+          "business_contact_title",
+          "business_contact_address_1",
+          "business_contact_address_2",
+          "business_contact_city",
+          "business_contact_state",
+          "business_contact_postal_code",
+          "business_contact_country_code",
+          "business_contact_ssn",
+          "business_contact_dl",
+          "business_owner1_name",
+          "business_owner1_phone",
+          "business_owner1_email",
+          "business_owner1_dob",
+          "business_owner1_title",
+          "business_owner1_address_1",
+          "business_owner1_address_2",
+          "business_owner1_city",
+          "business_owner1_state",
+          "business_owner1_postal_code",
+          "business_owner1_country_code",
+          "business_owner1_ssn",
+          "business_owner1_dl",
+          "business_owner1_percent_ownership",
+          "business_owner2_name",
+          "business_owner2_phone",
+          "business_owner2_email",
+          "business_owner2_dob",
+          "business_owner2_title",
+          "business_owner2_address_1",
+          "business_owner2_address_2",
+          "business_owner2_city",
+          "business_owner2_state",
+          "business_owner2_postal_code",
+          "business_owner2_country_code",
+          "business_owner2_ssn",
+          "business_owner2_dl",
+          "business_owner2_percent_ownership",
+          "business_owner3_name",
+          "business_owner3_phone",
+          "business_owner3_email",
+          "business_owner3_dob",
+          "business_owner3_title",
+          "business_owner3_address_1",
+          "business_owner3_address_2",
+          "business_owner3_city",
+          "business_owner3_state",
+          "business_owner3_postal_code",
+          "business_owner3_country_code",
+          "business_owner3_ssn",
+          "business_owner3_dl",
+          "business_owner3_percent_ownership",
+          "physical_mail_address_line1",
+          "physical_mail_address_line2",
+          "physical_mail_address_city",
+          "physical_mail_address_state",
+          "physical_mail_address_postal_code",
+          "physical_mail_address_status",
+          "physical_mail_address_external_id",
+          "email_group",
+          "accounting_model",
+          "auto_register",
+          "auto_file",
+          "do_not_file",
+          "incorporation_country",
+          "target_archive_date",
+          "onboarding_link",
+          "health_check"
+        ],
+        "title": "OrganizationDetailsSerializerBase"
       },
       "OrganizationExperienceTasks": {
         "properties": {
@@ -27671,10 +28133,6 @@
             "$ref": "#/components/schemas/FilingFrequencyEnum",
             "description": "Specifies how often tax filings should be made.\n                                                Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
           },
-          "filing_days": {
-            "description": "The number of days before the filing deadline.",
-            "type": "integer"
-          },
           "username": {
             "description": "Username for accessing tax registration details.",
             "type": "string"
@@ -27750,6 +28208,11 @@
             "description": "The category of the registration. Possible values: REGULAR, IMPORTED, DEREGISTRATION.",
             "default": "REGULAR"
           },
+          "filing_days": {
+            "type": "integer",
+            "title": "Filing Days",
+            "readOnly": true
+          },
           "registration_type": {
             "$ref": "#/components/schemas/RegistrationTypeEnum",
             "readOnly": true
@@ -27767,6 +28230,7 @@
           "state_name",
           "filing_frequency",
           "id",
+          "filing_days",
           "registration_type",
           "filing_website_url"
         ],
@@ -27963,11 +28427,6 @@
             "$ref": "#/components/schemas/FilingFrequencyEnum",
             "description": "Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
           },
-          "filing_days": {
-            "type": "integer",
-            "title": "Filing Days",
-            "description": "The number of days before the filing deadline."
-          },
           "username": {
             "description": "Username for accessing tax registration details.",
             "type": "string"
@@ -28026,8 +28485,7 @@
           "country_code",
           "state_code",
           "state_name",
-          "filing_frequency",
-          "filing_days"
+          "filing_frequency"
         ],
         "title": "RegistrationCreatePayload"
       },
@@ -28118,10 +28576,6 @@
             "$ref": "#/components/schemas/FilingFrequencyEnum",
             "description": "Specifies how often tax filings should be made.\n                                                Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
           },
-          "filing_days": {
-            "description": "The number of days before the filing deadline.",
-            "type": "integer"
-          },
           "username": {
             "description": "Username for accessing tax registration details.",
             "type": "string"
@@ -28197,6 +28651,11 @@
             "description": "The category of the registration. Possible values: REGULAR, IMPORTED, DEREGISTRATION.",
             "default": "REGULAR"
           },
+          "filing_days": {
+            "type": "integer",
+            "title": "Filing Days",
+            "readOnly": true
+          },
           "registration_type": {
             "$ref": "#/components/schemas/RegistrationTypeEnum",
             "readOnly": true
@@ -28210,6 +28669,7 @@
           "state_name",
           "filing_frequency",
           "id",
+          "filing_days",
           "registration_type"
         ],
         "title": "RegistrationRead"
@@ -28301,10 +28761,6 @@
             "$ref": "#/components/schemas/FilingFrequencyEnum",
             "description": "Specifies how often tax filings should be made.\n                                                Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
           },
-          "filing_days": {
-            "description": "The number of days before the filing deadline.",
-            "type": "integer"
-          },
           "username": {
             "description": "Username for accessing tax registration details.",
             "type": "string"
@@ -28390,6 +28846,11 @@
             "description": "Indicates if all required credentials are present.",
             "default": false
           },
+          "filing_days": {
+            "type": "integer",
+            "title": "Filing Days",
+            "readOnly": true
+          },
           "registration_type": {
             "$ref": "#/components/schemas/RegistrationTypeEnum",
             "readOnly": true
@@ -28403,6 +28864,7 @@
           "state_name",
           "filing_frequency",
           "id",
+          "filing_days",
           "registration_type"
         ],
         "title": "RegistrationReadWithPassword"
