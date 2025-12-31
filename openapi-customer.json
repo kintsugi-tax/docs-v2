@@ -2462,7 +2462,11 @@
                 "end_date": "2025-01-01",
                 "category": "PHYSICAL_BUSINESS_LOCATION",
                 "external_id": "ext_ABC123",
-                "source": "USER"
+                "source": "USER",
+                "street_1": "123 Main Street",
+                "street_2": "Suite 100",
+                "city": "San Francisco",
+                "postal_code": "94102"
               }
             }
           }
@@ -2578,7 +2582,11 @@
               "example": {
                 "start_date": "2024-01-01",
                 "end_date": "2025-01-01",
-                "category": "PHYSICAL_BUSINESS_LOCATION"
+                "category": "PHYSICAL_BUSINESS_LOCATION",
+                "street_1": "123 Main Street",
+                "street_2": "Suite 100",
+                "city": "San Francisco",
+                "postal_code": "94102"
               }
             }
           }
@@ -6811,7 +6819,8 @@
           "xero",
           "netsuite",
           "sage-intacct",
-          "wix"
+          "wix",
+          "microsoft-dynamics-365-business-central"
         ],
         "title": "ApiDeckServiceEnum"
       },
@@ -7746,6 +7755,147 @@
           "products"
         ],
         "title": "BulkApproveUpdateRequest"
+      },
+      "BulkExemptionCreateItem": {
+        "properties": {
+          "customer_id": {
+            "description": "Kintsugi internal customer ID. Either this or external_id is required.",
+            "type": "string"
+          },
+          "external_id": {
+            "description": "Customer's external ID (from source system). Either this or customer_id is required.",
+            "type": "string"
+          },
+          "exemption_type": {
+            "$ref": "#/components/schemas/ExemptionType",
+            "description": "The type of exemption (e.g., wholesale, customer)",
+            "default": "wholesale"
+          },
+          "jurisdiction": {
+            "description": "The jurisdiction/state for the exemption (e.g., CA). If not provided, applies to all.",
+            "type": "string"
+          },
+          "country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum",
+            "description": "Country code in ISO 3166-1 alpha-2 format",
+            "default": "US"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Start Date",
+            "description": "Start date for the exemption validity period (YYYY-MM-DD format)"
+          },
+          "end_date": {
+            "description": "End date for the exemption validity period (YYYY-MM-DD format)",
+            "type": "string"
+          },
+          "reseller": {
+            "type": "boolean",
+            "title": "Reseller",
+            "description": "Indicates whether the exemption is for a reseller",
+            "default": false
+          },
+          "FEIN": {
+            "description": "Federal Employer Identification Number",
+            "type": "string"
+          },
+          "sales_tax_id": {
+            "description": "Sales tax ID for the exemption",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start_date"
+        ],
+        "title": "BulkExemptionCreateItem",
+        "description": "Schema for a single exemption in a bulk create request."
+      },
+      "BulkExemptionCreateRequest": {
+        "properties": {
+          "exemptions": {
+            "items": {
+              "$ref": "#/components/schemas/BulkExemptionCreateItem"
+            },
+            "type": "array",
+            "title": "Exemptions",
+            "description": "List of exemptions to create"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exemptions"
+        ],
+        "title": "BulkExemptionCreateRequest",
+        "description": "Request body for bulk exemption creation."
+      },
+      "BulkExemptionCreateResponse": {
+        "properties": {
+          "created_count": {
+            "type": "integer",
+            "title": "Created Count",
+            "description": "Number of exemptions successfully created"
+          },
+          "error_count": {
+            "type": "integer",
+            "title": "Error Count",
+            "description": "Number of exemptions that failed to create"
+          },
+          "skipped_count": {
+            "type": "integer",
+            "title": "Skipped Count",
+            "description": "Number of exemptions skipped (e.g., already exists)"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/BulkExemptionCreateResultItem"
+            },
+            "type": "array",
+            "title": "Results",
+            "description": "Detailed results for each exemption"
+          }
+        },
+        "type": "object",
+        "required": [
+          "created_count",
+          "error_count",
+          "skipped_count",
+          "results"
+        ],
+        "title": "BulkExemptionCreateResponse",
+        "description": "Response for bulk exemption creation."
+      },
+      "BulkExemptionCreateResultItem": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "description": "Whether the exemption was created successfully"
+          },
+          "exemption_id": {
+            "description": "ID of the created exemption (if successful)",
+            "type": "string"
+          },
+          "customer_id": {
+            "description": "Customer ID the exemption was created for",
+            "type": "string"
+          },
+          "external_id": {
+            "description": "External ID provided in the request (if any)",
+            "type": "string"
+          },
+          "error": {
+            "description": "Error message (if failed)",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "title": "BulkExemptionCreateResultItem",
+        "description": "Result for a single exemption in a bulk create response."
       },
       "BulkFilingCreate": {
         "properties": {
@@ -10585,117 +10735,7 @@
         ],
         "title": "CurrencyEnum"
       },
-      "Customer-Input": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "maxLength": 100,
-            "title": "Id"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At",
-            "description": "Timestamp when transaction was created in Kintsugi."
-          },
-          "updated_at": {
-            "description": "Timestamp when transaction was last updated.",
-            "type": "string"
-          },
-          "phone": {
-            "description": "Phone number associated with the address.",
-            "type": "string"
-          },
-          "street_1": {
-            "description": "Primary street address.",
-            "type": "string"
-          },
-          "street_2": {
-            "description": "Additional street address details, such as an apartment or suite number.",
-            "type": "string"
-          },
-          "city": {
-            "description": "City where the customer resides.",
-            "type": "string"
-          },
-          "county": {
-            "description": "County or district of the customer.",
-            "type": "string"
-          },
-          "state": {
-            "description": "State or province of the customer.",
-            "type": "string"
-          },
-          "postal_code": {
-            "description": "ZIP or Postal code of the customer.",
-            "type": "string"
-          },
-          "country": {
-            "description": "Country code in ISO 3166-1 alpha-2 format",
-            "$ref": "#/components/schemas/CountryCodeEnum"
-          },
-          "full_address": {
-            "description": "Complete address string of the customer, which can be used as an alternative to individual fields.",
-            "type": "string"
-          },
-          "name": {
-            "description": "Name of the customer.",
-            "type": "string"
-          },
-          "external_id": {
-            "description": "A unique identifier for the customer.",
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/StatusEnum",
-            "description": "Status of the customer (e.g., ACTIVE, INACTIVE).",
-            "default": "ACTIVE"
-          },
-          "email": {
-            "description": "Email address of the customer.",
-            "type": "string"
-          },
-          "address_status": {
-            "$ref": "#/components/schemas/AddressStatus",
-            "description": "Address status of the customer. Defaults to UNVERIFIED.",
-            "default": "UNVERIFIED"
-          },
-          "source": {
-            "description": "Source of the customer information (e.g., BIGCOMMERCE, STRIPE, etc.).",
-            "$ref": "#/components/schemas/SourceEnum"
-          },
-          "registration_number": {
-            "type": "string"
-          },
-          "connection_id": {
-            "type": "string"
-          },
-          "enriched_fields": {
-            "description": "Additional enriched fields for the customer, if available.",
-            "type": "string"
-          },
-          "organization_id": {
-            "type": "string",
-            "maxLength": 100,
-            "title": "Organization Id"
-          },
-          "is_test_data": {
-            "type": "boolean",
-            "title": "Is Test Data",
-            "default": false
-          },
-          "external_friendly_id": {
-            "description": "External friendly identifier associated with the customer.",
-            "type": "string"
-          }
-        },
-        "type": "object",
-        "required": [
-          "organization_id"
-        ],
-        "title": "Customer"
-      },
-      "Customer-Output": {
+      "Customer": {
         "properties": {
           "id": {
             "type": "string",
@@ -12502,6 +12542,12 @@
             "type": "array",
             "title": "Sources",
             "description": "List of sources associated with the filing"
+          },
+          "prefer_collected_tax_amounts": {
+            "type": "boolean",
+            "title": "Prefer Collected Tax Amounts",
+            "description": "Organization setting indicating whether to prefer collected tax amounts over calculated amounts for filings and liability reporting.",
+            "default": false
           },
           "filing_website_url": {
             "description": "Get the filing website URL for this filing's jurisdiction",
@@ -16202,7 +16248,7 @@
             "$ref": "#/components/schemas/Subscription"
           },
           "customer": {
-            "$ref": "#/components/schemas/Customer-Output"
+            "$ref": "#/components/schemas/Customer"
           },
           "card": {
             "$ref": "#/components/schemas/Card"
@@ -16352,8 +16398,7 @@
             "type": "string"
           },
           "home_state_registration": {
-            "type": "string",
-            "title": "Home State Registration"
+            "type": "string"
           },
           "naics": {
             "type": "string"
@@ -16384,7 +16429,6 @@
           "company_postal_code",
           "company_country_code",
           "business_description",
-          "home_state_registration",
           "first_operations_date"
         ],
         "title": "OrganizationDetailsBusinessDetailsCreateUpdate"
@@ -19429,6 +19473,22 @@
             "$ref": "#/components/schemas/PhysicalNexusSource",
             "description": "The source of the physical nexus presence.\n        Possible values: USER, DEEL.",
             "default": "USER"
+          },
+          "street_1": {
+            "description": "Primary street address for the physical presence location.",
+            "type": "string"
+          },
+          "street_2": {
+            "description": "Additional street address details, such as suite or unit number.",
+            "type": "string"
+          },
+          "city": {
+            "description": "City of the physical presence location.",
+            "type": "string"
+          },
+          "postal_code": {
+            "description": "ZIP or postal code of the physical presence location.",
+            "type": "string"
           }
         },
         "type": "object",
@@ -19474,6 +19534,22 @@
             "description": "The source of the physical nexus presence.\n        Possible values: USER, DEEL.",
             "default": "USER"
           },
+          "street_1": {
+            "description": "Primary street address for the physical presence location.",
+            "type": "string"
+          },
+          "street_2": {
+            "description": "Additional street address details, such as suite or unit number.",
+            "type": "string"
+          },
+          "city": {
+            "description": "City of the physical presence location.",
+            "type": "string"
+          },
+          "postal_code": {
+            "description": "ZIP or postal code of the physical presence location.",
+            "type": "string"
+          },
           "id": {
             "type": "string",
             "title": "Id",
@@ -19513,6 +19589,22 @@
           "category": {
             "$ref": "#/components/schemas/PhysicalNexusCategory",
             "description": "The updated reason for the nexus, such as\n        PHYSICAL_BUSINESS_LOCATION or TELECOMMUTING_OR_REMOTE_EMPLOYEE, etc."
+          },
+          "street_1": {
+            "description": "Primary street address for the physical presence location.",
+            "type": "string"
+          },
+          "street_2": {
+            "description": "Additional street address details, such as suite or unit number.",
+            "type": "string"
+          },
+          "city": {
+            "description": "City of the physical presence location.",
+            "type": "string"
+          },
+          "postal_code": {
+            "description": "ZIP or postal code of the physical presence location.",
+            "type": "string"
           }
         },
         "type": "object",
@@ -23435,6 +23527,11 @@
           },
           "primary_product_code_name": {
             "type": "string"
+          },
+          "is_default": {
+            "type": "boolean",
+            "title": "Is Default",
+            "default": false
           }
         },
         "type": "object",
@@ -23467,6 +23564,12 @@
           "primary_product_code_name": {
             "description": "The name of the product code",
             "type": "string"
+          },
+          "is_default": {
+            "type": "boolean",
+            "title": "Is Default",
+            "description": "Indicates whether the product configuration is the default",
+            "default": false
           }
         },
         "type": "object",
@@ -23503,6 +23606,12 @@
             "type": "string",
             "title": "Primary Product Code Name",
             "description": "The name of the product code."
+          },
+          "is_default": {
+            "type": "boolean",
+            "title": "Is Default",
+            "description": "Indicates whether the product configuration is the default",
+            "default": false
           }
         },
         "type": "object",
@@ -23534,6 +23643,11 @@
           },
           "primary_product_code_name": {
             "type": "string"
+          },
+          "is_default": {
+            "type": "boolean",
+            "title": "Is Default",
+            "default": false
           },
           "id": {
             "type": "string",
@@ -24359,10 +24473,106 @@
           "amount_fees": {
             "description": "Admin-only: The amount of fees associated with the registration.",
             "type": "number"
+          },
+          "sales_tax_id": {
+            "description": "The sales tax ID for the registration.",
+            "type": "string"
+          },
+          "status": {
+            "description": "The target status for the registration. Only REGISTERED is supported for confirmation.",
+            "$ref": "#/components/schemas/RegistrationStatusEnum"
           }
         },
         "type": "object",
         "title": "RegistrationAdminUpdateAPI"
+      },
+      "RegistrationAdminUpdatePayload": {
+        "properties": {
+          "country_code": {
+            "description": "The country code (ISO 3166-1 alpha-2).",
+            "$ref": "#/components/schemas/CountryCodeEnum"
+          },
+          "state_code": {
+            "description": "The state/province code.",
+            "type": "string"
+          },
+          "state_name": {
+            "description": "Optional; computed from country/state when omitted.",
+            "type": "string"
+          },
+          "registration_date": {
+            "description": "YYYY-MM-DD",
+            "type": "string"
+          },
+          "filing_frequency": {
+            "description": "Service requires this; Optional here to surface 400 (not 422) when missing.",
+            "$ref": "#/components/schemas/FilingFrequencyEnum"
+          },
+          "filing_days": {
+            "description": "Days before the filing deadline.",
+            "type": "integer"
+          },
+          "amount_fees": {
+            "description": "Registration fees.",
+            "type": "number"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password_plain_text": {
+            "type": "string"
+          },
+          "password_metadata_plain_text": {
+            "description": "Security Q/A metadata.",
+            "type": "string"
+          },
+          "pin_plain_text": {
+            "description": "Plaintext PIN (only supported for WY and AZ).",
+            "type": "string"
+          },
+          "sales_tax_id": {
+            "description": "State tax ID.",
+            "type": "string"
+          },
+          "third_party_enabled": {
+            "description": "3p Access",
+            "type": "boolean"
+          },
+          "two_factor_enabled": {
+            "description": "2FA",
+            "type": "boolean"
+          },
+          "create_filings_from": {
+            "description": "First filing period start date.",
+            "type": "string"
+          },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file.",
+            "default": false
+          },
+          "type": {
+            "type": "string"
+          },
+          "vda": {
+            "default": false,
+            "type": "boolean"
+          },
+          "imported": {
+            "type": "boolean"
+          },
+          "status": {
+            "$ref": "#/components/schemas/RegistrationStatusEnum",
+            "description": "The target status for the registration. Must be REGISTERED for confirm operations."
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "RegistrationAdminUpdatePayload",
+        "description": "Admin update request payload. Independent of DB models to allow admin UX-specific fields.\nThe service computes state_name and enforces required business rules (e.g., filing_frequency).\nUsed for admin update and confirm registration operations."
       },
       "RegistrationCategoryEnum": {
         "type": "string",
@@ -25922,6 +26132,101 @@
         ],
         "title": "ShopwareTaxEstimateRequestSource"
       },
+      "ShopwareWebhookEvent": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ShopwareWebhookEventData"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ShopwareWebhookEventSource"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "source",
+          "timestamp"
+        ],
+        "title": "ShopwareWebhookEvent"
+      },
+      "ShopwareWebhookEventData": {
+        "properties": {
+          "payload": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShopwareWebhookEventDataPayload"
+            }
+          },
+          "event": {
+            "type": "string",
+            "title": "Event"
+          }
+        },
+        "type": "object",
+        "required": [
+          "payload",
+          "event"
+        ],
+        "title": "ShopwareWebhookEventData"
+      },
+      "ShopwareWebhookEventDataPayload": {
+        "properties": {
+          "entity": {
+            "type": "string",
+            "title": "Entity"
+          },
+          "operation": {
+            "type": "string",
+            "title": "Operation"
+          },
+          "primaryKey": {
+            "type": "string",
+            "title": "Primarykey"
+          },
+          "updatedFields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "entity",
+          "operation",
+          "primaryKey"
+        ],
+        "title": "ShopwareWebhookEventDataPayload"
+      },
+      "ShopwareWebhookEventSource": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "appVersion": {
+            "type": "string"
+          },
+          "shopId": {
+            "type": "string",
+            "title": "Shopid"
+          },
+          "eventId": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "url",
+          "shopId"
+        ],
+        "title": "ShopwareWebhookEventSource"
+      },
       "SourceEnum": {
         "type": "string",
         "enum": [
@@ -25981,7 +26286,8 @@
           "SAGE-INTACCT",
           "AIRWALLEX",
           "ORB",
-          "ZENSKAR"
+          "ZENSKAR",
+          "MICROSOFT_DYNAMICS_365"
         ],
         "title": "SourceEnum"
       },
@@ -26612,7 +26918,8 @@
           "EXPORT",
           "ZERO_VALUE_ITEM",
           "NO_RULE_FOUND",
-          "IMPORTED"
+          "IMPORTED",
+          "ZERO_RATE_NOT_EXEMPT"
         ],
         "title": "TaxExemptionEnum",
         "description": "This enum is used to determine if a transaction is exempt from tax."
@@ -26795,6 +27102,7 @@
           "NO_RULE_FOUND",
           "RULE_FOUND_TAXABLE",
           "RULE_FOUND_NOT_TAXABLE",
+          "RULE_FOUND_TAXABLE_ZERO_RATE",
           "PRODUCT_EXEMPT",
           "FROM_IMPORT"
         ],
@@ -27605,6 +27913,7 @@
           },
           "external_id": {
             "type": "string",
+            "minLength": 1,
             "title": "External Id",
             "description": "External identifier of the transaction."
           },
@@ -27820,8 +28129,7 @@
             "title": "Transaction Items"
           },
           "customer": {
-            "title": "Customer",
-            "$ref": "#/components/schemas/Customer-Input"
+            "$ref": "#/components/schemas/TransactionImportCustomer"
           },
           "operation": {
             "default": "IMPORT",
@@ -27857,6 +28165,7 @@
           },
           "external_id": {
             "type": "string",
+            "minLength": 1,
             "title": "External Id",
             "description": "External identifier of the transaction."
           },
@@ -28372,10 +28681,11 @@
         "enum": [
           "NOT_EXEMPT",
           "PARTIALLY_EXEMPT",
-          "FULLY_EXEMPT"
+          "FULLY_EXEMPT",
+          "ZERO_RATE_NOT_EXEMPT"
         ],
         "title": "TransactionExemptStatusEnum",
-        "description": "Based on transaction item exempt status.\nNOT EXEMPT: None of the items are NOT EXEMPT\nPARTIALLY EXEMPT: At least some of the items are NOT EXEMPT\nFULLY_EXEMPT: All items sold in the transaction are EXEMPT"
+        "description": "Based on transaction item exempt status.\nNOT EXEMPT: None of the items are NOT EXEMPT\nPARTIALLY EXEMPT: At least some of the items are NOT EXEMPT\nFULLY_EXEMPT: All items sold in the transaction are EXEMPT\nZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated"
       },
       "TransactionImportCustomer": {
         "properties": {
@@ -28431,8 +28741,8 @@
             "type": "string"
           },
           "source": {
-            "$ref": "#/components/schemas/SourceEnum",
-            "default": "OTHER"
+            "default": "OTHER",
+            "$ref": "#/components/schemas/SourceEnum"
           },
           "registration_number": {
             "type": "string"
@@ -29166,6 +29476,7 @@
           },
           "external_id": {
             "type": "string",
+            "minLength": 1,
             "title": "External Id",
             "description": "External identifier of the transaction."
           },
@@ -29369,6 +29680,7 @@
           },
           "external_id": {
             "type": "string",
+            "minLength": 1,
             "title": "External Id",
             "description": "External identifier of the transaction."
           },
@@ -29689,6 +30001,7 @@
           },
           "external_id": {
             "type": "string",
+            "minLength": 1,
             "title": "External Id",
             "description": "External identifier of the transaction."
           },
