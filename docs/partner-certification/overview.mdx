@@ -1,0 +1,155 @@
+---
+title: "Partner Certification Overview"
+description: "Learn about Kintsugi's Partner Certification program and what it means to be Kintsugi Certified"
+---
+
+<Note>
+**What is Partner Certification?** Kintsugi's Partner Certification program validates that your integration correctly handles tax calculations, transaction syncing, and error scenarios. It's our way of ensuring quality partnerships and reducing support burden—not a barrier to entry.
+</Note>
+
+The Kintsugi Partner Certification program validates integrations built by partners using the Kintsugi API. When you're building a tax integration for your platform, certification ensures you're handling all the critical capabilities correctly—before your customers encounter issues.
+
+## What Certification Means
+
+Being **Kintsugi Certified** means:
+
+✅ Your integration correctly calculates tax across all jurisdictions we support <br/>
+✅ Transaction syncing works reliably for orders and refunds <br/>
+✅ Error handling gracefully manages edge cases and API changes <br/>
+✅ Address validation provides clear, actionable feedback <br/>
+✅ Your integration is ready for production use <br/>
+
+Certification is **binary**: you're either Kintsugi Certified or not. There are no tiers or levels for technical certification: just a clear validation that your integration meets our quality standards.
+
+## Why Get Certified?
+
+Certification benefits both you and your customers:
+
+**For You:**
+- Catch issues before your customers do
+- Reduce support tickets and troubleshooting time
+- Get listed on Kintsugi's partner directory
+- Receive certification badge and go-to-market support
+
+**For Your Customers:**
+- Confidence that tax calculations are accurate
+- Reliable transaction tracking for compliance
+- Better error messages when issues occur
+
+## Integration Patterns
+
+Kintsugi supports two integration patterns:
+
+### Level 1: Transaction Syncing
+
+Transaction syncing enables reporting and filing. A Level 1 integration and everything it encompasses is required before a Level 2 integration can be built.
+
+### Level 2: Sales Tax Calculation Support
+
+A Level 2 integration utilizes Kintsugi's sales tax engine via our API's for real-time calculations.
+
+<Note>
+**Certification applies to Level 2 components**: If Kintsugi builds Level 1 features, we handle validation for those. Certification focuses on what your team builds.
+</Note>
+
+## What Gets Validated
+
+Certification validates three core capabilities. See the <a href="/docs/partner-certification/checklist" target="_blank">Certification Checklist</a> for more details.
+
+### 2. Transaction Syncing
+
+We verify reliable transaction data syncing:
+- Orders sync successfully to Kintsugi
+- Refunds sync correctly (credit notes)
+- Data integrity (amounts, item details, customer info)
+- Additional transaction types based on your platform
+
+### 2. Tax Calculations
+
+The most critical capability. We verify:
+- Tax calculation accuracy for standard transactions
+- Proper parameter handling (address, items, amounts)
+- Correct rate application across jurisdictions
+- Fallback scenarios (state + zip, zip-only)
+
+### 3. Error Handling
+
+We verify graceful error management:
+- Address errors provide specific, actionable messages
+- API error handling manages rate limits and retries
+- Your integration handles API response changes
+
+## Platform-Specific Validation
+
+Validation adapts based on your platform type. Our Solutions Engineers will work with you on building a custom plan and provide a detailed roadmap for success.
+
+**E-Commerce & Shopping Carts:**
+- Standard order processing
+- Refund handling
+- Basic address validation
+
+**Accounting Software & Billing Platforms:**
+- Invoicing workflow (quote-to-cash cycle)
+- Credit notes and debit notes
+- Ad hoc/one-time charges
+- Advanced address handling
+
+**ERP Systems:**
+- Multi-location transactions
+- Complex billing scenarios
+- Advanced transaction types
+
+**Order Management Systems (OMS):**
+- Multi-channel order tracking
+- Complex refund and return workflows
+- Inventory-aware tax calculations
+
+**Inventory Management Systems (IMS):**
+- Stock adjustment tax implications
+- Warehouse-specific location handling
+
+## Getting Started
+
+Ready to get certified? Here's what to expect:
+
+1. **Pre-Certification Conversation**: We'll identify your platform type, discuss integration patterns, and share the relevant checklist
+2. **Validation Phase**: We'll test core capabilities, verify edge cases, and check error handling
+3. **Certification Decision**: We'll work with you to resolve any issues before awarding certification
+4. **Post-Certification**: You'll receive the Kintsugi Certified badge and be listed in our partner directory
+
+<Card title="Next Steps" icon="arrow-right" href="/docs/partner-certification/checklist">
+  Review the certification checklist to see what capabilities you'll need to validate
+</Card>
+
+<Card title="Validation Process" icon="check-circle" href="/docs/partner-certification/validation-process">
+  Learn what to expect during the validation phase
+</Card>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Will certification slow down my launch?">
+    No. We validate the same things we'd check internally. The process is designed to catch issues before your customers find them, saving you support time.
+  </Accordion>
+
+  <Accordion title="What if my platform has unique features not on the checklist?">
+    Great question—let's talk about it. We'll customize the validation approach based on your platform's specific capabilities.
+  </Accordion>
+
+  <Accordion title="Do I need to be Level 1 to get certified?">
+    No. Certification is based on what your team builds (Level 2 components). If Kintsugi builds Level 1, we handle validation for those components.
+  </Accordion>
+
+  <Accordion title="What happens if my integration doesn't pass certification?">
+    We'll work with you to resolve any issues. Certification is achievable—it just means we're thorough before putting your name on our marketplace.
+  </Accordion>
+
+  <Accordion title="How long does certification take?">
+    The timeline varies based on your integration complexity and any issues we find. Most partners complete certification within 1-2 weeks of starting validation.
+  </Accordion>
+</AccordionGroup>
+
+## Need Help?
+
+Have questions about certification? Contact your Kintsugi partner representative or reach out through our support channels. We're here to help you build a successful integration.
+

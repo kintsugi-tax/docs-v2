@@ -97,6 +97,14 @@
                 ]
               },
               {
+                "group": "Partner Certification",
+                "pages": [
+                  "docs/partner-certification/overview",
+                  "docs/partner-certification/checklist",
+                  "docs/partner-certification/validation-process"
+                ]
+              },
+              {
                 "group": "Advanced",
                 "pages": [
                   "docs/error-handling"

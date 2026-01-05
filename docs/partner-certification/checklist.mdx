@@ -1,0 +1,166 @@
+---
+title: "Certification Checklist"
+description: "Core capabilities you'll need to validate for Kintsugi Partner Certification"
+---
+
+This checklist outlines the core capabilities your integration needs to validate for Kintsugi Partner Certification. Use this as a guide to ensure your integration is ready for validation.
+
+## Core Checklist Items
+
+These items are required for all integrations:
+
+### Transaction Syncing
+
+-  Orders sync successfully to Kintsugi
+-  Refunds sync successfully to Kintsugi (credit notes)
+-  Transaction syncing preserves data integrity (amounts, item details, customer info)
+-  External IDs are unique and consistent
+-  Transaction dates are accurate and properly formatted
+
+<Card title="Transaction API" icon="link" href="/reference/api/transactions/create-transaction">
+  Learn how to create and sync transactions
+</Card>
+
+<Card title="Credit Notes" icon="link" href="/docs/api-guides/handling-refund-transactions">
+  Learn how to handle refunds and credit notes
+</Card>
+
+### Tax Calculations
+
+-  Tax calculations return accurate rates for test addresses
+-  Tax calculations work with full address (city + state + zip)
+-  Tax calculations work with state + zip (without city)
+-  Tax calculations work with zip code only (fallback scenario)
+-  Tax calculations handle multiple jurisdictions correctly
+-  Tax calculations apply correct rates for different product types
+
+<Card title="Tax Estimation API" icon="link" href="/reference/api/tax-estimation/estimate-tax">
+  Learn how to use the tax estimation endpoint
+</Card>
+
+### Address Validation (Optional, recommended)
+
+-  Address errors provide specific, actionable error messages
+-  Full address validation (city + state + zip) works correctly
+-  Fallback to state + zip when city validation fails
+-  Fallback to zip code only when full validation fails
+-  Address validation errors are user-friendly
+
+<Card title="Address Validation API" icon="link" href="/reference/api/address-validation/search">
+  Learn how to validate addresses
+</Card>
+
+### Error Handling
+
+-  API error handling manages rate limits gracefully
+-  Retry logic handles transient failures
+-  Your integration handles Kintsugi API response changes
+-  Error messages are logged appropriately for debugging
+-  Failed requests don't cause data loss
+
+<Card title="Error Handling Guide" icon="link" href="/docs/error-handling">
+  Learn best practices for error handling
+</Card>
+
+### Data Integrity
+
+-  Customer records sync correctly with external IDs
+-  Product records sync correctly with external IDs
+-  Transaction amounts match source system amounts
+-  Currency handling is correct
+-  Date/time handling preserves timezone information
+
+<Card title="Customer API" icon="link" href="/reference/api/customers/create-customer">
+  Learn how to manage customers
+</Card>
+
+<Card title="Product API" icon="link" href="/reference/api/products/create-product">
+  Learn how to manage products
+</Card>
+
+### Testing
+
+-  You've tested with multiple state/jurisdiction combinations
+-  You've tested with different address formats
+-  You've tested refund scenarios (full and partial)
+-  You've tested error scenarios (invalid addresses, API failures)
+-  You've tested with real transaction data from your platform
+
+## Optional Advanced Items
+
+These items may apply depending on your platform type:
+
+### Advanced Transaction Types
+
+-  Credit notes sync and calculate taxes correctly
+-  Debit notes sync and calculate taxes correctly
+-  Ad hoc/manual charges sync and calculate taxes correctly
+-  Subscription billing transactions sync correctly
+
+### Nexus & Registration Management
+
+-  Nexus registration management (if applicable to your platform)
+-  State/jurisdiction tracking works correctly
+-  Registration status updates sync correctly
+
+<Card title="Nexus API" icon="link" href="/reference/api/nexus/get-nexus">
+  Learn how to manage nexus
+</Card>
+
+### Bulk Operations
+
+-  Bulk transaction handling for batch imports
+-  Bulk customer/product imports work correctly
+-  Large batch operations don't exceed rate limits
+
+<Card title="Import Transactions" icon="link" href="/docs/api-guides/syncing-transaction-records">
+  Learn about bulk transaction syncing
+</Card>
+
+### Platform-Specific Capabilities
+
+**For E-Commerce Platforms:**
+-  Checkout flow integrates tax calculations
+-  Order confirmation syncs transactions
+-  Refund workflow creates credit notes
+
+**For Accounting Software:**
+-  Invoice creation triggers tax calculations
+-  Quote-to-cash cycle works end-to-end
+-  Manual adjustments sync correctly
+
+**For ERP Systems:**
+-  Multi-location transactions handled correctly
+-  Complex billing scenarios work as expected
+-  Warehouse-specific tax calculations work
+
+**For OMS/IMS Platforms:**
+-  Multi-channel order tracking works
+-  Inventory-aware tax calculations are correct
+-  Stock adjustment tax implications handled
+
+## Preparing for Validation
+
+Before starting the validation process:
+
+1. **Complete the Core Checklist**: Ensure all required items are working
+2. **Review Optional Items**: Identify which advanced items apply to your platform
+3. **Test Thoroughly**: Use real data from your platform, not just test cases
+4. **Document Edge Cases**: Note any platform-specific behaviors or limitations
+5. **Prepare Test Scenarios**: Have test cases ready that demonstrate each capability
+
+<Note>
+**Don't worry about perfection**: The validation process is collaborative. If we find issues, we'll work with you to resolve them. The goal is to ensure your integration works reliably for your customers.
+</Note>
+
+## Next Steps
+
+Once you've completed the checklist:
+
+<Card title="Validation Process" icon="arrow-right" href="/docs/partner-certification/validation-process">
+  Learn what to expect during validation
+</Card>
+
+<Card title="Contact Us" icon="mail">
+  Ready to start? Contact your Kintsugi partner representative to begin the certification process.
+</Card>
