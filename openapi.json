@@ -23683,7 +23683,8 @@
           "LOCKED",
           "PENDING",
           "ARCHIVED",
-          "NEEDS_REFETCH"
+          "NEEDS_REFETCH",
+          "EXCLUDED_IN_CALCULATION"
         ],
         "title": "ProcessingStatusEnum",
         "description": "Our transaction state, used to determine when/if a transaction needs additional\nprocessing."
@@ -31082,7 +31083,8 @@
           "RULE_FOUND_NOT_TAXABLE",
           "RULE_FOUND_TAXABLE_ZERO_RATE",
           "PRODUCT_EXEMPT",
-          "FROM_IMPORT"
+          "FROM_IMPORT",
+          "RULE_EXCLUDED_IN_CALCULATION"
         ],
         "title": "TaxItemReturnReasonEnum",
         "description": "We use this to understand the response from get_tax_items"
