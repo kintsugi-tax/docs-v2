@@ -17657,6 +17657,29 @@
         ],
         "title": "NZRule"
       },
+      "NexusAdminUpdate": {
+        "properties": {
+          "processing_status": {
+            "description": "The processing status of the nexus (NEEDS_RERUN, UP_TO_DATE, NOT_READY).",
+            "$ref": "#/components/schemas/NexusStatusEnum"
+          },
+          "earliest_collected_date": {
+            "description": "The earliest collected date for the nexus.",
+            "type": "string"
+          },
+          "vda_eligible": {
+            "description": "Whether the nexus is eligible for Voluntary Disclosure Agreement.",
+            "type": "boolean"
+          },
+          "use_datetime": {
+            "description": "Whether to use datetime instead of date for nexus calculations.",
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "title": "NexusAdminUpdate",
+        "description": "Admin-only model for updating nexus fields via API."
+      },
       "NexusResponse": {
         "properties": {
           "processing_status": {
