@@ -17753,6 +17753,9 @@
             "type": "boolean",
             "title": "Special Tax Circumstances"
           },
+          "disable_ai_classification": {
+            "type": "boolean"
+          },
           "id": {
             "type": "string",
             "title": "Id"
@@ -17809,6 +17812,9 @@
           },
           "special_tax_circumstances": {
             "type": "boolean"
+          },
+          "disable_ai_classification": {
+            "type": "boolean"
           }
         },
         "type": "object",
@@ -17857,6 +17863,9 @@
           "special_tax_circumstances": {
             "type": "boolean",
             "title": "Special Tax Circumstances"
+          },
+          "disable_ai_classification": {
+            "type": "boolean"
           }
         },
         "type": "object",
