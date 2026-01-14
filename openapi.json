@@ -3886,6 +3886,591 @@
         }
       }
     },
+    "/v1/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get Products",
+        "description": "Retrieve a paginated list of products based on filters and search query.",
+        "operationId": "get_products_v1_products_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Search term to filter products by name or other details.",
+              "title": "Query"
+            },
+            "description": "Search term to filter products by name or other details."
+          },
+          {
+            "name": "status__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter products by status (comma-separated)",
+              "title": "Status  In"
+            },
+            "description": "Filter products by status (comma-separated)"
+          },
+          {
+            "name": "product_category__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter products by category (comma-separated)",
+              "title": "Product Category  In"
+            },
+            "description": "Filter products by category (comma-separated)"
+          },
+          {
+            "name": "product_subcategory__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter products by subcategory (comma-separated)",
+              "title": "Product Subcategory  In"
+            },
+            "description": "Filter products by subcategory (comma-separated)"
+          },
+          {
+            "name": "source__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter products by source (comma-separated)",
+              "title": "Source  In"
+            },
+            "description": "Filter products by source (comma-separated)"
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Order results by specified fields (comma-separated)",
+              "title": "Order By"
+            },
+            "description": "Order results by specified fields (comma-separated)"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Page number",
+              "default": 1,
+              "title": "Page"
+            },
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Page size",
+              "default": 50,
+              "title": "Size"
+            },
+            "description": "Page size"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_ProductRead_"
+                },
+                "example": {
+                  "items": [
+                    {
+                      "external_id": "prod_001",
+                      "code": "CODE_1001",
+                      "name": "Sample Product A",
+                      "description": "This is a sample product description.",
+                      "status": "PENDING",
+                      "product_category": "Physical",
+                      "product_subcategory": "General Clothing",
+                      "tax_exempt": false,
+                      "source": "BIGCOMMERCE",
+                      "connection_id": "conn_12345",
+                      "classification_failed": true,
+                      "id": "prod_abc123"
+                    },
+                    {
+                      "external_id": "prod_002",
+                      "code": "CODE_1002",
+                      "name": "Sample Product B",
+                      "status": "APPROVED",
+                      "product_category": "Services",
+                      "product_subcategory": "Professional Training and Seminar Services",
+                      "tax_exempt": false,
+                      "source": "STRIPE",
+                      "classification_failed": false,
+                      "id": "prod_def456"
+                    }
+                  ],
+                  "total": 2,
+                  "page": 1,
+                  "size": 50,
+                  "pages": 1
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Entered an incorrect URL."
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated request.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "The request is missing a valid x-api-key."
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": [
+                        "header",
+                        "x-organization-id"
+                      ],
+                      "msg": "Field required"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/backend__src__products__responses__ValidationErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "An unexpected error occurred"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Create Product",
+        "description": "The Create Product API allows users to manually create a new product\n    in the system. This includes specifying product details such as category,\n    subcategory, and tax exemption status, etc.",
+        "operationId": "create_product_v1_products_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCreateManual"
+              },
+              "example": {
+                "external_id": "prod_001",
+                "name": "T-shirts",
+                "description": "Common items of everyday wearing apparel designed for human use, covering a wide variety of non-specialized garments.",
+                "status": "APPROVED",
+                "product_category": "Physical",
+                "product_subcategory": "General Clothing",
+                "tax_exempt": false,
+                "source": "BIGCOMMERCE"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductRead"
+                },
+                "example": {
+                  "id": "prod_xR9t8P1wMK6aQ",
+                  "external_id": "prod_123",
+                  "code": "CODE_1234",
+                  "name": "Test Product",
+                  "description": "This is a test product description.",
+                  "status": "APPROVED",
+                  "product_category": "Physical",
+                  "product_subcategory": "General Clothing",
+                  "tax_exempt": false,
+                  "source": "SHOPIFY",
+                  "classification_failed": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated request.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "The request is missing a valid x-api-key."
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": [
+                        "body",
+                        "external_id"
+                      ],
+                      "msg": "Field required",
+                      "input": {
+                        "name": "Sample Product",
+                        "description": "A description of the product",
+                        "status": "APPROVED",
+                        "product_category": "Physical",
+                        "product_subcategory": "General Clothing",
+                        "tax_exempt": false,
+                        "source": "BIGCOMMERCE"
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/backend__src__products__responses__ValidationErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "An unexpected error occurred"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/products/categories": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get Product Categories",
+        "description": "The Get Product Categories API retrieves all\n    product categories.  This endpoint helps users understand and select the\n    appropriate categories for their products.",
+        "operationId": "get_product_categories_v1_products_categories_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved product categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductCategories"
+                  },
+                  "title": "Response Get Product Categories V1 Products Categories Get",
+                  "$ref": "#/components/schemas/ProductCategories"
+                },
+                "example": [
+                  {
+                    "name": "Physical",
+                    "subcategories": [
+                      {
+                        "name": "Oral Hygiene",
+                        "description": "",
+                        "example": "",
+                        "is_frequent": false
+                      },
+                      {
+                        "name": "Medicines - Over the Counter",
+                        "description": "",
+                        "example": "",
+                        "is_frequent": false
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Digital",
+                    "subcategories": [
+                      {
+                        "name": "Custom Software Downloaded",
+                        "description": "",
+                        "example": "",
+                        "is_frequent": false
+                      },
+                      {
+                        "name": "B2B SaaS",
+                        "description": "",
+                        "example": "",
+                        "is_frequent": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated request.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "The request is missing a valid x-api-key."
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource Not Found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "[orgn_argaLQwMy2fJc] Product with id categories not found"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": [
+                        "header",
+                        "x-organization-id"
+                      ],
+                      "msg": "Field required"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/backend__src__products__responses__ValidationErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "An unexpected error occurred"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
     "/v1/products/{product_id}": {
       "get": {
         "tags": [
@@ -8331,6 +8916,110 @@
       }
     },
     "/v1/organizations": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get Organizations By User",
+        "description": "Get a paginated list of organizations accessible by the current user.",
+        "operationId": "get_organizations_by_user_v1_organizations_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "selected_organization_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Selected Organization Id"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Page number",
+              "default": 1,
+              "title": "Page"
+            },
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Page size",
+              "default": 50,
+              "title": "Size"
+            },
+            "description": "Page size"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_OrganizationRead_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
       "post": {
         "tags": [
           "organizations"
@@ -8596,6 +9285,524 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/OrganizationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/bank_details": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Bank Details",
+        "description": "Create or update the bank details for an organization.",
+        "operationId": "create_update_bank_details_v1_bank_details_put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BankDetailsCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get Bank Details",
+        "description": "Get the bank details of an organization.",
+        "operationId": "get_bank_details_v1_bank_details_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "title": "X-Organization-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/BankDetailsRead"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Bank Details V1 Bank Details Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/business_details": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Business Details",
+        "description": "Create or update the business details of an organization.",
+        "operationId": "create_update_business_details_v1_organization_details_business_details_put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsBusinessDetailsCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/business_address": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Business Address",
+        "description": "Create or update the business address of an organization.",
+        "operationId": "create_update_business_address_v1_organization_details_business_address_put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsCompanyAddressCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/business_information": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Business Information",
+        "description": "Create or update the business information of an organization.",
+        "operationId": "create_update_business_information_v1_organization_details_business_information_put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsBusinessInformationCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/business_contact": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Business Contact",
+        "description": "Create or update the business contact details of an organization.",
+        "operationId": "create_update_business_contact_v1_organization_details_business_contact_put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "save_business_contact_as_company_owner",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Whether to copy the business contact details to owner 1",
+              "default": false,
+              "title": "Save Business Contact As Company Owner"
+            },
+            "description": "Whether to copy the business contact details to owner 1"
+          },
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsBusinessContactCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationDetailsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v1/organization_details/business_owners": {
+      "put": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create Update Business Owners",
+        "description": "Create or update the business owners of an organization.",
+        "operationId": "create_update_business_owners_v1_organization_details_business_owners_put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-organization-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The unique identifier for the organization making the request",
+              "title": "X-Organization-Id"
+            },
+            "description": "The unique identifier for the organization making the request",
+            "example": "org_12345"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationDetailsBusinessOwnersCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationDetailsRead"
                 }
               }
             }
