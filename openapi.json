@@ -3949,8 +3949,8 @@
                   "name": "Test Product",
                   "description": "This is a test product description.",
                   "status": "APPROVED",
-                  "product_category": "PHYSICAL",
-                  "product_subcategory": "GENERAL_CLOTHING",
+                  "product_category": "Physical",
+                  "product_subcategory": "General Clothing",
                   "tax_exempt": false,
                   "source": "SHOPIFY",
                   "classification_failed": false
@@ -4028,7 +4028,7 @@
           "Products"
         ],
         "summary": "Update Product",
-        "description": "The Update Product API allows users to modify the details of\n    an existing product identified by its unique product_id",
+        "description": "The Update Product API allows users to modify the details of\n    an existing product identified by its unique product_id. You can\n    retrieve supported categories and sub-categories from this endpoint\n    /v1/product/categories",
         "operationId": "update_product_v1_products__product_id__put",
         "security": [
           {
@@ -4087,11 +4087,11 @@
               },
               "example": {
                 "external_id": "prod_001",
-                "name": "Updated Product Name",
+                "name": "Updated T-Shirt",
                 "description": "An updated description for the product",
                 "status": "APPROVED",
-                "product_category": "PHYSICAL",
-                "product_subcategory": "GENERAL_CLOTHING",
+                "product_category": "Physical",
+                "product_subcategory": "General Clothing",
                 "tax_exempt": false,
                 "classification_failed": false
               }
@@ -4113,8 +4113,8 @@
                   "name": "Test Product",
                   "description": "This is a test product description.",
                   "status": "APPROVED",
-                  "product_category": "PHYSICAL",
-                  "product_subcategory": "GENERAL_CLOTHING",
+                  "product_category": "Physical",
+                  "product_subcategory": "General Clothing",
                   "tax_exempt": false,
                   "source": "SHOPIFY",
                   "classification_failed": false
