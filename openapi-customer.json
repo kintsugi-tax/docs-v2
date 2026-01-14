@@ -2904,6 +2904,376 @@
         }
       }
     },
+    "/v1/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get Products",
+        "description": "Retrieve a paginated list of products based on filters and search query.",
+        "operationId": "get_products_v1_products_get",
+        "security": [
+          {
+            "APIKeyHeader": [],
+            "CustomHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "description": "Search term to filter products by name or other details.",
+              "type": "string"
+            },
+            "description": "Search term to filter products by name or other details."
+          },
+          {
+            "name": "status__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "description": "Filter products by status (comma-separated)",
+              "type": "string"
+            },
+            "description": "Filter products by status (comma-separated)"
+          },
+          {
+            "name": "product_category__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "description": "Filter products by category (comma-separated)",
+              "type": "string"
+            },
+            "description": "Filter products by category (comma-separated)"
+          },
+          {
+            "name": "product_subcategory__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "description": "Filter products by subcategory (comma-separated)",
+              "type": "string"
+            },
+            "description": "Filter products by subcategory (comma-separated)"
+          },
+          {
+            "name": "source__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "description": "Filter products by source (comma-separated)",
+              "type": "string"
+            },
+            "description": "Filter products by source (comma-separated)"
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "description": "Order results by specified fields (comma-separated)",
+              "type": "string"
+            },
+            "description": "Order results by specified fields (comma-separated)"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Page number",
+              "default": 1,
+              "title": "Page"
+            },
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Page size",
+              "default": 50,
+              "title": "Size"
+            },
+            "description": "Page size"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_ProductRead_"
+                },
+                "example": {
+                  "items": [
+                    {
+                      "external_id": "prod_001",
+                      "code": "CODE_1001",
+                      "name": "Sample Product A",
+                      "description": "This is a sample product description.",
+                      "status": "PENDING",
+                      "product_category": "PHYSICAL",
+                      "product_subcategory": "GENERAL_CLOTHING",
+                      "tax_exempt": false,
+                      "source": "BIGCOMMERCE",
+                      "connection_id": "conn_12345",
+                      "classification_failed": true,
+                      "id": "prod_abc123"
+                    },
+                    {
+                      "external_id": "prod_002",
+                      "code": "CODE_1002",
+                      "name": "Sample Product B",
+                      "status": "APPROVED",
+                      "product_category": "SERVICE",
+                      "product_subcategory": "PROFESSIONAL_SERVICE",
+                      "tax_exempt": false,
+                      "source": "STRIPE",
+                      "classification_failed": false,
+                      "id": "prod_def456"
+                    }
+                  ],
+                  "total": 2,
+                  "page": 1,
+                  "size": 50,
+                  "pages": 1
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Entered an incorrect URL."
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated request.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "The request is missing a valid x-api-key."
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": [
+                        "header",
+                        "x-organization-id"
+                      ],
+                      "msg": "Field required"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/backend__src__products__responses__ValidationErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "An unexpected error occurred"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Create Product",
+        "description": "The Create Product API allows users to manually create a new product\n    in the system. This includes specifying product details such as category,\n    subcategory, and tax exemption status, etc.",
+        "operationId": "create_product_v1_products_post",
+        "security": [
+          {
+            "APIKeyHeader": [],
+            "CustomHeader": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCreateManual"
+              },
+              "example": {
+                "external_id": "prod_001",
+                "name": "Sample Product",
+                "description": "A description of the product",
+                "status": "APPROVED",
+                "product_category": "PHYSICAL",
+                "product_subcategory": "GENERAL_CLOTHING",
+                "tax_exempt": false,
+                "source": "BIGCOMMERCE"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductRead"
+                },
+                "example": {
+                  "id": "prod_xR9t8P1wMK6aQ",
+                  "external_id": "prod_123",
+                  "code": "CODE_1234",
+                  "name": "Test Product",
+                  "description": "This is a test product description.",
+                  "status": "APPROVED",
+                  "product_category": "PHYSICAL",
+                  "product_subcategory": "GENERAL_CLOTHING",
+                  "tax_exempt": false,
+                  "source": "SHOPIFY",
+                  "classification_failed": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated request.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "The request is missing a valid x-api-key."
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": [
+                        "body",
+                        "external_id"
+                      ],
+                      "msg": "Field required",
+                      "input": {
+                        "name": "Sample Product",
+                        "description": "A description of the product",
+                        "status": "APPROVED",
+                        "product_category": "PHYSICAL",
+                        "product_subcategory": "GENERAL_CLOTHING",
+                        "tax_exempt": false,
+                        "source": "BIGCOMMERCE"
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/backend__src__products__responses__ValidationErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "An unexpected error occurred"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/products/categories": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get Product Categories",
+        "description": "The Get Product Categories API retrieves all\n    product categories.  This endpoint helps users understand and select the\n    appropriate categories for their products.",
+        "operationId": "get_product_categories_v1_products_categories_get",
+        "security": [
+          {
+            "APIKeyHeader": [],
+            "CustomHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductCategories"
+                  },
+                  "title": "Response Get Product Categories V1 Products Categories Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/products/{product_id}": {
       "get": {
         "tags": [
@@ -25622,6 +25992,7 @@
             "title": "Id"
           },
           "payload": {
+            "title": "Payload",
             "$ref": "#/components/schemas/ShopwareTaxEstimateRequestLineItemPayload"
           },
           "label": {

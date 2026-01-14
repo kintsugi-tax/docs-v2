@@ -28846,6 +28846,7 @@
             "title": "Id"
           },
           "payload": {
+            "title": "Payload",
             "$ref": "#/components/schemas/ShopwareTaxEstimateRequestLineItemPayload"
           },
           "label": {
