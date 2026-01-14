@@ -63,33 +63,47 @@ jobs:
           # Make script executable
           chmod +x scripts/create-merged-openapi.py
           
-          # Run script to create openapi.json with only endpoints from "API Reference - Partners"
-          python3 scripts/create-merged-openapi.py
+          # Run script to create openapi-mcp.json with only endpoints from "API Reference - Partners"
+          # The script will create openapi-mcp.json instead of openapi.json
+          OUTPUT_FILE=openapi-mcp.json python3 scripts/create-merged-openapi.py
           
           echo "✅ OpenAPI file for MCP created!"
+          echo "  - Filtered/merged spec saved to openapi-mcp.json (for MCP)"
           echo "  - Contains only endpoints explicitly listed in 'API Reference - Partners'"
           echo "  - Includes Customer API endpoints + additional Partners endpoints"
           echo "  - All endpoints have MCP enabled"
       
-      - name: Validate OpenAPI spec
+      - name: Save full Customer API spec for API Reference tab
         run: |
-          echo "🔍 Validating merged OpenAPI specification..."
+          echo "💾 Saving full Customer API spec for 'API Reference' tab..."
+          # Copy the full Customer API spec to openapi.json for the API Reference tab
+          # This ensures the API Reference tab shows all Customer API endpoints, not just filtered ones
+          cp openapi-customer.json openapi.json
+          echo "✅ Full Customer API spec saved to openapi.json"
+          echo "  - This file is used by the 'API Reference' tab in docs.json"
+          echo "  - Contains all Customer API endpoints from https://api-doc.trykintsugi.com/openapi.json"
+      
+      - name: Validate OpenAPI specs
+        run: |
+          echo "🔍 Validating OpenAPI specifications..."
           
-          # Check if merged file exists and is not empty
+          # Validate full Customer API spec (for API Reference tab)
           if [ ! -s openapi.json ]; then
-            echo "❌ Merged OpenAPI spec is empty or missing"
+            echo "❌ Customer API spec (openapi.json) is empty or missing"
             exit 1
           fi
+          customer_path_count=$(jq '.paths | length' openapi.json)
+          echo "✅ Customer API spec (openapi.json) contains $customer_path_count paths"
           
-          # Verify MCP configuration
-          echo "🔍 Verifying MCP configuration..."
-          jq -e '."x-mint".mcp.enabled == true' openapi.json > /dev/null && echo "✅ Merged OpenAPI has MCP enabled" || echo "❌ Merged OpenAPI missing MCP config"
+          # Validate MCP filtered spec (if it exists)
+          if [ -s openapi-mcp.json ]; then
+            echo "🔍 Verifying MCP configuration..."
+            jq -e '."x-mint".mcp.enabled == true' openapi-mcp.json > /dev/null && echo "✅ MCP OpenAPI has MCP enabled" || echo "❌ MCP OpenAPI missing MCP config"
+            mcp_path_count=$(jq '.paths | length' openapi-mcp.json)
+            echo "✅ MCP OpenAPI spec contains $mcp_path_count paths"
+          fi
           
-          # Count paths
-          path_count=$(jq '.paths | length' openapi.json)
-          echo "✅ Merged OpenAPI spec contains $path_count paths"
-          
-          echo "✅ OpenAPI spec is valid!"
+          echo "✅ All OpenAPI specs are valid!"
       
       - name: Generate API documentation
         run: |
@@ -118,15 +132,16 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           
-          # Add all changes (source OpenAPI files + merged OpenAPI file + generated docs)
-          git add openapi-customer.json openapi-partners.json openapi.json reference/api/
+          # Add all changes (source OpenAPI files + Customer API spec + MCP spec + generated docs)
+          git add openapi-customer.json openapi-partners.json openapi.json openapi-mcp.json reference/api/
           git commit -m "🤖 Auto-update API documentation and OpenAPI spec [skip ci]
 
-          - Updated openapi.json with endpoints from 'API Reference - Partners'
+          - Updated openapi.json with full Customer API spec (for API Reference tab)
+          - Updated openapi-mcp.json with filtered endpoints from 'API Reference - Partners' (for MCP)
           - Source: Customer API from https://api-doc.trykintsugi.com/openapi.json
           - Source: Partners API from https://api.trykintsugi.com/openapi.json
-          - Only endpoints explicitly listed in 'API Reference - Partners' are included
-          - All endpoints have MCP enabled for /mcp route
+          - MCP spec includes only endpoints explicitly listed in 'API Reference - Partners'
+          - All MCP endpoints have MCP enabled for /mcp route
           - Regenerated API reference documentation
           - Generated on: $(date)"
           git push

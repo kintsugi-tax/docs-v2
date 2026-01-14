@@ -184,7 +184,8 @@ def main():
     print("✅ MCP configuration added to all endpoints")
     
     # Step 9: Save merged spec
-    output_file = 'openapi.json'
+    # Allow override via environment variable for workflow flexibility
+    output_file = os.environ.get('OUTPUT_FILE', 'openapi.json')
     print(f"💾 Saving OpenAPI spec to {output_file}...")
     with open(output_file, 'w') as f:
         json.dump(merged_spec, f, indent=2)
