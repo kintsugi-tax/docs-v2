@@ -79,9 +79,50 @@ jobs:
           # Copy the full Customer API spec to openapi.json for the API Reference tab
           # This ensures the API Reference tab shows all Customer API endpoints, not just filtered ones
           cp openapi-customer.json openapi.json
+          
+          # Merge enhanced descriptions from Partners API for specific endpoints
+          # This ensures documentation shows the most up-to-date descriptions even if Customer API hasn't been updated yet
+          echo "🔧 Merging enhanced descriptions from Partners API where available..."
+          python3 << 'EOF'
+          import json
+          
+          # Load both specs
+          with open('openapi-customer.json', 'r') as f:
+              customer_spec = json.load(f)
+          with open('openapi-partners.json', 'r') as f:
+              partners_spec = json.load(f)
+          
+          # Merge descriptions from Partners API for endpoints that exist in both specs
+          # This ensures documentation shows the most up-to-date descriptions
+          merged_count = 0
+          for path in customer_spec.get('paths', {}):
+              if path in partners_spec.get('paths', {}):
+                  for method in ['get', 'post', 'put', 'patch', 'delete']:
+                      if method in customer_spec['paths'][path] and method in partners_spec['paths'][path]:
+                          partners_desc = partners_spec['paths'][path][method].get('description', '')
+                          customer_desc = customer_spec['paths'][path][method].get('description', '')
+                          # Merge if Partners description exists and is different (likely more up-to-date)
+                          if partners_desc and partners_desc != customer_desc:
+                              # Check if Partners description contains "retrieve supported" or is significantly longer
+                              if 'retrieve supported' in partners_desc.lower() or len(partners_desc) > len(customer_desc) * 1.2:
+                                  customer_spec['paths'][path][method]['description'] = partners_desc
+                                  merged_count += 1
+                                  print(f"  ✅ Merged {method.upper()} {path}: Enhanced description from Partners API")
+          
+          # Save updated spec
+          with open('openapi.json', 'w') as f:
+              json.dump(customer_spec, f, indent=2)
+          
+          if merged_count > 0:
+              print(f"✅ Merged {merged_count} enhanced description(s) from Partners API")
+          else:
+              print("ℹ️  No descriptions needed merging")
+          EOF
+          
           echo "✅ Full Customer API spec saved to openapi.json"
           echo "  - This file is used by the 'API Reference' tab in docs.json"
           echo "  - Contains all Customer API endpoints from https://api-doc.trykintsugi.com/openapi.json"
+          echo "  - Enhanced with updated descriptions from Partners API where available"
       
       - name: Validate OpenAPI specs
         run: |
