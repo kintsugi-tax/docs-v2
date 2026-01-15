@@ -27916,11 +27916,13 @@
           },
           "product_category": {
             "type": "string",
-            "title": "Product Category"
+            "title": "Product Category",
+            "description": "Main category of the product.\n        For example, Physical, Digital, etc. You can\n        retrieve supported categories from this endpoint\n        /v1/product/categories"
           },
           "product_subcategory": {
             "type": "string",
-            "title": "Product Subcategory"
+            "title": "Product Subcategory",
+            "description": "Subcategory of the product.\n        For example, General Clothing, UNKNOWN, etc. You can\n        retrieve supported sub-categories from this endpoint\n        /v1/product/categories"
           },
           "tax_exempt": {
             "type": "boolean",
@@ -28190,12 +28192,14 @@
             "default": "APPROVED"
           },
           "product_category": {
-            "$ref": "#/components/schemas/ProductCategoryEnum",
-            "description": "Main category of the product.\n        For example, PHYSICAL, DIGITAL, etc."
+            "type": "string",
+            "title": "Product Category",
+            "description": "Main category of the product.\n    For example, Physical, Digital, etc. You can\n    retrieve supported categories from this endpoint\n    /v1/product/categories"
           },
           "product_subcategory": {
-            "$ref": "#/components/schemas/ProductSubCategoryEnum",
-            "description": "Subcategory of the product.\n        For example, GENERAL_CLOTHING, UNKNOWN, etc."
+            "type": "string",
+            "title": "Product Subcategory",
+            "description": "Subcategory of the product.\n    For example, General Clothing, UNKNOWN, etc. You can\n    retrieve supported sub-categories from this endpoint\n    /v1/product/categories"
           },
           "tax_exempt": {
             "type": "boolean",

@@ -3023,8 +3023,8 @@
                       "name": "Sample Product A",
                       "description": "This is a sample product description.",
                       "status": "PENDING",
-                      "product_category": "PHYSICAL",
-                      "product_subcategory": "GENERAL_CLOTHING",
+                      "product_category": "Physical",
+                      "product_subcategory": "General Clothing",
                       "tax_exempt": false,
                       "source": "BIGCOMMERCE",
                       "connection_id": "conn_12345",
@@ -3036,8 +3036,8 @@
                       "code": "CODE_1002",
                       "name": "Sample Product B",
                       "status": "APPROVED",
-                      "product_category": "SERVICE",
-                      "product_subcategory": "PROFESSIONAL_SERVICE",
+                      "product_category": "Services",
+                      "product_subcategory": "Professional Training and Seminar Services",
                       "tax_exempt": false,
                       "source": "STRIPE",
                       "classification_failed": false,
@@ -3137,11 +3137,11 @@
               },
               "example": {
                 "external_id": "prod_001",
-                "name": "Sample Product",
-                "description": "A description of the product",
+                "name": "T-shirts",
+                "description": "Common items of everyday wearing apparel designed for human use, covering a wide variety of non-specialized garments.",
                 "status": "APPROVED",
-                "product_category": "PHYSICAL",
-                "product_subcategory": "GENERAL_CLOTHING",
+                "product_category": "Physical",
+                "product_subcategory": "General Clothing",
                 "tax_exempt": false,
                 "source": "BIGCOMMERCE"
               }
@@ -3163,8 +3163,8 @@
                   "name": "Test Product",
                   "description": "This is a test product description.",
                   "status": "APPROVED",
-                  "product_category": "PHYSICAL",
-                  "product_subcategory": "GENERAL_CLOTHING",
+                  "product_category": "Physical",
+                  "product_subcategory": "General Clothing",
                   "tax_exempt": false,
                   "source": "SHOPIFY",
                   "classification_failed": false
@@ -3202,8 +3202,8 @@
                         "name": "Sample Product",
                         "description": "A description of the product",
                         "status": "APPROVED",
-                        "product_category": "PHYSICAL",
-                        "product_subcategory": "GENERAL_CLOTHING",
+                        "product_category": "Physical",
+                        "product_subcategory": "General Clothing",
                         "tax_exempt": false,
                         "source": "BIGCOMMERCE"
                       }
@@ -3248,7 +3248,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful Response",
+            "description": "Successfully retrieved product categories",
             "content": {
               "application/json": {
                 "schema": {
@@ -3256,17 +3256,102 @@
                   "items": {
                     "$ref": "#/components/schemas/ProductCategories"
                   },
-                  "title": "Response Get Product Categories V1 Products Categories Get"
+                  "title": "Response Get Product Categories V1 Products Categories Get",
+                  "$ref": "#/components/schemas/ProductCategories"
+                },
+                "example": [
+                  {
+                    "name": "Physical",
+                    "subcategories": [
+                      {
+                        "name": "Oral Hygiene",
+                        "description": "",
+                        "example": "",
+                        "is_frequent": false
+                      },
+                      {
+                        "name": "Medicines - Over the Counter",
+                        "description": "",
+                        "example": "",
+                        "is_frequent": false
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Digital",
+                    "subcategories": [
+                      {
+                        "name": "Custom Software Downloaded",
+                        "description": "",
+                        "example": "",
+                        "is_frequent": false
+                      },
+                      {
+                        "name": "B2B SaaS",
+                        "description": "",
+                        "example": "",
+                        "is_frequent": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated request.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "The request is missing a valid x-api-key."
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource Not Found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "[orgn_argaLQwMy2fJc] Product with id categories not found"
                 }
               }
             }
           },
           "422": {
-            "description": "Validation Error",
+            "description": "Validation error",
             "content": {
               "application/json": {
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": [
+                        "header",
+                        "x-organization-id"
+                      ],
+                      "msg": "Field required"
+                    }
+                  ]
+                },
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/backend__src__products__responses__ValidationErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "An unexpected error occurred"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -3316,8 +3401,8 @@
                   "name": "Test Product",
                   "description": "This is a test product description.",
                   "status": "APPROVED",
-                  "product_category": "PHYSICAL",
-                  "product_subcategory": "GENERAL_CLOTHING",
+                  "product_category": "Physical",
+                  "product_subcategory": "General Clothing",
                   "tax_exempt": false,
                   "source": "SHOPIFY",
                   "classification_failed": false
@@ -3390,7 +3475,7 @@
           "Products"
         ],
         "summary": "Update Product",
-        "description": "The Update Product API allows users to modify the details of\n    an existing product identified by its unique product_id",
+        "description": "The Update Product API allows users to modify the details of\n    an existing product identified by its unique product_id. You can\n    retrieve supported categories and sub-categories from this endpoint\n    /v1/product/categories",
         "operationId": "update_product_v1_products__product_id__put",
         "security": [
           {
@@ -3421,11 +3506,11 @@
               },
               "example": {
                 "external_id": "prod_001",
-                "name": "Updated Product Name",
+                "name": "Updated T-Shirt",
                 "description": "An updated description for the product",
                 "status": "APPROVED",
-                "product_category": "PHYSICAL",
-                "product_subcategory": "GENERAL_CLOTHING",
+                "product_category": "Physical",
+                "product_subcategory": "General Clothing",
                 "tax_exempt": false,
                 "classification_failed": false
               }
@@ -3447,8 +3532,8 @@
                   "name": "Test Product",
                   "description": "This is a test product description.",
                   "status": "APPROVED",
-                  "product_category": "PHYSICAL",
-                  "product_subcategory": "GENERAL_CLOTHING",
+                  "product_category": "Physical",
+                  "product_subcategory": "General Clothing",
                   "tax_exempt": false,
                   "source": "SHOPIFY",
                   "classification_failed": false
@@ -21288,9 +21373,9 @@
           },
           {
             "category": "Physical",
-            "description": "Ready-to-drink carbonated beverages (≥4oz) with stimulants and other ingredients marketed to boost energy, labeled as a supplement.",
+            "description": "Ready-to-drink carbonated beverages (\u22654oz) with stimulants and other ingredients marketed to boost energy, labeled as a supplement.",
             "example": "Red Bull (labeled as supplement), Monster (supplement label), Rockstar (supplement label), Celsius (carbonated, supplement), Bang Energy (supplement)",
-            "subcategory": "Supplement Labeled Carbonated Energy Drink (≥4oz, RTD)"
+            "subcategory": "Supplement Labeled Carbonated Energy Drink (\u22654oz, RTD)"
           },
           {
             "category": "Physical",
@@ -21300,9 +21385,9 @@
           },
           {
             "category": "Physical",
-            "description": "Energy-boosting products (≥4oz prepared/served), either as sweetened powders for mixing or unsweetened liquids, labeled as supplements.",
+            "description": "Energy-boosting products (\u22654oz prepared/served), either as sweetened powders for mixing or unsweetened liquids, labeled as supplements.",
             "example": "G Fuel powder (sweetened), Zipfizz powder (sweetened), Unsweetened liquid energy concentrate, Amino energy powder (sweetened), Pre-workout powder (energy, sweetened)",
-            "subcategory": "Supplement Labeled Energy Drink (Sweetened Powder/Unsweetened Liquid, ≥4oz)"
+            "subcategory": "Supplement Labeled Energy Drink (Sweetened Powder/Unsweetened Liquid, \u22654oz)"
           },
           {
             "category": "Physical",
@@ -21312,9 +21397,9 @@
           },
           {
             "category": "Physical",
-            "description": "Ready-to-drink, still beverages (≥4oz) with stimulants and other ingredients marketed to boost energy, labeled as a supplement.",
+            "description": "Ready-to-drink, still beverages (\u22654oz) with stimulants and other ingredients marketed to boost energy, labeled as a supplement.",
             "example": "Non-carbonated Monster Rehab, Still energy fuel, Vitamin energy drink (still), Focus drink (non-carbonated), Endurance beverage (liquid)",
-            "subcategory": "Supplement Labeled Non-Carbonated Liquid Energy Drink (≥4oz, RTD)"
+            "subcategory": "Supplement Labeled Non-Carbonated Liquid Energy Drink (\u22654oz, RTD)"
           },
           {
             "category": "Physical",
@@ -21410,7 +21495,7 @@
             "category": "Physical",
             "description": "Pre-packaged salads (e.g., potato, macaroni) prepared by an external deli/producer, sold in containers for four or more servings.",
             "example": "Large potato salad tub, Family-size coleslaw, Bulk macaroni salad, Prepackaged large pasta salad, Large quinoa salad (deli)",
-            "subcategory": "Deli Salads (Third-Party Prepared, Bulk ≥4 Servings, Prepackaged)"
+            "subcategory": "Deli Salads (Third-Party Prepared, Bulk \u22654 Servings, Prepackaged)"
           },
           {
             "category": "Physical",
@@ -21439,7 +21524,7 @@
           {
             "category": "Physical",
             "description": "Food products, excluding confectionery, that contain a noticeable or functional amount of alcohol as an ingredient.",
-            "example": "Rum cake, Wine-poached pears, Bourbon BBQ sauce, Beer cheese dip, Flambéed desserts",
+            "example": "Rum cake, Wine-poached pears, Bourbon BBQ sauce, Beer cheese dip, Flamb\u00e9ed desserts",
             "subcategory": "Items with Significant Alcohol (Not Candy)"
           },
           {
@@ -21456,9 +21541,9 @@
           },
           {
             "category": "Physical",
-            "description": "Single-serving packages (≤2.499oz) of nuts, seeds, or popcorn with added sugar, not classified as candy and no flour.",
+            "description": "Single-serving packages (\u22642.499oz) of nuts, seeds, or popcorn with added sugar, not classified as candy and no flour.",
             "example": "Small pack kettle corn, Single-serve honey nuts, Small glazed seed packet, Individual sweet popcorn bag, Portion-control sweet nuts",
-            "subcategory": "Nuts/Seeds/Popcorn with Sugar (Not Candy, No Flour, ≤2.499oz/Single)"
+            "subcategory": "Nuts/Seeds/Popcorn with Sugar (Not Candy, No Flour, \u22642.499oz/Single)"
           },
           {
             "category": "Physical",
@@ -21607,7 +21692,7 @@
           {
             "category": "Physical",
             "description": "Cured or cooked pork leg (hams) and specific types of cured meats originating from the Iberian Peninsula, such as chorizo or lomo.",
-            "example": "Serrano ham, Ibérico ham, Chorizo Ibérico, Salchichón Ibérico, Lomo Ibérico",
+            "example": "Serrano ham, Ib\u00e9rico ham, Chorizo Ib\u00e9rico, Salchich\u00f3n Ib\u00e9rico, Lomo Ib\u00e9rico",
             "subcategory": "Hams & Iberian Cold Meats"
           },
           {
@@ -21680,7 +21765,7 @@
             "category": "Physical",
             "description": "Fermented milk product, sold in individual containers of 8 ounces or less, often flavored or plain.",
             "example": "Yogurt cups (individual), Greek yogurt (single), Drinkable yogurt (small bottle), Kids' yogurt tubes, Skyr (single serve)",
-            "subcategory": "Yogurt (Single Serve ≤8oz)"
+            "subcategory": "Yogurt (Single Serve \u22648oz)"
           },
           {
             "category": "Physical",
@@ -21794,7 +21879,7 @@
             "category": "Physical",
             "description": "Still (non-carbonated) drinkable liquids containing 0.5% or more alcohol by volume, used as beverages or sometimes as ingredients.",
             "example": "Wine (still), Sake, Mead (still), Hard cider (still, >0.5% ABV), Fortified wines (port/sherry)",
-            "subcategory": "Non-Carbonated Drinks Abv ≥0.5%"
+            "subcategory": "Non-Carbonated Drinks Abv \u22650.5%"
           },
           {
             "category": "Physical",
@@ -21914,7 +21999,7 @@
             "category": "Physical",
             "description": "Cold baked goods prepared by the seller and sold packaged in portions suitable for six or more servings.",
             "example": "Large pie (packaged, cold), Cookie platters (seller-made, >6 svgs), Full sheet cake (boxed), Large cheesecake (packaged), Box of pastries (large quantity)",
-            "subcategory": "Prepared Food - Bakery (Seller-Prepared, Cold, ≥6 Servings, Packaged)"
+            "subcategory": "Prepared Food - Bakery (Seller-Prepared, Cold, \u22656 Servings, Packaged)"
           },
           {
             "category": "Physical",
@@ -21967,7 +22052,7 @@
           {
             "category": "Physical",
             "description": "Assortments of food items (e.g., fruits, vegetables, cheeses) simply cut and arranged on a platter by the seller and packaged.",
-            "example": "Sliced fruit platter, Vegetable crudité tray, Cheese cube platter, Cut meat tray, Relish tray (pickles/olives)",
+            "example": "Sliced fruit platter, Vegetable crudit\u00e9 tray, Cheese cube platter, Cut meat tray, Relish tray (pickles/olives)",
             "subcategory": "Prepared Food - Party Trays/Platters (Seller-Prepared, Cut & Packaged Only)"
           },
           {
@@ -23232,7 +23317,7 @@
           },
           {
             "category": "Physical",
-            "description": "Professional packaging service - prepare customer goods (purchased elsewhere) for transport - does not include packing materials product",
+            "description": "Professional packaging service\u00a0- prepare customer goods (purchased elsewhere) for transport - does not include packing materials product",
             "example": "Professional Packaging Services",
             "subcategory": "Packaging Services for Goods Puschased Elsewhere"
           },
@@ -23855,11 +23940,13 @@
           },
           "product_category": {
             "type": "string",
-            "title": "Product Category"
+            "title": "Product Category",
+            "description": "Main category of the product.\n        For example, Physical, Digital, etc. You can\n        retrieve supported categories from this endpoint\n        /v1/product/categories"
           },
           "product_subcategory": {
             "type": "string",
-            "title": "Product Subcategory"
+            "title": "Product Subcategory",
+            "description": "Subcategory of the product.\n        For example, General Clothing, UNKNOWN, etc. You can\n        retrieve supported sub-categories from this endpoint\n        /v1/product/categories"
           },
           "tax_exempt": {
             "type": "boolean",
@@ -24129,12 +24216,14 @@
             "default": "APPROVED"
           },
           "product_category": {
-            "$ref": "#/components/schemas/ProductCategoryEnum",
-            "description": "Main category of the product.\n        For example, PHYSICAL, DIGITAL, etc."
+            "type": "string",
+            "title": "Product Category",
+            "description": "Main category of the product.\n    For example, Physical, Digital, etc. You can\n    retrieve supported categories from this endpoint\n    /v1/product/categories"
           },
           "product_subcategory": {
-            "$ref": "#/components/schemas/ProductSubCategoryEnum",
-            "description": "Subcategory of the product.\n        For example, GENERAL_CLOTHING, UNKNOWN, etc."
+            "type": "string",
+            "title": "Product Subcategory",
+            "description": "Subcategory of the product.\n    For example, General Clothing, UNKNOWN, etc. You can\n    retrieve supported sub-categories from this endpoint\n    /v1/product/categories"
           },
           "tax_exempt": {
             "type": "boolean",
