@@ -11534,42 +11534,6 @@
         ],
         "title": "BillingFrequencyEnum"
       },
-      "BillingMatrix": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "maxLength": 100,
-            "title": "Id"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At",
-            "description": "Timestamp when transaction was created in Kintsugi."
-          },
-          "updated_at": {
-            "description": "Timestamp when transaction was last updated.",
-            "type": "string"
-          },
-          "used_states": {
-            "type": "integer",
-            "title": "Used States",
-            "default": 0
-          },
-          "used_tax_questions": {
-            "type": "integer",
-            "title": "Used Tax Questions",
-            "default": 0
-          },
-          "organization_id": {
-            "type": "string",
-            "maxLength": 100,
-            "title": "Organization Id"
-          }
-        },
-        "type": "object",
-        "title": "BillingMatrix"
-      },
       "BillingPlanEnum": {
         "type": "string",
         "enum": [
@@ -22187,6 +22151,9 @@
           "disable_ai_classification": {
             "type": "boolean"
           },
+          "enable_business_address_fallback": {
+            "type": "boolean"
+          },
           "id": {
             "type": "string",
             "title": "Id"
@@ -22246,6 +22213,9 @@
           },
           "disable_ai_classification": {
             "type": "boolean"
+          },
+          "enable_business_address_fallback": {
+            "type": "boolean"
           }
         },
         "type": "object",
@@ -22261,6 +22231,9 @@
             "type": "boolean"
           },
           "prefer_collected_tax_amounts": {
+            "type": "boolean"
+          },
+          "enable_business_address_fallback": {
             "type": "boolean"
           }
         },
@@ -22296,6 +22269,9 @@
             "title": "Special Tax Circumstances"
           },
           "disable_ai_classification": {
+            "type": "boolean"
+          },
+          "enable_business_address_fallback": {
             "type": "boolean"
           }
         },
@@ -34491,18 +34467,6 @@
           "user_id"
         ],
         "title": "UploadURLsRequest"
-      },
-      "UpsertBillingMatrix": {
-        "properties": {
-          "used_states": {
-            "type": "integer"
-          },
-          "used_tax_questions": {
-            "type": "integer"
-          }
-        },
-        "type": "object",
-        "title": "UpsertBillingMatrix"
       },
       "UserCreated": {
         "properties": {
