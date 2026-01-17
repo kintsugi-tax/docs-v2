@@ -2441,11 +2441,8 @@
                   "type": "null"
                 }
               ],
-              "description": "The unique identifier for the organization making the request",
               "title": "X-Organization-Id"
-            },
-            "description": "The unique identifier for the organization making the request",
-            "example": "org_12345"
+            }
           }
         ],
         "requestBody": {
