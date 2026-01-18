@@ -3120,7 +3120,7 @@
           "Products"
         ],
         "summary": "Create Product",
-        "description": "The Create Product API allows users to manually create a new product\n    in the system. This includes specifying product details such as category,\n    subcategory, and tax exemption status, etc.",
+        "description": "The Create Product API allows users to manually create a new product\n    in the system. This includes specifying product details such as category,\n    subcategory, and tax exemption status, etc. You can\n    retrieve supported categories and sub-categories from this endpoint\n    /v1/product/categories",
         "operationId": "create_product_v1_products_post",
         "security": [
           {
