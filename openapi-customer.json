@@ -6864,6 +6864,18 @@
             "description": "The decrypted PIN for accessing the registration.",
             "type": "string"
           },
+          "has_physical_presence": {
+            "description": "Indicates if the organization has physical presence in this registration's jurisdiction.",
+            "type": "boolean"
+          },
+          "physical_presence_address": {
+            "description": "The address of the physical presence location in this registration's jurisdiction.",
+            "type": "string"
+          },
+          "physical_presence_category": {
+            "description": "The category of physical presence (e.g., PHYSICAL_BUSINESS_LOCATION, WAREHOUSE_AND_INVENTORY_PRESENCE).",
+            "type": "string"
+          },
           "filing_days": {
             "type": "integer",
             "title": "Filing Days",
