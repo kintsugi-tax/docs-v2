@@ -4173,7 +4173,7 @@
           "Products"
         ],
         "summary": "Create Product",
-        "description": "The Create Product API allows users to manually create a new product\n    in the system. This includes specifying product details such as category,\n    subcategory, and tax exemption status, etc. You can\n    retrieve supported categories and sub-categories from this endpoint\n    /v1/product/categories",
+        "description": "The Create Product API allows users to manually create a new product\n    in the system. This includes specifying product details such as category,\n    subcategory, and tax exemption status, etc. You can\n    retrieve supported categories and subcategories from\n    [GET /products/categories endpoint](/reference/api/products/get-product-categories)",
         "operationId": "create_product_v1_products_post",
         "security": [
           {
@@ -4610,7 +4610,7 @@
           "Products"
         ],
         "summary": "Update Product",
-        "description": "The Update Product API allows users to modify the details of\n    an existing product identified by its unique product_id. You can\n    retrieve supported categories and sub-categories from this endpoint\n    /v1/product/categories",
+        "description": "The Update Product API allows users to modify the details of\n    an existing product identified by its unique product_id. You can\n    retrieve supported categories and subcategories from\n    [GET /products/categories endpoint](/reference/api/products/get-product-categories)",
         "operationId": "update_product_v1_products__product_id__put",
         "security": [
           {
@@ -27902,12 +27902,12 @@
           "product_category": {
             "type": "string",
             "title": "Product Category",
-            "description": "Main category of the product.\n        For example, Physical, Digital, etc. You can\n        retrieve supported categories from this endpoint\n        /v1/product/categories"
+            "description": "Main category of the product.\n        For example, Physical, Digital, etc. You can\n        retrieve supported categories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)"
           },
           "product_subcategory": {
             "type": "string",
             "title": "Product Subcategory",
-            "description": "Subcategory of the product.\n        For example, General Clothing, UNKNOWN, etc. You can\n        retrieve supported sub-categories from this endpoint\n        /v1/product/categories"
+            "description": "Subcategory of the product.\n        For example, General Clothing, UNKNOWN, etc. You can\n        retrieve supported subcategories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)"
           },
           "tax_exempt": {
             "type": "boolean",
@@ -28179,12 +28179,12 @@
           "product_category": {
             "type": "string",
             "title": "Product Category",
-            "description": "Main category of the product.\n    For example, Physical, Digital, etc. You can\n    retrieve supported categories from this endpoint\n    /v1/product/categories"
+            "description": "Main category of the product.\n    For example, Physical, Digital, etc. You can\n    retrieve supported categories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)"
           },
           "product_subcategory": {
             "type": "string",
             "title": "Product Subcategory",
-            "description": "Subcategory of the product.\n    For example, General Clothing, UNKNOWN, etc. You can\n    retrieve supported sub-categories from this endpoint\n    /v1/product/categories"
+            "description": "Subcategory of the product.\n    For example, General Clothing, UNKNOWN, etc. You can\n    retrieve supported subcategories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)"
           },
           "tax_exempt": {
             "type": "boolean",
