@@ -28274,6 +28274,9 @@
           },
           "type": {
             "$ref": "#/components/schemas/TransactionTypeEnum"
+          },
+          "related_external_id": {
+            "type": "string"
           }
         },
         "type": "object",
