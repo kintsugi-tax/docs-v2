@@ -13723,6 +13723,34 @@
             "description": "Country of the bill to address.",
             "type": "string"
           },
+          "ship_from_phone": {
+            "description": "Phone number of the ship from address.",
+            "type": "string"
+          },
+          "ship_from_street_line_1": {
+            "description": "First line of the ship from address.",
+            "type": "string"
+          },
+          "ship_from_street_line_2": {
+            "description": "Second line of the ship from address.",
+            "type": "string"
+          },
+          "ship_from_city": {
+            "description": "City of the ship from address.",
+            "type": "string"
+          },
+          "ship_from_state": {
+            "description": "State/Province of the ship from address.",
+            "type": "string"
+          },
+          "ship_from_postal_code": {
+            "description": "Postal code of the ship from address.",
+            "type": "string"
+          },
+          "ship_from_country": {
+            "description": "Country of the ship from address.",
+            "type": "string"
+          },
           "line_item_id": {
             "description": "Unique identifier of the line item in the source system.",
             "type": "string"
