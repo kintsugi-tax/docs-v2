@@ -7723,7 +7723,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Page_TransactionEstimateResponse_"
+                  "$ref": "#/components/schemas/TransactionEstimateResponse"
                 },
                 "example": {
                   "date": "2025-01-25T13:45:00Z",
