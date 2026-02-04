@@ -8611,6 +8611,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -8696,6 +8697,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -8747,6 +8749,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -8819,6 +8822,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -8881,6 +8885,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -9112,6 +9117,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -9200,6 +9206,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -9326,6 +9333,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -9389,6 +9397,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -9862,6 +9871,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -9925,6 +9935,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -9986,6 +9997,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -10059,6 +10071,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
@@ -10121,6 +10134,7 @@
             "in": "header",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "X-Organization-Id"
             }
           }
