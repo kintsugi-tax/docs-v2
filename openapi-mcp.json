@@ -2067,11 +2067,11 @@
                 }
               ],
               "description": "Filter filings by status",
-              "default": "FILED,FILING,UNFILED,PAUSED",
+              "default": "FILED,FILING,UNFILED,PAUSED,CANCELLED,ISSUE,SKIPPED",
               "title": "Status  In"
             },
             "description": "Filter filings by status",
-            "example": "FILED,FILING,UNFILED,PAUSED"
+            "example": "FILED,FILING,UNFILED,PAUSED,CANCELLED,ISSUE,SKIPPED"
           },
           {
             "name": "start_date",
