@@ -1,0 +1,243 @@
+---
+title: "Partner Certification Checklist"
+description: "Capability-based requirements for building a quality integration with Kintsugi"
+---
+
+## Overview
+
+This checklist guides you through building a quality integration with Kintsugi. **Not all items apply to every integration** - your Solutions Engineering contact will help you identify which requirements are relevant for your platform.
+
+---
+
+## Core Capabilities (Required for All Partners)
+
+### Tax Calculations
+
+-  **Calculate tax on new orders/transactions**
+    - Integration calls Kintsugi API with order details
+    - Receives accurate tax amounts for all line items
+    - Returns tax to customer at checkout/invoicing
+
+-  **Handle order modifications correctly**
+    - Updates tax when order details change
+    - Recalculates when shipping address changes
+    - Handles item additions/removals
+
+-  **Process refunds with proper tax handling**
+    - Calculates tax refund amounts correctly
+    - Supports full and partial refunds
+    - Reports refunds back to Kintsugi
+
+### Transaction Syncing
+
+-  **Sync committed transactions only**
+    - Only send transactions after payment is received/committed
+    - Do not send quotes, estimates, or abandoned carts
+    - Include all required transaction metadata
+
+-  **Report transaction lifecycle events**
+    - Order creation (after commitment)
+    - Order fulfillment
+    - Refunds/cancellations
+    - Order modifications (if supported)
+
+-  **Maintain transaction accuracy**
+    - Line items match actual order contents
+    - Amounts are accurate (subtotal, tax, total)
+    - Timestamps reflect actual transaction dates
+
+---
+
+## Address Validation & Handling
+
+-  **Send complete address information**
+    - Street address, city, state, postal code, country
+    - Follow Kintsugi address format requirements
+    - Handle multi-line addresses correctly
+
+-  **Handle address validation responses**
+    - Display clear errors when address is invalid
+    - Implement fallback behavior for mismatches
+    - Support address correction flows
+
+-  **Test address edge cases**
+    - State/zip mismatches
+    - City/zip mismatches
+    - Incomplete addresses
+    - International addresses (if supported)
+
+---
+
+## Platform-Specific Requirements
+
+**Note:** Your Solutions Engineer will identify which of these apply to your integration.
+
+### For Billing/Subscription Platforms
+
+-  **Handle quote-to-cash lifecycle**
+    - No transaction sync during quote phase
+    - Transaction sync only after invoice is paid/committed
+    - Support invoice state transitions
+
+-  **Support credit notes**
+    - Calculate tax on credit notes
+    - Report credit notes to Kintsugi
+    - Handle partial credit notes
+
+-  **Support debit notes** (if applicable)
+    - Calculate tax on debit notes
+    - Proper debit note reporting
+
+-  **Handle ad-hoc charges**
+    - Tax calculation for one-time charges
+    - Sync ad-hoc charges as transactions
+
+-  **Support consolidated invoices** (if applicable)
+    - Proper tax calculation on rolled-up invoices
+    - Accurate transaction reporting
+
+### For E-commerce/Shopping Carts
+
+-  **Calculate tax at checkout**
+    - Real-time tax calculation during checkout flow
+    - Update tax when cart changes
+    - Handle multi-item carts correctly
+
+-  **Handle abandoned carts appropriately**
+    - Do not sync abandoned carts as transactions
+    - Only sync after payment is complete
+
+-  **Support order status changes**
+    - Track order through lifecycle (pending → paid → fulfilled)
+    - Report status changes to Kintsugi
+
+### For ERP/Accounting Software
+
+-  **Distinguish quotes from invoices**
+    - Do not sync quotes as committed transactions
+    - Only sync invoices that are paid/finalized
+    - Handle quote-to-invoice conversion
+
+-  **Support multi-entity scenarios** (if applicable)
+    - Tax calculation per entity
+    - Proper entity identification in API calls
+
+-  **Handle complex approval workflows**
+    - Only sync after approval/commitment
+    - Track workflow states correctly
+
+### For OMS/IMS Systems
+
+-  **Handle multi-warehouse scenarios**
+    - Accurate origin address for tax sourcing
+    - Proper ship-from location handling
+
+-  **Support drop-ship scenarios** (if applicable)
+    - Correct tax calculation for drop-ship orders
+    - Accurate vendor/shipper location data
+
+-  **Multi-channel order aggregation**
+    - Consistent tax handling across channels
+    - Proper source tracking per channel
+
+---
+
+## API Integration Best Practices
+
+-  **Authentication & Security**
+    - Secure API key storage
+    - HTTPS for all API calls
+    - Follow OAuth best practices (if applicable)
+
+-  **Error Handling**
+    - Gracefully handle API errors
+    - Display clear error messages to users
+    - Implement retry logic for transient failures
+    - Log errors for troubleshooting
+
+-  **Performance & Reliability**
+    - Appropriate timeout values
+    - Rate limit awareness and handling
+    - Batch operations where appropriate
+    - Caching strategies (if applicable)
+
+-  **Data Quality**
+    - Validate data before sending to API
+    - Send complete required fields
+    - Use correct data types and formats
+    - Include relevant metadata
+
+---
+
+## Testing & Validation
+
+-  **Test in Kintsugi sandbox environment**
+    - Complete integration testing before production
+    - Test all supported transaction types
+    - Validate error handling scenarios
+
+-  **Test edge cases**
+    - High-value transactions
+    - Zero-dollar transactions (if applicable)
+    - International addresses (if supported)
+    - Multi-currency (if applicable)
+
+-  **Perform end-to-end testing**
+    - Full order lifecycle from creation to refund
+    - Verify data accuracy in Kintsugi dashboard
+    - Confirm reporting accuracy
+
+-  **Document test results**
+    - Maintain test case documentation
+    - Share test results with Solutions Engineering
+    - Document any known limitations
+
+---
+
+## Documentation & Support
+
+-  **Provide integration documentation**
+    - Setup instructions for mutual customers
+    - Configuration requirements
+    - Troubleshooting guide
+
+-  **Maintain support resources**
+    - Contact information for integration support
+    - Known issues and workarounds
+    - Update documentation with changes
+
+---
+
+## Next Steps
+
+1. **Review this checklist** with your development team
+2. **Schedule kickoff call** with Kintsugi Solutions Engineering
+3. **Build integration** following our [API documentation](/reference)
+4. **Complete validation testing** with Solutions Engineering team
+5. **Receive certification** and launch!
+
+**Questions?** Contact your Solutions Engineering representative or reach out to partnerships@kintsugi.com
+
+<Card title="Validation Process" icon="arrow-right" href="/docs/partner-certification/validation-process">
+  Learn what to expect during validation
+</Card>
+
+<Card title="API Reference" icon="link" href="/reference">
+  Build your integration with our API documentation
+</Card>
+
+<Card title="Tax Estimation" icon="calculator" href="/reference/api/tax-estimation/estimate-tax">
+  Learn how to calculate tax
+</Card>
+
+<Card title="Transaction API" icon="receipt" href="/reference/api/transactions/create-transaction">
+  Learn how to create and sync transactions
+</Card>
+
+<Card title="Address Validation" icon="location-dot" href="/reference/api/address-validation/search">
+  Learn how to validate addresses
+</Card>
+
+<Card title="Error Handling" icon="exclamation-triangle" href="/docs/error-handling">
+  Best practices for error handling
+</Card>
