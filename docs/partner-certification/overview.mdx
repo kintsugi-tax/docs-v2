@@ -8,15 +8,11 @@ description: "Learn about Kintsugi Partner Certification and what it means to be
 A streamlined validation process that helps ensure your integration with Kintsugi provides the best experience for our mutual customers.
 
 ```mermaid
-actions={false}
 %%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'#FFFFFF','edgeLabelColor':'#213331','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
-flowchart LR
-    subgraph Journey["Partner → Certified"]
-        direction LR
-        A["Build<br/>Your Integration"] --> B["Review<br/>Checklist"]
-        B --> C["Validate<br/>Together"]
-        C --> D["Kintsugi<br/>Certified"]
-    end
+flowchart TD
+    A["🔧 Build<br/>Your Integration"] --> B["📋 Review<br/>Checklist"]
+    B --> C["🤝 Validate<br/>Together"]
+    C --> D["✨ Kintsugi<br/>Certified"]
     style D fill:#F5E6D3,stroke:#213331,stroke-width:2px
 ```
 
@@ -70,24 +66,28 @@ All technology partners building integrations with Kintsugi should pursue certif
 - Custom integrations
 
 ## Integration Patterns
+Kintsugi may be able to meet you half way, and build the transaction sync aspect of the integration for you. In these cases, you would only need to build the "L2", or tax calculation flow.
 
-### L1: Kintsugi-Built Integrations
+In other cases, partners would need to build the integration end-to-end.
 
-- Kintsugi builds and maintains the integration
-- No certification required (we validate our own work)
-- Examples: Native integrations with major platforms
+### L1: Transaction Sync
+
+- Kintsugi or Partner builds and maintains the **transaction sync** integration
+- **Certification required** if partner-built.
+- We provide guidance and validate functionality, if Partner-built
+
 
 ### L2: Partner-Built Integrations
 
-- Partner builds the integration using our API
+- Partner builds and maintains the *tax estimate* integration
 - **Certification required**
 - We provide guidance and validate functionality
 
 ### Hybrid: L1 Base + L2 Extensions
 
-- Kintsugi builds core integration (L1)
+- Kintsugi or Partner builds core integration (L1)
 - Partner extends with additional features (L2)
-- **Certification required for L2 components only**
+- **Certification required for partner-built components**
 
 ## Support Throughout the Process
 
