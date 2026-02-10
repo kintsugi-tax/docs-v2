@@ -1,231 +1,369 @@
 ---
 title: "Validation Process"
-description: "What to expect during the Kintsugi Partner Certification validation process"
+description: "Collaborative validation process with Kintsugi Solutions Engineering"
 ---
 
-This guide walks you through the Kintsugi Partner Certification validation process, from initial conversation to certification decision.
+## Overview
 
-## Process Overview
+The validation process is a collaborative effort between your team and Kintsugi Solutions Engineering to ensure your integration works correctly and provides a great experience for mutual customers.
 
-The certification process has three main phases:
+**Duration:** Typically 1-2 weeks  
+**Format:** Combination of automated testing and manual validation  
+**Outcome:** Certification approval and "Kintsugi Certified" badge
 
-1. **Pre-Certification Conversation**: We'll discuss your platform and integration strategies
-2. **Validation Phase**: We'll test your integration against core capabilities and edge cases
-3. **Certification Decision**: We'll work together to resolve any issues and provide certification
+---
 
-## Phase 1: Pre-Certification Conversation
+## Process Steps
 
-Before validation begins, we'll have a conversation to understand your integration.
+### Step 1: Pre-Validation Preparation
 
-### What We'll Discuss
+**Your Responsibilities:**
 
-**Platform Identification:**
-- What type of platform are you building for? (E-commerce, ERP, Accounting, OMS, IMS)
-- What are your platform's unique capabilities?
+- Complete integration development in sandbox environment
+- Test all functionality internally
+- Review checklist to confirm all applicable requirements are met
+- Prepare test account/environment for Kintsugi access
 
-**Integration Patterns:**
-- Will the integration be Level 1, or Level 1 and Level 2?
-- What's your software stack? (i.e., whether you're a Python or JavaScript shop, what web framework you may be using, etc.)
+**Kintsugi Provides:**
 
-**Capabilities:**
-- Understanding how you'll be able to support sending us data. Transactions, calculation requests, customer and product objects, etc.
+- Sandbox API credentials
+- Test data and scenarios
+- Technical documentation
+- Solutions Engineering support
 
-**Expectations:**
-- We'll share the relevant certification checklist
-- We'll explain what we'll validate and why
-- We'll set a timeline for validation
+**Timeline:** Variable based on integration complexity
 
-<Note>
-**This isn't scary—it's helpful**: We're validating the same things we validate in our own integrations. You don't have to think as hard about what to prepare; we'll guide you through it!
-</Note>
+---
 
-### What You Should Prepare
+### Step 2: Validation Kickoff
 
-- Overview of your platform and integration approach
-- List of capabilities you plan to implement
-- Any questions about the certification process
-- Timeline expectations for your launch
+**Activities:**
 
-## Phase 2: Validation Phase
+- Schedule validation kickoff call
+- Review integration scope and capabilities
+- Identify platform-specific testing requirements
+- Confirm test environment access
+- Establish testing timeline
 
-During validation, we'll test your integration against core specifications. This is a collaborative process—we're here to help you succeed, not to find reasons to fail.
+**Attendees:**
 
-### What We'll Test
+- Partner: Technical lead, developers (as needed)
+- Kintsugi: Solutions Engineering, Technical Account Manager (if applicable)
 
-**Core Capabilities:**
-- Tax calculation accuracy across jurisdictions
-- Transaction syncing (orders and refunds)
-- Address validation and error handling
-- Data integrity and consistency
+**Duration:** 30-60 minutes
 
-**Edge Cases:**
-- Platform-specific workflows (credit notes for billing, multi-location for ERP, etc.)
-- Error scenarios and fallback behaviors
-- Rate limiting and retry logic
-- API response handling
+**Deliverable:** Agreed-upon validation test plan
 
-**Data Integrity:**
-- Customer and product record syncing
-- Transaction amount accuracy
-- Date/time handling
-- External ID consistency
+---
 
-### How Testing Works
-Kintsugi uses a home-grown certification management solution to produce a collaborative environment between our team, and yours. Part of the experience includes:
+### Step 3: Capability Validation Testing
 
-**Test Scenarios:**
-- We'll use test scenarios relevant to your platform type
-- We'll test with real transaction data when possible
-- We'll verify edge cases specific to your workflows
+We validate the following based on your integration:
 
-**Collaborative Approach:**
-- We'll share findings as we test
-- We'll work together to understand any issues
-- We'll help you resolve problems, not just report them
+#### Core Capability Testing (All Partners)
 
-**Documentation:**
-- We'll document any issues we find
-- We'll provide clear explanations of what needs to be fixed
-- We'll prioritize issues by severity
+**Tax Calculations**
 
-### Common Validation Scenarios
+- ✅ New order tax calculation accuracy
+- ✅ Tax updates when order changes
+- ✅ Refund tax calculation
+- ✅ Multi-item orders
+- ✅ Different product tax categories (if applicable)
 
-**Tax Calculations:**
-- Test addresses across multiple states
-- Verify tax rates match expected values
-- Test fallback scenarios (zip-only, state+zip)
-- Verify product taxability rules apply correctly
+**Transaction Syncing**
 
-**Transaction Syncing:**
-- Create test orders and verify they sync correctly
-- Create refunds and verify credit notes are created
-- Verify transaction amounts match source system
-- Test bulk transaction imports
+- ✅ Transactions sync after commitment only
+- ✅ Transaction data completeness (all required fields)
+- ✅ Transaction data accuracy (amounts, dates, items)
+- ✅ Refund/cancellation reporting
+- ✅ Transaction lifecycle updates
 
-**Error Handling:**
-- Test with invalid addresses
-- Simulate API "bottle-necking"
-- Test retry logic for transient failures
-- Verify error messages are user-friendly
+**Address Validation**
 
-## Phase 3: Certification Decision
+- ✅ Complete address handling
+- ✅ Address validation error handling
+- ✅ Mismatch scenarios (state/zip, city/zip)
+- ✅ Fallback behavior
 
-After validation, we'll make a certification decision:
+#### Platform-Specific Testing
 
-### If Everything Works
+**Based on your platform type, we may test:**
 
-**Certification Awarded:**
-- You'll receive the Kintsugi Certified badge
-- You'll be listed in Kintsugi's partner directory
-- You'll receive a certification statement for marketing use
-- You can use the certification badge in your materials
-- Your dedicated Partner Manager will discuss go-to-market strategies
+**Billing/Subscription Platforms:**
 
-### If Issues Are Found
+- Credit note handling
+- Debit note handling (if applicable)
+- Ad-hoc charge taxation
+- Consolidated invoice scenarios
+- Quote vs. invoice distinction
 
-**Collaborative Resolution:**
-- We'll work with you to resolve any issues
-- We'll prioritize fixes based on severity
-- We'll re-test after fixes are implemented
-- Certification is achievable—we just need to be thorough
+**E-commerce Platforms:**
 
-**We'll classify issues by one of two types:**
+- Checkout flow integration
+- Abandoned cart handling
+- Order status transitions
+- Partial refund scenarios
 
-**Minor Issues:**
-- Small issues don't block certification
-- We'll work together to fix them before awarding the badge
-- The goal is quality, not perfection
+**ERP/Accounting:**
 
-**Major Issues:**
-- Significant issues may require more work
-- We'll provide clear guidance on what needs to be fixed
-- We'll set realistic timelines for resolution
+- Quote handling (no committed transactions)
+- Multi-entity scenarios
+- Approval workflow integration
+- Complex invoicing scenarios
 
-<Note>
-**Certification is binary**: You're either Kintsugi Certified or not. There are no tiers or partial certifications. We'll work with you to ensure an integration gets certified, and there are no limits to certification review requests.
-</Note>
+**OMS/IMS:**
 
-## Timeline Expectations
+- Multi-warehouse scenarios
+- Drop-ship handling
+- Multi-channel order processing
 
-**Typical Timeline:**
-- Pre-Certification Conversation: 1-2 days
-- Validation Phase: 3-5 days (depending on integration complexity)
-- Issue Resolution: Varies based on issues found
-- Certification Decision: Within 1-2 weeks of starting validation
+---
 
-**Factors That Affect Timeline:**
-- Integration complexity
-- Number of capabilities being validated
-- Issues found during testing
-- Response time for fixes
+### Step 4: Error Handling & Edge Case Testing
 
-## What Makes Validation Successful
+**Scenarios We Test:**
 
-**Preparation:**
-- Complete the certification checklist before validation
-- Test your integration thoroughly with real data
-- Document any platform-specific behaviors
+- API timeout handling
+- Network error responses
+- Invalid data submissions
+- Rate limiting behavior
+- Authentication failure handling
+- Partial system outages
 
-**Communication:**
-- Respond promptly to questions and findings
-- Ask questions if something isn't clear
-- Share any concerns or limitations upfront
+**Expected Behavior:**
 
-**Collaboration:**
-- Work with us to understand and resolve issues
-- Be open to feedback and suggestions
-- Focus on building a quality integration
+- Graceful error handling
+- Clear user-facing error messages
+- Appropriate retry logic
+- Error logging for troubleshooting
+- Fallback behavior where appropriate
 
-## Post-Certification
+---
 
-After certification:
+### Step 5: Performance & Reliability Testing
 
-**Ongoing Support:**
-- We'll continue to support you, your clients, and your integration
-- We'll notify you of API changes that might affect you
-- We'll help with any issues that arise post-certification
+**What We Evaluate:**
 
-**Maintaining Certification:**
-- Certification is valid for **two years** from the initial certification date, and will require re-review after this period
-- We may re-validate if significant API changes occur
-- We'll work with you to maintain certification over time
+- API response times
+- Timeout configurations
+- Bulk operation handling (if applicable)
+- Rate limit compliance
+- Caching strategies
 
-**Marketing Benefits:**
-- Use the Kintsugi Certified badge in your materials
-- List your integration in our partner directory
-- Reference certification in marketing and sales materials
+**Benchmarks:**
 
-## FAQ
+- API calls complete within reasonable timeframes
+- No excessive API call volumes
+- Proper error handling for failures
+- Scalability for expected transaction volumes
+
+---
+
+### Step 6: Documentation Review
+
+**What We Review:**
+
+- Integration setup guide for mutual customers
+- Configuration instructions
+- Troubleshooting documentation
+- Known limitations (if any)
+- Support contact information
+
+**Quality Criteria:**
+
+- Clear, step-by-step instructions
+- Screenshots/diagrams where helpful
+- Common issues addressed
+- Up-to-date information
+
+---
+
+### Step 7: Validation Report & Feedback
+
+**Kintsugi Delivers:**
+
+- Comprehensive validation test report
+- List of passed validations
+- Any issues identified with severity levels
+- Recommendations for improvements
+- Clear next steps
+
+**Outcome Scenarios:**
+
+#### ✅ Certification Approved
+
+- All required validations passed
+- No critical issues identified
+- Ready for production launch
+- Certificate and badge issued
+
+#### 🔄 Revisions Required
+
+- Some issues identified that need addressing
+- Specific remediation steps provided
+- Re-test scheduled after fixes
+- Solutions Engineering support available
+
+#### ❌ Major Issues Found
+
+- Critical functionality not working
+- Significant rework needed
+- Full re-validation required after fixes
+- Extended support provided
+
+---
+
+### Step 8: Certification Issuance
+
+**Upon Successful Validation:**
+
+- "Kintsugi Certified" status granted
+- Official certification badge provided
+- Partner added to certified partner directory (if opted in)
+- Press release coordination (optional)
+- Co-marketing opportunities discussed
+
+**Certification Includes:**
+
+- Digital badge for partner website
+- Usage rights for "Kintsugi Certified" designation
+- Listing in Kintsugi partner directory
+- Priority support tier (if applicable)
+
+---
+
+## What You Need to Provide
+
+### Test Environment Access
+
+- Sandbox/staging environment credentials
+- Admin/developer account access
+- API access to your platform (if needed)
+- Test merchant account setup
+
+### Test Data
+
+- Sample products/services
+- Test customer records
+- Various transaction scenarios
+- Edge case examples
+
+### Documentation
+
+- Integration architecture overview
+- API mapping documentation
+- Configuration guide for customers
+- Known limitations or constraints
+
+### Availability
+
+- Technical team availability for validation testing
+- Ability to address issues within agreed timeline
+- Point of contact for technical questions
+
+---
+
+## Testing Timeline
+
+| Phase | Duration | Notes |
+|-------|----------|-------|
+| Pre-validation prep | Variable | Partner-driven timeline |
+| Validation kickoff | 1 day | Scheduling coordination |
+| Core capability testing | 3-5 days | Depending on complexity |
+| Platform-specific testing | 2-4 days | Based on capabilities |
+| Error & edge case testing | 2-3 days | Concurrent with above |
+| Documentation review | 1-2 days | Can be parallel |
+| Issue remediation | Variable | If issues found |
+| Re-testing | 1-2 days | If needed |
+| Certification issuance | 1 day | Final approval process |
+
+**Total Typical Timeline:** 2-4 weeks from kickoff to certification
+
+---
+
+## Validation Best Practices
+
+### For Faster Validation
+
+✅ Complete thorough internal testing first  
+✅ Have all documentation prepared upfront  
+✅ Provide test environment access early  
+✅ Assign dedicated technical contact  
+✅ Address feedback quickly when issues arise
+
+### Common Pitfalls to Avoid
+
+❌ Insufficient internal testing before validation  
+❌ Missing or incomplete documentation  
+❌ Test environment access issues  
+❌ Slow response to identified issues  
+❌ Incomplete implementation of required capabilities
+
+---
+
+## After Certification
+
+### Maintaining Certification
+
+- **API Changes:** Minor changes require no action; major changes may require re-validation
+- **Platform Updates:** Significant changes to your platform should trigger re-validation
+- **Annual Review:** Consider annual re-certification to ensure continued quality
+- **Issue Reporting:** Report integration issues promptly to maintain certification status
+
+### Ongoing Support
+
+- Priority support from Solutions Engineering
+- Access to beta features (when applicable)
+- Quarterly check-ins (for enterprise partners)
+- Co-marketing opportunities
+
+---
+
+## Frequently Asked Questions
 
 <AccordionGroup>
-  <Accordion title="What if I find issues during my own testing before validation?">
-    That's great! Fix them before validation starts. We're here to validate that everything works, not to debug your integration. The more prepared you are, the smoother validation will go.
+  <Accordion title="What if we fail validation on the first attempt?">
+    We provide specific feedback on what needs fixing and support you through remediation. The goal is to help you succeed, not to gatekeep.
   </Accordion>
 
-  <Accordion title="Can I start validation before my integration is complete?">
-    We recommend completing core capabilities before starting validation. However, if you have questions or want early feedback, we're happy to discuss your integration approach.
+  <Accordion title="Can we start with partial functionality and add more later?">
+    Yes! Get certified for what you've built now, then pursue re-certification when you add new capabilities.
   </Accordion>
 
-  <Accordion title="What if my platform has capabilities not covered by the checklist?">
-    Great! We'll customize the validation approach based on your platform's specific capabilities. The checklist covers common scenarios, but we'll adapt to your needs.
+  <Accordion title="How long is certification valid?">
+    Certification is ongoing as long as the integration remains functional and quality standards are maintained. Major changes may require re-validation.
   </Accordion>
 
-  <Accordion title="How do I know if I'm ready for validation?">
-    If you've completed the core checklist items and tested with real data from your platform, you're likely ready. When in doubt, reach out—we're happy to discuss readiness.
+  <Accordion title="What if Kintsugi's API changes?">
+    We provide advance notice of API changes. Minor changes require no action. Breaking changes come with migration support and may require re-certification.
   </Accordion>
 
-  <Accordion title="What happens if I need to make changes after certification?">
-    Minor changes typically don't require re-validation. Significant changes (new capabilities, major refactoring) may require re-validation. We'll work with you to determine what's needed.
+  <Accordion title="Do we need to be certified before going to production?">
+    While not strictly required, certification is strongly recommended. It ensures quality and reduces support burden for both parties.
+  </Accordion>
+
+  <Accordion title="Can we market our integration before certification?">
+    You can market the integration, but cannot use the "Kintsugi Certified" badge or designation until certification is complete.
   </Accordion>
 </AccordionGroup>
 
-## Ready to Start?
+---
 
-<Card title="Review the Checklist" icon="check-circle" href="/docs/partner-certification/checklist">
-  Make sure you've completed all required capabilities
+## Get Started
+
+Ready to begin validation? Here's how:
+
+1. **Complete the [Integration Checklist](/docs/partner-certification/checklist)**
+2. **Test thoroughly in sandbox environment**
+3. **Contact your Solutions Engineering representative** or email partnerships@kintsugi.com
+4. **Schedule validation kickoff call**
+
+We're here to help you succeed! Our goal is to make this process as smooth and helpful as possible.
+
+<Card title="Integration Checklist" icon="check-circle" href="/docs/partner-certification/checklist">
+  Ensure you've completed all required capabilities
 </Card>
 
-<Card title="Contact Your Partner Representative" icon="mail">
-  Ready to begin validation? Contact your Kintsugi partner representative to schedule the pre-certification conversation.
+<Card title="Contact Solutions Engineering" icon="mail">
+  Ready to begin? Email partnerships@kintsugi.com to schedule your validation kickoff.
 </Card>
-
