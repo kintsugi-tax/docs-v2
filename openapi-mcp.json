@@ -4794,7 +4794,7 @@
             "schema": {
               "type": "string",
               "description": "Filter registrations by status. Multiple statuses can be passed,\n        separated by commas.",
-              "default": "REGISTERED,PROCESSING,UNREGISTERED,DEREGISTERING,DEREGISTERED,VALIDATING,AWAITING_CLARIFICATION",
+              "default": "REGISTERED,PROCESSING,UNREGISTERED,DEREGISTERING,DEREGISTERED,CANCELLED,VALIDATING,AWAITING_CLARIFICATION",
               "title": "Status  In"
             },
             "description": "Filter registrations by status. Multiple statuses can be passed,\n        separated by commas."
