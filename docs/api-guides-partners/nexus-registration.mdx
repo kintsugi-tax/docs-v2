@@ -3,7 +3,7 @@ title: "3. Nexus & Registration Management"
 description: "Establish tax nexus presence and create registrations for jurisdictions where clients have tax obligations"
 ---
 
-After completing organization setup, the next phase establishes where your clients have tax obligations. This involves creating physical nexus records and economic nexus registrations. All endpoints in this phase use the **Kintsugi SDK**.
+After completing organization setup, the next phase establishes where your clients have tax obligations. This involves creating physical nexus records and economic nexus registrations.
 
 ## Understanding Nexus
 
@@ -238,7 +238,7 @@ flowchart LR
         Form["📝 Registration Form"]
     end
     
-    subgraph SDK["Kintsugi SDK"]
+    subgraph API["Kintsugi API"]
         NexusAPI["nexus.createPhysical()"]
         RegAPI["registrations.create()"]
         GetAPI["registrations.get()"]
