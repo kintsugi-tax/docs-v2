@@ -74,20 +74,22 @@ All technology partners building integrations with Kintsugi should pursue certif
 - Custom integrations
 
 ## Integration Patterns
-Kintsugi may be able to meet you half way, and build the transaction sync aspect of the integration for you. In these cases, you would only need to build the "L2", or tax calculation flow.
 
-In other cases, partners would need to build the integration end-to-end.
+Kintsugi uses a two-level integration model. **Level 1 (L1)** is transaction sync—the foundation. **Level 2 (L2)** adds the tax engine (real-time tax calculation at checkout). L1 must be in place before L2 can be enabled.
 
-### L1: Transaction Sync
+Kintsugi may build the transaction sync (L1) aspect of the integration for you. In those cases, you would only need to build the L2 tax calculation flow. In other cases, partners build the integration end-to-end.
+
+### L1: Transaction Sync (Level 1)
 
 - Kintsugi or Partner builds and maintains the **transaction sync** integration
-- **Certification required** if partner-built.
-- We provide guidance and validate functionality, if Partner-built
+- Syncs completed transactions for compliance tracking and nexus determination
+- **Certification required** if partner-built
+- We provide guidance and validate functionality if partner-built
 
+### L2: Tax Engine (Level 2)
 
-### L2: Partner-Built Integrations
-
-- Partner builds and maintains the *tax estimate* integration
+- Partner builds and maintains the **tax estimate** integration (or enables it on an existing L1 connection)
+- Adds real-time tax calculation during checkout; transaction sync (L1) continues for compliance
 - **Certification required**
 - We provide guidance and validate functionality
 

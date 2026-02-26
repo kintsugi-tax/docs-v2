@@ -1,49 +1,39 @@
 ---
 title: "1. Planning An Integration"
-description: "Determine your integration type and map endpoints to your workflow before building"
+description: "Understand L1 (transaction sync) and L2 (tax engine) integration levels, and map endpoints to your workflow"
 ---
 
-Before writing your first API call, it helps to take time to understand what you're building and why. Kintsugi's API supports two primary integration patterns: sales tax calculation only, and transaction sync for compliance tracking. Many teams need both. This guide helps you determine which endpoints you need and when to use them.
+Before writing your first API call, it helps to take time to understand what you're building and why. Kintsugi uses a **two-level integration model**: **Level 1 (L1)** is transaction sync—the foundation for all integrations—and **Level 2 (L2)** adds real-time tax calculation. This guide helps you determine which level you need and when to enable each capability.
 
 ## Understanding Integration Types
 
-Every Kintsugi integration falls into one of three categories based on your business requirements:
+Every Kintsugi integration is built on transaction sync. Whether you need compliance tracking, tax calculation, or both, you must send transaction data to Kintsugi. Integration types are described in terms of **L1** (Level 1) and **L2** (Level 2):
 
 <CardGroup cols={3}>
+  <Card title="L1: Transaction Sync Only" icon="database">
+    **Level 1** — Sync completed transactions for compliance tracking. Use `/v1/transactions` to record sales for nexus determination and filing preparation. This is the foundation; all integrations start here.
+  </Card>
+  
   <Card title="Tax Calculation Only" icon="calculator">
-    Calculate sales tax during checkout or billing. Use `/v1/tax/estimate` to get tax amounts before payment processing.
+    Calculate sales tax during checkout or billing without Kintsugi filing and remittance. Use `/v1/tax/estimate` for real-time tax amounts. **Still requires receiving transaction data**—you sync transactions so Kintsugi can determine nexus and provide accurate rates.
   </Card>
   
-  <Card title="Transaction Sync Only" icon="database">
-    Sync completed transactions for compliance tracking. Use `/v1/transactions` to record sales for nexus determination and filing preparation.
-  </Card>
-  
-  <Card title="Both" icon="code">
-    Calculate tax at checkout and sync transactions after completion. This provides real-time tax rates and maintains compliance records.
+  <Card title="L2: Transaction Sync + Tax Calculation" icon="code">
+    **Level 2** — L1 plus the tax engine. Calculate tax at checkout *and* sync transactions for compliance. In platform integrations, L1 is enabled first; the tax engine (L2) can be turned on after transaction sync is running.
   </Card>
 </CardGroup>
+
+<Note>
+**L1 comes first**: In the Kintsugi platform, connections require transaction sync (L1) before the tax engine can be enabled. You establish L1, then optionally enable L2 when you need Kintsugi to calculate and collect tax at checkout.
+</Note>
 
 ## Choosing Your Integration Pattern
 
 Your choice depends on where you are in your business lifecycle and what compliance obligations you face.
 
-### Tax Calculation Only
+### L1: Transaction Sync Only
 
-This pattern suits teams who need accurate tax rates during checkout but handle compliance reporting through other systems. You'll use:
-
-- `POST /v1/products` to create product records with tax classifications
-- `POST /v1/customers` (optional) if you sell to exempt entities like nonprofits or resellers
-- `POST /v1/tax/estimate` to calculate tax before collecting payment
-
-<Note>
-**When to use this pattern**: You're replacing another tax calculation service, your compliance team handles filings separately, or you're a marketplace platform calculating tax for sellers but not handling their compliance.
-</Note>
-
-The tax estimate endpoint returns tax amounts, rates, and jurisdictions without creating permanent transaction records. This works well for shopping carts, subscription billing platforms, and point-of-sale systems that need real-time tax calculations.
-
-### Transaction Sync Only
-
-This pattern focuses on compliance tracking without real-time tax calculations. You'll use:
+Transaction sync is the foundation. This pattern syncs completed sales for compliance tracking without real-time tax calculations. You'll use:
 
 - `POST /v1/products` to sync your product catalog
 - `POST /v1/customers` (optional) if you track exempt customers
@@ -53,50 +43,55 @@ This pattern focuses on compliance tracking without real-time tax calculations. 
 **Historical data requirement**: For transaction sync integrations, you must send historical transactions from the previous full calendar year to the present. Kintsugi uses this data to determine nexus liability. Without historical transactions, we cannot accurately identify when you crossed economic nexus thresholds or calculate your compliance obligations.
 </Warning>
 
-Transaction sync suits teams migrating from manual compliance processes, integrating after-the-fact from accounting systems, or building audit trails for existing sales data.
+Transaction sync suits teams migrating from manual compliance processes, integrating after-the-fact from accounting systems, or building audit trails for existing sales data. In platform integrations, this is the **Level 1** connection—often shown as "Read Only" or "Compliance" mode.
 
-### Both: Tax Calculation and Transaction Sync
+### Tax Calculation Only
 
-Most production integrations use both patterns. Calculate tax during checkout for accurate pricing, then sync the completed transaction for compliance tracking.
+This pattern provides real-time tax rates during checkout but does not use Kintsugi for filing and remittance. You'll use:
+
+- `POST /v1/products` to create product records with tax classifications
+- `POST /v1/customers` (optional) if you sell to exempt entities like nonprofits or resellers
+- `POST /v1/tax/estimate` to calculate tax before collecting payment
+
+<Note>
+**Transaction data still required**: Even when Kintsugi is not handling filing, tax calculation depends on receiving transaction data. Kintsugi uses your synced transactions to determine nexus and provide accurate rates. Tax calculation without transaction sync is possible only when nexus and compliance are managed elsewhere.
+</Note>
+
+**When to use this pattern**: You're replacing another tax calculation service, your compliance team handles filings separately, or you're a marketplace platform calculating tax for sellers but not handling their compliance.
+
+The tax estimate endpoint returns tax amounts, rates, and jurisdictions without creating permanent transaction records. This works well for shopping carts, subscription billing platforms, and point-of-sale systems that need real-time tax calculations.
+
+### L2: Transaction Sync + Tax Calculation (Both)
+
+Most production integrations use both: L1 for compliance plus the tax engine for checkout. Calculate tax during checkout for accurate pricing, then sync the completed transaction for compliance tracking. In platform integrations, L2 is the **Level 2** connection—often shown as "Tax Engine" mode, enabled after L1 is established.
 
 <Expandable title="📊 Integration Pattern Decision Flow" icon="diagram">
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#FFFFFF','primaryTextColor':'#213331','primaryBorderColor':'#213331','lineColor':'#213331','secondaryColor':'#FFFFFF','tertiaryColor':'#213331','edgeLabelBackground':'#FFFFFF','edgeLabelColor':'#213331','edgeStrokeWidth':'2px','edgeStroke':'#213331','arrowheadColor':'#213331','clusterBkg':'transparent','clusterBorder':'#213331','defaultLinkColor':'#213331'}}}%%
 flowchart TD
-    Start["🏁 Start Planning"] --> NeedTax["Do you need<br/>real-time tax calculations?"]
+    Start["🏁 Start Planning"] --> NeedSync["Do you need<br/>compliance tracking?"]
     
-    NeedTax -->|Yes| NeedSync["Do you need<br/>compliance tracking?"]
-    NeedTax -->|No| SyncOnly["Transaction Sync Only<br/>Use /v1/products, /v1/customers,<br/>/v1/transactions"]
+    NeedSync -->|Yes| L1["L1: Transaction Sync<br/>/v1/products, /v1/customers,<br/>/v1/transactions"]
+    NeedSync -->|No| TaxOnlyPath["Tax calculation only?<br/>(No Kintsugi filing)"]
     
-    NeedSync -->|Yes| Both["Both Patterns<br/>Use /v1/products, /v1/customers,<br/>/v1/tax/estimate, /v1/transactions"]
-    NeedSync -->|No| TaxOnly["Tax Calculation Only<br/>Use /v1/products, /v1/customers,<br/>/v1/tax/estimate"]
+    L1 --> NeedTax["Enable tax at checkout?<br/>(L2)"]
+    NeedTax -->|Yes| L2["L2: Add Tax Engine<br/>/v1/tax/estimate + compliance"]
+    NeedTax -->|No| L1Done["✅ L1 only"]
     
-    SyncOnly --> SetupSync["Setup: Create products,<br/>customers (if exempt),<br/>sync historical transactions"]
-    TaxOnly --> SetupTax["Setup: Create products,<br/>customers (if exempt)"]
-    Both --> SetupBoth["Setup: Create products,<br/>customers (if exempt),<br/>sync historical transactions"]
+    TaxOnlyPath -->|Yes| TaxOnly["✅ Tax Calculation Only<br/>+ transaction data for nexus"]
+    TaxOnlyPath -->|No| Discuss["Discuss use case"]
     
-    SetupSync --> ReadySync["✅ Ready to sync<br/>new transactions"]
-    SetupTax --> ReadyTax["✅ Ready to calculate<br/>tax at checkout"]
-    SetupBoth --> ReadyBoth["✅ Ready for both<br/>calculation and sync"]
+    L2 --> L2Done["✅ L2: Tax + Compliance"]
     
     style Start fill:#e8f5e9,stroke:#213331,stroke-width:2px,color:#000000
-    style NeedTax fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
-    style NeedSync fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
-    style SyncOnly fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
-    style TaxOnly fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
-    style Both fill:#FFFFFF,stroke:#213331,stroke-width:2px,color:#000000
-    style SetupSync fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
-    style SetupTax fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
-    style SetupBoth fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
-    style ReadySync fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
-    style ReadyTax fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
-    style ReadyBoth fill:#213331,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style L1 fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
+    style L2 fill:#4a7c59,stroke:#213331,stroke-width:3px,color:#FFFFFF
 ```
 </Expandable>
 
 ## Historical Transaction Requirements
 
-If you're building a transaction sync integration or using both patterns, you must send historical transaction data covering the previous full calendar year through today.
+If you're building an L1 (transaction sync) or L2 (transaction sync + tax calculation) integration—or using tax calculation with Kintsugi-managed nexus—you must send historical transaction data covering the previous full calendar year through today.
 
 ### Why Historical Data Matters
 
@@ -117,7 +112,7 @@ Kintsugi determines nexus liability by analyzing your sales volume and transacti
   </Accordion>
   
   <Accordion title="Do I need to sync transactions for tax calculation only?">
-    No. Tax calculation only integrations don't require historical data. The `/v1/tax/estimate` endpoint calculates tax based on current nexus status and doesn't rely on historical transaction records.
+    Yes, in most cases. Even when Kintsugi is not handling filing and remittance, tax calculation depends on nexus status—which Kintsugi determines from your transaction data. Without syncing transactions, Kintsugi cannot accurately establish where you have nexus or provide correct rates. The exception is when you manage nexus and compliance entirely elsewhere and only need Kintsugi for rate lookup.
   </Accordion>
 </AccordionGroup>
 
@@ -171,9 +166,9 @@ Customer records are only required if you sell to exempt entities like nonprofit
 
 See the [Product & Customer Records guide](/docs/api-guides/product-customer-records) for when and how to create customer records.
 
-### Step 3: Historical Transaction Sync (Transaction Sync or Both)
+### Step 3: Historical Transaction Sync (L1, L2, or Tax Calculation)
 
-If you're using transaction sync, sync historical transactions from the previous calendar year. This is a one-time bulk operation that establishes your baseline for nexus tracking.
+If you're using transaction sync (L1 or L2) or tax calculation with Kintsugi-managed nexus, sync historical transactions from the previous calendar year. This is a one-time bulk operation that establishes your baseline for nexus tracking.
 
 See the [Syncing Transaction Records guide](/docs/api-guides/syncing-transaction-records) for best practices on bulk syncing historical data.
 
@@ -181,9 +176,9 @@ See the [Syncing Transaction Records guide](/docs/api-guides/syncing-transaction
 
 Once setup is complete, integrate the appropriate endpoints into your live workflows:
 
-- **Tax calculation only**: Integrate `/v1/tax/estimate` into checkout
-- **Transaction sync only**: Integrate `/v1/transactions` into order completion flows
-- **Both**: Integrate both endpoints at their respective points in your workflow
+- **L1 (transaction sync only)**: Integrate `/v1/transactions` into order completion flows
+- **Tax calculation only**: Integrate `/v1/tax/estimate` into checkout (and sync transactions for nexus)
+- **L2 (both)**: Integrate `/v1/tax/estimate` at checkout and `/v1/transactions` after payment confirmation
 
 ## Common Integration Patterns
 
@@ -191,7 +186,7 @@ Different business models require different integration approaches.
 
 ### E-Commerce Platforms
 
-Most e-commerce platforms need both tax calculation and transaction sync. Calculate tax during checkout to show accurate totals, then sync completed orders for compliance.
+Most e-commerce platforms use L2: transaction sync (L1) plus the tax engine. Start with L1 to sync completed orders for compliance; once that is running, enable the tax engine to calculate tax during checkout. Calculate tax during checkout to show accurate totals, then sync the completed transaction for compliance.
 
 <Expandable title="🛒 E-Commerce Checkout Flow" icon="shopping-cart">
 ```mermaid
@@ -219,15 +214,15 @@ flowchart TD
 
 ### Subscription Billing Platforms
 
-Subscription platforms typically need tax calculation during subscription creation and renewal, plus transaction sync for compliance. Calculate tax when subscriptions are created or renewed, then sync transactions monthly or per billing cycle.
+Subscription platforms typically use L2: tax calculation during subscription creation and renewal, plus transaction sync for compliance. Calculate tax when subscriptions are created or renewed, then sync transactions monthly or per billing cycle.
 
 ### Marketplace Platforms
 
-Marketplace platforms often calculate tax for sellers but don't handle seller compliance. Use tax calculation only, letting sellers handle their own transaction sync if needed.
+Marketplace platforms often calculate tax for sellers but don't handle seller compliance. Use tax calculation only, letting sellers handle their own transaction sync if needed. Transaction data is still required for nexus determination if Kintsugi manages nexus.
 
 ### Accounting System Integrations
 
-Accounting system integrations usually focus on transaction sync for compliance tracking. Sync invoices and completed sales from your accounting system without real-time tax calculations.
+Accounting system integrations usually start with L1: transaction sync for compliance tracking. Sync invoices and completed sales from your accounting system without real-time tax calculations. The tax engine (L2) can be enabled later if needed.
 
 ## Next Steps
 

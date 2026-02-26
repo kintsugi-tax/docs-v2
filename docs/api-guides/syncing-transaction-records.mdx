@@ -3,7 +3,7 @@ title: "3. Syncing Transaction Records"
 description: "Sync completed sales transactions to Kintsugi for compliance tracking and nexus determination"
 ---
 
-Transaction sync creates permanent records of completed sales in Kintsugi. These records power nexus tracking, compliance reporting, and tax filing preparation. This guide covers when to sync transactions, how to structure transaction data, and best practices for bulk imports and real-time syncing.
+Transaction sync (also called **Level 1** or **L1**) creates permanent records of completed sales in Kintsugi. These records power nexus tracking, compliance reporting, and tax filing preparation. Transaction sync is the foundation for all Kintsugi integrations—whether you use L1 only, tax calculation only, or L2 (transaction sync plus the tax engine). This guide covers when to sync transactions, how to structure transaction data, and best practices for bulk imports and real-time syncing.
 
 ## Understanding Transaction Sync
 
@@ -22,7 +22,7 @@ Kintsugi uses transaction records to:
 - Track refund status and credit notes
 
 <Note>
-**Transaction sync is separate from tax calculation**: The `/v1/transactions` endpoint creates records but doesn't calculate tax. If you need tax amounts, calculate them using `/v1/tax/estimate` before syncing, or include tax amounts in your transaction data.
+**Transaction sync (L1) is the foundation**: The `/v1/transactions` endpoint creates records but doesn't calculate tax. When you enable the tax engine (L2), Kintsugi calculates tax at checkout and you still sync completed transactions. Tax calculation without transaction sync is only possible when nexus and compliance are managed elsewhere—see [Planning an Integration](/docs/api-guides/planning-an-integration) for details.
 </Note>
 
 ## When to Sync Transactions

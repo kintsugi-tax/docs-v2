@@ -3,7 +3,7 @@ title: "5. Sales Tax Calculations"
 description: "Calculate accurate sales tax rates using Kintsugi's tax estimate endpoint in your checkout and billing flows"
 ---
 
-The tax estimate endpoint calculates sales tax for transactions before payment is collected. It determines tax rates based on your nexus status, product taxability, customer exemptions, and shipping addresses. This guide covers when to call the estimate endpoint, how to structure requests, and how to use the tax amounts in your application.
+The tax estimate endpoint (`POST /v1/tax/estimate`) calculates sales tax for transactions before payment is collected. It is the core of the **Level 2 (L2)** tax engine—enabled after transaction sync (L1) is in place. Tax calculation determines rates based on your nexus status, product taxability, customer exemptions, and shipping addresses. This guide covers when to call the estimate endpoint, how to structure requests, and how to use the tax amounts in your application.
 
 ## Understanding Tax Estimates
 
@@ -18,7 +18,7 @@ Tax estimates provide real-time tax calculations without creating permanent tran
 Tax estimates are idempotent and don't create records. You can call the endpoint multiple times as customers modify their cart or change addresses without creating duplicate transactions.
 
 <Note>
-**Tax estimates don't sync transactions**: The `/v1/tax/estimate` endpoint calculates tax but doesn't create transaction records. If you need compliance tracking, sync transactions separately using `/v1/transactions` after payment is confirmed.
+**Tax estimates don't sync transactions**: The `/v1/tax/estimate` endpoint calculates tax but doesn't create transaction records. For full compliance (L2), sync transactions separately using `/v1/transactions` after payment is confirmed. Kintsugi uses your synced transaction data to determine nexus—essential for accurate tax calculation even when Kintsugi is not handling filing and remittance.
 </Note>
 
 ## When to Calculate Tax

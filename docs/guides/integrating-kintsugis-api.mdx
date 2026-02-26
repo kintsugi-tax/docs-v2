@@ -14,7 +14,7 @@ Before diving into implementation details, answer these foundational questions t
     Identifying the exact point in your transaction flow where tax calculations happen determines where to integrate Kintsugi's tax estimation endpoints. Common scenarios include checkout flow, payment processing, order confirmation, and subscription billing.
     
     <Tip>
-    Most integrations benefit from calculating tax during checkout to provide accurate totals before payment, while also creating transactions after order completion for compliance reporting.
+    Most integrations use L2: transaction sync (L1) for compliance, plus the tax engine to calculate tax during checkout. Start with L1 (syncing transactions after order completion), then enable L2 to provide accurate totals before payment.
     </Tip>
   </Accordion>
 
@@ -291,14 +291,14 @@ Determining the right integration points depends on your platform's transaction 
 
 ## Common Integration Patterns
 
-Different platform types benefit from different integration approaches. E-commerce platforms typically use real-time tax estimation during checkout with immediate transaction creation. SaaS and subscription platforms use recurring tax estimation with batch transaction reporting for billing cycles. Marketplace platforms calculate tax per seller with centralized reporting, handling marketplace facilitator rules and supporting multiple tax jurisdictions simultaneously.
+Different platform types benefit from different integration approaches. E-commerce platforms typically use L2: real-time tax estimation during checkout (L2) with immediate transaction creation (L1). SaaS and subscription platforms use recurring tax estimation with batch transaction reporting for billing cycles. Marketplace platforms calculate tax per seller with centralized reporting, handling marketplace facilitator rules and supporting multiple tax jurisdictions simultaneously. See [Planning an Integration](/docs/api-guides/planning-an-integration) for the full L1/L2 model.
 
 ## Implementation Checklist
 
 Ensure your integration covers setup and configuration, customer management with sync and exemption handling, product catalog synchronization and classification, tax estimation with address validation and error handling, transaction reporting with idempotency, and comprehensive testing with various address types and exemption scenarios.
 
 <Note>
-Start with the core tax estimation workflow, then expand to include customer management, product synchronization, and transaction reporting as your integration matures.
+**L1 first, then L2**: Start with transaction sync (L1)—customer management, product synchronization, and transaction reporting. Once L1 is stable, add the tax estimation workflow (L2) for real-time checkout calculations. See [Planning an Integration](/docs/api-guides/planning-an-integration) for the full L1/L2 model.
 </Note>
 
 ## Next Steps
