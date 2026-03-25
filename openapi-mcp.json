@@ -2221,6 +2221,25 @@
             "example": "US"
           },
           {
+            "name": "filing_category__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter filings by category (e.g., REGULAR, BACK_FILING, PREPAYMENT, AMENDMENT).",
+              "title": "Filing Category  In"
+            },
+            "description": "Filter filings by category (e.g., REGULAR, BACK_FILING, PREPAYMENT, AMENDMENT).",
+            "example": "REGULAR"
+          },
+          {
             "name": "page",
             "in": "query",
             "required": false,
