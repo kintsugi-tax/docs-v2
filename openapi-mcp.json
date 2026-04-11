@@ -9898,10 +9898,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Name of field to reveal",
+              "description": "Comma-separated sensitive fields to return unmasked (SSN/DL only). Requires org role Owner; Admins receive 403 if set.",
               "title": "Reveal"
             },
-            "description": "Name of field to reveal"
+            "description": "Comma-separated sensitive fields to return unmasked (SSN/DL only). Requires org role Owner; Admins receive 403 if set."
           },
           {
             "name": "x-organization-id",
