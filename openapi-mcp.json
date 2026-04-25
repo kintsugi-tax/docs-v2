@@ -5973,10 +5973,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retrieve transactions with a date\n        greater than or equal to (YYYY-MM-DD).",
+              "description": "Retrieve transactions with a date\n        greater than or equal to (YYYY-MM-DD).\n        Defaults to 12 months ago when neither date__gte nor date__lte is provided.",
               "title": "Date  Gte"
             },
-            "description": "Retrieve transactions with a date\n        greater than or equal to (YYYY-MM-DD)."
+            "description": "Retrieve transactions with a date\n        greater than or equal to (YYYY-MM-DD).\n        Defaults to 12 months ago when neither date__gte nor date__lte is provided."
           },
           {
             "name": "date__lte",
