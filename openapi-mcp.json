@@ -5111,6 +5111,9 @@
               "schema": {
                 "oneOf": [
                   {
+                    "$ref": "#/components/schemas/AlabamaRegistrationPayload"
+                  },
+                  {
                     "$ref": "#/components/schemas/RegistrationCreatePayload"
                   },
                   {
@@ -5120,14 +5123,6 @@
                     "$ref": "#/components/schemas/SSTRegistrationCreatePayload"
                   }
                 ],
-                "discriminator": {
-                  "propertyName": "registration_import_type",
-                  "mapping": {
-                    "REGULAR": "#/components/schemas/RegistrationCreatePayload",
-                    "OSS": "#/components/schemas/OSSRegistrationCreatePayload",
-                    "SST": "#/components/schemas/SSTRegistrationCreatePayload"
-                  }
-                },
                 "title": "Create Registration"
               },
               "examples": {
@@ -5160,6 +5155,30 @@
                     "amount_fees": 100.0,
                     "comment": "Registering for monthly sales tax filings",
                     "initial_sync": false
+                  }
+                },
+                "regular_alabama": {
+                  "summary": "Alabama Registration Import Example",
+                  "value": {
+                    "registration_import_type": "REGULAR",
+                    "registration_date": "2025-02-01",
+                    "registration_email": "example@domain.com",
+                    "country_code": "US",
+                    "state_code": "AL",
+                    "state_name": "Alabama",
+                    "filing_frequency": "MONTHLY",
+                    "auto_registered": true,
+                    "amount_fees": 100.0,
+                    "jurisdiction_specific_fields": {
+                      "registration_type": "SALES_TAX",
+                      "business_name": "Acme Corp",
+                      "sign_on_id": "acme_sign_on",
+                      "sales_tax_id": "ST-AL-EXAMPLE",
+                      "local_tax_id": "LOCAL-AL-EXAMPLE",
+                      "access_code": "abc123",
+                      "third_party_password": "tp_pass",
+                      "mfa_completed": true
+                    }
                   }
                 },
                 "oss": {
