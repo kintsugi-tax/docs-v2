@@ -1123,7 +1123,7 @@
           "Customers"
         ],
         "summary": "Get Transactions By Customer Id",
-        "description": "Get a list of transactions for a customer by their unique ID.",
+        "description": "Get a list of transactions for a customer by their unique ID. When pagination params are provided, this endpoint returns a paginated response. When omitted, it returns the legacy list response format (deprecated).",
         "operationId": "get_transactions_by_customer_id_v1_customers__customer_id__transactions_get",
         "security": [
           {
@@ -1141,6 +1141,40 @@
             "schema": {
               "type": "string",
               "title": "Customer Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Page"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Size"
             }
           },
           {
@@ -1169,10 +1203,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TransactionRead"
-                  },
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TransactionRead"
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/Page_TransactionRead_"
+                    }
+                  ],
                   "title": "Response Get Transactions By Customer Id V1 Customers  Customer Id  Transactions Get"
                 }
               }
@@ -2306,7 +2347,6 @@
                       "state_code": "CA",
                       "state_name": "California",
                       "country_code": "US",
-                      "jira_issue_key": "TO-1234",
                       "auto_approved": true,
                       "amount_calculated": "2500.00",
                       "amount_adjusted": "0.00",
@@ -2334,7 +2374,6 @@
                       "state_code": "NY",
                       "state_name": "New York",
                       "country_code": "US",
-                      "jira_issue_key": "TO-5678",
                       "auto_approved": false,
                       "amount_calculated": "1200.00",
                       "amount_adjusted": "0.00",
@@ -3756,7 +3795,7 @@
                   "type": "null"
                 }
               ],
-              "default": "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED",
+              "default": "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,REGISTERED",
               "title": "Status  In"
             }
           },
@@ -6069,6 +6108,25 @@
               "title": "Exempt  In"
             },
             "description": "Filter transactions by exemption status.\n        Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE)."
+          },
+          {
+            "name": "count_limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional upper bound for the pagination COUNT query.\n        When set, the returned `total` is capped at this value and `pages`\n        is derived from the capped total, making large result sets faster\n        to paginate at the cost of approximate totals. When unset, `total`\n        and `pages` reflect the exact count (existing behavior).",
+              "title": "Count Limit"
+            },
+            "description": "Optional upper bound for the pagination COUNT query.\n        When set, the returned `total` is capped at this value and `pages`\n        is derived from the capped total, making large result sets faster\n        to paginate at the cost of approximate totals. When unset, `total`\n        and `pages` reflect the exact count (existing behavior)."
           },
           {
             "name": "page",
