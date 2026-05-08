@@ -4055,6 +4055,24 @@
             "description": "Filter products by source (comma-separated)"
           },
           {
+            "name": "connection_id__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter products by connection ID (comma-separated)",
+              "title": "Connection Id  In"
+            },
+            "description": "Filter products by connection ID (comma-separated)"
+          },
+          {
             "name": "order_by",
             "in": "query",
             "required": false,
