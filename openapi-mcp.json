@@ -5171,6 +5171,12 @@
                     "$ref": "#/components/schemas/AlabamaRegistrationPayload"
                   },
                   {
+                    "$ref": "#/components/schemas/ArkansasRegistrationPayload"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CaliforniaRegistrationPayload"
+                  },
+                  {
                     "$ref": "#/components/schemas/RegistrationCreatePayload"
                   },
                   {
@@ -5235,6 +5241,54 @@
                       "access_code": "abc123",
                       "third_party_password": "tp_pass",
                       "mfa_completed": true
+                    }
+                  }
+                },
+                "regular_arkansas": {
+                  "summary": "Arkansas Registration Import Example",
+                  "value": {
+                    "registration_import_type": "REGULAR",
+                    "registration_date": "2025-02-01",
+                    "registration_email": "example@domain.com",
+                    "country_code": "US",
+                    "state_code": "AR",
+                    "state_name": "Arkansas",
+                    "filing_frequency": "MONTHLY",
+                    "auto_registered": true,
+                    "amount_fees": 100.0,
+                    "username": "atap_user",
+                    "password_plain_text": "atap_password",
+                    "jurisdiction_specific_fields": {
+                      "registration_type": "REMOTE_SELLER",
+                      "business_name": "Acme Corp",
+                      "ar_account_id": "AR-123456789",
+                      "zip_code": "72201",
+                      "last_payment_to_state": "0.00",
+                      "first_filing_period": "2025-01-01",
+                      "third_party_access_enabled": true
+                    }
+                  }
+                },
+                "regular_california": {
+                  "summary": "California Registration Import Example (CDTFA)",
+                  "value": {
+                    "registration_import_type": "REGULAR",
+                    "registration_date": "2025-02-01",
+                    "registration_email": "example@domain.com",
+                    "country_code": "US",
+                    "state_code": "CA",
+                    "state_name": "California",
+                    "filing_frequency": "MONTHLY",
+                    "auto_registered": true,
+                    "amount_fees": 100.0,
+                    "username": "cdtfa_user",
+                    "password_plain_text": "cdtfa_password",
+                    "jurisdiction_specific_fields": {
+                      "registration_type": "REMOTE_SELLER",
+                      "business_name": "Acme Corp",
+                      "sales_tax_id": "CA-1234567890",
+                      "cdtfa_third_party_access_security_code": "sec-code-example",
+                      "first_filing_period": "2025-01-01"
                     }
                   }
                 },
