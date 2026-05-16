@@ -5180,6 +5180,9 @@
                     "$ref": "#/components/schemas/CaliforniaRegistrationPayload"
                   },
                   {
+                    "$ref": "#/components/schemas/ConnecticutRegistrationPayload"
+                  },
+                  {
                     "$ref": "#/components/schemas/RegistrationCreatePayload"
                   },
                   {
@@ -5328,6 +5331,28 @@
                     "password_plain_text": "oss_pass_fr",
                     "password_metadata_plain_text": "{\"q\":\"a\"}",
                     "imported": true
+                  }
+                },
+                "regular_connecticut": {
+                  "summary": "Connecticut Registration Import Example",
+                  "value": {
+                    "registration_import_type": "REGULAR",
+                    "registration_date": "2025-02-01",
+                    "registration_email": "example@domain.com",
+                    "country_code": "US",
+                    "state_code": "CT",
+                    "state_name": "Connecticut",
+                    "filing_frequency": "MONTHLY",
+                    "auto_registered": true,
+                    "amount_fees": 100.0,
+                    "username": "ct_user",
+                    "jurisdiction_specific_fields": {
+                      "registration_type": "SALES_TAX",
+                      "business_name": "Test Connecticut Biz",
+                      "ct_tax_registration_number": "CT-REG-999",
+                      "last_payment_to_state": "0.00",
+                      "first_filing_period": "2024-08-01"
+                    }
                   }
                 },
                 "sst": {
