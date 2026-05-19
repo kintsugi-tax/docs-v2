@@ -5183,6 +5183,9 @@
                     "$ref": "#/components/schemas/ConnecticutRegistrationPayload"
                   },
                   {
+                    "$ref": "#/components/schemas/GeorgiaRegistrationPayload"
+                  },
+                  {
                     "$ref": "#/components/schemas/RegistrationCreatePayload"
                   },
                   {
