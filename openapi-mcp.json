@@ -5321,7 +5321,7 @@
                       "business_name": "Acme Corp",
                       "sales_tax_id": "CA-1234567890",
                       "cdtfa_third_party_access_security_code": "sec-code-example",
-                      "first_filing_period": "2025-01-01"
+                      "mfa_completed": true
                     }
                   }
                 },
