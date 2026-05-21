@@ -5297,8 +5297,7 @@
                       "ar_account_id": "AR-123456789",
                       "zip_code": "72201",
                       "last_payment_to_state": "0.00",
-                      "first_filing_period": "2025-01-01",
-                      "third_party_access_enabled": true
+                      "mfa_completed": true
                     }
                   }
                 },
@@ -5354,7 +5353,7 @@
                       "business_name": "Test Connecticut Biz",
                       "ct_tax_registration_number": "CT-REG-999",
                       "last_payment_to_state": "0.00",
-                      "first_filing_period": "2024-08-01"
+                      "mfa_completed": true
                     }
                   }
                 },
