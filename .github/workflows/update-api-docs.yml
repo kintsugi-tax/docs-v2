@@ -4,191 +4,125 @@ on:
   # Run once every 24 hours at midnight UTC to catch API changes
   schedule:
     - cron: '0 0 * * *'
-  
+
   # Allow manual trigger
   workflow_dispatch:
-  
-  # Run on relevant code changes
+
+  # Run when the build inputs change
   push:
     branches: [main]
     paths:
-      - 'scripts/generate-api-docs.sh'
-      - 'scripts/add-mcp-config.sh'
-      - 'scripts/add-mcp-config-to-endpoints.sh'
-      - 'scripts/create-merged-openapi.py'
+      - 'scripts/build-public-openapi.py'
+      - 'docs.json'
 
 jobs:
   update-api-docs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           persist-credentials: true
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
-      
+          python-version: '3.11'
+
       - name: Install Mintlify scraper
         run: npm install -g @mintlify/scraping
-      
+
       - name: Download OpenAPI specs
         run: |
-          echo "📥 Downloading OpenAPI specifications..."
-          
-          # Download Customer API spec
-          echo "📥 Fetching Customer API spec..."
-          curl -o openapi-customer.json https://api-doc.trykintsugi.com/openapi.json
-          
-          # Download Partners API spec  
-          echo "📥 Fetching Partners API spec..."
-          curl -o openapi-partners.json https://api.trykintsugi.com/openapi.json
-          
-          echo "✅ OpenAPI specs downloaded successfully!"
-      
-      - name: Create OpenAPI file for MCP
+          echo "Downloading Customer API spec..."
+          curl -fsSL -o openapi-customer.json https://api-doc.trykintsugi.com/openapi.json
+
+          echo "Downloading Partners API spec..."
+          curl -fsSL -o openapi-partners.json https://api.trykintsugi.com/openapi.json
+
+          echo "OpenAPI specs downloaded."
+
+      - name: Build public Partner API spec
         run: |
-          echo "🔧 Creating OpenAPI file for MCP from 'API Reference - Partners' endpoints..."
-          
-          # Make script executable
-          chmod +x scripts/create-merged-openapi.py
-          
-          # Run script to create openapi-mcp.json with only endpoints from "API Reference - Partners"
-          # The script will create openapi-mcp.json instead of openapi.json
-          OUTPUT_FILE=openapi-mcp.json python3 scripts/create-merged-openapi.py
-          
-          echo "✅ OpenAPI file for MCP created!"
-          echo "  - Filtered/merged spec saved to openapi-mcp.json (for MCP)"
-          echo "  - Contains only endpoints explicitly listed in 'API Reference - Partners'"
-          echo "  - Includes Customer API endpoints + additional Partners endpoints"
-          echo "  - All endpoints have MCP enabled"
-      
-      - name: Save full Customer API spec for API Reference tab
-        run: |
-          echo "💾 Saving full Customer API spec for 'API Reference' tab..."
-          # Copy the full Customer API spec to openapi.json for the API Reference tab
-          # This ensures the API Reference tab shows all Customer API endpoints, not just filtered ones
-          cp openapi-customer.json openapi.json
-          
-          # Merge enhanced descriptions from Partners API for specific endpoints
-          # This ensures documentation shows the most up-to-date descriptions even if Customer API hasn't been updated yet
-          echo "🔧 Merging enhanced descriptions from Partners API where available..."
-          python3 << 'EOF'
-          import json
-          
-          # Load both specs
-          with open('openapi-customer.json', 'r') as f:
-              customer_spec = json.load(f)
-          with open('openapi-partners.json', 'r') as f:
-              partners_spec = json.load(f)
-          
-          # Merge descriptions from Partners API for endpoints that exist in both specs
-          # This ensures documentation shows the most up-to-date descriptions
-          merged_count = 0
-          for path in customer_spec.get('paths', {}):
-              if path in partners_spec.get('paths', {}):
-                  for method in ['get', 'post', 'put', 'patch', 'delete']:
-                      if method in customer_spec['paths'][path] and method in partners_spec['paths'][path]:
-                          partners_desc = partners_spec['paths'][path][method].get('description', '')
-                          customer_desc = customer_spec['paths'][path][method].get('description', '')
-                          # Merge if Partners description exists and is different (likely more up-to-date)
-                          if partners_desc and partners_desc != customer_desc:
-                              # Check if Partners description contains "retrieve supported" or is significantly longer
-                              if 'retrieve supported' in partners_desc.lower() or len(partners_desc) > len(customer_desc) * 1.2:
-                                  customer_spec['paths'][path][method]['description'] = partners_desc
-                                  merged_count += 1
-                                  print(f"  ✅ Merged {method.upper()} {path}: Enhanced description from Partners API")
-          
-          # Save updated spec
-          with open('openapi.json', 'w') as f:
-              json.dump(customer_spec, f, indent=2)
-          
-          if merged_count > 0:
-              print(f"✅ Merged {merged_count} enhanced description(s) from Partners API")
-          else:
-              print("ℹ️  No descriptions needed merging")
-          EOF
-          
-          echo "✅ Full Customer API spec saved to openapi.json"
-          echo "  - This file is used by the 'API Reference' tab in docs.json"
-          echo "  - Contains all Customer API endpoints from https://api-doc.trykintsugi.com/openapi.json"
-          echo "  - Enhanced with updated descriptions from Partners API where available"
-      
+          # Produces openapi-partners-public.json: the partner spec filtered to the
+          # endpoints documented under the "API Reference - Partners" tab, with
+          # v1<->v2 fallback rewriting, X-API-KEY-only auth, and MCP enabled.
+          # The script FAILS if a documented endpoint cannot be resolved, so a
+          # backend version bump can never silently empty a page.
+          python3 scripts/build-public-openapi.py
+
       - name: Validate OpenAPI specs
         run: |
-          echo "🔍 Validating OpenAPI specifications..."
-          
-          # Validate full Customer API spec (for API Reference tab)
-          if [ ! -s openapi.json ]; then
-            echo "❌ Customer API spec (openapi.json) is empty or missing"
+          echo "Validating Customer API spec (openapi-customer.json)..."
+          if [ ! -s openapi-customer.json ]; then
+            echo "Customer API spec is empty or missing"
             exit 1
           fi
-          customer_path_count=$(jq '.paths | length' openapi.json)
-          echo "✅ Customer API spec (openapi.json) contains $customer_path_count paths"
-          
-          # Validate MCP filtered spec (if it exists)
-          if [ -s openapi-mcp.json ]; then
-            echo "🔍 Verifying MCP configuration..."
-            jq -e '."x-mint".mcp.enabled == true' openapi-mcp.json > /dev/null && echo "✅ MCP OpenAPI has MCP enabled" || echo "❌ MCP OpenAPI missing MCP config"
-            mcp_path_count=$(jq '.paths | length' openapi-mcp.json)
-            echo "✅ MCP OpenAPI spec contains $mcp_path_count paths"
+          customer_paths=$(jq '.paths | length' openapi-customer.json)
+          echo "Customer API spec contains $customer_paths paths"
+
+          echo "Validating public Partner API spec (openapi-partners-public.json)..."
+          if [ ! -s openapi-partners-public.json ]; then
+            echo "Public Partner API spec is empty or missing"
+            exit 1
           fi
-          
-          echo "✅ All OpenAPI specs are valid!"
-      
-      - name: Generate API documentation
+          jq -e '."x-mint".mcp.enabled == true' openapi-partners-public.json > /dev/null \
+            && echo "Public Partner spec has MCP enabled" \
+            || { echo "Public Partner spec missing MCP config"; exit 1; }
+          if jq -e '.components.securitySchemes | has("HTTPBearer")' openapi-partners-public.json > /dev/null; then
+            echo "Public Partner spec must not expose bearer (internal-only) auth"
+            exit 1
+          fi
+          partner_paths=$(jq '.paths | length' openapi-partners-public.json)
+          echo "Public Partner spec contains $partner_paths paths"
+
+      - name: Generate Customer API reference pages
         run: |
-          echo "🚀 Generating API documentation from merged OpenAPI spec..."
-          mkdir -p reference/api reference/partners
-          
-          echo "📥 Generating API reference documentation..."
-          npx @mintlify/scraping openapi-file openapi.json -o reference/api
-          
-          echo "✅ API documentation generated successfully!"
-      
+          # Regenerate the Customer "API Reference" tab pages from the public
+          # customer spec. The Partner reference pages are intentionally curated
+          # by hand (thin MDX frontmatter); they are validated by the build step
+          # above rather than auto-scraped, to keep the published surface a
+          # deliberate decision.
+          mkdir -p reference/api
+          npx @mintlify/scraping openapi-file openapi-customer.json -o reference/api
+          echo "Customer API reference pages generated."
+
       - name: Check for changes
         id: changes
         run: |
           if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
-            echo "No changes to commit"
             echo "changed=false" >> $GITHUB_OUTPUT
           else
-            echo "Changes detected"
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Commit and push changes
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          
-          # Add all changes (source OpenAPI files + Customer API spec + MCP spec + generated docs)
-          git add openapi-customer.json openapi-partners.json openapi.json openapi-mcp.json reference/api/
-          git commit -m "🤖 Auto-update API documentation and OpenAPI spec [skip ci]
+          git add openapi-customer.json openapi-partners-public.json reference/api/
+          git commit -m "Auto-update API documentation and OpenAPI specs [skip ci]
 
-          - Updated openapi.json with full Customer API spec (for API Reference tab)
-          - Updated openapi-mcp.json with filtered endpoints from 'API Reference - Partners' (for MCP)
-          - Source: Customer API from https://api-doc.trykintsugi.com/openapi.json
-          - Source: Partners API from https://api.trykintsugi.com/openapi.json
-          - MCP spec includes only endpoints explicitly listed in 'API Reference - Partners'
-          - All MCP endpoints have MCP enabled for /mcp route
-          - Regenerated API reference documentation
-          - Generated on: $(date)"
+          - openapi-customer.json: full Customer API (powers 'API Reference' tab)
+          - openapi-partners.json: internal source, downloaded fresh each run and
+            kept untracked (gitignored); never published
+          - openapi-partners-public.json: curated public Partner endpoints with MCP
+            enabled (powers 'API Reference - Partners' tab)
+          - Regenerated Customer API reference pages
+          - Sources: https://api-doc.trykintsugi.com/openapi.json and
+            https://api.trykintsugi.com/openapi.json"
           git push
-          
-          echo "✅ API documentation and OpenAPI spec updated and committed"
-      
+          echo "API documentation updated and committed."
+
       - name: No changes message
         if: steps.changes.outputs.changed == 'false'
-        run: echo "ℹ️ No changes to API documentation"
+        run: echo "No changes to API documentation"

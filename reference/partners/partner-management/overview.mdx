@@ -1,0 +1,19 @@
+---
+title: "Partner Management"
+description: "Manage a portfolio of client organizations, users, filings, registrations, nexus, billing, and referrals through the Kintsugi Partner API."
+---
+
+The Partner Management endpoints let a partner operate across many client organizations from a single integration: provision and search organizations, manage partner users and their assignments, run filings and registrations, monitor nexus, configure notifications and billing, and onboard referral partners.
+
+## Authentication
+
+All Partner Management endpoints authenticate with an API key passed in the `X-API-KEY` header. Requests scoped to a specific organization also require the `x-organization-id` header.
+
+```bash
+curl https://api.trykintsugi.com/v2/partner/clients \
+  -H "X-API-KEY: your-api-key"
+```
+
+<Note>
+Some Partner Management endpoints are currently served under the `/v2/partner` path. These are being consolidated under dated versioning; update your integration when the change is announced. The documented path always reflects the path you should call today.
+</Note>

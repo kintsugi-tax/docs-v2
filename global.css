@@ -10,8 +10,8 @@
   fill: inherit !important;
 }
 .dark .prose a { 
-  color: #49f6ee !important;
-  border-bottom: 1px solid #49f6ee !important;
+  color: #b0ed9c !important;
+  border-bottom: 1px solid #b0ed9c !important;
 }
 
 /* Add white background to Mermaid diagrams in dark mode */
