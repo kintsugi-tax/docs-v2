@@ -1720,6 +1720,25 @@
             "example": "SHOPIFY,API"
           },
           {
+            "name": "connection_id__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter customers by connection ID (comma-separated)",
+              "title": "Connection Id  In"
+            },
+            "description": "Filter customers by connection ID (comma-separated)",
+            "example": "conn_abc123,conn_def456"
+          },
+          {
             "name": "order_by",
             "in": "query",
             "required": false,
@@ -19096,7 +19115,7 @@
           },
           "status": {
             "$ref": "#/components/schemas/RegistrationStatusEnum",
-            "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, CANCELLED, VALIDATING, AWAITING_CLARIFICATION."
+            "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, CANCELLED, VALIDATING, AWAITING_CLARIFICATION, SELF_MANAGED."
           },
           "country_code": {
             "$ref": "#/components/schemas/CountryCodeEnum",
@@ -20181,6 +20200,25 @@
         "title": "ApproveResponse",
         "description": "Response for a successful certificate approval."
       },
+      "ArchiveByIdsRequest": {
+        "properties": {
+          "transaction_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 500,
+            "minItems": 1,
+            "title": "Transaction Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transaction_ids"
+        ],
+        "title": "ArchiveByIdsRequest",
+        "description": "Request body for archiving transactions by their IDs."
+      },
       "ArchiveTransactionsRequest": {
         "properties": {
           "archive_all": {
@@ -20212,7 +20250,10 @@
           "state": {
             "anyOf": [
               {
-                "type": "string"
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               },
               {
                 "type": "null"
@@ -30584,84 +30625,6 @@
         "type": "object",
         "title": "CustomerUpdate"
       },
-      "DNSDebugResponse": {
-        "properties": {
-          "timestamp": {
-            "type": "string",
-            "title": "Timestamp"
-          },
-          "url_tests": {
-            "items": {
-              "$ref": "#/components/schemas/URLTestResult"
-            },
-            "type": "array",
-            "title": "Url Tests"
-          },
-          "dns_tests": {
-            "items": {
-              "$ref": "#/components/schemas/DNSResult"
-            },
-            "type": "array",
-            "title": "Dns Tests"
-          },
-          "summary": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Summary"
-          }
-        },
-        "type": "object",
-        "required": [
-          "timestamp",
-          "url_tests",
-          "dns_tests",
-          "summary"
-        ],
-        "title": "DNSDebugResponse",
-        "description": "Complete response for DNS debugging endpoint"
-      },
-      "DNSResult": {
-        "properties": {
-          "hostname": {
-            "type": "string",
-            "title": "Hostname"
-          },
-          "success": {
-            "type": "boolean",
-            "title": "Success"
-          },
-          "records": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Records"
-          },
-          "error": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Error"
-          },
-          "method": {
-            "type": "string",
-            "title": "Method"
-          }
-        },
-        "type": "object",
-        "required": [
-          "hostname",
-          "success",
-          "method"
-        ],
-        "title": "DNSResult",
-        "description": "Result of a DNS lookup operation"
-      },
       "DashboardOverviewChartType": {
         "type": "string",
         "enum": [
@@ -30756,10 +30719,6 @@
             "type": "integer",
             "title": "Needs Tax Collection Enable Connections Count"
           },
-          "needs_mark_as_tax_collecting_count": {
-            "type": "integer",
-            "title": "Needs Mark As Tax Collecting Count"
-          },
           "read_only_sources_to_enable_tax_collection_count": {
             "type": "integer",
             "title": "Read Only Sources To Enable Tax Collection Count"
@@ -30777,7 +30736,6 @@
           "needs_update_connections_count",
           "expired_exemptions_count",
           "needs_tax_collection_enable_connections_count",
-          "needs_mark_as_tax_collecting_count",
           "read_only_sources_to_enable_tax_collection_count"
         ],
         "title": "DashboardOverviewTasksData"
@@ -45341,20 +45299,6 @@
         ],
         "title": "OrganizationExperienceTasks"
       },
-      "OrganizationFilingUiSettingsResponse": {
-        "properties": {
-          "enable_new_filing_ui": {
-            "type": "boolean",
-            "title": "Enable New Filing Ui"
-          }
-        },
-        "type": "object",
-        "required": [
-          "enable_new_filing_ui"
-        ],
-        "title": "OrganizationFilingUiSettingsResponse",
-        "description": "Subset of org settings exposed to all members for filing UI routing."
-      },
       "OrganizationImportUiSettingsResponse": {
         "properties": {
           "file_upload_v2_enabled": {
@@ -45714,17 +45658,6 @@
             "type": "boolean",
             "title": "Enable New Auto Filing Experience"
           },
-          "enable_new_filing_ui": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Enable New Filing Ui"
-          },
           "prefer_collected_tax_amounts": {
             "type": "boolean",
             "title": "Prefer Collected Tax Amounts"
@@ -45821,7 +45754,6 @@
           "product_category_version",
           "oss_scheme",
           "enable_new_auto_filing_experience",
-          "enable_new_filing_ui",
           "prefer_collected_tax_amounts",
           "special_tax_circumstances",
           "enabled_jurisdictions",
@@ -45878,17 +45810,6 @@
               }
             ],
             "title": "Enable New Auto Filing Experience"
-          },
-          "enable_new_filing_ui": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Enable New Filing Ui"
           },
           "prefer_collected_tax_amounts": {
             "anyOf": [
@@ -46079,17 +46000,6 @@
             "type": "boolean",
             "title": "Enable New Auto Filing Experience"
           },
-          "enable_new_filing_ui": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Enable New Filing Ui"
-          },
           "prefer_collected_tax_amounts": {
             "type": "boolean",
             "title": "Prefer Collected Tax Amounts"
@@ -46150,7 +46060,6 @@
           "product_category_version",
           "oss_scheme",
           "enable_new_auto_filing_experience",
-          "enable_new_filing_ui",
           "prefer_collected_tax_amounts",
           "special_tax_circumstances",
           "enabled_jurisdictions"
@@ -52517,7 +52426,7 @@
           },
           "status": {
             "$ref": "#/components/schemas/RegistrationStatusEnum",
-            "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, CANCELLED, VALIDATING, AWAITING_CLARIFICATION."
+            "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, CANCELLED, VALIDATING, AWAITING_CLARIFICATION, SELF_MANAGED."
           },
           "country_code": {
             "$ref": "#/components/schemas/CountryCodeEnum",
@@ -53942,7 +53851,7 @@
           },
           "status": {
             "$ref": "#/components/schemas/RegistrationStatusEnum",
-            "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, CANCELLED, VALIDATING, AWAITING_CLARIFICATION."
+            "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, CANCELLED, VALIDATING, AWAITING_CLARIFICATION, SELF_MANAGED."
           },
           "country_code": {
             "$ref": "#/components/schemas/CountryCodeEnum",
@@ -54351,7 +54260,7 @@
           },
           "status": {
             "$ref": "#/components/schemas/RegistrationStatusEnum",
-            "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, CANCELLED, VALIDATING, AWAITING_CLARIFICATION."
+            "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, CANCELLED, VALIDATING, AWAITING_CLARIFICATION, SELF_MANAGED."
           },
           "country_code": {
             "$ref": "#/components/schemas/CountryCodeEnum",
@@ -54840,7 +54749,7 @@
           },
           "status": {
             "$ref": "#/components/schemas/RegistrationStatusEnum",
-            "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, CANCELLED, VALIDATING, AWAITING_CLARIFICATION."
+            "description": "The current status of the registration. Possible values: REGISTERED, PROCESSING, UNREGISTERED, DEREGISTERING, DEREGISTERED, CANCELLED, VALIDATING, AWAITING_CLARIFICATION, SELF_MANAGED."
           },
           "username": {
             "anyOf": [
@@ -64329,65 +64238,6 @@
           "YES_SALES_NO_TRANSACTIONS"
         ],
         "title": "TreatmentEnum"
-      },
-      "URLTestResult": {
-        "properties": {
-          "url": {
-            "type": "string",
-            "title": "Url"
-          },
-          "success": {
-            "type": "boolean",
-            "title": "Success"
-          },
-          "status_code": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Status Code"
-          },
-          "response_time_ms": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Response Time Ms"
-          },
-          "error": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Error"
-          },
-          "headers": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "type": "object",
-            "title": "Headers"
-          }
-        },
-        "type": "object",
-        "required": [
-          "url",
-          "success"
-        ],
-        "title": "URLTestResult",
-        "description": "Result of testing a URL endpoint"
       },
       "UiOrganizationCreate": {
         "properties": {
