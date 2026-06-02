@@ -1,33 +1,29 @@
 #!/bin/bash
 
-# Script to generate API documentation from merged OpenAPI spec
+# Local mirror of the CI pipeline in .github/workflows/update-api-docs.yml.
+# Builds the public Partner spec and regenerates the Customer API reference pages.
+#
 # Usage: ./scripts/generate-api-docs.sh
+#   Expects openapi-customer.json and openapi-partners.json to be present
+#   (download them from https://api-doc.trykintsugi.com/openapi.json and
+#    https://api.trykintsugi.com/openapi.json respectively).
 
 set -e
 
-echo "🚀 Generating API documentation from merged OpenAPI spec..."
-
-# Create reference directories if they don't exist
-mkdir -p reference/api
-
-# Ensure merged OpenAPI file exists
-if [ ! -f "openapi.json" ]; then
-    echo "❌ Error: openapi.json not found"
-    echo "Please run create-merged-openapi.py first or ensure the file exists"
-    exit 1
+if [ ! -f "openapi-partners.json" ] || [ ! -f "openapi-customer.json" ]; then
+  echo "Missing source specs. Download them first:"
+  echo "  curl -fsSL -o openapi-customer.json https://api-doc.trykintsugi.com/openapi.json"
+  echo "  curl -fsSL -o openapi-partners.json https://api.trykintsugi.com/openapi.json"
+  exit 1
 fi
 
-# Generate API reference from merged spec
-echo "📥 Generating API reference documentation..."
-npx @mintlify/scraping openapi-file openapi.json -o reference/api
+echo "Building public Partner API spec (openapi-partners-public.json)..."
+python3 scripts/build-public-openapi.py
 
-echo "✅ API documentation generated successfully!"
-echo "📁 API reference files created in: reference/api/"
-echo "🔗 Merged OpenAPI file includes Customer API + Public Partners API endpoints"
+echo "Regenerating Customer API reference pages..."
+mkdir -p reference/api
+npx @mintlify/scraping openapi-file openapi-customer.json -o reference/api
 
-# List generated files
-echo "📋 Generated API reference files:"
-find reference/api -name "*.mdx" | head -10
-echo "... (and more)"
-
-echo "🎉 Done! API reference documentation is ready."
+echo "Done."
+echo "  - openapi-partners-public.json powers the 'API Reference - Partners' tab"
+echo "  - reference/api/ powers the 'API Reference' tab"

@@ -4,6 +4,9 @@ node_modules/
 dist/
 build/
 
+# Internal-only OpenAPI source (downloaded fresh by CI; never published)
+openapi-partners.json
+
 # Internal documentation files
 AUTOMATION_GUIDE.md
 docs_migration_plan.md
