@@ -4831,7 +4831,7 @@
           "Transactions"
         ],
         "summary": "Create Transaction",
-        "description": "Create a transaction.",
+        "description": "Create a transaction. Set `marketplace: true` for reseller or marketplace orders where tax was remitted externally; gross sales still count toward nexus, but tax liability is excluded.",
         "operationId": "create_transaction_v1_transactions_post",
         "security": [
           {

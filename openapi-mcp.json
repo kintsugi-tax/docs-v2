@@ -1502,6 +1502,25 @@
             "example": "trans_1234"
           },
           {
+            "name": "connection_id__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter exemptions by customer connection ID (comma-separated)",
+              "title": "Connection Id  In"
+            },
+            "description": "Filter exemptions by customer connection ID (comma-separated)",
+            "example": "conn_abc123,conn_def456"
+          },
+          {
             "name": "order_by",
             "in": "query",
             "required": false,
@@ -6236,6 +6255,25 @@
             "description": "Filter transactions by exemption status.\n        Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE)."
           },
           {
+            "name": "connection_id__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter transactions by connection ID (comma-separated)",
+              "title": "Connection Id  In"
+            },
+            "description": "Filter transactions by connection ID (comma-separated)",
+            "example": "conn_abc123,conn_def456"
+          },
+          {
             "name": "count_limit",
             "in": "query",
             "required": false,
@@ -6547,7 +6585,7 @@
           "Transactions"
         ],
         "summary": "Create Transaction",
-        "description": "Create a transaction.",
+        "description": "Create a transaction. Set `marketplace: true` for reseller or marketplace orders where tax was remitted externally; gross sales still count toward nexus, but tax liability is excluded.",
         "operationId": "create_transaction_v1_transactions_post",
         "security": [
           {
@@ -6591,6 +6629,7 @@
                 "date": "2024-01-15T14:30:00Z",
                 "type": "SALE",
                 "currency": "USD",
+                "marketplace": true,
                 "customer": {
                   "organization_id": "orgn_YourOrgIdHere",
                   "external_id": "Cust456",
