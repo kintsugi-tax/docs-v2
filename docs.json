@@ -117,7 +117,8 @@
                   "docs/sdks/typescript",
                   "docs/sdks/java",
                   "docs/sdks/php",
-                  "docs/sdks/ruby"
+                  "docs/sdks/ruby",
+                  "docs/sdks/examples"
                 ]
               },
               {
@@ -541,6 +542,24 @@
       ]
     }
   },
+  "redirects": [
+    {
+      "source": "/docs/flashbacks",
+      "destination": "/docs/getting-started"
+    },
+    {
+      "source": "/docs/shopify-integration",
+      "destination": "/docs/guides/integrating-kintsugis-api"
+    },
+    {
+      "source": "/docs/stripe-integration",
+      "destination": "/docs/guides/integrating-kintsugis-api"
+    },
+    {
+      "source": "/docs/woocommerce-integration",
+      "destination": "/docs/guides/integrating-kintsugis-api"
+    }
+  ],
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",
