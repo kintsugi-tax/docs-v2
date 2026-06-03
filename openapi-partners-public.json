@@ -65355,17 +65355,91 @@
           "trusted_id": {
             "type": "string",
             "title": "Trusted Id",
-            "description": "Vertex Trusted ID / Company identifier"
+            "description": "Vertex Trusted ID for the partition"
           },
           "username": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Username",
-            "description": "Vertex O-Series username"
+            "description": "Integration username (Basic Auth)"
           },
           "password": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Password",
-            "description": "Vertex O-Series password"
+            "description": "Integration password (Basic Auth)"
+          },
+          "client_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id",
+            "description": "OAuth client ID"
+          },
+          "client_secret": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Secret",
+            "description": "OAuth client secret"
+          },
+          "partition_uuid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partition Uuid",
+            "description": "O Series Cloud partition UUID (Manage Partitions); required for client-utility SOAP via Vertex-Context header"
+          },
+          "soap_instance_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soap Instance Url",
+            "description": "Client Utilities base for Tax Journal sync (SOAP). Example: https://api.vertexcloud.com/vertex-remote-services"
+          },
+          "rest_instance_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rest Instance Url",
+            "description": "REST base for health checks (vertex-ws). Example: https://calcconnect.vertexsmb.com/vertex-ws"
           },
           "instance_url": {
             "anyOf": [
@@ -65377,7 +65451,7 @@
               }
             ],
             "title": "Instance Url",
-            "description": "Your Vertex deployment base URL (optional). Required to access your cloud or on-prem instance. Cloud: https://<customer>.ondemand.vertexinc.com/vertex-remote-services ; on-prem: http://server:port/vertex-remote-services. If omitted, a default URL is used."
+            "description": "Legacy single URL (optional). If it contains vertex-remote-services it is treated as SOAP; if vertex-ws, as REST only."
           },
           "name": {
             "anyOf": [
@@ -65394,9 +65468,7 @@
         },
         "type": "object",
         "required": [
-          "trusted_id",
-          "username",
-          "password"
+          "trusted_id"
         ],
         "title": "VertexOSeriesConnectionRequest",
         "description": "Request model for creating a Vertex O-Series connection."
