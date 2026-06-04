@@ -8276,7 +8276,6 @@
                       "registration_date": "2024-01-01",
                       "registration_email": "example@company.com",
                       "status": "REGISTERED",
-                      "registration_key": "TO-1234",
                       "registration_requested": "2023-12-20T10:45:00.000Z",
                       "registration_completed": "2023-12-25T12:00:00.000Z",
                       "auto_registered": true,
@@ -8299,7 +8298,6 @@
                     {
                       "registration_email": "support@company.com",
                       "status": "PROCESSING",
-                      "registration_key": "TO-5678",
                       "registration_requested": "2024-01-10T08:30:00.000Z",
                       "auto_registered": false,
                       "country_code": "US",
@@ -9102,7 +9100,6 @@
               "example": {
                 "registration_date": "2025-03-01",
                 "registration_email": "example@domain.com",
-                "registration_key": "REG-123456",
                 "registration_requested": "2025-02-18T19:43:32.684802",
                 "auto_registered": true,
                 "registrations_regime": "STANDARD",
@@ -18963,30 +18960,6 @@
             "title": "Registration Email",
             "description": "Email address associated with the registration."
           },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
-          },
           "registration_requested": {
             "anyOf": [
               {
@@ -19605,30 +19578,6 @@
             ],
             "title": "Registration Email",
             "description": "Email address associated with the registration."
-          },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
           },
           "registration_requested": {
             "anyOf": [
@@ -20411,30 +20360,6 @@
             "title": "Registration Email",
             "description": "Email address associated with the registration."
           },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
-          },
           "registration_requested": {
             "anyOf": [
               {
@@ -20808,30 +20733,6 @@
             ],
             "title": "Registration Email",
             "description": "Email address associated with the registration."
-          },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
           },
           "registration_requested": {
             "anyOf": [
@@ -23896,30 +23797,6 @@
             "title": "Registration Email",
             "description": "Email address associated with the registration."
           },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
-          },
           "registration_requested": {
             "anyOf": [
               {
@@ -24218,7 +24095,7 @@
             "type": "array",
             "minItems": 1,
             "title": "Entity Ids",
-            "description": "One or many Campfire entity ids to bind."
+            "description": "One or many Campfire entity ids; one Connection row per id."
           },
           "entity_names": {
             "anyOf": [
@@ -24254,7 +24131,7 @@
           "entity_ids"
         ],
         "title": "CampfireCreateUpdate",
-        "description": "Create/update payload \u2014 one or many Campfire entities under a single API key."
+        "description": "Create/update payload. Each entity_id becomes its own Connection row (BE fans out)."
       },
       "CampfireValidateEntity": {
         "properties": {
@@ -27097,30 +26974,6 @@
             ],
             "title": "Registration Email",
             "description": "Email address associated with the registration."
-          },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
           },
           "registration_requested": {
             "anyOf": [
@@ -34370,30 +34223,6 @@
             "title": "Registration Email",
             "description": "Email address associated with the registration."
           },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
-          },
           "registration_requested": {
             "anyOf": [
               {
@@ -34832,30 +34661,6 @@
             ],
             "title": "Registration Email",
             "description": "Email address associated with the registration."
-          },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
           },
           "registration_requested": {
             "anyOf": [
@@ -49716,17 +49521,6 @@
             ],
             "title": "Registrationtype"
           },
-          "registrationKey": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registrationkey"
-          },
           "registrationEmail": {
             "anyOf": [
               {
@@ -52888,30 +52682,6 @@
             "title": "Registration Email",
             "description": "Email address associated with the registration."
           },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
-          },
           "registration_requested": {
             "anyOf": [
               {
@@ -53310,30 +53080,6 @@
             ],
             "title": "Registration Email",
             "description": "Email address associated with the registration."
-          },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
           },
           "registration_requested": {
             "anyOf": [
@@ -53895,30 +53641,6 @@
             "title": "Registration Email",
             "description": "Email address associated with the registration."
           },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
-          },
           "registration_requested": {
             "anyOf": [
               {
@@ -54313,30 +54035,6 @@
             "title": "Registration Email",
             "description": "Email address associated with the registration."
           },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
-          },
           "registration_requested": {
             "anyOf": [
               {
@@ -54721,30 +54419,6 @@
             ],
             "title": "Registration Email",
             "description": "Email address associated with the registration."
-          },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
           },
           "registration_requested": {
             "anyOf": [
@@ -55198,30 +54872,6 @@
             "title": "Registration Email",
             "description": "Email address associated with the registration."
           },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
-          },
           "registration_requested": {
             "anyOf": [
               {
@@ -55547,30 +55197,6 @@
             ],
             "title": "Registration Email",
             "description": "Email address associated with the registration."
-          },
-          "registration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Registration Key",
-            "description": "A unique key assigned to the registration."
-          },
-          "deregistration_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Deregistration Key",
-            "description": "A unique key assigned for deregistration."
           },
           "registration_requested": {
             "anyOf": [
@@ -60538,6 +60164,17 @@
           },
           "type": {
             "$ref": "#/components/schemas/TransactionTypeEnum"
+          },
+          "import_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Import Id"
           },
           "related_external_id": {
             "anyOf": [
@@ -66040,7 +65677,55 @@
               }
             ],
             "title": "Partition Uuid",
-            "description": "O Series Cloud partition UUID (Manage Partitions); required for client-utility SOAP via Vertex-Context header"
+            "description": "O Series Cloud partition UUID (Manage Partitions); required for Cloud OAuth connect"
+          },
+          "reporting_client_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reporting Client Id",
+            "description": "Solution Reporting API client ID (O Series Cloud sync)"
+          },
+          "reporting_client_secret": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reporting Client Secret",
+            "description": "Solution Reporting API client secret (O Series Cloud sync)"
+          },
+          "backfill_start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Backfill Start Date",
+            "description": "Optional ISO date (YYYY-MM-DD) for historical backfill start"
+          },
+          "report_definition_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Report Definition Id",
+            "description": "Optional Transaction Detail Extract report definition UUID"
           },
           "soap_instance_url": {
             "anyOf": [
