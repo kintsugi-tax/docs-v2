@@ -104,8 +104,7 @@
               {
                 "group": "Advanced",
                 "pages": [
-                  "docs/error-handling",
-                  "docs/rate-limiting"
+                  "docs/error-handling"
                 ]
               },
               {
@@ -117,8 +116,7 @@
                   "docs/sdks/typescript",
                   "docs/sdks/java",
                   "docs/sdks/php",
-                  "docs/sdks/ruby",
-                  "docs/sdks/examples"
+                  "docs/sdks/ruby"
                 ]
               },
               {
@@ -558,6 +556,14 @@
     {
       "source": "/docs/woocommerce-integration",
       "destination": "/docs/guides/integrating-kintsugis-api"
+    },
+    {
+      "source": "/docs/rate-limiting",
+      "destination": "/docs/error-handling"
+    },
+    {
+      "source": "/docs/sdks/examples",
+      "destination": "/docs/sdks/quick-start"
     }
   ],
   "logo": {

@@ -1,6 +1,7 @@
 ---
 title: "4. Transaction Processing"
 description: "Calculate tax at checkout and sync completed transactions for compliance tracking"
+noindex: true
 ---
 
 Transaction processing is the core operational phase of your STaaS platform. This phase combines **L1** (transaction sync for compliance) and **L2** (real-time tax calculation during checkout). You sync completed transactions to Kintsugi and, when the tax engine is enabled, calculate tax at checkout. All endpoints can be accessed via HTTP REST or the optional Kintsugi SDK.
