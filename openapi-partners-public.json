@@ -8446,6 +8446,9 @@
                     "$ref": "#/components/schemas/GeorgiaRegistrationPayload"
                   },
                   {
+                    "$ref": "#/components/schemas/IdahoRegistrationPayload"
+                  },
+                  {
                     "$ref": "#/components/schemas/RegistrationCreatePayload"
                   },
                   {
@@ -24208,22 +24211,29 @@
             "title": "Api Key",
             "description": "Campfire API key (Token auth)"
           },
-          "entity_id": {
-            "type": "string",
-            "title": "Entity Id",
-            "description": "Campfire entity id to bind this connection to."
+          "entity_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Entity Ids",
+            "description": "One or many Campfire entity ids to bind."
           },
-          "entity_name": {
+          "entity_names": {
             "anyOf": [
               {
-                "type": "string"
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Entity Name",
-            "description": "Display name; persisted on Connection.store_name."
+            "title": "Entity Names",
+            "description": "Display names aligned positionally with entity_ids."
           },
           "webhook_signing_secret": {
             "anyOf": [
@@ -24241,10 +24251,10 @@
         "type": "object",
         "required": [
           "api_key",
-          "entity_id"
+          "entity_ids"
         ],
         "title": "CampfireCreateUpdate",
-        "description": "Payload for creating or updating a Campfire connection."
+        "description": "Create/update payload \u2014 one or many Campfire entities under a single API key."
       },
       "CampfireValidateEntity": {
         "properties": {
@@ -24273,8 +24283,7 @@
           "id",
           "name"
         ],
-        "title": "CampfireValidateEntity",
-        "description": "A single entity returned by the validate probe. ``id`` coerced to string for the FE Zod schema."
+        "title": "CampfireValidateEntity"
       },
       "CampfireValidateRequest": {
         "properties": {
@@ -24288,8 +24297,7 @@
         "required": [
           "api_key"
         ],
-        "title": "CampfireValidateRequest",
-        "description": "Payload for the validate endpoint \u2014 FE posts the API key, BE returns entities."
+        "title": "CampfireValidateRequest"
       },
       "CampfireValidateResponse": {
         "properties": {
@@ -24320,8 +24328,7 @@
         "required": [
           "success"
         ],
-        "title": "CampfireValidateResponse",
-        "description": "Response for POST /connections/campfire/validate. On auth failure: success=False, empty list, HTTP 200."
+        "title": "CampfireValidateResponse"
       },
       "Card": {
         "properties": {
@@ -34754,6 +34761,385 @@
         ],
         "title": "HostedPage"
       },
+      "IdahoFields": {
+        "properties": {
+          "registration_type": {
+            "$ref": "#/components/schemas/IdahoRegistrationType",
+            "description": "Idaho registration type: Sales Tax."
+          },
+          "mfa_completed": {
+            "type": "boolean",
+            "title": "Mfa Completed",
+            "description": "Whether the customer has completed MFA setup in their Idaho tax account.",
+            "default": false
+          },
+          "business_name": {
+            "type": "string",
+            "title": "Business Name",
+            "description": "Business name as registered with the Idaho State Tax Commission."
+          },
+          "sales_tax_id": {
+            "type": "string",
+            "title": "Sales Tax Id",
+            "description": "Idaho State Tax ID."
+          },
+          "access_code": {
+            "type": "string",
+            "title": "Access Code",
+            "description": "Third-party TAP access code from the Idaho State Tax Commission so Kintsugi can file on your behalf."
+          }
+        },
+        "type": "object",
+        "required": [
+          "registration_type",
+          "business_name",
+          "sales_tax_id",
+          "access_code"
+        ],
+        "title": "IdahoFields",
+        "description": "State-specific fields for Idaho TAP portal registration import."
+      },
+      "IdahoRegistrationPayload": {
+        "properties": {
+          "registration_import_type": {
+            "type": "string",
+            "const": "REGULAR",
+            "title": "Registration Import Type",
+            "description": "Specifies this is a regular jurisdiction registration import.",
+            "default": "REGULAR"
+          },
+          "registration_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Date",
+            "description": "The date when the registration was created. Format: YYYY-MM-DD."
+          },
+          "registration_email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Email",
+            "description": "Email address associated with the registration."
+          },
+          "registration_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Key",
+            "description": "A unique key assigned to the registration."
+          },
+          "deregistration_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deregistration Key",
+            "description": "A unique key assigned for deregistration."
+          },
+          "registration_requested": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Requested",
+            "description": "Timestamp when the registration was requested."
+          },
+          "registration_completed": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Completed",
+            "description": "Timestamp when the registration was completed."
+          },
+          "deregistration_requested": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deregistration Requested",
+            "description": "Timestamp when deregistration was requested."
+          },
+          "deregistration_completed": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deregistration Completed",
+            "description": "Timestamp when the deregistration was completed."
+          },
+          "auto_registered": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Registered",
+            "description": "Indicates whether the registration was completed automatically.",
+            "default": false
+          },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file for this registration (treated as False by default).",
+            "default": false
+          },
+          "registrations_regime": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RegistrationsRegimeEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The tax registration regime (e.g., STANDARD, SIMPLIFIED)."
+          },
+          "change_regime_status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ChangeRegimeStatusEnum"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum",
+            "description": "The country code (ISO 3166-1 alpha-2 format) where the registration applies."
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code",
+            "description": "The state/province code where the registration applies."
+          },
+          "state_name": {
+            "type": "string",
+            "title": "State Name",
+            "description": "The name of the state/province."
+          },
+          "filing_frequency": {
+            "$ref": "#/components/schemas/FilingFrequencyEnum",
+            "description": "Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username",
+            "description": "Username for accessing tax registration details."
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment",
+            "description": "Additional comments related to the registration."
+          },
+          "create_filings_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Create Filings From",
+            "description": "The date from which filings should be created. should start (YYYY-MM-DD)."
+          },
+          "initial_sync": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Initial Sync",
+            "description": "Indicates whether an initial synchronization should be performed.",
+            "default": false
+          },
+          "amount_fees": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,18}|(?=[\\d.]{1,21}0*$)\\d{0,18}\\.\\d{0,2}0*$)"
+              }
+            ],
+            "title": "Amount Fees",
+            "description": "The amount of fees associated with the registration.",
+            "default": "0.00"
+          },
+          "vda": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vda",
+            "description": "Indicates whether a Voluntary Disclosure Agreement (VDA) applies.",
+            "default": false
+          },
+          "imported": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imported",
+            "description": "Whether the registration was imported from another system."
+          },
+          "sales_tax_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sales Tax Id",
+            "description": "The sales tax ID associated with the registration."
+          },
+          "sst_import": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sst Import",
+            "description": "Indicates whether the registration is an SST Import.",
+            "default": false
+          },
+          "tax_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tax Id",
+            "description": "Organization-level tax ID (e.g., VAT number, Canada Business Number)."
+          },
+          "password_plain_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password Plain Text",
+            "description": "The plaintext password for accessing the tax registration account."
+          },
+          "password_metadata_plain_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password Metadata Plain Text",
+            "description": "Metadata related to the password."
+          },
+          "jurisdiction_specific_fields": {
+            "$ref": "#/components/schemas/IdahoFields",
+            "description": "Idaho-specific registration fields (TAP)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "country_code",
+          "state_code",
+          "state_name",
+          "filing_frequency",
+          "jurisdiction_specific_fields"
+        ],
+        "title": "IdahoRegistrationPayload",
+        "description": "Full payload for Idaho registration import."
+      },
+      "IdahoRegistrationType": {
+        "type": "string",
+        "enum": [
+          "SALES_TAX"
+        ],
+        "title": "IdahoRegistrationType"
+      },
       "Import": {
         "properties": {
           "id": {
@@ -35552,6 +35938,141 @@
           "SUCCESS"
         ],
         "title": "ImportStatusEnum"
+      },
+      "ImportV2DetailResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "organization_id": {
+            "type": "string",
+            "title": "Organization Id"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceEnum"
+          },
+          "parent_file_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent File Name"
+          },
+          "parent_file_s3_location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent File S3 Location"
+          },
+          "num_rows_total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Num Rows Total"
+          },
+          "num_transactions_imported": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Num Transactions Imported"
+          },
+          "num_transactions_skipped": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Num Transactions Skipped"
+          },
+          "split_into": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Split Into"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ImportStatusEnum"
+          },
+          "error_data": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Data"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "organization_id",
+          "source",
+          "parent_file_name",
+          "parent_file_s3_location",
+          "num_rows_total",
+          "num_transactions_imported",
+          "num_transactions_skipped",
+          "split_into",
+          "status",
+          "error_data",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ImportV2DetailResponse",
+        "description": "Subset of ``Import`` for FE status polling (progress + metadata)."
       },
       "InitialImportStatus": {
         "properties": {
@@ -37509,6 +38030,76 @@
         "type": "object",
         "title": "NexusAdminUpdate",
         "description": "Admin-only model for updating nexus fields via API."
+      },
+      "NexusExposureHistoryPayloadRead": {
+        "properties": {
+          "net_tax": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,18}|(?=[\\d.]{1,21}0*$)\\d{0,18}\\.\\d{0,2}0*$)",
+            "title": "Net Tax"
+          },
+          "total_collected": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,18}|(?=[\\d.]{1,21}0*$)\\d{0,18}\\.\\d{0,2}0*$)",
+            "title": "Total Collected"
+          },
+          "total_refunded": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,18}|(?=[\\d.]{1,21}0*$)\\d{0,18}\\.\\d{0,2}0*$)",
+            "title": "Total Refunded"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "net_tax",
+          "total_collected",
+          "total_refunded",
+          "timestamp"
+        ],
+        "title": "NexusExposureHistoryPayloadRead"
+      },
+      "NexusExposureHistoryRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "event_type": {
+            "type": "string",
+            "title": "Event Type"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/NexusExposureHistoryPayloadRead"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "state",
+          "event_type",
+          "reason",
+          "payload",
+          "created_at"
+        ],
+        "title": "NexusExposureHistoryRead"
       },
       "NexusResponse": {
         "properties": {
@@ -48067,6 +48658,17 @@
               }
             ],
             "title": "Name"
+          },
+          "propelauth_org_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Propelauth Org Id"
           }
         },
         "type": "object",
@@ -48174,15 +48776,21 @@
             "title": "Name"
           },
           "ownerEmail": {
-            "type": "string",
-            "format": "email",
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "email"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Owneremail"
           }
         },
         "type": "object",
         "required": [
-          "name",
-          "ownerEmail"
+          "name"
         ],
         "title": "PartnerCreate"
       },
@@ -50511,7 +51119,8 @@
           "PENDING",
           "ARCHIVED",
           "NEEDS_REFETCH",
-          "EXCLUDED_IN_CALCULATION"
+          "EXCLUDED_IN_CALCULATION",
+          "DEFERRED_FROM_FILING"
         ],
         "title": "ProcessingStatusEnum",
         "description": "Our transaction state, used to determine when/if a transaction needs additional\nprocessing."
@@ -51641,6 +52250,13 @@
             "type": "array",
             "title": "Jurisdictions"
           },
+          "jurisdiction_statuses": {
+            "items": {
+              "$ref": "#/components/schemas/_JurisdictionStatusResponse"
+            },
+            "type": "array",
+            "title": "Jurisdiction Statuses"
+          },
           "uploaded_certificates": {
             "items": {
               "$ref": "#/components/schemas/_UploadedCertificateResponse"
@@ -51656,6 +52272,7 @@
         "type": "object",
         "required": [
           "jurisdictions",
+          "jurisdiction_statuses",
           "uploaded_certificates",
           "request_status_pill"
         ],
@@ -61175,6 +61792,13 @@
             "type": "array",
             "title": "Created Items"
           },
+          "created_transaction_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Created Transaction Ids"
+          },
           "skipped_count": {
             "type": "integer",
             "title": "Skipped Count"
@@ -61217,6 +61841,7 @@
         "required": [
           "created_count",
           "created_items",
+          "created_transaction_ids",
           "skipped_count",
           "skipped_items",
           "updated_count",
@@ -66239,6 +66864,25 @@
           "tenant_id"
         ],
         "title": "ZuoraCreateUpdate"
+      },
+      "_JurisdictionStatusResponse": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "chip_state": {
+            "type": "string",
+            "title": "Chip State"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "chip_state"
+        ],
+        "title": "_JurisdictionStatusResponse",
+        "description": "One PER-JURISDICTION STATUS row on the confirmation page. `chip_state`\nis the derived JurisdictionChipState value (PENDING_NO_SUBMISSION,\nRECEIVED_REVIEW_PENDING, REJECTED, APPROVED) the FE maps to a badge."
       },
       "_PublicUploadFile": {
         "properties": {
