@@ -8444,6 +8444,9 @@
                     "$ref": "#/components/schemas/GeorgiaRegistrationPayload"
                   },
                   {
+                    "$ref": "#/components/schemas/HawaiiRegistrationPayload"
+                  },
+                  {
                     "$ref": "#/components/schemas/IdahoRegistrationPayload"
                   },
                   {
@@ -34532,6 +34535,373 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "HawaiiFields": {
+        "properties": {
+          "registration_type": {
+            "$ref": "#/components/schemas/HawaiiRegistrationType",
+            "description": "Hawaii registration type: (Currently only General Excise Tax)."
+          },
+          "mfa_completed": {
+            "type": "boolean",
+            "title": "Mfa Completed",
+            "description": "Whether the customer has completed MFA setup in their Hawaii tax account.",
+            "default": false
+          },
+          "business_name": {
+            "type": "string",
+            "title": "Business Name",
+            "description": "Business name as registered with the state of Hawaii."
+          },
+          "sales_tax_id": {
+            "type": "string",
+            "title": "Sales Tax Id",
+            "description": "Hawaii State Tax ID."
+          },
+          "letter_id": {
+            "type": "string",
+            "title": "Letter Id",
+            "description": "Hawaii Letter ID used for account verification."
+          },
+          "last_payment_to_state": {
+            "type": "string",
+            "title": "Last Payment To State",
+            "description": "Last payment amount made to the state ('0.00' if no payments made)."
+          },
+          "third_party_access_enabled": {
+            "type": "boolean",
+            "title": "Third Party Access Enabled",
+            "description": "Whether the customer has granted third-party access for Kintsugi in Revenue Online.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "registration_type",
+          "business_name",
+          "sales_tax_id",
+          "letter_id",
+          "last_payment_to_state"
+        ],
+        "title": "HawaiiFields",
+        "description": "State-specific fields for Hawaii Revenue Online registration import."
+      },
+      "HawaiiRegistrationPayload": {
+        "properties": {
+          "registration_import_type": {
+            "type": "string",
+            "const": "REGULAR",
+            "title": "Registration Import Type",
+            "description": "Specifies this is a regular jurisdiction registration import.",
+            "default": "REGULAR"
+          },
+          "registration_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Date",
+            "description": "The date when the registration was created. Format: YYYY-MM-DD."
+          },
+          "registration_email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Email",
+            "description": "Email address associated with the registration."
+          },
+          "registration_requested": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Requested",
+            "description": "Timestamp when the registration was requested."
+          },
+          "registration_completed": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Completed",
+            "description": "Timestamp when the registration was completed."
+          },
+          "deregistration_requested": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deregistration Requested",
+            "description": "Timestamp when deregistration was requested."
+          },
+          "deregistration_completed": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deregistration Completed",
+            "description": "Timestamp when the deregistration was completed."
+          },
+          "auto_registered": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Registered",
+            "description": "Indicates whether the registration was completed automatically.",
+            "default": false
+          },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file for this registration (treated as False by default).",
+            "default": false
+          },
+          "registrations_regime": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RegistrationsRegimeEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The tax registration regime (e.g., STANDARD, SIMPLIFIED)."
+          },
+          "change_regime_status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ChangeRegimeStatusEnum"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum",
+            "description": "The country code (ISO 3166-1 alpha-2 format) where the registration applies."
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code",
+            "description": "The state/province code where the registration applies."
+          },
+          "state_name": {
+            "type": "string",
+            "title": "State Name",
+            "description": "The name of the state/province."
+          },
+          "filing_frequency": {
+            "$ref": "#/components/schemas/FilingFrequencyEnum",
+            "description": "Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username",
+            "description": "Username for accessing tax registration details."
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment",
+            "description": "Additional comments related to the registration."
+          },
+          "create_filings_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Create Filings From",
+            "description": "The date from which filings should be created. should start (YYYY-MM-DD)."
+          },
+          "initial_sync": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Initial Sync",
+            "description": "Indicates whether an initial synchronization should be performed.",
+            "default": false
+          },
+          "amount_fees": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,18}|(?=[\\d.]{1,21}0*$)\\d{0,18}\\.\\d{0,2}0*$)"
+              }
+            ],
+            "title": "Amount Fees",
+            "description": "The amount of fees associated with the registration.",
+            "default": "0.00"
+          },
+          "vda": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vda",
+            "description": "Indicates whether a Voluntary Disclosure Agreement (VDA) applies.",
+            "default": false
+          },
+          "imported": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imported",
+            "description": "Whether the registration was imported from another system."
+          },
+          "sales_tax_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sales Tax Id",
+            "description": "The sales tax ID associated with the registration."
+          },
+          "sst_import": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sst Import",
+            "description": "Indicates whether the registration is an SST Import.",
+            "default": false
+          },
+          "tax_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tax Id",
+            "description": "Organization-level tax ID (e.g., VAT number, Canada Business Number)."
+          },
+          "password_plain_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password Plain Text",
+            "description": "The plaintext password for accessing the tax registration account."
+          },
+          "password_metadata_plain_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password Metadata Plain Text",
+            "description": "Metadata related to the password."
+          },
+          "jurisdiction_specific_fields": {
+            "$ref": "#/components/schemas/HawaiiFields",
+            "description": "Hawaii-specific registration fields."
+          }
+        },
+        "type": "object",
+        "required": [
+          "country_code",
+          "state_code",
+          "state_name",
+          "filing_frequency",
+          "jurisdiction_specific_fields"
+        ],
+        "title": "HawaiiRegistrationPayload",
+        "description": "Full payload for Hawaii Revenue Online registration import"
+      },
+      "HawaiiRegistrationType": {
+        "type": "string",
+        "enum": [
+          "GENERAL_EXCISE_TAX"
+        ],
+        "title": "HawaiiRegistrationType"
+      },
       "HostedPage": {
         "properties": {
           "id": {
@@ -35044,6 +35414,157 @@
               }
             ],
             "title": "Error Data"
+          },
+          "s3_etag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "S3 Etag"
+          },
+          "submitted_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Submitted At"
+          },
+          "validation_completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Validation Completed At"
+          },
+          "validation_error_artifact_s3_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Validation Error Artifact S3 Key"
+          },
+          "validation_truncated": {
+            "type": "boolean",
+            "title": "Validation Truncated",
+            "default": false
+          },
+          "validation_valid_row_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Validation Valid Row Count"
+          },
+          "validation_error_row_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Validation Error Row Count"
+          },
+          "ingest_completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ingest Completed At"
+          },
+          "ingestion_error_artifact_s3_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ingestion Error Artifact S3 Key"
+          },
+          "progress_rows": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress Rows"
+          },
+          "progress_imported": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress Imported"
+          },
+          "progress_failed": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress Failed"
+          },
+          "ingest_idempotency_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ingest Idempotency Key"
+          },
+          "ingest_submit_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ingest Submit Mode"
           }
         },
         "type": "object",
@@ -48481,6 +49002,174 @@
           "name"
         ],
         "title": "Partner"
+      },
+      "PartnerApiKeyCreateRequest": {
+        "properties": {
+          "clientOrganizationId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clientorganizationid"
+          },
+          "expiresAtSeconds": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expiresatseconds"
+          }
+        },
+        "type": "object",
+        "title": "PartnerApiKeyCreateRequest"
+      },
+      "PartnerApiKeyCreateResponse": {
+        "properties": {
+          "apiKeyId": {
+            "type": "string",
+            "title": "Apikeyid"
+          },
+          "apiKeyToken": {
+            "type": "string",
+            "title": "Apikeytoken"
+          }
+        },
+        "type": "object",
+        "required": [
+          "apiKeyId",
+          "apiKeyToken"
+        ],
+        "title": "PartnerApiKeyCreateResponse"
+      },
+      "PartnerApiKeyItem": {
+        "properties": {
+          "apiKeyId": {
+            "type": "string",
+            "title": "Apikeyid"
+          },
+          "createdAt": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Createdat"
+          },
+          "expiresAtSeconds": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expiresatseconds"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": "unknown"
+          },
+          "clientOrganizationId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clientorganizationid"
+          },
+          "clientOrganizationName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clientorganizationname"
+          },
+          "userId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Userid"
+          },
+          "orgId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Orgid"
+          }
+        },
+        "type": "object",
+        "required": [
+          "apiKeyId"
+        ],
+        "title": "PartnerApiKeyItem"
+      },
+      "PartnerApiKeysResponse": {
+        "properties": {
+          "apiKeys": {
+            "items": {
+              "$ref": "#/components/schemas/PartnerApiKeyItem"
+            },
+            "type": "array",
+            "title": "Apikeys"
+          },
+          "totalApiKeys": {
+            "type": "integer",
+            "title": "Totalapikeys"
+          },
+          "currentPage": {
+            "type": "integer",
+            "title": "Currentpage"
+          },
+          "pageSize": {
+            "type": "integer",
+            "title": "Pagesize"
+          },
+          "hasMoreResults": {
+            "type": "boolean",
+            "title": "Hasmoreresults"
+          }
+        },
+        "type": "object",
+        "required": [
+          "apiKeys",
+          "totalApiKeys",
+          "currentPage",
+          "pageSize",
+          "hasMoreResults"
+        ],
+        "title": "PartnerApiKeysResponse"
       },
       "PartnerCheckResponse": {
         "properties": {
