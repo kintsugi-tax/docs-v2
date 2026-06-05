@@ -426,11 +426,11 @@
                     ]
                   },
                   {
-                    "group": "API Keys",
+                    "group": "Partner-Organization API Keys",
                     "pages": [
-                      "reference/partners/partner-management/api-keys/create-partner-api-key",
-                      "reference/partners/partner-management/api-keys/list-partner-api-keys",
-                      "reference/partners/partner-management/api-keys/delete-partner-api-key"
+                      "reference/partners/partner-management/api-keys/create-partner-organization-api-key",
+                      "reference/partners/partner-management/api-keys/list-partner-organization-api-keys",
+                      "reference/partners/partner-management/api-keys/delete-partner-organization-api-key"
                     ]
                   },
                   {

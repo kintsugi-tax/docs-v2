@@ -183,7 +183,7 @@ Each guide includes:
 Before starting, ensure you have:
 
 - **Kintsugi Partner Account**: Access to the Partner API. Partner organizations are their own organizations in PropelAuth (separate from client organizations) and are provisioned for you; there is no manual org-creation step, and partner-user invite emails are sent automatically when a user is added to the Partner Experience.
-- **API Credentials**: A partner API key. Manage keys in the Partner Experience under {/* TODO: confirm exact PX label */} **Settings → API Keys**, or programmatically via `POST /v2/partner/api_keys` (see [Authentication and API keys](#authentication-and-api-keys)).
+- **API Credentials**: A Partner-Organization API key. Manage keys in the Partner Experience under {/* TODO: confirm exact PX label */} **Settings → API Keys**, or programmatically via `POST /v2/partner/api_keys` (see [Authentication and API keys](#authentication-and-api-keys)).
 - **Development Environment**: Ability to make HTTP REST calls (SDK is optional)
 - **Database**: Storage for client records, organization IDs, and API keys
 
@@ -191,7 +191,7 @@ Before starting, ensure you have:
 
 All requests authenticate with the `x-api-key` header. Requests against a specific organization also send `x-organization-id`. Kintsugi uses header-based API keys, not bearer tokens.
 
-Partner keys come in two scopes:
+Partner-Organization API keys come in two scopes:
 
 | Scope | Created with | Use against | `x-organization-id` |
 | --- | --- | --- | --- |
@@ -202,9 +202,9 @@ Key management (owner/admin role required):
 
 | Operation | Endpoint |
 | --- | --- |
-| Create | [`POST /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/create-partner-api-key) |
-| List | [`GET /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/list-partner-api-keys) |
-| Delete | [`DELETE /v2/partner/api_keys/{api_key_id}`](/reference/partners/partner-management/api-keys/delete-partner-api-key) |
+| Create | [`POST /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/create-partner-organization-api-key) |
+| List | [`GET /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/list-partner-organization-api-keys) |
+| Delete | [`DELETE /v2/partner/api_keys/{api_key_id}`](/reference/partners/partner-management/api-keys/delete-partner-organization-api-key) |
 
 The create response returns `apiKeyId` and `apiKeyToken`; the token is shown once. When operating across multiple partners with a bearer session, select the active partner with the `x-partner-id` header.
 
