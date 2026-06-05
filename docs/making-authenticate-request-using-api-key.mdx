@@ -69,9 +69,9 @@ Where you find your Organization ID depends on your account type:
 - **Partner Experience (Partners)**: Your organization/client context and IDs are available within the Partner Experience. {/* TODO: confirm exact PX label for where the org ID is shown */}
 - **Kintsugi app (direct customers)**: Your Organization ID can be found in the **lower left-hand corner** of the Kintsugi Platform dashboard after you log in. It's displayed as a unique identifier for your organization.
 
-## Partner-Organization API keys
+## Client API keys
 
-Partner-Organization API keys are created with one of two scopes (see [Creating and Managing API Keys](/docs/creating-and-managing-api-keys#key-scopes)):
+Client API keys are created with one of two scopes (see [Creating and Managing API Keys](/docs/creating-and-managing-api-keys#key-scopes)):
 
 - **Partner scope**: call the Partner APIs (`/v2/partner/*`) across your whole portfolio. The portfolio endpoints derive scope from the key; per-organization endpoints still take `x-organization-id`.
 - **Client scope**: call the main organization APIs for a single client. Send `x-organization-id` set to that client organization.

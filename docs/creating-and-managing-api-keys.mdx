@@ -47,7 +47,7 @@ If you access Kintsugi through the **Partner Experience (PX)**, your API keys ar
 
 ### Key scopes
 
-Partner-Organization API keys are issued with one of two scopes, set at creation:
+Client API keys are issued with one of two scopes, set at creation:
 
 | Scope | Created with | Grants access to |
 | --- | --- | --- |
@@ -76,13 +76,13 @@ All keys are validated by the `x-api-key` header; scope is enforced from the key
 
 ### Manage keys via the API
 
-The same operations are available programmatically on the Partner-Organization API (owner/admin only):
+The same operations are available programmatically on the Partner API (owner/admin only):
 
 | Operation | Endpoint |
 | --- | --- |
-| Create a key | [`POST /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/create-partner-organization-api-key) |
-| List your keys | [`GET /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/list-partner-organization-api-keys) |
-| Delete a key | [`DELETE /v2/partner/api_keys/{api_key_id}`](/reference/partners/partner-management/api-keys/delete-partner-organization-api-key) |
+| Create a key | [`POST /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/create-client-api-key) |
+| List your keys | [`GET /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/list-client-api-keys) |
+| Delete a key | [`DELETE /v2/partner/api_keys/{api_key_id}`](/reference/partners/partner-management/api-keys/delete-client-api-key) |
 
 ```bash
 # Partner-scope key (portfolio-wide on the Partner APIs)
