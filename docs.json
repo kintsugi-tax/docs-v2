@@ -426,6 +426,14 @@
                     ]
                   },
                   {
+                    "group": "API Keys",
+                    "pages": [
+                      "reference/partners/partner-management/api-keys/create-partner-api-key",
+                      "reference/partners/partner-management/api-keys/list-partner-api-keys",
+                      "reference/partners/partner-management/api-keys/delete-partner-api-key"
+                    ]
+                  },
+                  {
                     "group": "Users & Assignments",
                     "pages": [
                       "reference/partners/partner-management/users/list-partner-users",
@@ -501,7 +509,8 @@
                       "reference/partners/partner-management/referral/create-partner-for-referral",
                       "reference/partners/partner-management/referral/regenerate-onboarding-url",
                       "reference/partners/partner-management/referral/list-organizations-for-partner",
-                      "reference/partners/partner-management/referral/update-organization-for-referral"
+                      "reference/partners/partner-management/referral/update-organization-for-referral",
+                      "reference/partners/partner-management/referral/rotate-referral-api-key"
                     ]
                   }
                 ]

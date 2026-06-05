@@ -90,7 +90,7 @@ await db.clients.update(clientId, {
 **Purpose**: Generates a secure API key for programmatic access to the newly created organization.
 
 <Note>
-**Programmatic vs. manual key management.** This endpoint is the programmatic path for white-label/STaaS onboarding and is unchanged. For human/manual key management, partners create and manage keys in the **Partner Experience** under {/* TODO: confirm exact PX label */} **Settings → API Keys** — not in the main Kintsugi app (`app.trykintsugi.com`).
+**Which key endpoint to use.** `POST /v1/organizations/api_keys` (this step) mints a key tied to the newly created client organization during programmatic onboarding. To manage partner-owned keys (portfolio-wide or scoped to a client), use the Partner key endpoints instead — [`POST /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/create-partner-api-key), [`GET`](/reference/partners/partner-management/api-keys/list-partner-api-keys), [`DELETE`](/reference/partners/partner-management/api-keys/delete-partner-api-key) — or the Partner Experience UI under {/* TODO: confirm exact PX label */} **Settings → API Keys**. See [Authentication and API keys](/docs/api-guides-partners/overview#authentication-and-api-keys).
 </Note>
 
 **When to Use**:

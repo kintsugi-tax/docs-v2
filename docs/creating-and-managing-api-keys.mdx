@@ -45,26 +45,63 @@ If you access Kintsugi through the **Partner Experience (PX)**, your API keys ar
 **Partner accounts are provisioned automatically.** Partner organizations are managed in PropelAuth as their own organizations, separate from standard (client) organizations. Your partner org is created for you — there's no need to manually create a standalone organization. When a user is added to the Partner Experience, an invite email is sent automatically.
 </Note>
 
-### Manage Keys in the Partner Experience
+### Key scopes
+
+Partner keys are issued with one of two scopes, set at creation:
+
+| Scope | Created with | Grants access to |
+| --- | --- | --- |
+| **Partner** | no `clientOrganizationId` | The Partner APIs (`/v2/partner/*`), portfolio-wide across all client organizations linked to the partner. |
+| **Client** | a `clientOrganizationId` (must be in the partner's portfolio) | The main organization APIs, scoped to that single client organization. Sent with `x-organization-id` set to that client. |
+
+All keys are validated by the `x-api-key` header; scope is enforced from the key's metadata. Creating, listing, and deleting keys requires the partner **owner** or **admin** role.
+
+### Manage keys in the Partner Experience
 
 <Steps>
   <Step>
   Log in to the Partner Experience.
   </Step>
   <Step>
-  Open the {/* TODO: confirm exact PX label */} **Settings** section.
-  </Step>
-  <Step>
-  Select **API Keys** {/* TODO: confirm exact PX submenu wording */} to search, manage, and generate API keys for your organization.
+  Open the {/* TODO: confirm exact PX label */} **Settings** section and select **API Keys** {/* TODO: confirm exact PX submenu wording */}.
   {/* TODO: replace with PX Settings → API Keys screenshot */}
   </Step>
   <Step>
-  Create a new key, choose an expiration period, then copy the key immediately and store it securely — you will not be able to view it again.
+  Create a key. Leave the client organization unset for a portfolio-wide partner key, or select a client organization for a client-scoped key. Optionally set an expiration.
+  </Step>
+  <Step>
+  Copy the key immediately and store it securely — the token is shown only once.
   </Step>
 </Steps>
 
+### Manage keys via the API
+
+The same operations are available programmatically on the Partner API (owner/admin only):
+
+| Operation | Endpoint |
+| --- | --- |
+| Create a key | [`POST /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/create-partner-api-key) |
+| List your keys | [`GET /v2/partner/api_keys`](/reference/partners/partner-management/api-keys/list-partner-api-keys) |
+| Delete a key | [`DELETE /v2/partner/api_keys/{api_key_id}`](/reference/partners/partner-management/api-keys/delete-partner-api-key) |
+
+```bash
+# Partner-scope key (portfolio-wide on the Partner APIs)
+curl -X POST https://api.trykintsugi.com/v2/partner/api_keys \
+     -H "x-api-key: your-partner-api-key" \
+     -H "Content-Type: application/json" \
+     -d '{}'
+
+# Client-scope key (one client organization, used on the main org APIs)
+curl -X POST https://api.trykintsugi.com/v2/partner/api_keys \
+     -H "x-api-key: your-partner-api-key" \
+     -H "Content-Type: application/json" \
+     -d '{"clientOrganizationId": "org_123", "expiresAtSeconds": 1767225600}'
+```
+
+The response returns `apiKeyId` and `apiKeyToken`. The token is returned once and is not retrievable afterward.
+
 <Note>
-**Building white-label / Sales Tax as a Service?** For programmatic onboarding, partners create org-scoped keys for their clients via the API with `POST /v1/organizations/api_keys`. See the [Partner Organization Setup guide](/docs/api-guides-partners/organization-setup). This programmatic flow is unchanged.
+`POST /v1/organizations/api_keys` also remains available for creating org-scoped keys during programmatic client onboarding. See the [Partner Organization Setup guide](/docs/api-guides-partners/organization-setup).
 </Note>
 
 ## Kintsugi app (direct customers)

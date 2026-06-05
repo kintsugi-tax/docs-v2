@@ -828,6 +828,75 @@
         }
       }
     },
+    "/v2/partner/api_keys/{api_key_id}": {
+      "delete": {
+        "tags": [
+          "partner-v2",
+          "partner-v2"
+        ],
+        "summary": "Delete Partner Api Key",
+        "description": "Delete an API key that the caller owns.",
+        "operationId": "delete_partner_api_key_v2_partner_api_keys__api_key_id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "api_key_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Api Key Id"
+            }
+          },
+          {
+            "name": "x-partner-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Partner-Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "404": {
+            "description": "Partner not configured for API keys, or the key does not exist or is not owned by the caller"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
     "/v2/partner/billing-settings/change-requests/{request_id}": {
       "delete": {
         "tags": [
@@ -11842,6 +11911,173 @@
         }
       }
     },
+    "/v2/partner/api_keys": {
+      "get": {
+        "tags": [
+          "partner-v2",
+          "partner-v2"
+        ],
+        "summary": "Get Partner Api Keys",
+        "description": "List the caller's own API keys for this partner.",
+        "operationId": "get_partner_api_keys_v2_partner_api_keys_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "page_number",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Page Number"
+            }
+          },
+          {
+            "name": "x-partner-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Partner-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerApiKeysResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partner not configured for API keys"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "partner-v2",
+          "partner-v2"
+        ],
+        "summary": "Create Partner Api Key",
+        "description": "Create an API key. With clientOrganizationId, the key is scoped to that client organization and works on the main org APIs; the org must be in the partner's portfolio. Without it, a partner-scope key is created that works portfolio-wide on the partner APIs. expiresAtSeconds, if set, must be in the future. Requires admin or owner role.",
+        "operationId": "create_partner_api_key_v2_partner_api_keys_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-partner-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Partner-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerApiKeyCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerApiKeyCreateResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not a partner owner or admin"
+          },
+          "404": {
+            "description": "Partner not configured for API keys, or the client organization is not in the partner's portfolio"
+          },
+          "409": {
+            "description": "Caller already has the maximum number of active keys"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
     "/v2/partner/billing-report/download": {
       "get": {
         "tags": [
@@ -17058,6 +17294,47 @@
             }
           }
         },
+        "x-mint": {
+          "mcp": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "/v2/referral/api_keys/rotate": {
+      "post": {
+        "tags": [
+          "referral-partner"
+        ],
+        "summary": "Rotate Own Key",
+        "description": "Rotate the referral partner's API key. The old key stops working immediately and the new raw key is returned once. Requires an owner or admin role on the referral partner's PropelAuth org.",
+        "operationId": "rotate_own_key_v2_referral_api_keys_rotate_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RotateKeyResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid bearer token"
+          },
+          "403": {
+            "description": "Caller is not a referral partner owner or admin"
+          },
+          "404": {
+            "description": "Referral partner not found"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "x-mint": {
           "mcp": {
             "enabled": true
