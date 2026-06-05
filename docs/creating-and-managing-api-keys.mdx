@@ -26,7 +26,52 @@ API keys are essential for accessing the Kintsugi API programmatically. They pro
   </Card>
 </CardGroup>
 
-## Sign Up or Log In
+Where you create and manage API keys depends on your account type. Use the section that matches you:
+
+<CardGroup cols={2}>
+  <Card title="Partner Experience" icon="handshake" href="#partner-experience-partners">
+    Partners manage keys inside the Partner Experience
+  </Card>
+  <Card title="Kintsugi app (direct customers)" icon="building" href="#kintsugi-app-direct-customers">
+    Direct customers manage keys in the main Kintsugi app
+  </Card>
+</CardGroup>
+
+## Partner Experience (Partners)
+
+If you access Kintsugi through the **Partner Experience (PX)**, your API keys are created and managed inside the Partner Experience itself — you no longer go into the main Kintsugi app (`app.trykintsugi.com`) to mint an organization-specific key.
+
+<Note>
+**Partner accounts are provisioned automatically.** Partner organizations are managed in PropelAuth as their own organizations, separate from standard (client) organizations. Your partner org is created for you — there's no need to manually create a standalone organization. When a user is added to the Partner Experience, an invite email is sent automatically.
+</Note>
+
+### Manage Keys in the Partner Experience
+
+<Steps>
+  <Step>
+  Log in to the Partner Experience.
+  </Step>
+  <Step>
+  Open the {/* TODO: confirm exact PX label */} **Settings** section.
+  </Step>
+  <Step>
+  Select **API Keys** {/* TODO: confirm exact PX submenu wording */} to search, manage, and generate API keys for your organization.
+  {/* TODO: replace with PX Settings → API Keys screenshot */}
+  </Step>
+  <Step>
+  Create a new key, choose an expiration period, then copy the key immediately and store it securely — you will not be able to view it again.
+  </Step>
+</Steps>
+
+<Note>
+**Building white-label / Sales Tax as a Service?** For programmatic onboarding, partners create org-scoped keys for their clients via the API with `POST /v1/organizations/api_keys`. See the [Partner Organization Setup guide](/docs/api-guides-partners/organization-setup). This programmatic flow is unchanged.
+</Note>
+
+## Kintsugi app (direct customers)
+
+If you're a direct/customer account, create and manage your API keys in the main Kintsugi app.
+
+### Sign Up or Log In
 
 <Steps>
   <Step>
@@ -39,7 +84,8 @@ API keys are essential for accessing the Kintsugi API programmatically. They pro
   If you already have an account, click on the **Log In** button and enter your credentials to access the platform.
   </Step>
 </Steps>
-## Navigate to Configuration Section
+
+### Navigate to Configuration Section
 
 <Steps>
    <Step>
@@ -56,7 +102,7 @@ API keys are essential for accessing the Kintsugi API programmatically. They pro
    </Step>
 </Steps>
 
-## Access the API Keys Section
+### Access the API Keys Section
 
 <Steps>
    <Step>
@@ -70,7 +116,7 @@ API keys are essential for accessing the Kintsugi API programmatically. They pro
    </Step>
 </Steps>
 
-## Create a New API Key
+### Create a New API Key
 
 <Steps>
    <Step>
@@ -86,7 +132,8 @@ API keys are essential for accessing the Kintsugi API programmatically. They pro
    Choose the expiration period that suits your needs. For example, if you want the key to be valid for a year, select One year.
    </Step>
 </Steps>
-## Copy and Secure Your API Key
+
+### Copy and Secure Your API Key
 
 1. Copy the API Key Immediately.
 <Steps>
@@ -104,7 +151,7 @@ API keys are essential for accessing the Kintsugi API programmatically. They pro
    </Step>
 </Steps>
 
-## Viewing and Managing Your API Keys
+### Viewing and Managing Your API Keys
 
 <Steps>
    <Step>

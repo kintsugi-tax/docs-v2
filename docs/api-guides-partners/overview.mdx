@@ -182,8 +182,8 @@ Each guide includes:
 
 Before starting, ensure you have:
 
-- **Kintsugi Partner Account**: Access to the Partners API
-- **API Credentials**: Your parent organization's API key and organization ID
+- **Kintsugi Partner Account**: Access to the Partners API. Partner organizations are managed in PropelAuth as their own organizations (separate from standard client orgs) and are provisioned automatically — there's no need to manually create a standalone org, and partner-user invite emails are sent automatically when a user is added to the Partner Experience.
+- **API Credentials**: Your parent organization's API key and organization ID. For human/manual key management, partners use the **Partner Experience** under {/* TODO: confirm exact PX label */} **Settings → API Keys** — not the main Kintsugi app. The programmatic onboarding flow below (`POST /v1/organizations/api_keys`) is unchanged.
 - **Development Environment**: Ability to make HTTP REST calls (SDK is optional)
 - **Database**: Storage for client records, organization IDs, and API keys
 
