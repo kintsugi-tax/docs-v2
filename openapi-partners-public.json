@@ -33334,6 +33334,11 @@
             "title": "Filing Frequency",
             "description": "Filing frequency from the associated registration."
           },
+          "organization_id": {
+            "type": "string",
+            "title": "Organization Id",
+            "description": "Identifier for the organization associated with the filing."
+          },
           "attachments": {
             "anyOf": [
               {
@@ -33376,6 +33381,7 @@
           "country_code",
           "id",
           "registration_id",
+          "organization_id",
           "filing_website_url"
         ],
         "title": "FilingDetailsRead"
