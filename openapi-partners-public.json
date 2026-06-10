@@ -868,8 +868,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -934,8 +936,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -997,8 +1001,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -1058,8 +1064,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -1147,8 +1155,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -1210,8 +1220,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -1271,8 +1283,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -11963,8 +11977,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -12026,8 +12042,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -12130,8 +12148,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -12189,8 +12209,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -12293,8 +12315,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -12354,8 +12378,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -12446,8 +12472,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -12618,8 +12646,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -12823,8 +12853,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13068,8 +13100,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13129,8 +13163,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13194,8 +13230,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13273,8 +13311,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13350,8 +13390,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13427,8 +13469,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13547,8 +13591,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13608,8 +13654,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13669,8 +13717,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13789,8 +13839,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13912,8 +13964,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -13973,8 +14027,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -14171,8 +14227,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -14230,8 +14288,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -14301,8 +14361,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -14382,8 +14444,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -14443,8 +14507,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -14563,8 +14629,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -14622,8 +14690,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -14695,8 +14765,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -14770,8 +14842,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -14833,8 +14907,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -15124,8 +15200,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -16873,8 +16951,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -16944,8 +17024,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -17033,8 +17115,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "responses": {
@@ -17103,8 +17187,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -17187,8 +17273,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -17258,8 +17346,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -17348,7 +17438,7 @@
           "referral-partner"
         ],
         "summary": "Regenerate Onboarding Url",
-        "description": "Generate a fresh onboarding URL for a partner. Invalidates any previously issued link.",
+        "description": "Generate a fresh onboarding URL for a partner. Existing unexpired links remain valid until they expire.",
         "operationId": "regenerate_onboarding_url_v2_referral_partners__partner_id__onboarding_url_post",
         "security": [
           {
@@ -18121,8 +18211,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner.",
               "title": "X-Partner-Id"
-            }
+            },
+            "description": "Target partner. Required for referral partner API keys (selects the owned sub-partner; omitting it returns 400 PARTNER_ID_REQUIRED). For multi-partner bearer users, selects the active partner."
           }
         ],
         "requestBody": {
@@ -18739,6 +18831,27 @@
         },
         "type": "object",
         "title": "Submitted Address"
+      },
+      "AddressSummary": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "by_status": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "By Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "by_status"
+        ],
+        "title": "AddressSummary"
       },
       "AddressType": {
         "type": "string",
@@ -20309,104 +20422,34 @@
         ],
         "title": "AppliedTo"
       },
-      "ApproveRequest": {
+      "ApprovalPreview": {
         "properties": {
-          "customer_id": {
-            "type": "string",
-            "minLength": 1,
-            "title": "Customer Id",
-            "description": "Customer to link the exemption to."
+          "total_eligible": {
+            "type": "integer",
+            "title": "Total Eligible"
           },
-          "jurisdictions": {
+          "addresses": {
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/TransactionAddressRead-Output"
             },
             "type": "array",
-            "minItems": 1,
-            "title": "Jurisdictions",
-            "description": "Jurisdiction codes to create exemptions for (e.g. ['AZ'] or ['AZ', 'NY', 'CA'])."
+            "title": "Addresses"
           },
-          "exemption_type": {
-            "type": "string",
-            "title": "Exemption Type",
-            "description": "Exemption type: 'customer', 'wholesale', or 'transaction'.",
-            "default": "customer"
-          },
-          "start_date": {
-            "type": "string",
-            "minLength": 1,
-            "title": "Start Date",
-            "description": "Exemption start date (YYYY-MM-DD)."
-          },
-          "end_date": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "End Date",
-            "description": "Exemption end date (YYYY-MM-DD). Null if no expiration."
-          },
-          "fein": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Fein",
-            "description": "Federal Employer Identification Number."
-          },
-          "sales_tax_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Sales Tax Id",
-            "description": "State sales tax ID / permit number."
-          },
-          "buyer_business_name": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Buyer Business Name",
-            "description": "Customer-corrected buyer business name from the review drawer."
-          },
-          "seller_business_name": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Seller Business Name",
-            "description": "Customer-corrected seller business name from the review drawer."
+          "breakdown_by_country": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Breakdown By Country"
           }
         },
         "type": "object",
         "required": [
-          "customer_id",
-          "jurisdictions",
-          "start_date"
+          "total_eligible",
+          "addresses",
+          "breakdown_by_country"
         ],
-        "title": "ApproveRequest",
-        "description": "Request body for approving a certificate import.\n\nThe frontend sends the final (possibly user-edited) values, not just\nthe raw OCR output. This ensures user corrections are preserved.\nSupports multi-state certificates via the jurisdictions list."
+        "title": "ApprovalPreview"
       },
       "ApproveResponse": {
         "properties": {
@@ -20431,6 +20474,49 @@
         ],
         "title": "ApproveResponse",
         "description": "Response for a successful certificate approval."
+      },
+      "ApproveResult": {
+        "properties": {
+          "approved_count": {
+            "type": "integer",
+            "title": "Approved Count"
+          },
+          "skipped_count": {
+            "type": "integer",
+            "title": "Skipped Count"
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Errors"
+          }
+        },
+        "type": "object",
+        "required": [
+          "approved_count",
+          "skipped_count",
+          "errors"
+        ],
+        "title": "ApproveResult"
+      },
+      "ArchivalReasonEnum": {
+        "type": "string",
+        "enum": [
+          "billing_pricing",
+          "onboarding_friction",
+          "product_fit",
+          "data_accuracy_trust",
+          "technical_setup_issues",
+          "responsiveness_support",
+          "internal_changes",
+          "timing_readiness",
+          "moved_to_competitor",
+          "no_longer_needed",
+          "other"
+        ],
+        "title": "ArchivalReasonEnum"
       },
       "ArchiveByIdsRequest": {
         "properties": {
@@ -24028,17 +24114,23 @@
             "description": "California Sales and Use Tax ID (seller's permit / CDTFA account number)."
           },
           "cdtfa_third_party_access_security_code": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Cdtfa Third Party Access Security Code",
-            "description": "Third-party access security code from CDTFA Online Services so Kintsugi can file on your behalf."
+            "description": "Optional at import; customers add this in registration credentials after CDTFA issues it. Third-party access security code from CDTFA Online Services so Kintsugi can file on your behalf."
           }
         },
         "type": "object",
         "required": [
           "registration_type",
           "business_name",
-          "sales_tax_id",
-          "cdtfa_third_party_access_security_code"
+          "sales_tax_id"
         ],
         "title": "CaliforniaFields",
         "description": "State-specific fields for California CDTFA portal registration import."
@@ -32719,6 +32811,17 @@
         "title": "FilingArtifactTypeEnum",
         "description": "Confirmation document slots on a filed filing (return vs payment)."
       },
+      "FilingCategoryEnum": {
+        "type": "string",
+        "enum": [
+          "REGULAR",
+          "PREPAYMENT",
+          "AMENDMENT",
+          "BACK_FILING"
+        ],
+        "title": "FilingCategoryEnum",
+        "description": "Reference values for filing categories. Database stores as VARCHAR for flexibility.\n\nCategories of filings that can coexist with overlapping periods.\nNew categories can be added without requiring code changes."
+      },
       "FilingConfirmationRequest": {
         "properties": {
           "payment_confirmation_id": {
@@ -33447,12 +33550,16 @@
           "status": {
             "$ref": "#/components/schemas/FilingStatusEnum",
             "default": "UNFILED"
+          },
+          "filing_category": {
+            "$ref": "#/components/schemas/FilingCategoryEnum"
           }
         },
         "type": "object",
         "required": [
           "start_date",
-          "end_date"
+          "end_date",
+          "filing_category"
         ],
         "title": "FilingPeriod"
       },
@@ -35848,6 +35955,39 @@
               }
             ],
             "title": "Ingest Submit Mode"
+          },
+          "ingest_skip_manifest_s3_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ingest Skip Manifest S3 Key"
+          },
+          "content_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Hash"
+          },
+          "validated_rows_s3_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Validated Rows S3 Key"
           }
         },
         "type": "object",
@@ -36537,6 +36677,8 @@
         "type": "string",
         "enum": [
           "NEW",
+          "SUBMITTED",
+          "VIRUS_SCAN_FAILED",
           "VALIDATION_SUBMIT",
           "VALIDATING",
           "VALIDATION_SUCCESS",
@@ -36548,140 +36690,47 @@
         ],
         "title": "ImportStatusEnum"
       },
-      "ImportV2DetailResponse": {
+      "IngestImportV2Request": {
         "properties": {
-          "id": {
+          "submit_mode": {
             "type": "string",
-            "title": "Id"
+            "enum": [
+              "ALL",
+              "VALID_ONLY"
+            ],
+            "title": "Submit Mode"
           },
-          "user_id": {
+          "idempotency_key": {
             "type": "string",
-            "title": "User Id"
-          },
-          "organization_id": {
-            "type": "string",
-            "title": "Organization Id"
-          },
-          "source": {
-            "$ref": "#/components/schemas/SourceEnum"
-          },
-          "parent_file_name": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Parent File Name"
-          },
-          "parent_file_s3_location": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Parent File S3 Location"
-          },
-          "num_rows_total": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Num Rows Total"
-          },
-          "num_transactions_imported": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Num Transactions Imported"
-          },
-          "num_transactions_skipped": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Num Transactions Skipped"
-          },
-          "split_into": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Split Into"
-          },
-          "status": {
-            "$ref": "#/components/schemas/ImportStatusEnum"
-          },
-          "error_data": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Error Data"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At"
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Idempotency Key"
           }
         },
         "type": "object",
         "required": [
-          "id",
-          "user_id",
-          "organization_id",
-          "source",
-          "parent_file_name",
-          "parent_file_s3_location",
-          "num_rows_total",
-          "num_transactions_imported",
-          "num_transactions_skipped",
-          "split_into",
-          "status",
-          "error_data",
-          "created_at",
-          "updated_at"
+          "submit_mode",
+          "idempotency_key"
         ],
-        "title": "ImportV2DetailResponse",
-        "description": "Subset of ``Import`` for FE status polling (progress + metadata)."
+        "title": "IngestImportV2Request"
+      },
+      "IngestImportV2Response": {
+        "properties": {
+          "import_id": {
+            "type": "string",
+            "title": "Import Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "import_id",
+          "status"
+        ],
+        "title": "IngestImportV2Response"
       },
       "InitialImportStatus": {
         "properties": {
@@ -36695,6 +36744,77 @@
           "initial_import_complete_status"
         ],
         "title": "InitialImportStatus"
+      },
+      "InitiateImportV2Request": {
+        "properties": {
+          "file_name": {
+            "type": "string",
+            "title": "File Name"
+          },
+          "size": {
+            "type": "integer",
+            "maximum": 500000000.0,
+            "minimum": 0.0,
+            "title": "Size"
+          },
+          "content_type": {
+            "type": "string",
+            "title": "Content Type",
+            "default": "text/csv"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceEnum"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file_name",
+          "size",
+          "source",
+          "user_id"
+        ],
+        "title": "InitiateImportV2Request",
+        "description": "Body for ``POST /v2/import/initiate`` (presigned S3 PUT flow)."
+      },
+      "InitiateImportV2Response": {
+        "properties": {
+          "import_id": {
+            "type": "string",
+            "title": "Import Id"
+          },
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires At"
+          },
+          "upload_mode": {
+            "type": "string",
+            "const": "presigned_s3_put",
+            "title": "Upload Mode",
+            "default": "presigned_s3_put"
+          },
+          "upload_url": {
+            "type": "string",
+            "title": "Upload Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "import_id",
+          "key",
+          "expires_at",
+          "upload_url"
+        ],
+        "title": "InitiateImportV2Response",
+        "description": "Response for ``POST /v2/import/initiate``."
       },
       "InviteResponse": {
         "properties": {
@@ -39753,7 +39873,8 @@
         "properties": {
           "token": {
             "type": "string",
-            "maxLength": 255,
+            "maxLength": 43,
+            "minLength": 43,
             "title": "Token"
           },
           "email": {
@@ -39840,7 +39961,8 @@
         "properties": {
           "token": {
             "type": "string",
-            "maxLength": 255,
+            "maxLength": 43,
+            "minLength": 43,
             "title": "Token"
           }
         },
@@ -41819,6 +41941,35 @@
         },
         "type": "object",
         "title": "OrganizationAdminUpdate"
+      },
+      "OrganizationArchiveRequest": {
+        "properties": {
+          "organization_name": {
+            "type": "string",
+            "title": "Organization Name"
+          },
+          "archival_reason": {
+            "$ref": "#/components/schemas/ArchivalReasonEnum"
+          },
+          "archival_reason_notes": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archival Reason Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "organization_name",
+          "archival_reason"
+        ],
+        "title": "OrganizationArchiveRequest"
       },
       "OrganizationBillingDetails": {
         "properties": {
@@ -46658,6 +46809,51 @@
             "description": "This organization is used for internal testing purposes only",
             "default": false
           },
+          "archival_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archival Reason"
+          },
+          "archival_reason_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archival Reason Notes"
+          },
+          "archival_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archival By"
+          },
+          "archival_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archival At"
+          },
           "id": {
             "type": "string",
             "title": "Id"
@@ -46786,6 +46982,51 @@
             "title": "Internal Use",
             "description": "This organization is used for internal testing purposes only",
             "default": false
+          },
+          "archival_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archival Reason"
+          },
+          "archival_reason_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archival Reason Notes"
+          },
+          "archival_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archival By"
+          },
+          "archival_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archival At"
           },
           "id": {
             "type": "string",
@@ -48792,6 +49033,46 @@
         ],
         "title": "Page[PartnerRegistration]"
       },
+      "Page_PartnerTransaction_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PartnerTransaction"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Size"
+          },
+          "pages": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "page",
+          "size",
+          "pages"
+        ],
+        "title": "Page[PartnerTransaction]"
+      },
       "Page_Partner_": {
         "properties": {
           "items": {
@@ -49231,6 +49512,29 @@
           "pages"
         ],
         "title": "Page[TransactionRead]"
+      },
+      "ParseAddressRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "country_hint": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CountryCodeEnum"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "ParseAddressRequest"
       },
       "Partner": {
         "properties": {
@@ -50848,6 +51152,241 @@
         "type": "object",
         "title": "PartnerTaskUpdate",
         "description": "Task update model for partner_tasks."
+      },
+      "PartnerTransaction": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "organizationId": {
+            "type": "string",
+            "title": "Organizationid"
+          },
+          "organizationName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organizationname"
+          },
+          "externalId": {
+            "type": "string",
+            "title": "Externalid"
+          },
+          "externalFriendlyId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Externalfriendlyid"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "customerName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Customername"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State"
+          },
+          "country": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country"
+          },
+          "totalAmount": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Totalamount"
+          },
+          "totalTaxAmountImported": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Totaltaxamountimported"
+          },
+          "totalTaxLiabilityAmount": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Totaltaxliabilityamount"
+          },
+          "totalTaxAmountCalculated": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Totaltaxamountcalculated"
+          },
+          "addressStatus": {
+            "type": "string",
+            "title": "Addressstatus"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "storeName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Storename"
+          },
+          "connectionId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Connectionid"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "exempt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exempt"
+          },
+          "marketplace": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Marketplace"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Locked"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "convertedTotalAmount": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Convertedtotalamount"
+          },
+          "destinationCurrency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Destinationcurrency"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Createdat"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updatedat"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "organizationId",
+          "externalId",
+          "date",
+          "type",
+          "status",
+          "totalAmount",
+          "totalTaxAmountImported",
+          "totalTaxLiabilityAmount",
+          "totalTaxAmountCalculated",
+          "addressStatus",
+          "source",
+          "locked",
+          "createdAt",
+          "updatedAt"
+        ],
+        "title": "PartnerTransaction",
+        "description": "Transaction as seen from the partner cross-org transactions view."
       },
       "PartnerUserAssignmentCreate": {
         "properties": {
@@ -55780,7 +56319,8 @@
           "filing_days",
           "registration_type"
         ],
-        "title": "RegistrationReadWithPassword"
+        "title": "RegistrationReadWithPassword",
+        "description": "Partner-facing read model.\n\n``_reveal_cdtfa_jsf`` is set only for US\u2013California when the service applies\n``?reveal=cdtfa_third_party_access_security_code``, so JSON serialization keeps plaintext\nfor that jurisdiction only."
       },
       "RegistrationStatusEnum": {
         "type": "string",
@@ -62183,6 +62723,139 @@
         "title": "TransactionExemptStatusEnum",
         "description": "Based on transaction item exempt status.\nNOT EXEMPT: None of the items are NOT EXEMPT\nPARTIALLY EXEMPT: At least some of the items are NOT EXEMPT\nFULLY_EXEMPT: All items sold in the transaction are EXEMPT\nZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated"
       },
+      "TransactionFilterParams": {
+        "properties": {
+          "client_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          },
+          "search_query": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Search Query"
+          },
+          "status__in": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status  In"
+          },
+          "transaction_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transaction Type"
+          },
+          "transaction_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transaction Source"
+          },
+          "date__gte": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date  Gte",
+            "description": "Filter transactions on or after this date (YYYY-MM-DD). Defaults to 12 months ago when neither date__gte nor date__lte is provided."
+          },
+          "date__lte": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date  Lte",
+            "description": "Filter transactions on or before this date (YYYY-MM-DD)."
+          },
+          "state_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State Code"
+          },
+          "country": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country"
+          },
+          "address_status__in": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address Status  In"
+          },
+          "connection_id__in": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Connection Id  In"
+          }
+        },
+        "type": "object",
+        "title": "TransactionFilterParams",
+        "description": "Shared query parameters for the partner transactions list and summary endpoints."
+      },
       "TransactionImportCustomer": {
         "properties": {
           "phone": {
@@ -65462,6 +66135,48 @@
         ],
         "title": "TransactionUpdate"
       },
+      "TransactionsSummary": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "totalSales": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Totalsales"
+          },
+          "taxableSales": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Taxablesales"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "incompleteAddressCount": {
+            "type": "integer",
+            "title": "Incompleteaddresscount"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "totalSales",
+          "taxableSales",
+          "incompleteAddressCount"
+        ],
+        "title": "TransactionsSummary",
+        "description": "Aggregated transaction counts for the partner transactions view."
+      },
       "TreatmentEnum": {
         "type": "string",
         "enum": [
@@ -67866,6 +68581,56 @@
         ],
         "title": "Address"
       },
+      "backend__src__addresses__models__ApproveRequest": {
+        "properties": {
+          "address_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address Ids"
+          },
+          "filters": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filters"
+          },
+          "status__in": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Status  In",
+            "default": [
+              "INVALID",
+              "BLANK"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 500.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 500
+          }
+        },
+        "type": "object",
+        "title": "ApproveRequest"
+      },
       "backend__src__billing__models__Address": {
         "properties": {
           "first_name": {
@@ -68134,6 +68899,105 @@
           "metered"
         ],
         "title": "LineItem"
+      },
+      "backend__src__certificate_imports__schemas__api__ApproveRequest": {
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Customer Id",
+            "description": "Customer to link the exemption to."
+          },
+          "jurisdictions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Jurisdictions",
+            "description": "Jurisdiction codes to create exemptions for (e.g. ['AZ'] or ['AZ', 'NY', 'CA'])."
+          },
+          "exemption_type": {
+            "type": "string",
+            "title": "Exemption Type",
+            "description": "Exemption type: 'customer', 'wholesale', or 'transaction'.",
+            "default": "customer"
+          },
+          "start_date": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Start Date",
+            "description": "Exemption start date (YYYY-MM-DD)."
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date",
+            "description": "Exemption end date (YYYY-MM-DD). Null if no expiration."
+          },
+          "fein": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fein",
+            "description": "Federal Employer Identification Number."
+          },
+          "sales_tax_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sales Tax Id",
+            "description": "State sales tax ID / permit number."
+          },
+          "buyer_business_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Buyer Business Name",
+            "description": "Customer-corrected buyer business name from the review drawer."
+          },
+          "seller_business_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seller Business Name",
+            "description": "Customer-corrected seller business name from the review drawer."
+          }
+        },
+        "type": "object",
+        "required": [
+          "customer_id",
+          "jurisdictions",
+          "start_date"
+        ],
+        "title": "ApproveRequest",
+        "description": "Request body for approving a certificate import.\n\nThe frontend sends the final (possibly user-edited) values, not just\nthe raw OCR output. This ensures user corrections are preserved.\nSupports multi-state certificates via the jurisdictions list."
       },
       "backend__src__chargebee_adapter__models__invoice__ChargebeeCustomer": {
         "properties": {
