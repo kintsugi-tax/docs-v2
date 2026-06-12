@@ -1189,7 +1189,7 @@
           "partner-v2"
         ],
         "summary": "Delete Partner User",
-        "description": "Deactivate a user from the partner team. Requires OWNER or ADMIN role.",
+        "description": "Deactivate a user from the partner team. {partner_user_id} is the user id for active members or the invitee email for pending invites (the row id from GET /partner/users). A target that is not a current member or pending invite returns 404; a transient outage returns 503. Requires OWNER or ADMIN role.",
         "operationId": "delete_partner_user_v2_partner_users__partner_user_id__delete",
         "security": [
           {
@@ -1252,7 +1252,7 @@
           "partner-v2"
         ],
         "summary": "Update Partner User",
-        "description": "Update a partner user's role or status. Requires OWNER or ADMIN role.",
+        "description": "Update a partner user's role or status. {partner_user_id} is the user id for active members or the invitee email for pending invites (the row id from GET /partner/users). A target that is not a current member or pending invite returns 404; a transient outage returns 503. Requires OWNER or ADMIN role.",
         "operationId": "update_partner_user_v2_partner_users__partner_user_id__patch",
         "security": [
           {
@@ -8533,6 +8533,9 @@
                     "$ref": "#/components/schemas/IdahoRegistrationPayload"
                   },
                   {
+                    "$ref": "#/components/schemas/IndianaRegistrationPayload"
+                  },
+                  {
                     "$ref": "#/components/schemas/RegistrationCreatePayload"
                   },
                   {
@@ -12593,17 +12596,17 @@
               "anyOf": [
                 {
                   "type": "string",
-                  "maxLength": 50,
-                  "pattern": "^(me|partu_[a-zA-Z0-9]+)$"
+                  "maxLength": 100,
+                  "pattern": "^(me|[A-Za-z0-9_-]+)$"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "description": "Scope results to a specific team member's assigned orgs. Use \"me\" to filter to the caller's own assignments, or pass a partner_user ID (e.g. partu_\u2026). Ignored for MEMBER-role users who are always scoped to their own assignments. Fail-closed: if the target ID is unknown, belongs to a different partner, or is not ACTIVE, the response will contain zeroed/empty data (not a 4xx error).",
+              "description": "Scope results to a specific team member's assigned orgs. Use \"me\" to filter to the caller's own assignments, or pass a user id (the row id from GET /partner/users). Ignored for MEMBER-role users who are always scoped to their own assignments. Fail-closed: if the target is not an ACTIVE member of this partner's org, the response will contain zeroed/empty data (not a 4xx error).",
               "title": "Filter User Id"
             },
-            "description": "Scope results to a specific team member's assigned orgs. Use \"me\" to filter to the caller's own assignments, or pass a partner_user ID (e.g. partu_\u2026). Ignored for MEMBER-role users who are always scoped to their own assignments. Fail-closed: if the target ID is unknown, belongs to a different partner, or is not ACTIVE, the response will contain zeroed/empty data (not a 4xx error)."
+            "description": "Scope results to a specific team member's assigned orgs. Use \"me\" to filter to the caller's own assignments, or pass a user id (the row id from GET /partner/users). Ignored for MEMBER-role users who are always scoped to their own assignments. Fail-closed: if the target is not an ACTIVE member of this partner's org, the response will contain zeroed/empty data (not a 4xx error)."
           },
           {
             "name": "page",
@@ -14418,17 +14421,17 @@
               "anyOf": [
                 {
                   "type": "string",
-                  "maxLength": 50,
-                  "pattern": "^(me|partu_[a-zA-Z0-9]+)$"
+                  "maxLength": 100,
+                  "pattern": "^(me|[A-Za-z0-9_-]+)$"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "description": "Scope results to a specific team member's assigned orgs. Use \"me\" to filter to the caller's own assignments, or pass a partner_user ID (e.g. partu_\u2026). Ignored for MEMBER-role users who are always scoped to their own assignments. Fail-closed: if the target ID is unknown, belongs to a different partner, or is not ACTIVE, the response will contain zeroed/empty data (not a 4xx error).",
+              "description": "Scope results to a specific team member's assigned orgs. Use \"me\" to filter to the caller's own assignments, or pass a user id (the row id from GET /partner/users). Ignored for MEMBER-role users who are always scoped to their own assignments. Fail-closed: if the target is not an ACTIVE member of this partner's org, the response will contain zeroed/empty data (not a 4xx error).",
               "title": "Filter User Id"
             },
-            "description": "Scope results to a specific team member's assigned orgs. Use \"me\" to filter to the caller's own assignments, or pass a partner_user ID (e.g. partu_\u2026). Ignored for MEMBER-role users who are always scoped to their own assignments. Fail-closed: if the target ID is unknown, belongs to a different partner, or is not ACTIVE, the response will contain zeroed/empty data (not a 4xx error)."
+            "description": "Scope results to a specific team member's assigned orgs. Use \"me\" to filter to the caller's own assignments, or pass a user id (the row id from GET /partner/users). Ignored for MEMBER-role users who are always scoped to their own assignments. Fail-closed: if the target is not an ACTIVE member of this partner's org, the response will contain zeroed/empty data (not a 4xx error)."
           },
           {
             "name": "x-partner-id",
@@ -30923,9 +30926,13 @@
             "type": "integer",
             "title": "Registrations To Finish"
           },
-          "filings_to_approve": {
+          "current_filings_to_approve": {
             "type": "integer",
-            "title": "Filings To Approve"
+            "title": "Current Filings To Approve"
+          },
+          "backfilings_to_approve": {
+            "type": "integer",
+            "title": "Backfilings To Approve"
           },
           "pending_product": {
             "type": "integer",
@@ -30961,7 +30968,8 @@
           "registrations_regime_to_change",
           "registrations_regime_to_acknowledge",
           "registrations_to_finish",
-          "filings_to_approve",
+          "current_filings_to_approve",
+          "backfilings_to_approve",
           "pending_product",
           "invalid_addresses",
           "blank_addresses",
@@ -31840,6 +31848,13 @@
           "NETSUITE",
           "QUICKBOOKS",
           "SAGE_INTACCT",
+          "SHOPIFY",
+          "XERO",
+          "STRIPE",
+          "BIGCOMMERCE",
+          "MAGENTO",
+          "MAXIO",
+          "CHARGEBEE",
           "MANUAL",
           "BULK_UPLOAD",
           "EMAIL",
@@ -36690,6 +36705,368 @@
         ],
         "title": "ImportStatusEnum"
       },
+      "IndianaFields": {
+        "properties": {
+          "mfa_completed": {
+            "type": "boolean",
+            "title": "Mfa Completed",
+            "description": "Whether the customer has completed MFA setup using the Kintsugi virtual mail group ID on their Indiana DOR INTIME account.",
+            "default": false
+          },
+          "registration_type": {
+            "type": "string",
+            "const": "SALES_TAX",
+            "title": "Registration Type",
+            "description": "Registration type for this Indiana import: sales tax (INTIME)."
+          },
+          "business_name": {
+            "type": "string",
+            "title": "Business Name",
+            "description": "State-registered business name as shown in INTIME."
+          },
+          "in_state_tax_id": {
+            "type": "string",
+            "title": "In State Tax Id",
+            "description": "Indiana state-issued tax identification number (State Tax ID)."
+          },
+          "location_id": {
+            "type": "string",
+            "title": "Location Id",
+            "description": "Location ID for this registration in INTIME."
+          },
+          "sales_tax_account_number": {
+            "type": "string",
+            "title": "Sales Tax Account Number",
+            "description": "Indiana sales tax account number: prefix RST- followed by the 10-digit number assigned by the state."
+          },
+          "third_party_access_enabled": {
+            "type": "boolean",
+            "title": "Third Party Access Enabled",
+            "description": "Whether third-party access has been granted to Kintsugi in INTIME.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "registration_type",
+          "business_name",
+          "in_state_tax_id",
+          "location_id",
+          "sales_tax_account_number"
+        ],
+        "title": "IndianaFields",
+        "description": "State-specific fields for Indiana INTIME portal registration import."
+      },
+      "IndianaRegistrationPayload": {
+        "properties": {
+          "registration_import_type": {
+            "type": "string",
+            "const": "REGULAR",
+            "title": "Registration Import Type",
+            "description": "Specifies this is a regular jurisdiction registration import.",
+            "default": "REGULAR"
+          },
+          "registration_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Date",
+            "description": "The date when the registration was created. Format: YYYY-MM-DD."
+          },
+          "registration_email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Email",
+            "description": "Email address associated with the registration."
+          },
+          "registration_requested": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Requested",
+            "description": "Timestamp when the registration was requested."
+          },
+          "registration_completed": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Completed",
+            "description": "Timestamp when the registration was completed."
+          },
+          "deregistration_requested": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deregistration Requested",
+            "description": "Timestamp when deregistration was requested."
+          },
+          "deregistration_completed": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deregistration Completed",
+            "description": "Timestamp when the deregistration was completed."
+          },
+          "auto_registered": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Registered",
+            "description": "Indicates whether the registration was completed automatically.",
+            "default": false
+          },
+          "do_not_file": {
+            "type": "boolean",
+            "title": "Do Not File",
+            "description": "If true, do not file for this registration (treated as False by default).",
+            "default": false
+          },
+          "registrations_regime": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RegistrationsRegimeEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The tax registration regime (e.g., STANDARD, SIMPLIFIED)."
+          },
+          "change_regime_status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ChangeRegimeStatusEnum"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "country_code": {
+            "$ref": "#/components/schemas/CountryCodeEnum",
+            "description": "The country code (ISO 3166-1 alpha-2 format) where the registration applies."
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code",
+            "description": "The state/province code where the registration applies."
+          },
+          "state_name": {
+            "type": "string",
+            "title": "State Name",
+            "description": "The name of the state/province."
+          },
+          "filing_frequency": {
+            "$ref": "#/components/schemas/FilingFrequencyEnum",
+            "description": "Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN."
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username",
+            "description": "Username for accessing tax registration details."
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment",
+            "description": "Additional comments related to the registration."
+          },
+          "create_filings_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Create Filings From",
+            "description": "The date from which filings should be created. should start (YYYY-MM-DD)."
+          },
+          "initial_sync": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Initial Sync",
+            "description": "Indicates whether an initial synchronization should be performed.",
+            "default": false
+          },
+          "amount_fees": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,18}|(?=[\\d.]{1,21}0*$)\\d{0,18}\\.\\d{0,2}0*$)"
+              }
+            ],
+            "title": "Amount Fees",
+            "description": "The amount of fees associated with the registration.",
+            "default": "0.00"
+          },
+          "vda": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vda",
+            "description": "Indicates whether a Voluntary Disclosure Agreement (VDA) applies.",
+            "default": false
+          },
+          "imported": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imported",
+            "description": "Whether the registration was imported from another system."
+          },
+          "sales_tax_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sales Tax Id",
+            "description": "The sales tax ID associated with the registration."
+          },
+          "sst_import": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sst Import",
+            "description": "Indicates whether the registration is an SST Import.",
+            "default": false
+          },
+          "tax_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tax Id",
+            "description": "Organization-level tax ID (e.g., VAT number, Canada Business Number)."
+          },
+          "password_plain_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password Plain Text",
+            "description": "The plaintext password for accessing the tax registration account."
+          },
+          "password_metadata_plain_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password Metadata Plain Text",
+            "description": "Metadata related to the password."
+          },
+          "jurisdiction_specific_fields": {
+            "$ref": "#/components/schemas/IndianaFields",
+            "description": "Indiana-specific registration fields (INTIME)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "country_code",
+          "state_code",
+          "state_name",
+          "filing_frequency",
+          "jurisdiction_specific_fields"
+        ],
+        "title": "IndianaRegistrationPayload",
+        "description": "Full payload for Indiana registration import."
+      },
       "IngestImportV2Request": {
         "properties": {
           "submit_mode": {
@@ -37965,6 +38342,36 @@
           "chip_state"
         ],
         "title": "JurisdictionWithChipState"
+      },
+      "LastInvoiceSummary": {
+        "properties": {
+          "amount": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount",
+            "description": "Last invoice total in cents"
+          },
+          "paid_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Paid At",
+            "description": "Unix timestamp when the last invoice was paid"
+          }
+        },
+        "type": "object",
+        "title": "LastInvoiceSummary"
       },
       "LineTaxData": {
         "properties": {
@@ -50052,6 +50459,11 @@
             "title": "Currencycode",
             "description": "ISO 4217 currency code, e.g. USD, EUR"
           },
+          "enableNewAutoFilingExperience": {
+            "type": "boolean",
+            "title": "Enablenewautofilingexperience",
+            "default": false
+          },
           "countryDisplay": {
             "anyOf": [
               {
@@ -50274,10 +50686,6 @@
             ],
             "title": "Name"
           },
-          "userCount": {
-            "type": "integer",
-            "title": "Usercount"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -50287,7 +50695,6 @@
         "type": "object",
         "required": [
           "id",
-          "userCount",
           "createdAt"
         ],
         "title": "PartnerListItem"
@@ -62850,6 +63257,20 @@
               }
             ],
             "title": "Connection Id  In"
+          },
+          "filter_user_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100,
+                "pattern": "^(me|[A-Za-z0-9_-]+)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filter User Id",
+            "description": "Scope results to a specific team member's assigned orgs. Use \"me\" to filter to the caller's own assignments, or pass a user id (the row id from GET /partner/users). Ignored for MEMBER-role users who are always scoped to their own assignments. Fail-closed: if the target is not an ACTIVE member of this partner's org, the response will contain zeroed/empty data (not a 4xx error)."
           }
         },
         "type": "object",
@@ -66205,6 +66626,92 @@
           "is_test"
         ],
         "title": "UiOrganizationCreate"
+      },
+      "UnbilledAction": {
+        "properties": {
+          "action_type": {
+            "$ref": "#/components/schemas/UnbilledActionTypeEnum"
+          },
+          "country": {
+            "type": "string",
+            "title": "Country"
+          },
+          "jurisdiction": {
+            "type": "string",
+            "title": "Jurisdiction"
+          },
+          "completed": {
+            "type": "string",
+            "format": "date",
+            "title": "Completed"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "Pending Invoice"
+          }
+        },
+        "type": "object",
+        "required": [
+          "action_type",
+          "country",
+          "jurisdiction",
+          "completed"
+        ],
+        "title": "UnbilledAction"
+      },
+      "UnbilledActionTypeEnum": {
+        "type": "string",
+        "enum": [
+          "Filing",
+          "Registration",
+          "Deregistration"
+        ],
+        "title": "UnbilledActionTypeEnum"
+      },
+      "UnbilledActionsResponse": {
+        "properties": {
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/UnbilledAction"
+            },
+            "type": "array",
+            "title": "Actions"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count",
+            "description": "Total number of unbilled actions"
+          },
+          "next_billing_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Billing At",
+            "description": "Unix timestamp of the next billing date from Chargebee"
+          },
+          "last_invoice": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LastInvoiceSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "actions",
+          "count"
+        ],
+        "title": "UnbilledActionsResponse"
       },
       "UpdateExistingItem": {
         "properties": {
