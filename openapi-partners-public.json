@@ -33069,6 +33069,80 @@
         "title": "FilingDeletableAdminRead",
         "description": "Admin: one filing row suitable for a deletable-filings picker."
       },
+      "FilingDeletionEligibleAdminPageRead": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/FilingDeletableAdminRead"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "pages": {
+            "type": "integer",
+            "title": "Pages"
+          },
+          "distinct_country_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Distinct Country Codes",
+            "description": "ISO country codes present in the full deletion-eligible set (ignores country filter)."
+          },
+          "distinct_jurisdictions": {
+            "items": {
+              "$ref": "#/components/schemas/FilingDeletionEligibleJurisdictionRead"
+            },
+            "type": "array",
+            "title": "Distinct Jurisdictions",
+            "description": "Distinct (country_code, state_code) pairs in the full deletion-eligible set (ignores country and state filters)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "page",
+          "size",
+          "pages"
+        ],
+        "title": "FilingDeletionEligibleAdminPageRead",
+        "description": "Paginated admin deletion-eligible filings with distinct country codes for UI filters."
+      },
+      "FilingDeletionEligibleJurisdictionRead": {
+        "properties": {
+          "country_code": {
+            "type": "string",
+            "title": "Country Code",
+            "description": "ISO 3166-1 alpha-2 country code."
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code",
+            "description": "State or region code on the filing row (may be empty for country-level rows)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "country_code",
+          "state_code"
+        ],
+        "title": "FilingDeletionEligibleJurisdictionRead",
+        "description": "One distinct (country, state) pair among deletion-eligible filings for admin filters."
+      },
       "FilingDetailsRead": {
         "properties": {
           "status": {
@@ -48800,46 +48874,6 @@
         ],
         "title": "Page[CustomerRead]"
       },
-      "Page_FilingDeletableAdminRead_": {
-        "properties": {
-          "items": {
-            "items": {
-              "$ref": "#/components/schemas/FilingDeletableAdminRead"
-            },
-            "type": "array",
-            "title": "Items"
-          },
-          "total": {
-            "type": "integer",
-            "minimum": 0.0,
-            "title": "Total"
-          },
-          "page": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Page"
-          },
-          "size": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Size"
-          },
-          "pages": {
-            "type": "integer",
-            "minimum": 0.0,
-            "title": "Pages"
-          }
-        },
-        "type": "object",
-        "required": [
-          "items",
-          "total",
-          "page",
-          "size",
-          "pages"
-        ],
-        "title": "Page[FilingDeletableAdminRead]"
-      },
       "Page_FilingRead_": {
         "properties": {
           "items": {
@@ -49679,46 +49713,6 @@
           "pages"
         ],
         "title": "Page[ReferralPartnerResponse]"
-      },
-      "Page_RegistrationDeletionEligibleRead_": {
-        "properties": {
-          "items": {
-            "items": {
-              "$ref": "#/components/schemas/RegistrationDeletionEligibleRead"
-            },
-            "type": "array",
-            "title": "Items"
-          },
-          "total": {
-            "type": "integer",
-            "minimum": 0.0,
-            "title": "Total"
-          },
-          "page": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Page"
-          },
-          "size": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Size"
-          },
-          "pages": {
-            "type": "integer",
-            "minimum": 0.0,
-            "title": "Pages"
-          }
-        },
-        "type": "object",
-        "required": [
-          "items",
-          "total",
-          "page",
-          "size",
-          "pages"
-        ],
-        "title": "Page[RegistrationDeletionEligibleRead]"
       },
       "Page_RegistrationReadWithPassword_": {
         "properties": {
@@ -50581,6 +50575,31 @@
           "status"
         ],
         "title": "PartnerFilingGenerateResponse"
+      },
+      "PartnerFilingPauseRequest": {
+        "properties": {
+          "pausedUntilDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Pauseduntildate"
+          },
+          "pauseReason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pausereason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pausedUntilDate"
+        ],
+        "title": "PartnerFilingPauseRequest"
       },
       "PartnerHealthStatsSerializer": {
         "properties": {
@@ -52837,89 +52856,6 @@
         "title": "ProcessingStatusEnum",
         "description": "Our transaction state, used to determine when/if a transaction needs additional\nprocessing."
       },
-      "ProductCatCreateUpdate": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Name"
-          },
-          "description": {
-            "type": "string",
-            "title": "Description"
-          },
-          "product_category": {
-            "$ref": "#/components/schemas/ProductCategoryEnum"
-          },
-          "product_subcategory": {
-            "$ref": "#/components/schemas/ProductSubCategoryEnum"
-          },
-          "product_code": {
-            "$ref": "#/components/schemas/ProductCodeEnum"
-          },
-          "product_example": {
-            "type": "string",
-            "title": "Product Example"
-          }
-        },
-        "type": "object",
-        "required": [
-          "name",
-          "description",
-          "product_category",
-          "product_subcategory",
-          "product_code",
-          "product_example"
-        ],
-        "title": "ProductCatCreateUpdate"
-      },
-      "ProductCatRead": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At"
-          },
-          "name": {
-            "type": "string",
-            "title": "Name"
-          },
-          "description": {
-            "type": "string",
-            "title": "Description"
-          },
-          "product_category": {
-            "$ref": "#/components/schemas/ProductCategoryEnum"
-          },
-          "product_subcategory": {
-            "$ref": "#/components/schemas/ProductSubCategoryEnum"
-          },
-          "product_code": {
-            "$ref": "#/components/schemas/ProductCodeEnum"
-          },
-          "product_example": {
-            "type": "string",
-            "title": "Product Example"
-          }
-        },
-        "type": "object",
-        "title": "ProductCatRead"
-      },
       "ProductCategories": {
         "properties": {
           "name": {
@@ -52953,74 +52889,6 @@
           "MISCELLANEOUS"
         ],
         "title": "ProductCategoryEnum"
-      },
-      "ProductCodeEnum": {
-        "type": "string",
-        "enum": [
-          "CODE_0000",
-          "CODE_1001",
-          "CODE_1002",
-          "CODE_1003",
-          "CODE_1004",
-          "CODE_1005",
-          "CODE_1006",
-          "CODE_1007",
-          "CODE_1008",
-          "CODE_1009",
-          "CODE_2001",
-          "CODE_2002",
-          "CODE_2003",
-          "CODE_2004",
-          "CODE_2005",
-          "CODE_2006",
-          "CODE_2007",
-          "CODE_2008",
-          "CODE_2009",
-          "CODE_2010",
-          "CODE_2011",
-          "CODE_2012",
-          "CODE_3001",
-          "CODE_3002",
-          "CODE_3003",
-          "CODE_3004",
-          "CODE_3005",
-          "CODE_3006",
-          "CODE_3007",
-          "CODE_3008",
-          "CODE_3009",
-          "CODE_3010",
-          "CODE_3011",
-          "CODE_3012",
-          "CODE_3013",
-          "CODE_3014",
-          "CODE_3015",
-          "CODE_3016",
-          "CODE_3017",
-          "CODE_3018",
-          "CODE_3019",
-          "CODE_3020",
-          "CODE_3021",
-          "CODE_3022",
-          "CODE_3023",
-          "CODE_3024",
-          "CODE_3025",
-          "CODE_3026",
-          "CODE_3027",
-          "CODE_3028",
-          "CODE_3029",
-          "CODE_3030",
-          "CODE_9001",
-          "CODE_9002",
-          "CODE_9003",
-          "CODE_9004",
-          "CODE_9005",
-          "CODE_9006",
-          "CODE_9007",
-          "CODE_9008",
-          "CODE_9009",
-          "CODE_9010"
-        ],
-        "title": "ProductCodeEnum"
       },
       "ProductConfigCreate": {
         "properties": {
@@ -55841,6 +55709,51 @@
           "filing_frequency"
         ],
         "title": "RegistrationCreatePayload"
+      },
+      "RegistrationDeletionEligibleAdminPageRead": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/RegistrationDeletionEligibleRead"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "pages": {
+            "type": "integer",
+            "title": "Pages"
+          },
+          "distinct_country_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Distinct Country Codes",
+            "description": "ISO country codes present in the full deletion-eligible set (ignores country filter)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "page",
+          "size",
+          "pages"
+        ],
+        "title": "RegistrationDeletionEligibleAdminPageRead",
+        "description": "Paginated admin deletion-eligible registrations with distinct country codes for UI filters."
       },
       "RegistrationDeletionEligibleFilingRead": {
         "properties": {
