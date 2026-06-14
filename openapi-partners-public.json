@@ -1648,14 +1648,7 @@
             "in": "header",
             "required": true,
             "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
+              "type": "string",
               "description": "The unique identifier for the organization making the request",
               "title": "X-Organization-Id"
             },
